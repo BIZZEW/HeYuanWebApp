@@ -22,7 +22,7 @@ function get(url) {
 class Home extends React.Component {
 	render() {
 		return <div className={`${cx('container')}`}>
-					主页
+					欢迎
 				</div>
 	}
 }
