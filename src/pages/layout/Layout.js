@@ -129,7 +129,7 @@ class Layout extends React.Component  {
 		var fulllScreenClass = this.state.isFullScreen ? 'fullScreen' : '';
 		return <div className={"layout " + fulllScreenClass}>
 			<div className="header">
-				<span>指标监控管理系统</span>
+				<span>销售管理系统</span>
 				<span>
 					<span><Avatar icon="user" />&nbsp;&nbsp;欢迎您&nbsp;{sessionStorage.getItem('userName')}</span>
 					<Icon type="home" onClick={this.goHome.bind(this)}/>

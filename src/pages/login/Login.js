@@ -18,7 +18,7 @@ class NormalLoginForm extends React.Component {
 				this.isLogging = true;
 				login(values).then(() => {
 					this.isLogging = false;
-					let toPath = this.props.toPath === '' ?  '/layout/home' :  this.props.toPath
+					let toPath = this.props.toPath === '' ? '/layout/home' : this.props.toPath
 					this.props.history.push(toPath);
 				})
 			}
@@ -27,36 +27,36 @@ class NormalLoginForm extends React.Component {
 	render() {
 		const { getFieldDecorator } = this.props.form;
 		return (
-				<Form onSubmit={this.handleSubmit.bind(this)} className="login-form">
-					<FormItem>
-						{getFieldDecorator('userName', {
-							rules: [{ required: true, message: 'Please input your username!' }],
-						})(
-								<Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
-						)}
-					</FormItem>
-					<FormItem>
-						{getFieldDecorator('password', {
-							rules: [{ required: true, message: 'Please input your Password!' }],
-						})(
-								<Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
-						)}
-					</FormItem>
-					<FormItem>
-						{getFieldDecorator('remember', {
-							valuePropName: 'checked',
-							initialValue: true,
-						})(
-								<Checkbox>Remember me</Checkbox>
-						)}
-						<a className="login-form-forgot" href="">Forgot password</a>
-						<Button type="primary" htmlType="submit" className="login-form-button"
-						        loading={this.isLogging ? true : false}>
-							{this.isLogging ? 'Loging' : 'Login'}
-						</Button>
-						Or <a href="">register now!</a>
-					</FormItem>
-				</Form>
+			<Form onSubmit={this.handleSubmit.bind(this)} className="login-form">
+				<FormItem>
+					{getFieldDecorator('userName', {
+						rules: [{ required: true, message: 'Please input your username!' }],
+					})(
+						<Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="用户名" />
+					)}
+				</FormItem>
+				<FormItem>
+					{getFieldDecorator('password', {
+						rules: [{ required: true, message: 'Please input your Password!' }],
+					})(
+						<Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="密码" />
+					)}
+				</FormItem>
+				<FormItem>
+					{getFieldDecorator('remember', {
+						valuePropName: 'checked',
+						initialValue: true,
+					})(
+						<Checkbox>记住密码</Checkbox>
+					)}
+					<a className="login-form-forgot" href="">忘记密码</a>
+					<Button type="primary" htmlType="submit" className="login-form-button"
+						loading={this.isLogging ? true : false}>
+						{this.isLogging ? '登录中' : '登录'}
+					</Button>
+					{/* Or <a href="">register now!</a> */}
+				</FormItem>
+			</Form>
 		);
 	}
 }
@@ -68,5 +68,5 @@ const loginState = ({ loginState }) => ({
 })
 
 export default withRouter(connect(
-		loginState
+	loginState
 )(WrappedNormalLoginForm))
