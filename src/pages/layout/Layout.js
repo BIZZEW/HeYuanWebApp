@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
 import { menus, menuObject } from '../../routes/router'
-import { Tabs, Avatar, Menu, Icon } from 'antd';
+import { Tabs, Avatar, Menu, Icon, Tooltip } from 'antd';
 import NoFound from '../noFound/NoFound';
 import './layout.scss'
 import { Route } from 'react-router-dom'
@@ -21,7 +21,7 @@ class CreateMenuList extends React.Component {
 			return <SubMenu key={data.id} title={data.title}>{childMenu}</SubMenu>
 		} else {
 			menuList.push({ ...data });
-			return <Menu.Item key={data.id}><NavLink to={data.url} onClick={this.props.addTabs}><Icon type={data.icon}/>{data.title}</NavLink></Menu.Item>
+			return <Menu.Item key={data.id}><NavLink to={data.url} onClick={this.props.addTabs}><Icon type={data.icon} />{data.title}</NavLink></Menu.Item>
 		}
 	}
 	render() {
@@ -130,13 +130,14 @@ class Layout extends React.Component {
 		return <div className={"layout " + fulllScreenClass}>
 			<div className="header">
 				<img src={require('./images/HeYuan.png')} style={{ "width": 45, "margin": "0 20px" }} />
-				<span>金圆销售管理系统</span>
+				<span style={{ "fontWeight": "bold" }}>金圆销售管理系统</span>
 				<span>
 					<span>
 						{/* <Avatar icon="user" /> */}
 						&nbsp;&nbsp;欢迎您&nbsp;{sessionStorage.getItem('userName')}</span>
-					{/* <Icon type="home" onClick={this.goHome.bind(this)} /> */}
-					<Icon type="logout" onClick={this.logout.bind(this)} />
+					<Tooltip title="登出">
+						<Icon type="logout" onClick={this.logout.bind(this)} />
+					</Tooltip>
 				</span>
 			</div>
 			<div className={"content"}>
@@ -167,7 +168,7 @@ class Layout extends React.Component {
 					</Tabs>
 				</div>
 			</div>
-		</div>
+		</div >
 	}
 	componentDidMount() {
 		let url = this.props.history.location.pathname;//获取当前url
