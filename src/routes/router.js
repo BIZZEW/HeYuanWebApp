@@ -11,7 +11,9 @@ import Home from '../pages/home/Home'
 // import Operations from '../pages/operations/operations'
 import OnlineOrder from '../pages/OnlineOrder/OnlineOrder'
 import OnlineCheck from '../pages/OnlineCheck/OnlineCheck'
-import OnlineReport from '../pages/OnlineReport/OnlineReport'
+import PickupReport from '../pages/PickupReport/PickupReport'
+import IncomeReport from '../pages/IncomeReport/IncomeReport'
+import SaleReport from '../pages/SaleReport/SaleReport'
 
 export const Router = () => (
 	<BrowserRouter>
@@ -33,7 +35,9 @@ export const menuObject = {
 	// 'operations': Operations,
 	'OnlineOrder': OnlineOrder,
 	'OnlineCheck': OnlineCheck,
-	'OnlineReport': OnlineReport,
+	'PickupReport': PickupReport,
+	'IncomeReport': IncomeReport,
+	'SaleReport': SaleReport,
 }
 
 export const menus = [
@@ -42,7 +46,7 @@ export const menus = [
 		title: '主页',
 		url: '/layout/home',
 		component: 'home',
-		isFullScreen: false
+		isFullScreen: false,
 	},
 	{
 		id: 2,
@@ -61,31 +65,30 @@ export const menus = [
 	{
 		id: 4,
 		title: '统计报表',
-		url: '/layout/online_report',
-		component: 'OnlineReport',
-		isFullScreen: false
-	},
-	// {
-	// 	id: 2,
-	// 	title: '监视管理',
-	// 	child: [
-	// 		{
-	// 			id: 3,
-	// 			title: '全业务监控视图',
-	// 			child: [
-	// 				{id: 6, title: '固网监控视图', url: '/layout/order1', component: 'order', isFullScreen: false},
-	// 				{id: 7, title: '移网监控视图', url: '/layout/order2', component: 'order', isFullScreen: false}
-	// 			]
-	// 		},
-	// 		{
-	// 			id: 5,
-	// 			title: '3*9大屏',
-	// 			url: '/layout/order3',
-	// 			component: 'order',
-	// 			isFullScreen: false
-	// 		}
-	// 	]
-	// }
+		child: [
+			{
+				id: 40,
+				title: '提货明细表',
+				url: '/layout/pickup_report',
+				component: 'PickupReport',
+				isFullScreen: false
+			},
+			{
+				id: 41,
+				title: '收款明细表',
+				url: '/layout/income_report',
+				component: 'IncomeReport',
+				isFullScreen: false
+			},
+			{
+				id: 42,
+				title: '销售资金汇总表',
+				url: '/layout/sale_report',
+				component: 'SaleReport',
+				isFullScreen: false
+			}
+		]
+	}
 ];
 
 

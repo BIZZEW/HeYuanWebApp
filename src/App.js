@@ -3,6 +3,7 @@ import { Provider } from 'react-redux'
 import './App.css';
 import store from './store'
 import {Router} from './routes/router'
+import './style/common.less'
 
 class App extends Component {
   render() {

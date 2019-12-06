@@ -1,5 +1,6 @@
 import React from 'react'
 import utils from '../../common/utils'
+import { Carousel } from 'antd';
 
 import 'isomorphic-fetch'
 import 'es6-promise'
@@ -21,9 +22,23 @@ function get(url) {
 
 class Home extends React.Component {
 	render() {
-		return <div className={`${cx('container')}`}>
-					欢迎
-				</div>
+		return <Carousel autoplay>
+			<div>
+				<img src={require('./images/bg1.jpg')} style={{ "width": "80%", "margin": "10%" }} />
+			</div>
+			<div>
+				<img src={require('./images/bg1.jpg')} style={{ "width": "80%", "margin": "10%" }} />
+			</div>
+			<div>
+				<img src={require('./images/bg1.jpg')} style={{ "width": "80%", "margin": "10%" }} />
+			</div>
+			<div>
+				<img src={require('./images/bg1.jpg')} style={{ "width": "80%", "margin": "10%" }} />
+			</div>
+			<div>
+				<img src={require('./images/bg1.jpg')} style={{ "width": "80%", "margin": "10%" }} />
+			</div>
+		</Carousel>
 	}
 }
 
