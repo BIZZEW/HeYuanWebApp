@@ -47,20 +47,23 @@ export const menus = [
 		url: '/layout/home',
 		component: 'home',
 		isFullScreen: false,
+		icon: "home"
 	},
 	{
 		id: 2,
 		title: '网上订货',
 		url: '/layout/online_order',
 		component: 'OnlineOrder',
-		isFullScreen: false
+		isFullScreen: false,
+		icon: "shopping"
 	},
 	{
 		id: 3,
 		title: '网上对账',
 		url: '/layout/online_check',
 		component: 'OnlineCheck',
-		isFullScreen: false
+		isFullScreen: false,
+		icon: "account-book"
 	},
 	{
 		id: 4,
@@ -71,21 +74,24 @@ export const menus = [
 				title: '提货明细表',
 				url: '/layout/pickup_report',
 				component: 'PickupReport',
-				isFullScreen: false
+				isFullScreen: false,
+				icon: "area-chart"
 			},
 			{
 				id: 41,
 				title: '收款明细表',
 				url: '/layout/income_report',
 				component: 'IncomeReport',
-				isFullScreen: false
+				isFullScreen: false,
+				icon: "bar-chart"
 			},
 			{
 				id: 42,
 				title: '销售资金汇总表',
 				url: '/layout/sale_report',
 				component: 'SaleReport',
-				isFullScreen: false
+				isFullScreen: false,
+				icon: "line-chart"
 			}
 		]
 	}
