@@ -51,7 +51,7 @@ class NormalLoginForm extends React.Component {
 								{/* <a className="login-form-forgot" href="">忘记密码</a> */}
 								<Button type="primary" htmlType="submit" className="login-form-button"
 									loading={this.isLogging ? true : false}>
-									{this.isLogging ? '登录中' : '登录'}
+									{this.isLogging ? '登录中' : '登\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0录'}
 								</Button>
 								{/* Or <a href="">register now!</a> */}
 							</FormItem>
