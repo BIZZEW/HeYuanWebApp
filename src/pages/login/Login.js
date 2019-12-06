@@ -27,36 +27,60 @@ class NormalLoginForm extends React.Component {
 	render() {
 		const { getFieldDecorator } = this.props.form;
 		return (
-			<Form onSubmit={this.handleSubmit.bind(this)} className="login-form">
-				<FormItem>
-					{getFieldDecorator('userName', {
-						rules: [{ required: true, message: '请输入用户名!' }],
-					})(
-						<Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="用户名" />
-					)}
-				</FormItem>
-				<FormItem>
-					{getFieldDecorator('password', {
-						rules: [{ required: true, message: '请输入密码!' }],
-					})(
-						<Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="密码" />
-					)}
-				</FormItem>
-				<FormItem>
-					{getFieldDecorator('remember', {
-						valuePropName: 'checked',
-						initialValue: true,
-					})(
-						<Checkbox>记住密码</Checkbox>
-					)}
-					<a className="login-form-forgot" href="">忘记密码</a>
-					<Button type="primary" htmlType="submit" className="login-form-button"
-						loading={this.isLogging ? true : false}>
-						{this.isLogging ? '登录中' : '登录'}
-					</Button>
-					{/* Or <a href="">register now!</a> */}
-				</FormItem>
-			</Form>
+			<div className="wallpaper">
+				<div className="wrapper">
+					<div className="container">
+						<h1 style={{ "marginBottom": "40px" }}>金圆销售管理系统</h1>
+
+						<Form onSubmit={this.handleSubmit.bind(this)} className="login-form">
+							<FormItem>
+								{getFieldDecorator('userName', {
+									rules: [{ required: true, message: '请输入用户名!' }],
+								})(
+									<Input placeholder="用户名" AUTOCOMPLETE="off" />
+								)}
+							</FormItem>
+							<FormItem>
+								{getFieldDecorator('password', {
+									rules: [{ required: true, message: '请输入密码!' }],
+								})(
+									<Input type="password" placeholder="密码" AUTOCOMPLETE="off" />
+								)}
+							</FormItem>
+							<FormItem>
+								{/* <a className="login-form-forgot" href="">忘记密码</a> */}
+								<Button type="primary" htmlType="submit" className="login-form-button"
+									loading={this.isLogging ? true : false}>
+									{this.isLogging ? '登录中' : '登录'}
+								</Button>
+								{/* Or <a href="">register now!</a> */}
+							</FormItem>
+							{/* <FormItem>
+							{getFieldDecorator('remember', {
+								valuePropName: 'checked',
+								initialValue: true,
+							})(
+								<Checkbox>记住密码</Checkbox>
+							)}
+						</FormItem> */}
+						</Form>
+
+					</div>
+
+					<ul className="bg-bubbles">
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ul>
+				</div>
+			</div>
 		);
 	}
 }
