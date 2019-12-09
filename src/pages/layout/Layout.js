@@ -21,7 +21,7 @@ class CreateMenuList extends React.Component {
 			return <SubMenu key={data.id} title={data.title}>{childMenu}</SubMenu>
 		} else {
 			menuList.push({ ...data });
-			return <Menu.Item key={data.id}><NavLink to={data.url} onClick={this.props.addTabs}><Icon type={data.icon} />{data.title}</NavLink></Menu.Item>
+			return <Menu.Item key={data.id} className={data.hide}><NavLink to={data.url} onClick={this.props.addTabs}><Icon type={data.icon} />{data.title}</NavLink></Menu.Item>
 		}
 	}
 	render() {
@@ -50,6 +50,26 @@ class Layout extends React.Component {
 	}
 	logout = () => {
 		this.props.history.push('/login')
+	}
+	changePassword = () => {
+		// this.props.history.push('/layout/change_password')
+		this.setState({ isFullScreen: false });
+		let matchChangePassword = this.getExitPane('title', '修改密码');
+		if (matchChangePassword !== null) {
+			this.setState({ activeKey: matchChangePassword.key });
+			this.props.history.push(matchChangePassword.url);
+			return;
+		}
+		let ChangePasswordObject = menuList.filter((item) => item.title === '修改密码')[0];
+		ChangePasswordObject.key = `newTab${this.newTabIndex++}`;
+		this.props.history.push(ChangePasswordObject.url);
+		this.setState(function (prevState, props) {
+			prevState.panes.push(ChangePasswordObject);
+			return {
+				panes: prevState.panes,
+				activeKey: ChangePasswordObject.key
+			};
+		});
 	}
 	goHome = () => {
 		this.setState({ isFullScreen: false });
@@ -135,6 +155,12 @@ class Layout extends React.Component {
 					<span>
 						{/* <Avatar icon="user" /> */}
 						&nbsp;&nbsp;欢迎您&nbsp;{sessionStorage.getItem('userName')}</span>
+					<Tooltip title="主页">
+						<Icon type="home" onClick={this.goHome.bind(this)} />
+					</Tooltip>
+					<Tooltip title="修改密码">
+						<Icon type="edit" onClick={this.changePassword.bind(this)} />
+					</Tooltip>
 					<Tooltip title="登出">
 						<Icon type="logout" onClick={this.logout.bind(this)} />
 					</Tooltip>

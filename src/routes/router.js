@@ -14,6 +14,7 @@ import OnlineCheck from '../pages/OnlineCheck/OnlineCheck'
 import PickupReport from '../pages/PickupReport/PickupReport'
 import IncomeReport from '../pages/IncomeReport/IncomeReport'
 import SaleReport from '../pages/SaleReport/SaleReport'
+import ChangePassword from '../pages/ChangePassword/ChangePassword'
 
 export const Router = () => (
 	<BrowserRouter>
@@ -38,6 +39,7 @@ export const menuObject = {
 	'PickupReport': PickupReport,
 	'IncomeReport': IncomeReport,
 	'SaleReport': SaleReport,
+	'ChangePassword': ChangePassword,
 }
 
 export const menus = [
@@ -94,7 +96,16 @@ export const menus = [
 				icon: "line-chart"
 			}
 		]
-	}
+	},
+	{
+		id: 5,
+		title: '修改密码',
+		url: '/layout/change_password',
+		component: 'ChangePassword',
+		isFullScreen: false,
+		icon: "edit",
+		hide: "hide",
+	},
 ];
 
 
