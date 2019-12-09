@@ -36,24 +36,17 @@ export default class User extends React.Component {
 			]
 		},
 		{
-			type: 'SELECT',
-			label: '水泥品种',
-			field: 'cementType',
-			placeholder: '请输入手机号',
+			type: 'INPUT',
+			label: '对账单号',
+			field: 'checkOrderId',
+			placeholder: '请输入对账单号',
 			width: 130
 		},
 		{
 			type: 'DATERANGE',
-			label: '日期',
+			label: '对账日期',
 			field: 'date',
 			placeholder: '请输入日期'
-		},
-		{
-			type: 'SELECT',
-			label: '车辆状态',
-			field: 'vehicleStatus',
-			placeholder: '请输入手机号',
-			width: 130
 		},
 	]
 
@@ -297,7 +290,7 @@ export default class User extends React.Component {
 					{/* <Button type="primary" icon="edit" onClick={() => this.handleOperate('edit')}>编辑员工</Button>
 					<Button type="primary" onClick={() => this.handleOperate('detail')}>员工详情</Button> */}
 					<Button type="primary" icon="delete" onClick={() => this.handleOperate('delete')}>删除</Button>
-					<Button type="primary" icon="stop" onClick={() => this.handleOperate('delete')}>作废</Button>
+					{/* <Button type="primary" icon="stop" onClick={() => this.handleOperate('delete')}>作废</Button> */}
 				</Card>
 				<div className="content-wrap">
 					<ETable
