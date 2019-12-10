@@ -37,14 +37,14 @@ class NormalLoginForm extends React.Component {
 								{getFieldDecorator('userName', {
 									rules: [{ required: true, message: '请输入用户名!' }],
 								})(
-									<Input placeholder="用户名" AUTOCOMPLETE="off" />
+									<Input placeholder="用户名" autoComplete="off" />
 								)}
 							</FormItem>
 							<FormItem>
 								{getFieldDecorator('password', {
 									rules: [{ required: true, message: '请输入密码!' }],
 								})(
-									<Input type="password" placeholder="密码" AUTOCOMPLETE="off" />
+									<Input type="password" placeholder="密码" autoComplete="off" />
 								)}
 							</FormItem>
 							<FormItem>
