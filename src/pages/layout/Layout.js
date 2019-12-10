@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
 import { menus, menuObject } from '../../routes/router'
-import { Tabs, Avatar, Menu, Icon, Tooltip } from 'antd';
+import { Tabs, Avatar, Menu, Icon, Tooltip, Dropdown } from 'antd';
 import NoFound from '../noFound/NoFound';
 import './layout.scss'
 import { Route } from 'react-router-dom'
@@ -153,17 +153,28 @@ class Layout extends React.Component {
 				<span style={{ "fontWeight": "bold" }}>金圆销售管理系统</span>
 				<span>
 					<span>
-						{/* <Avatar icon="user" /> */}
-						&nbsp;&nbsp;欢迎您&nbsp;{sessionStorage.getItem('userName')}</span>
-					<Tooltip title="主页">
-						<Icon type="home" onClick={this.goHome.bind(this)} />
-					</Tooltip>
-					<Tooltip title="修改密码">
-						<Icon type="edit" onClick={this.changePassword.bind(this)} />
-					</Tooltip>
-					<Tooltip title="登出">
-						<Icon type="logout" onClick={this.logout.bind(this)} />
-					</Tooltip>
+						&nbsp;&nbsp;欢迎您&nbsp;{sessionStorage.getItem('userName')}
+						<Dropdown overlay={
+							<Menu>
+								<Menu.Item onClick={this.goHome.bind(this)} >
+									<Tooltip title="打开主页页签">
+										<Icon type="home" style={{ "margin": "10px 20px 10px 5px" }} />主页
+									</Tooltip>
+								</Menu.Item>
+								<Menu.Item onClick={this.changePassword.bind(this)} >
+									<Tooltip title="修改账户的密码">
+										<Icon type="edit" style={{ "margin": "10px 20px 10px 5px" }} />修改密码
+									</Tooltip>
+								</Menu.Item>
+								<Menu.Item onClick={this.logout.bind(this)} >
+									<Tooltip title="注销当前账户登录状态">
+										<Icon type="logout" style={{ "margin": "10px 20px 10px 5px" }} />登出
+									</Tooltip>
+								</Menu.Item>
+							</Menu >} placement="bottomCenter">
+							<Avatar icon="user" style={{ "margin-left": "50px" }} />
+						</Dropdown>
+					</span>
 				</span>
 			</div>
 			<div className={"content"}>
