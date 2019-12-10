@@ -26,7 +26,7 @@ export default class User extends React.Component {
 			type: 'SELECT',
 			label: '客户',
 			field: 'client',
-			placeholder: '请输入名称',
+			placeholder: '请选择客户',
 			width: 130,
 			list: [
 				{ "id": 0, "name": "特朗普" },
@@ -39,7 +39,7 @@ export default class User extends React.Component {
 			type: 'SELECT',
 			label: '水泥品种',
 			field: 'cementType',
-			placeholder: '请输入手机号',
+			placeholder: '请选择水泥品种',
 			width: 130
 		},
 		{
@@ -377,9 +377,10 @@ class UserForm extends React.Component {
 					{
 						type == 'detail' ? this.getState(userInfo.client) :
 							getFieldDecorator('client', {
-								initialValue: userInfo.client
+								initialValue: userInfo.client || undefined
 							})(
-								<Select>
+								<Select
+									placeholder={"请选择客户"}>
 									<Option value={1}>特朗普</Option>
 									<Option value={2}>普京</Option>
 									<Option value={3}>默克尔</Option>
@@ -393,9 +394,10 @@ class UserForm extends React.Component {
 					{
 						type == 'detail' ? this.getState(userInfo.company) :
 							getFieldDecorator('company', {
-								initialValue: userInfo.company
+								initialValue: userInfo.company || undefined
 							})(
-								<Select>
+								<Select
+									placeholder={"请选择销售单位"}>
 									<Option value={1}>米粒坚</Option>
 									<Option value={2}>鹅螺蛳</Option>
 									<Option value={3}>德锅</Option>
@@ -412,9 +414,10 @@ class UserForm extends React.Component {
 					{
 						type == 'detail' ? this.getState(userInfo.cementType) :
 							getFieldDecorator('cementType', {
-								initialValue: userInfo.cementType
+								initialValue: userInfo.cementType || undefined
 							})(
-								<Select>
+								<Select
+									placeholder={"请选择水泥品种"}>
 									<Option value={1}>一级水泥</Option>
 									<Option value={2}>二级水泥</Option>
 									<Option value={3}>三级水泥</Option>

@@ -23,7 +23,7 @@ class FilterForm extends React.Component {
             formList.forEach((item, i) => {
                 let label = item.label;
                 let field = item.field;
-                let initialValue = item.initialValue || '';
+                let initialValue = item.initialValue || undefined;
                 let placeholder = item.placeholder;
                 let width = item.width;
                 if (item.type === '时间查询') {

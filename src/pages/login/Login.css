@@ -37,14 +37,14 @@
    height: 100%;
  }
 
- body ::-webkit-input-placeholder {
+ .wallpaper ::-webkit-input-placeholder {
    /* WebKit browsers */
    /* font-family: 'Source Sans Pro', sans-serif !important; */
    color: white !important;
    font-weight: 300 !important;
  }
 
- body :-moz-placeholder {
+ .wallpaper :-moz-placeholder {
    /* Mozilla Firefox 4 to 18 */
    /* font-family: 'Source Sans Pro', sans-serif !important; */
    color: white !important;
@@ -52,7 +52,7 @@
    font-weight: 300 !important;
  }
 
- body ::-moz-placeholder {
+ .wallpaper ::-moz-placeholder {
    /* Mozilla Firefox 19+ */
    /* font-family: 'Source Sans Pro', sans-serif; */
    color: white !important;
@@ -60,7 +60,7 @@
    font-weight: 300 !important;
  }
 
- body :-ms-input-placeholder {
+ .wallpaper :-ms-input-placeholder {
    /* Internet Explorer 10+ */
    /* font-family: 'Source Sans Pro', sans-serif; */
    color: white !important;

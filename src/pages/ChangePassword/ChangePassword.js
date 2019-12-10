@@ -4,11 +4,14 @@ import axios from '../../axios'
 import Utils from '../../utils/utils'
 import BaseForm from '../../components/BaseForm'
 import ETable from '../../components/ETable'
+import 'moment/locale/zh-cn';
 import moment from 'moment'
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const TextArea = Input.TextArea;
 const Option = Select.Option;
+
+moment.locale('zh-cn');
 
 export default class User extends React.Component {
 
@@ -26,7 +29,7 @@ export default class User extends React.Component {
 			type: 'SELECT',
 			label: '客户',
 			field: 'client',
-			placeholder: '请输入名称',
+			placeholder: '请选择客户',
 			width: 130,
 			list: [
 				{ "id": 0, "name": "特朗普" },

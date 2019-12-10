@@ -32,7 +32,7 @@ export default class User extends React.Component {
 			type: 'SELECT',
 			label: '客户',
 			field: 'client',
-			placeholder: '请输入名称',
+			placeholder: '请选择客户',
 			width: 130,
 			list: [
 				{ "id": 0, "name": "特朗普" },
