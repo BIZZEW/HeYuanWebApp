@@ -172,7 +172,7 @@ class Layout extends React.Component {
 									</Tooltip>
 								</Menu.Item>
 							</Menu >} placement="bottomCenter">
-							<Avatar style={{ backgroundColor: "#00a2ae", verticalAlign: 'middle', "marginLeft": "20px" }} size="large">
+							<Avatar style={{ backgroundColor: "#00a2ae", verticalAlign: 'middle', "marginLeft": "20px", "fontSize": "20px", "marginTop": "-3px", "fontWeight": "bold" }} size="large">
 								{sessionStorage.getItem('userName')[0].toUpperCase()}
 							</Avatar>
 						</Dropdown>

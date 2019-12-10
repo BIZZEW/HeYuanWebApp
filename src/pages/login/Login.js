@@ -1,6 +1,7 @@
 import React from 'react'
 import './Login.css'
 import { login } from '../../mock/mock'
+import axios from './../../axios'
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
@@ -34,7 +35,7 @@ class NormalLoginForm extends React.Component {
 
 						<Form onSubmit={this.handleSubmit.bind(this)} className="login-form">
 							<FormItem>
-								{getFieldDecorator('userName', {
+								{getFieldDecorator('username', {
 									rules: [{ required: true, message: '请输入用户名!' }],
 								})(
 									<Input placeholder="用户名" autoComplete="off" />
