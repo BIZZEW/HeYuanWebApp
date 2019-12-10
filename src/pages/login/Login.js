@@ -1,8 +1,7 @@
 import React from 'react'
 import './Login.css'
 import { login } from '../../mock/mock'
-import axios from './../../axios'
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
 const FormItem = Form.Item;
@@ -31,7 +30,7 @@ class NormalLoginForm extends React.Component {
 			<div className="wallpaper">
 				<div className="wrapper">
 					<div className="container">
-						<h1 style={{ "marginBottom": "40px"}}>金圆销售管理系统</h1>
+						<h1 style={{ "marginBottom": "40px" }}>金圆销售管理系统</h1>
 
 						<Form onSubmit={this.handleSubmit.bind(this)} className="login-form">
 							<FormItem>

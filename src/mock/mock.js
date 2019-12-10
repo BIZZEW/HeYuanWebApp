@@ -7,19 +7,20 @@ export const login = (loginObject) => {
 
 	return new Promise((resolve, reject) => {
 		// setTimeout(() => {
-		// 	sessionStorage.setItem('userName',loginObject.userName)
+		// 	sessionStorage.setItem('username',loginObject.username)
 		// 	resolve()
 		// }, 500)
 
+		let params = new URLSearchParams();
+		params.append('username', loginObject.username);
+		params.append('password', loginObject.password);
+
 		axios({
 			url: "/login",
-			method: 'get',
+			method: 'post',
 			baseURL: baseApi,
 			timeout: 5000,
-			params: {
-				'username': loginObject.username,
-				'password': loginObject.password
-			}
+			params: params
 		}).then((response) => {
 			if (response.status === 200) {
 				let res = response.data;
