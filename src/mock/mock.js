@@ -20,7 +20,7 @@ export const login = (loginObject) => {
 			method: 'post',
 			baseURL: baseApi,
 			timeout: 5000,
-			params: params
+			data: params
 		}).then((response) => {
 			if (response.status === 200) {
 				let res = response.data;
