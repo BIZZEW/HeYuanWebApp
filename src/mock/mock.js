@@ -1,30 +1,35 @@
 import store from '../store'
 import { Modal } from 'antd';
 import axios from 'axios'
+import qs from 'qs'
 
 export const login = (loginObject) => {
-	let baseApi = 'http://10.1.9.94:99'
-
+	let baseApi = 'http://127.0.0.1:99'
+	let baseApi1 = 'http://rap2api.taobao.org/app/mock/239516/example/1576031001727'
 	return new Promise((resolve, reject) => {
 		// setTimeout(() => {
-		// 	sessionStorage.setItem('username',loginObject.username)
+		// 	sessionStorage.setItem('userName', loginObject.userName)
 		// 	resolve()
 		// }, 500)
 
-		let params = new URLSearchParams();
-		params.append('username', loginObject.username);
-		params.append('password', loginObject.password);
+		let data = {
+			"username": loginObject.username,
+			"password": loginObject.password
+		}
 
 		axios({
 			url: "/login",
 			method: 'post',
 			baseURL: baseApi,
 			timeout: 5000,
-			data: params
+			data: qs.stringify(data),
 		}).then((response) => {
 			if (response.status === 200) {
+				// sessionStorage.setItem('username', loginObject.username)
+				// resolve()
 				let res = response.data;
-				if (res.code === 0) {
+				if (res.code == 0) {
+					sessionStorage.setItem('username', loginObject.username)
 					resolve(res);
 				} else {
 					Modal.info({
@@ -50,3 +55,7 @@ export const logout = () => {
 		}, 500)
 	})
 }
+
+
+// WEBPACK FOOTER //
+// ./src/mock/mock.js

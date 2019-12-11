@@ -67,7 +67,7 @@ export default class User extends React.Component {
 	}
 
 	requestList = () => {
-		axios.requestList(this, '/table/list1', this.params);
+		axios.requestList(this, '/mock', this.params);
 	}
 
 	//功能区操作

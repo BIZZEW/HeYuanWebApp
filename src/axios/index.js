@@ -51,7 +51,7 @@ export default class Axios{
              loading = document.getElementById('ajaxLoading');
              loading.style.display = 'block';
          }
-         let baseApi = 'https://www.easy-mock.com/mock/5c2c7c1b580d6209d1e2aa88/mockapi'
+         let baseApi = 'https://easy-mock.com/mock/5df049be9376f12d5adbd84d/example'
          //  let baseApi = '';
          //  if(options.isMock){
          //      baseApi = 'https://www.easy-mock.com/mock/5c2c7c1b580d6209d1e2aa88/mockapi'
