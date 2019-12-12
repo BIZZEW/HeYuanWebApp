@@ -153,7 +153,7 @@ class Layout extends React.Component {
 				<span style={{ "fontWeight": "bold" }}>金圆销售管理系统</span>
 				<span>
 					<span>
-						&nbsp;&nbsp;欢迎您&nbsp;&nbsp;{sessionStorage.getItem('username')}
+						&nbsp;&nbsp;欢迎您&nbsp;&nbsp;{sessionStorage.getItem('userName')}
 						<Dropdown overlay={
 							<Menu>
 								<Menu.Item onClick={this.goHome.bind(this)} >
@@ -173,7 +173,7 @@ class Layout extends React.Component {
 								</Menu.Item>
 							</Menu >} placement="bottomCenter">
 							<Avatar style={{ backgroundColor: "#00a2ae", verticalAlign: 'middle', "marginLeft": "20px", "fontSize": "20px", "marginTop": "-3px", "fontWeight": "bold" }} size="large">
-								{sessionStorage.getItem('username')[0].toUpperCase()}
+								{sessionStorage.getItem('userName')[0].toUpperCase()}
 							</Avatar>
 						</Dropdown>
 					</span>
