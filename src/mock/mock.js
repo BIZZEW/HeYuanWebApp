@@ -3,11 +3,24 @@ import { Modal } from 'antd'
 import axios from 'axios'
 import qs from 'qs'
 
+export const login1 = (loginObject) => {
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			sessionStorage.setItem('userName', loginObject.username)
+			resolve()
+		}, 500)
+	})
+}
+
 export const login = (loginObject) => {
 	let baseApi = 'http://127.0.0.1:99';
 	let baseApi1 = 'http://rap2api.taobao.org/app/mock/239516/example/1576031001727';
 
 	return new Promise((resolve, reject) => {
+
+		sessionStorage.setItem('userName', loginObject.username)
+		resolve();
+
 		let data = {
 			"username": loginObject.username,
 			"password": loginObject.password
@@ -16,7 +29,7 @@ export const login = (loginObject) => {
 		axios({
 			url: "/login",
 			method: 'post',
-			baseURL: baseApi,
+			baseURL: baseApi1,
 			timeout: 5000,
 			data: qs.stringify(data),
 		}).then((response) => {

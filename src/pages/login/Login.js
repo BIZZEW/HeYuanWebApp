@@ -1,6 +1,7 @@
 import React from 'react'
 import './Login.css'
 import { login } from '../../mock/mock'
+import { login1 } from '../../mock/mock'
 import { Form, Input, Button } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
@@ -16,7 +17,7 @@ class NormalLoginForm extends React.Component {
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
 				this.isLogging = true;
-				login(values).then(() => {
+				login1(values).then(() => {
 					this.isLogging = false;
 					let toPath = this.props.toPath === '' ? '/layout/home' : this.props.toPath
 					this.props.history.push(toPath);
@@ -91,6 +92,5 @@ const loginState = ({ loginState }) => ({
 	toPath: loginState.toPath
 })
 
-export default withRouter(connect(
-	loginState
-)(WrappedNormalLoginForm))
+// 路由 + 状态 + 组件
+export default withRouter(connect(loginState)(WrappedNormalLoginForm))

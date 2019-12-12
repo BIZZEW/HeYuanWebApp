@@ -336,8 +336,8 @@ class UserForm extends React.Component {
 		let userInfo = this.props.userInfo || {};
 		const { getFieldDecorator } = this.props.form;
 		const formItemLayout = {
-			labelCol: { span: 5 },
-			wrapperCol: { span: 19 }
+			labelCol: { span: 4 },
+			wrapperCol: { span: 20 }
 		}
 		return (
 			<Form onSubmit={this.handleSubmit} className="login-form" style={{
@@ -346,8 +346,8 @@ class UserForm extends React.Component {
 				"padding": "20px 50px",
 				"border": "1px solid #d9d9d9",
 				"border-radius": "10px"
-			}}>
-				<FormItem label="旧密码">
+			}} layout={"horizontal"}>
+				<FormItem label="旧密码" {...formItemLayout}>
 					{getFieldDecorator('username', {
 						rules: [{ required: true, message: '旧密码' }],
 					})(
@@ -358,7 +358,7 @@ class UserForm extends React.Component {
 						/>,
 					)}
 				</FormItem>
-				<FormItem label="新密码">
+				<FormItem label="新密码" {...formItemLayout}>
 					{getFieldDecorator('password', {
 						rules: [{ required: true, message: '新密码' }],
 					})(

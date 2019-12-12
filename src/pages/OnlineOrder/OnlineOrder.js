@@ -52,7 +52,7 @@ export default class User extends React.Component {
 			type: 'SELECT',
 			label: '车辆状态',
 			field: 'vehicleStatus',
-			placeholder: '请输入手机号',
+			placeholder: '请选择车辆状态',
 			width: 130
 		},
 	]
