@@ -5,6 +5,7 @@ import { Tabs, Avatar, Menu, Icon, Tooltip, Dropdown } from 'antd';
 import NoFound from '../noFound/NoFound';
 import './layout.scss'
 import { Route } from 'react-router-dom'
+import CacheRoute, { CacheSwitch } from 'react-router-cache-route'
 
 const SubMenu = Menu.SubMenu;
 const TabPane = Tabs.TabPane;
@@ -205,7 +206,7 @@ class Layout extends React.Component {
 							pane => {
 								let route = null;
 								if (menuObject.hasOwnProperty(pane.component)) {
-									route = <Route path={pane.url} exact component={menuObject[pane.component]} />;
+									route = <CacheRoute path={pane.url} exact component={menuObject[pane.component]} />;
 								} else {
 									route = <Route component={NoFound} />;
 								}

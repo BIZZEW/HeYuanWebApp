@@ -117,9 +117,15 @@
   
   /****/
 
+.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab {
+    background: #eeeeee;
+    /* color: white; */
+    border: 1px solid #ffffff;
+}
 
 .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active {
     color: #02417c !important;
+    background: #ffffff;
 }
 
 .ant-tabs-extra-content{

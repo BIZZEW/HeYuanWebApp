@@ -30,7 +30,7 @@ export default class User extends React.Component {
 			label: '客户',
 			field: 'client',
 			placeholder: '请选择客户',
-			width: 130,
+			width: 200,
 			list: [
 				{ "id": 0, "name": "特朗普" },
 				{ "id": 1, "name": "马克龙" },
@@ -43,7 +43,7 @@ export default class User extends React.Component {
 			label: '水泥品种',
 			field: 'cementType',
 			placeholder: '请输入手机号',
-			width: 130
+			width: 200
 		},
 		{
 			type: 'DATERANGE',
@@ -56,7 +56,7 @@ export default class User extends React.Component {
 			label: '车辆状态',
 			field: 'vehicleStatus',
 			placeholder: '请输入手机号',
-			width: 130
+			width: 200
 		},
 	]
 
@@ -249,7 +249,7 @@ export default class User extends React.Component {
 		// },
 		// {
 		// 	title: '车号',
-		// 	dataIndex: 'platenum',
+		// 	dataIndex: 'vehicle',
 		// },
 
 		// 	// {

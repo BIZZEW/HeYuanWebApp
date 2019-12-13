@@ -2,7 +2,7 @@ import React from 'react'
 import './Login.css'
 import { login } from '../../mock/mock'
 import { login1 } from '../../mock/mock'
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Modal } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
 const FormItem = Form.Item;
@@ -21,6 +21,23 @@ class NormalLoginForm extends React.Component {
 					this.isLogging = false;
 					let toPath = this.props.toPath === '' ? '/layout/home' : this.props.toPath
 					this.props.history.push(toPath);
+				}).catch((error) => {
+					console.log("loginError", error);
+
+					if (String(error).toLowerCase().indexOf('timeout') != -1) {
+						Modal.info({
+							title: '提示',
+							content: '服务器繁忙，请稍后重试'
+						})
+					} else if (String(error).toLowerCase().indexOf('network') != -1) {
+						Modal.info({
+							title: '提示',
+							content: '服务器问失败，请稍后重试'
+						})
+					}
+
+					this.isLogging = false;
+					this.forceUpdate();
 				})
 			}
 		});

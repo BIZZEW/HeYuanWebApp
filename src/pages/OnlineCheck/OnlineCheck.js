@@ -27,7 +27,7 @@ export default class User extends React.Component {
 			label: '客户',
 			field: 'client',
 			placeholder: '请选择客户',
-			width: 130,
+			width: 200,
 			list: sessionStorage.getItem('clientRef'),
 			idKey: "customer",
 			valueKey: "customername"
@@ -37,7 +37,7 @@ export default class User extends React.Component {
 			label: '对账单号',
 			field: 'checkOrderId',
 			placeholder: '请输入对账单号',
-			width: 130
+			width: 200
 		},
 		{
 			type: 'DATERANGE',
@@ -236,7 +236,7 @@ export default class User extends React.Component {
 		// },
 		// {
 		// 	title: '车号',
-		// 	dataIndex: 'platenum',
+		// 	dataIndex: 'vehicle',
 		// },
 
 		// 	// {
@@ -439,9 +439,9 @@ class UserForm extends React.Component {
 				</FormItem>
 				<FormItem label="车牌号" {...formItemLayout}>
 					{
-						type == 'detail' ? this.getState(userInfo.plateNum) :
-							getFieldDecorator('plateNum', {
-								initialValue: userInfo.plateNum
+						type == 'detail' ? this.getState(userInfo.vehicle) :
+							getFieldDecorator('vehicle', {
+								initialValue: userInfo.vehicle
 							})(
 								<Input type="text" placeholder="请输入车牌号" />
 							)

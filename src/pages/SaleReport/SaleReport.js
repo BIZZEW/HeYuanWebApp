@@ -33,7 +33,7 @@ export default class User extends React.Component {
 			label: '客户',
 			field: 'client',
 			placeholder: '请选择客户',
-			width: 130,
+			width: 200,
 			list: [
 				{ "id": 0, "name": "特朗普" },
 				{ "id": 1, "name": "马克龙" },
@@ -244,7 +244,7 @@ export default class User extends React.Component {
 		// },
 		// {
 		// 	title: '车号',
-		// 	dataIndex: 'platenum',
+		// 	dataIndex: 'vehicle',
 		// },
 
 		// 	// {
@@ -445,9 +445,9 @@ class UserForm extends React.Component {
 				</FormItem>
 				<FormItem label="车牌号" {...formItemLayout}>
 					{
-						type == 'detail' ? this.getState(userInfo.plateNum) :
-							getFieldDecorator('plateNum', {
-								initialValue: userInfo.plateNum
+						type == 'detail' ? this.getState(userInfo.vehicle) :
+							getFieldDecorator('vehicle', {
+								initialValue: userInfo.vehicle
 							})(
 								<Input type="text" placeholder="请输入车牌号" />
 							)

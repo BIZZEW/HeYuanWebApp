@@ -28,7 +28,7 @@ export default class User extends React.Component {
 			label: '客户',
 			field: 'client',
 			placeholder: '请选择客户',
-			width: 130,
+			width: 200,
 			initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].customername) : undefined,
 			list: sessionStorage.getItem('clientRef'),
 			idKey: "customer",
@@ -39,7 +39,7 @@ export default class User extends React.Component {
 			label: '水泥品种',
 			field: 'cementType',
 			placeholder: '请选择水泥品种',
-			width: 130,
+			width: 200,
 			list: sessionStorage.getItem('clientRef2'),
 			idKey: "customer",
 			valueKey: "customername"
@@ -55,7 +55,7 @@ export default class User extends React.Component {
 			label: '车辆状态',
 			field: 'vehicleStatus',
 			placeholder: '请选择车辆状态',
-			width: 130,
+			width: 200,
 			list: sessionStorage.getItem('clientRef3'),
 			idKey: "customer",
 			valueKey: "customername"
@@ -255,7 +255,7 @@ export default class User extends React.Component {
 		// },
 		// {
 		// 	title: '车号',
-		// 	dataIndex: 'platenum',
+		// 	dataIndex: 'vehicle',
 		// },
 
 		// 	// {
@@ -360,25 +360,19 @@ class UserForm extends React.Component {
 
 	getDriverOptions = (value) => {
 		let _this = this;
-		_this.setState({
-			isVisible2: true,
-			title2: '司机信息',
-			list: [
-				{ name: "jason", phone: "18555555555", id: "330102222222222222" },
-				{ name: "harry", phone: "18555555555", id: "330102222222222222" },
-				{ name: "matt", phone: "18555555555", id: "330102222222222222" },
-				{ name: "bill", phone: "18555555555", id: "330102222222222222" },
-				{ name: "john", phone: "18555555555", id: "330102222222222222" },
-				{ name: "dick", phone: "18555555555", id: "330102222222222222" },
-			]
+		this.props.form.validateFields(["vehicle"], (err, values) => {
+			if (!err) {
+				let param = _this.props.form.getFieldsValue(["vehicle"]);
+				axios.getDriverInfo(this, '/querydriver', param);
+			}
 		})
 	}
 
 	handleSubmit = () => {
 		this.setState({ isVisible2: false });
-		this.props.form.setFieldsValue({ 'driver': this.state.selectedRowKeys.name });
-		this.props.form.setFieldsValue({ 'phoneNumber': this.state.selectedRowKeys.phone });
-		this.props.form.setFieldsValue({ 'IDNumber': this.state.selectedRowKeys.id });
+		this.props.form.setFieldsValue({ 'driver': this.state.selectedRowKeys.drivername });
+		this.props.form.setFieldsValue({ 'phoneNumber': this.state.selectedRowKeys.telphone });
+		this.props.form.setFieldsValue({ 'IDNumber': this.state.selectedRowKeys.driveridentity });
 	}
 
 	render() {
@@ -401,13 +395,13 @@ class UserForm extends React.Component {
 		const columns = [
 			{
 				title: '姓名',
-				dataIndex: 'name'
+				dataIndex: 'drivername'
 			}, {
 				title: '手机号',
-				dataIndex: 'phone',
+				dataIndex: 'telphone',
 			}, {
 				title: '身份证',
-				dataIndex: 'id',
+				dataIndex: 'driveridentity',
 			},
 		];
 
@@ -513,9 +507,13 @@ class UserForm extends React.Component {
 
 					<FormItem label="车牌号" {...formItemLayout}>
 						{
-							type == 'detail' ? this.getState(userInfo.plateNum) :
-								getFieldDecorator('plateNum', {
-									initialValue: userInfo.plateNum
+							type == 'detail' ? this.getState(userInfo.vehicle) :
+								getFieldDecorator('vehicle', {
+									initialValue: userInfo.vehicle,
+									rules: [
+										{ pattern: /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/, message: '请输入有效的车牌号!' },
+										{ required: true, message: '请输入车牌!' }
+									],
 								})(
 									// <Search type="text" placeholder="请输入车牌号" />
 
@@ -573,7 +571,7 @@ class UserForm extends React.Component {
 							isVisible2: false
 						})
 					}}
-					width={600}
+					width={1000}
 				// {...footer}
 				>
 					<div className="content-wrap">

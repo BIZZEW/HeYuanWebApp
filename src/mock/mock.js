@@ -32,9 +32,6 @@ export const login = (loginObject) => {
 			method: 'post',
 			baseURL: baseApi,
 			timeout: 5000,
-			headers: {
-				"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
-			},
 			data: qs.stringify(data),
 		}).then((response) => {
 			if (response.status === 200) {
@@ -52,6 +49,9 @@ export const login = (loginObject) => {
 			} else {
 				reject(response.data)
 			}
+		}).catch((error) => {
+			// console.log("myerror",error);
+			reject(error);
 		})
 	})
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+import CacheRoute, { CacheSwitch } from 'react-router-cache-route'
 
 import Layout from '../pages/layout/Layout'
 import Login from '../pages/login/Login'
@@ -19,12 +20,12 @@ import ChangePassword from '../pages/ChangePassword/ChangePassword'
 export const Router = () => (
 	<BrowserRouter>
 		<div>
-			<Switch>
+			<CacheSwitch>
 				<Route path="/login" component={Login} />
 				<Redirect from="/" exact to="/login" />{/*注意redirect转向的地址要先定义好路由*/}
 				<AuthorizedRoute path="/layout" component={Layout} />
 				<Route component={NoFound} />
-			</Switch>
+			</CacheSwitch>
 		</div>
 	</BrowserRouter>
 )
