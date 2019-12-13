@@ -28,12 +28,9 @@ export default class User extends React.Component {
 			field: 'client',
 			placeholder: '请选择客户',
 			width: 130,
-			list: [
-				{ "id": 0, "name": "特朗普" },
-				{ "id": 1, "name": "马克龙" },
-				{ "id": 2, "name": "普京" },
-				{ "id": 3, "name": "默克尔" },
-			]
+			list: sessionStorage.getItem('clientRef'),
+			idKey: "customer",
+			valueKey: "customername"
 		},
 		{
 			type: 'INPUT',

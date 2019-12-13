@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Button, Form, Input, Select, Radio, Icon, Modal, DatePicker, InputNumber, Divider } from 'antd'
+import { Card, Button, Form, Input, Select, Radio, Icon, Modal, DatePicker, InputNumber, Divider, Table } from 'antd'
 import axios from './../../axios'
 import Utils from './../../utils/utils'
 import BaseForm from './../../components/BaseForm'
@@ -9,12 +9,13 @@ const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const TextArea = Input.TextArea;
 const Option = Select.Option;
+const { Search } = Input;
 
 export default class User extends React.Component {
 
 	state = {
 		list: [],
-		isVisible: false
+		isVisible: false,
 	}
 
 	params = {
@@ -28,19 +29,20 @@ export default class User extends React.Component {
 			field: 'client',
 			placeholder: '请选择客户',
 			width: 130,
-			list: [
-				{ "id": 0, "name": "特朗普" },
-				{ "id": 1, "name": "马克龙" },
-				{ "id": 2, "name": "普京" },
-				{ "id": 3, "name": "默克尔" },
-			]
+			initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].customername) : undefined,
+			list: sessionStorage.getItem('clientRef'),
+			idKey: "customer",
+			valueKey: "customername"
 		},
 		{
 			type: 'SELECT',
 			label: '水泥品种',
 			field: 'cementType',
 			placeholder: '请选择水泥品种',
-			width: 130
+			width: 130,
+			list: sessionStorage.getItem('clientRef2'),
+			idKey: "customer",
+			valueKey: "customername"
 		},
 		{
 			type: 'DATERANGE',
@@ -53,7 +55,10 @@ export default class User extends React.Component {
 			label: '车辆状态',
 			field: 'vehicleStatus',
 			placeholder: '请选择车辆状态',
-			width: 130
+			width: 130,
+			list: sessionStorage.getItem('clientRef3'),
+			idKey: "customer",
+			valueKey: "customername"
 		},
 	]
 
@@ -144,20 +149,24 @@ export default class User extends React.Component {
 	handleSubmit = () => {
 		let type = this.state.types;
 		let data = this.userForm.props.form.getFieldsValue();
-		axios.ajax({
-			url: type == 'create' ? '/user/add' : '/user/edit',
-			data: {
-				params: data
-			}
-		}).then((res) => {
-			if (res.code === 0) {
-				this.userForm.props.form.resetFields();
-				this.setState({
-					isVisible: false
+		this.userForm.props.form.validateFields((err, values) => {
+			if (!err) {
+				axios.ajax({
+					url: type == 'create' ? '/user/add' : '/user/edit',
+					data: {
+						params: data
+					}
+				}).then((res) => {
+					if (res.code === 0) {
+						this.userForm.props.form.resetFields();
+						this.setState({
+							isVisible: false
+						})
+						this.requestList();
+					}
 				})
-				this.requestList();
 			}
-		})
+		});
 	}
 
 	render() {
@@ -331,6 +340,12 @@ export default class User extends React.Component {
 
 //子组件：创建员工表单
 class UserForm extends React.Component {
+	state = {
+		isVisible2: false,
+		list: [],
+		selectedRowKeys: null,
+		selectedRows: null
+	}
 
 	getState = (state) => {
 		let config = {
@@ -343,6 +358,29 @@ class UserForm extends React.Component {
 		return config[state];
 	}
 
+	getDriverOptions = (value) => {
+		let _this = this;
+		_this.setState({
+			isVisible2: true,
+			title2: '司机信息',
+			list: [
+				{ name: "jason", phone: "18555555555", id: "330102222222222222" },
+				{ name: "harry", phone: "18555555555", id: "330102222222222222" },
+				{ name: "matt", phone: "18555555555", id: "330102222222222222" },
+				{ name: "bill", phone: "18555555555", id: "330102222222222222" },
+				{ name: "john", phone: "18555555555", id: "330102222222222222" },
+				{ name: "dick", phone: "18555555555", id: "330102222222222222" },
+			]
+		})
+	}
+
+	handleSubmit = () => {
+		this.setState({ isVisible2: false });
+		this.props.form.setFieldsValue({ 'driver': this.state.selectedRowKeys.name });
+		this.props.form.setFieldsValue({ 'phoneNumber': this.state.selectedRowKeys.phone });
+		this.props.form.setFieldsValue({ 'IDNumber': this.state.selectedRowKeys.id });
+	}
+
 	render() {
 		let type = this.props.type;
 		let userInfo = this.props.userInfo || {};
@@ -351,202 +389,205 @@ class UserForm extends React.Component {
 			labelCol: { span: 5 },
 			wrapperCol: { span: 19 }
 		}
+
+		const rowRadioSelection = {
+			type: 'radio',
+			columnTitle: "",
+			onSelect: (selectedRowKeys, selectedRows) => {
+				this.setState({ selectedRowKeys, selectedRows })
+			},
+		}
+
+		const columns = [
+			{
+				title: '姓名',
+				dataIndex: 'name'
+			}, {
+				title: '手机号',
+				dataIndex: 'phone',
+			}, {
+				title: '身份证',
+				dataIndex: 'id',
+			},
+		];
+
 		return (
-			<Form layout="horizontal">
-				<FormItem label="订单号" {...formItemLayout}>
-					{
-						type == 'detail' ? userInfo.orderId :
-							getFieldDecorator('orderId', {
-								initialValue: userInfo.orderId
-							})(
-								<Input type="text" placeholder="请输入订单号" />
-							)
-					}
-				</FormItem>
-				<FormItem label="日期" {...formItemLayout}>
-					{
-						type == 'detail' ? userInfo.date :
-							getFieldDecorator('date', {
-								initialValue: moment(userInfo.date)
-							})(
-								<DatePicker format="YYYY-MM-DD" />
-							)
-					}
-				</FormItem>
-				<FormItem label="客户" {...formItemLayout}>
-					{
-						type == 'detail' ? this.getState(userInfo.client) :
-							getFieldDecorator('client', {
-								initialValue: userInfo.client || undefined
-							})(
-								<Select
-									placeholder={"请选择客户"}>
-									<Option value={1}>特朗普</Option>
-									<Option value={2}>普京</Option>
-									<Option value={3}>默克尔</Option>
-									<Option value={4}>马克龙</Option>
-									<Option value={5}>安倍</Option>
-								</Select>
-							)
-					}
-				</FormItem>
-				<FormItem label="销售单位" {...formItemLayout}>
-					{
-						type == 'detail' ? this.getState(userInfo.company) :
-							getFieldDecorator('company', {
-								initialValue: userInfo.company || undefined
-							})(
-								<Select
-									placeholder={"请选择销售单位"}>
-									<Option value={1}>米粒坚</Option>
-									<Option value={2}>鹅螺蛳</Option>
-									<Option value={3}>德锅</Option>
-									<Option value={4}>法锅</Option>
-									<Option value={5}>日崩</Option>
-								</Select>
-							)
-					}
-				</FormItem>
+			<div>
+				<Form layout="horizontal">
+					<FormItem label="订单号" {...formItemLayout}>
+						{
+							type == 'detail' ? userInfo.orderId :
+								getFieldDecorator('orderId', {
+									initialValue: userInfo.orderId
+								})(
+									<Input type="text" placeholder="请输入订单号" />
+								)
+						}
+					</FormItem>
+					<FormItem label="日期" {...formItemLayout}>
+						{
+							type == 'detail' ? userInfo.date :
+								getFieldDecorator('date', {
+									initialValue: moment(userInfo.date)
+								})(
+									<DatePicker format="YYYY-MM-DD" />
+								)
+						}
+					</FormItem>
+					<FormItem label="客户" {...formItemLayout}>
+						{
+							type == 'detail' ? this.getState(userInfo.client) :
+								getFieldDecorator('client', {
+									initialValue: userInfo.client || undefined
+								})(
+									<Select
+										placeholder={"请选择客户"}>
+										{Utils.getOptionList({
+											list: sessionStorage.getItem('clientRef'),
+											idKey: "customer",
+											valueKey: "customername"
+										})}
+									</Select>
+								)
+						}
+					</FormItem>
+					<FormItem label="销售单位" {...formItemLayout}>
+						{
+							type == 'detail' ? this.getState(userInfo.company) :
+								getFieldDecorator('company', {
+									initialValue: userInfo.company || undefined
+								})(
+									<Select
+										placeholder={"请选择销售单位"}>
+										<Option value={1}>米粒坚</Option>
+										<Option value={2}>鹅螺蛳</Option>
+										<Option value={3}>德锅</Option>
+										<Option value={4}>法锅</Option>
+										<Option value={5}>日崩</Option>
+									</Select>
+								)
+						}
+					</FormItem>
 
-				<Divider />
+					<Divider />
 
-				<FormItem label="水泥品种" {...formItemLayout}>
-					{
-						type == 'detail' ? this.getState(userInfo.cementType) :
-							getFieldDecorator('cementType', {
-								initialValue: userInfo.cementType || undefined
-							})(
-								<Select
-									placeholder={"请选择水泥品种"}>
-									<Option value={1}>一级水泥</Option>
-									<Option value={2}>二级水泥</Option>
-									<Option value={3}>三级水泥</Option>
-									<Option value={4}>四级水泥</Option>
-									<Option value={5}>五级水泥</Option>
-								</Select>
-							)
-					}
-				</FormItem>
-				<FormItem label="数量" {...formItemLayout}>
-					{
-						type == 'detail' ? this.getState(userInfo.amount) :
-							getFieldDecorator('amount', {
-								initialValue: userInfo.amount
-							})(
-								<InputNumber min={1} defaultValue={0} />
-							)
-					}
-				</FormItem>
-				<FormItem label="单位" {...formItemLayout}>
-					{
-						type == 'detail' ? this.getState(userInfo.unit) :
-							getFieldDecorator('unit', {
-								initialValue: userInfo.unit
-							})(
-								<Input type="text" placeholder="请输入单位" />
-							)
-					}
-				</FormItem>
-				<FormItem label="车牌号" {...formItemLayout}>
-					{
-						type == 'detail' ? this.getState(userInfo.plateNum) :
-							getFieldDecorator('plateNum', {
-								initialValue: userInfo.plateNum
-							})(
-								<Input type="text" placeholder="请输入车牌号" />
-							)
-					}
-				</FormItem>
-				<FormItem label="司机姓名" {...formItemLayout}>
-					{
-						type == 'detail' ? this.getState(userInfo.driver) :
-							getFieldDecorator('driver', {
-								initialValue: userInfo.driver
-							})(
-								<Input type="text" placeholder="请输入司机姓名" />
-							)
-					}
-				</FormItem>
-				<FormItem label="手机号" {...formItemLayout}>
-					{
-						type == 'detail' ? this.getState(userInfo.phoneNumber) :
-							getFieldDecorator('phoneNumber', {
-								initialValue: userInfo.phoneNumber
-							})(
-								<Input type="text" placeholder="请输入手机号" />
-							)
-					}
-				</FormItem>
-				<FormItem label="身份证" {...formItemLayout}>
-					{
-						type == 'detail' ? this.getState(userInfo.IdNumber) :
-							getFieldDecorator('IdNumber', {
-								initialValue: userInfo.IdNumber
-							})(
-								<Input type="text" placeholder="请输入身份证" />
-							)
-					}
-				</FormItem>
-				{/* <FormItem label="用户名" {...formItemLayout}>
-					{
-						type == 'detail' ? userInfo.userName :
-							getFieldDecorator('user_name', {
-								initialValue: userInfo.userName
-							})(
-								<Input type="text" placeholder="请输入用户名" />
-							)
-					}
-				</FormItem>
-				<FormItem label="性别" {...formItemLayout}>
-					{
-						type == 'detail' ? userInfo.sex == 1 ? '男' : '女' :
-							getFieldDecorator('sex', {
-								initialValue: userInfo.sex
-							})(
-								<RadioGroup>
-									<Radio value={1}>男</Radio>
-									<Radio value={2}>女</Radio>
-								</RadioGroup>
-							)
-					}
-				</FormItem>
-				<FormItem label="状态" {...formItemLayout}>
-					{
-						type == 'detail' ? this.getState(userInfo.state) :
-							getFieldDecorator('state', {
-								initialValue: userInfo.state
-							})(
-								<Select>
-									<Option value={1}>咸鱼一条</Option>
-									<Option value={2}>风华浪子</Option>
-									<Option value={3}>北大才子一枚</Option>
-									<Option value={4}>百度FE</Option>
-									<Option value={5}>创业者</Option>
-								</Select>
-							)
-					}
-				</FormItem>
-				<FormItem label="生日" {...formItemLayout}>
-					{
-						type == 'detail' ? userInfo.birthday :
-							getFieldDecorator('birthday', {
-								initialValue: moment(userInfo.birthday)
-							})(
-								<DatePicker format="YYYY-MM-DD" />
-							)
-					}
-				</FormItem>
-				<FormItem label="联系地址" {...formItemLayout}>
-					{
-						type == 'detail' ? userInfo.address :
-							getFieldDecorator('address', {
-								initialValue: userInfo.address
-							})(
-								<TextArea rows={3} placeholder="请输入联系地址" />
-							)
-					}
-				</FormItem> */}
-			</Form>
+					<FormItem label="水泥品种" {...formItemLayout}>
+						{
+							type == 'detail' ? this.getState(userInfo.cementType) :
+								getFieldDecorator('cementType', {
+									initialValue: userInfo.cementType || undefined
+								})(
+									<Select
+										placeholder={"请选择水泥品种"}>
+										<Option value={1}>一级水泥</Option>
+										<Option value={2}>二级水泥</Option>
+										<Option value={3}>三级水泥</Option>
+										<Option value={4}>四级水泥</Option>
+										<Option value={5}>五级水泥</Option>
+									</Select>
+								)
+						}
+					</FormItem>
+					<FormItem label="数量" {...formItemLayout}>
+						{
+							type == 'detail' ? this.getState(userInfo.amount) :
+								getFieldDecorator('amount', {
+									initialValue: userInfo.amount
+								})(
+									<InputNumber min={1} defaultValue={0} />
+								)
+						}
+					</FormItem>
+					<FormItem label="单位" {...formItemLayout}>
+						{
+							type == 'detail' ? this.getState(userInfo.unit) :
+								getFieldDecorator('unit', {
+									initialValue: userInfo.unit
+								})(
+									<Input type="text" placeholder="请输入单位" />
+								)
+						}
+					</FormItem>
+
+					<Divider />
+
+					<FormItem label="车牌号" {...formItemLayout}>
+						{
+							type == 'detail' ? this.getState(userInfo.plateNum) :
+								getFieldDecorator('plateNum', {
+									initialValue: userInfo.plateNum
+								})(
+									// <Search type="text" placeholder="请输入车牌号" />
+
+									<Search
+										placeholder="请输入车牌号"
+										enterButton="获取"
+										// size="large"
+										onSearch={value => this.getDriverOptions(value)}
+									/>
+								)
+						}
+					</FormItem>
+					<FormItem label="司机姓名" {...formItemLayout}>
+						{
+							type == 'detail' ? this.getState(userInfo.driver) :
+								getFieldDecorator('driver', {
+									initialValue: userInfo.driver,
+									rules: [{ required: true, message: '请获取司机信息!' }],
+								})(
+									<Input type="text" placeholder="请获取司机信息" disabled />
+								)
+						}
+					</FormItem>
+					<FormItem label="手机号" {...formItemLayout}>
+						{
+							type == 'detail' ? this.getState(userInfo.phoneNumber) :
+								getFieldDecorator('phoneNumber', {
+									initialValue: userInfo.phoneNumber,
+									rules: [{ required: true, message: '请获取司机信息!' }],
+								})(
+									<Input type="text" placeholder="请获取司机信息" disabled />
+								)
+						}
+					</FormItem>
+					<FormItem label="身份证" {...formItemLayout}>
+						{
+							type == 'detail' ? this.getState(userInfo.IdNumber) :
+								getFieldDecorator('IDNumber', {
+									initialValue: userInfo.IdNumber,
+									rules: [{ required: true, message: '请获取司机信息!' }],
+								})(
+									<Input type="text" placeholder="请获取司机信息" disabled />
+								)
+						}
+					</FormItem>
+				</Form>
+
+				<Modal
+					title={this.state.title2}
+					visible={this.state.isVisible2}
+					onOk={this.handleSubmit}
+					onCancel={() => {
+						// this.userForm.props.form.resetFields();
+						this.setState({
+							isVisible2: false
+						})
+					}}
+					width={600}
+				// {...footer}
+				>
+					<div className="content-wrap">
+						<Table
+							bordered
+							columns={columns}
+							dataSource={this.state.list}
+							rowSelection={rowRadioSelection}
+							pagination={false}
+						// rowKey={dataSource => dataSource.openid}
+						/>
+					</div>
+				</Modal>
+			</div>
 		)
 	}
 }

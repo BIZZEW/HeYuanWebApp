@@ -63,7 +63,7 @@ class FilterForm extends React.Component {
                                     style={{ width: width }}
                                     placeholder={[placeholder]}
                                 >
-                                    {Utils.getOptionList(item.list)}
+                                    {Utils.getOptionList(item)}
                                 </Select>
                             )
                         }

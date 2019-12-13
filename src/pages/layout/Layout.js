@@ -130,6 +130,16 @@ class Layout extends React.Component {
 			this.props.history.push(exitPane.url);
 			this.setState({ activeKey });
 		}
+
+		// var ele = null;
+		// var panes = this.state.panes;
+		// panes.forEach(function (element, index, array) {
+		// 	if (element.key == activeKey) {
+		// 		ele = panes.splice(index, 1);
+		// 	}
+		// })
+		// panes.push(ele[0]);
+		// this.setState({ panes });
 	}
 
 	onEdit = (targetKey, action) => {
@@ -140,9 +150,9 @@ class Layout extends React.Component {
 		const panes = this.state.panes.filter(pane => pane.key !== targetKey);
 		let length = panes.length;
 		if (length > 0) {
-			let activeKey = this.state.panes[length - 1].key;
+			let activeKey = panes[length - 1].key;
 			this.setState({ panes, activeKey });
-			this.props.history.push(this.state.panes[length - 1].url);
+			this.props.history.push(panes[length - 1].url);
 		}
 	}
 	render() {
@@ -172,7 +182,7 @@ class Layout extends React.Component {
 									</Tooltip>
 								</Menu.Item>
 							</Menu >} placement="bottomCenter">
-							<Avatar style={{ backgroundColor: "#00a2ae", verticalAlign: 'middle', "marginLeft": "20px", "fontSize": "20px", "marginTop": "-3px", "fontWeight": "bold" }} size="large">
+							<Avatar style={{ backgroundColor: "#1890ff", verticalAlign: 'middle', "marginLeft": "20px", "fontSize": "20px", "marginTop": "-3px", "fontWeight": "bold" }} size="large">
 								{sessionStorage.getItem('userName')[0].toUpperCase()}
 							</Avatar>
 						</Dropdown>
@@ -214,11 +224,12 @@ class Layout extends React.Component {
 		let matchMenus = menuList.filter((item) => item.url === url);//获取当前路由匹配的菜单信息
 		let paneObject = menuList.filter((item) => item.title === "主页")[0];//从菜单获取主页的tab对象信息
 		paneObject.key = 'newTab0';
-		paneObject.title = '404';
-		paneObject.url = '/layout/nofound';
-		paneObject.component = ' ';
 		if (matchMenus.length > 0) {//如果有匹配到当前路由的菜单信息，就修改paneObject为当前路由的信息
 			Object.assign(paneObject, paneObject, matchMenus[0]);//对象合并方法，matchMenus[0]覆盖修改paneObject的同名属性值。
+		} else {
+			paneObject.title = '404';
+			paneObject.url = '/layout/nofound';
+			paneObject.component = ' ';
 		}
 		this.setState({//更新panes对象
 			panes: [paneObject],
