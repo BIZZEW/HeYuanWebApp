@@ -16,6 +16,8 @@ export default class User extends React.Component {
 	state = {
 		list: [],
 		isVisible: false,
+		clientRef: sessionStorage.getItem('clientRef') || [],
+		cementRef: sessionStorage.getItem('cementRef') || [],
 	}
 
 	params = {
@@ -30,7 +32,7 @@ export default class User extends React.Component {
 			placeholder: '请选择客户',
 			width: 200,
 			initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].customername) : undefined,
-			list: sessionStorage.getItem('clientRef'),
+			list: this.state.clientRef,
 			idKey: "customer",
 			valueKey: "customername"
 		},
@@ -40,14 +42,14 @@ export default class User extends React.Component {
 			field: 'cementType',
 			placeholder: '请选择水泥品种',
 			width: 200,
-			list: sessionStorage.getItem('clientRef2'),
-			idKey: "customer",
-			valueKey: "customername"
+			list: this.state.cementRef,
+			idKey: "pk_material",
+			valueKey: "name",
 		},
 		{
 			type: 'DATERANGE',
 			label: '日期',
-			field: 'date',
+			field: 'date0',
 			placeholder: '请输入日期'
 		},
 		{
@@ -64,6 +66,8 @@ export default class User extends React.Component {
 
 	componentDidMount() {
 		// this.requestList();
+		// this.getSubOptions(eval(this.state.clientRef)[0]);
+		// axios.getOptions(this, '/querycemtype', eval(this.state.clientRef)[0]);
 	}
 
 	handleFilter = (params) => {
@@ -167,6 +171,10 @@ export default class User extends React.Component {
 				})
 			}
 		});
+	}
+
+	getSubOptions = (param) => {
+		axios.getOptions(this, '/querycemtype', param);
 	}
 
 	render() {
@@ -299,7 +307,7 @@ export default class User extends React.Component {
 		return (
 			<div>
 				<Card>
-					<BaseForm formList={this.formList} filterSubmit={this.handleFilter} />
+					<BaseForm wrappedComponentRef={(form) => this.formRef = form} formList={this.formList} filterSubmit={this.handleFilter} />
 				</Card>
 				<Card style={{ marginTop: 10 }} className="operate-wrap">
 					<Button type="primary" icon="plus" onClick={() => this.handleOperate('create')}>新增</Button>
@@ -331,7 +339,7 @@ export default class User extends React.Component {
 					width={600}
 					{...footer}
 				>
-					<UserForm type={this.state.type} userInfo={this.state.userInfo} wrappedComponentRef={(inst) => { this.userForm = inst; }} />
+					<UserForm type={this.state.type} userInfo={this.state.userInfo} wrappedComponentRef={(inst) => { this.userForm = inst; }} getSubOptions={this.getSubOptions} />
 				</Modal>
 			</div>
 		)
@@ -344,7 +352,12 @@ class UserForm extends React.Component {
 		isVisible2: false,
 		list: [],
 		selectedRowKeys: null,
-		selectedRows: null
+		selectedRows: null,
+		clientRef: sessionStorage.getItem('clientRef') || [],
+		cementRef: sessionStorage.getItem('cementRef') || [],
+		companyRef: sessionStorage.getItem('companyRef') || [],
+		// companyRef: [],
+		// cementRef: [],
 	}
 
 	getState = (state) => {
@@ -366,6 +379,12 @@ class UserForm extends React.Component {
 				axios.getDriverInfo(this, '/querydriver', param);
 			}
 		})
+	}
+
+	getSubOptions = (param) => {
+		// this.props.getSubOptions(param);
+		axios.getOptions2(this, '/querycemtype', param, "cementRef");
+		axios.getOptions2(this, '/querysaleunit', param, "companyRef");
 	}
 
 	handleSubmit = () => {
@@ -432,12 +451,17 @@ class UserForm extends React.Component {
 						{
 							type == 'detail' ? this.getState(userInfo.client) :
 								getFieldDecorator('client', {
-									initialValue: userInfo.client || undefined
+									// initialValue: userInfo.client || undefined,
+									initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].customername) : undefined,
 								})(
 									<Select
-										placeholder={"请选择客户"}>
+										placeholder={"请选择客户"}
+										onChange={(value) => {
+											this.getSubOptions({ "customer": value });
+											this.props.form.resetFields(["company", "cementType"]);
+										}}>
 										{Utils.getOptionList({
-											list: sessionStorage.getItem('clientRef'),
+											list: this.state.clientRef,
 											idKey: "customer",
 											valueKey: "customername"
 										})}
@@ -453,11 +477,11 @@ class UserForm extends React.Component {
 								})(
 									<Select
 										placeholder={"请选择销售单位"}>
-										<Option value={1}>米粒坚</Option>
-										<Option value={2}>鹅螺蛳</Option>
-										<Option value={3}>德锅</Option>
-										<Option value={4}>法锅</Option>
-										<Option value={5}>日崩</Option>
+										{Utils.getOptionList({
+											list: this.state.companyRef,
+											idKey: "pk_salesorg",
+											valueKey: "name"
+										})}
 									</Select>
 								)
 						}
@@ -473,11 +497,11 @@ class UserForm extends React.Component {
 								})(
 									<Select
 										placeholder={"请选择水泥品种"}>
-										<Option value={1}>一级水泥</Option>
-										<Option value={2}>二级水泥</Option>
-										<Option value={3}>三级水泥</Option>
-										<Option value={4}>四级水泥</Option>
-										<Option value={5}>五级水泥</Option>
+										{Utils.getOptionList({
+											list: this.state.cementRef,
+											idKey: "pk_material",
+											valueKey: "name"
+										})}
 									</Select>
 								)
 						}

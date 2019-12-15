@@ -1,14 +1,22 @@
 import React from 'react'
 import { Input, Select, Form, Button, Checkbox, DatePicker } from 'antd'
 import Utils from '../../utils/utils'
+import axios from './../../axios'
 const FormItem = Form.Item;
 const { RangePicker } = DatePicker;
 
 class FilterForm extends React.Component {
 
+
+    formList = []
+
     handleFilterSubmit = () => {
         let fieldsValue = this.props.form.getFieldsValue();
         this.props.filterSubmit(fieldsValue);
+    }
+
+    getSubOptions = (param) => {
+        axios.getOptions(this, '/querycemtype', param);
     }
 
     reset = () => {
@@ -17,15 +25,16 @@ class FilterForm extends React.Component {
 
     initFormList = () => {
         const { getFieldDecorator } = this.props.form;
-        const formList = this.props.formList;
+        this.formList = this.props.formList;
         const formItemList = [];
-        if (formList && formList.length > 0) {
-            formList.forEach((item, i) => {
+        if (this.formList && this.formList.length > 0) {
+            this.formList.forEach((item, i) => {
                 let label = item.label;
                 let field = item.field;
                 let initialValue = item.initialValue || undefined;
                 let placeholder = item.placeholder;
                 let width = item.width;
+                let disabled = item.disabled;
                 if (item.type === '时间查询') {
                     const begin_time = <FormItem label="订单时间" key='begin'>
                         {
@@ -54,7 +63,7 @@ class FilterForm extends React.Component {
                     </FormItem>;
                     formItemList.push(INPUT);
                 } else if (item.type === 'SELECT') {
-                    const SELECT = <FormItem label={label} key='select_id'>
+                    const SELECT = <FormItem label={label} key={field}>
                         {
                             getFieldDecorator([field], {
                                 initialValue: initialValue
@@ -62,6 +71,13 @@ class FilterForm extends React.Component {
                                 <Select
                                     style={{ width: width }}
                                     placeholder={[placeholder]}
+                                    disabled={disabled}
+                                    onSelect={(value) => {
+                                        if (field == "client") {
+                                            this.getSubOptions({ "customer": value });
+                                            this.props.form.resetFields(["cementType"]);
+                                        }
+                                    }}
                                 >
                                     {Utils.getOptionList(item)}
                                 </Select>

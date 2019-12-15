@@ -42,6 +42,59 @@ export default class Axios {
         })
     }
 
+    static getOptions(_this, url, params) {
+        var data = {
+            params: params,
+            isShowLoading: false,
+        }
+        this.ajax({
+            url,
+            data,
+            method: "post"
+        }).then((data) => {
+            _this.formList[1].list = data.result;
+            _this.forceUpdate();
+        }).catch((error) => {
+            _this.formList[1].list = '[{ "code": "1001000037", "name": "散装测试", "pk_material": "1001B1100000000B4W9K" },{ "code": "1001000036", "name": "袋装测试", "pk_material": "1001B1100000000B4W5B" },{ "code": "0101000300", "name": "大宗原材料测试", "pk_material": "1001B1100000000B5KLK" },{ "code": "0101000001", "name": "石灰石", "pk_material": "1001A210000000001NUF" }]';
+            _this.forceUpdate();
+
+            // _this.BaseForm.form.props.resetFields(["cementType"]);
+
+            // if (String(error).toLowerCase().indexOf('timeout') != -1) {
+            //     Modal.info({
+            //         title: '提示',
+            //         content: '服务器繁忙，请稍后重试'
+            //     })
+            // } else if (String(error).toLowerCase().indexOf('network') != -1) {
+            //     Modal.info({
+            //         title: '提示',
+            //         content: '服务器问失败，请稍后重试'
+            //     })
+            // }
+        })
+    }
+
+    static getOptions2(_this, url, params, type) {
+        var data = {
+            params: params,
+            isShowLoading: false,
+        }
+        let ref = {};
+        this.ajax({
+            url,
+            data,
+            method: "post"
+        }).then((data) => {
+            ref[type] = data.result;
+            _this.setState(ref);
+            _this.forceUpdate();
+        }).catch((error) => {
+            ref[type] = '[{ "code": "1001000037", "name": "散装测试", "pk_material": "1001B1100000000B4W9K" },{ "code": "1001000036", "name": "袋装测试", "pk_material": "1001B1100000000B4W5B" },{ "code": "0101000300", "name": "大宗原材料测试", "pk_material": "1001B1100000000B5KLK" },{ "code": "0101000001", "name": "石灰石", "pk_material": "1001A210000000001NUF" }]';
+            _this.setState(ref);
+            _this.forceUpdate();
+        })
+    }
+
     static requestList(_this, url, params, isMock) {
         var data = {
             params: params,
