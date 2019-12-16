@@ -131,16 +131,6 @@ class Layout extends React.Component {
 			this.props.history.push(exitPane.url);
 			this.setState({ activeKey });
 		}
-
-		// var ele = null;
-		// var panes = this.state.panes;
-		// panes.forEach(function (element, index, array) {
-		// 	if (element.key == activeKey) {
-		// 		ele = panes.splice(index, 1);
-		// 	}
-		// })
-		// panes.push(ele[0]);
-		// this.setState({ panes });
 	}
 
 	onEdit = (targetKey, action) => {
@@ -148,12 +138,19 @@ class Layout extends React.Component {
 	}
 
 	remove = (targetKey) => {
+		var targetIndex = 0;
+		for (let i of this.state.panes) {
+			if (i.key === targetKey)
+				break
+			targetIndex++;
+		}
 		const panes = this.state.panes.filter(pane => pane.key !== targetKey);
 		let length = panes.length;
 		if (length > 0) {
-			let activeKey = panes[length - 1].key;
+			targetIndex = (targetIndex >= length) ? targetIndex-1 : targetIndex;
+			let activeKey = panes[targetIndex].key;
 			this.setState({ panes, activeKey });
-			this.props.history.push(panes[length - 1].url);
+			this.props.history.push(panes[targetIndex].url);
 		}
 	}
 	render() {
