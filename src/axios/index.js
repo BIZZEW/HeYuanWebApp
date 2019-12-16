@@ -2,9 +2,10 @@ import JsonP from 'jsonp'
 import axios from 'axios'
 import { Modal } from 'antd';
 import Utils from './../utils/utils'
+import qs from 'qs'
 
 export default class Axios {
-
+    // 通过车号获取司机信息
     static getDriverInfo(_this, url, params) {
         var data = {
             params: params,
@@ -42,6 +43,7 @@ export default class Axios {
         })
     }
 
+    // 查询form获取下拉选项（水泥品种）
     static getOptions(_this, url, params) {
         var data = {
             params: params,
@@ -50,7 +52,7 @@ export default class Axios {
         this.ajax({
             url,
             data,
-            method: "post"
+            method: "get"
         }).then((data) => {
             _this.formList[1].list = data.result;
             _this.forceUpdate();
@@ -74,6 +76,7 @@ export default class Axios {
         })
     }
 
+    // 新增form获取下拉选型（水泥品种，销售单位）
     static getOptions2(_this, url, params, type) {
         var data = {
             params: params,
@@ -83,7 +86,7 @@ export default class Axios {
         this.ajax({
             url,
             data,
-            method: "post"
+            method: "get"
         }).then((data) => {
             ref[type] = data.result;
             _this.setState(ref);
@@ -150,7 +153,10 @@ export default class Axios {
                 method: options.method,
                 baseURL: baseApi,
                 timeout: 5000,
-                params: (options.data && options.data.params) || ''
+                data: (options.data && options.data.params) || '',
+                // paramsSerializer: function (params) {
+                //     return qs.stringify(params, { arrayFormat: 'indices' })
+                // }
             }).then((response) => {
                 if (options.data && options.data.isShowLoading !== false) {
                     loading = document.getElementById('ajaxLoading');

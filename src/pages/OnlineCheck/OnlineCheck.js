@@ -9,6 +9,7 @@ const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const TextArea = Input.TextArea;
 const Option = Select.Option;
+const { RangePicker } = DatePicker;
 
 export default class User extends React.Component {
 
@@ -343,17 +344,17 @@ class UserForm extends React.Component {
 		}
 		return (
 			<Form layout="horizontal">
-				<FormItem label="订单号" {...formItemLayout}>
+				<FormItem label="对账单号" {...formItemLayout}>
 					{
 						type == 'detail' ? userInfo.orderId :
 							getFieldDecorator('orderId', {
 								initialValue: userInfo.orderId
 							})(
-								<Input type="text" placeholder="请输入订单号" />
+								<Input type="text" placeholder="请输入对账单号" />
 							)
 					}
 				</FormItem>
-				<FormItem label="日期" {...formItemLayout}>
+				<FormItem label="对账日期" {...formItemLayout}>
 					{
 						type == 'detail' ? userInfo.date :
 							getFieldDecorator('date', {
@@ -380,162 +381,63 @@ class UserForm extends React.Component {
 							)
 					}
 				</FormItem>
-				<FormItem label="销售单位" {...formItemLayout}>
+
+				<FormItem label="起止日期" {...formItemLayout}>
 					{
-						type == 'detail' ? this.getState(userInfo.company) :
-							getFieldDecorator('company', {
-								initialValue: userInfo.company || undefined
+						type == 'detail' ? this.getState(userInfo.lastBalance) :
+							getFieldDecorator('lastBalance', {
+								initialValue: userInfo.lastBalance
 							})(
-								<Select
-									placeholder={"请选择销售单位"}>
-									<Option value={1}>米粒坚</Option>
-									<Option value={2}>鹅螺蛳</Option>
-									<Option value={3}>德锅</Option>
-									<Option value={4}>法锅</Option>
-									<Option value={5}>日崩</Option>
-								</Select>
+								<RangePicker />
+								// <RangePicker showTime={true} placeholder={placeholder} format="YYYY-MM-DD HH:mm:ss" />
 							)
 					}
 				</FormItem>
 
-				<Divider />
-
-				<FormItem label="水泥品种" {...formItemLayout}>
+				<FormItem label="上期余额" {...formItemLayout}>
 					{
-						type == 'detail' ? this.getState(userInfo.cementType) :
-							getFieldDecorator('cementType', {
-								initialValue: userInfo.cementType || undefined
-							})(
-								<Select
-									placeholder={"请选择水泥品种"}>
-									<Option value={1}>一级水泥</Option>
-									<Option value={2}>二级水泥</Option>
-									<Option value={3}>三级水泥</Option>
-									<Option value={4}>四级水泥</Option>
-									<Option value={5}>五级水泥</Option>
-								</Select>
-							)
-					}
-				</FormItem>
-				<FormItem label="数量" {...formItemLayout}>
-					{
-						type == 'detail' ? this.getState(userInfo.amount) :
-							getFieldDecorator('amount', {
-								initialValue: userInfo.amount
+						type == 'detail' ? this.getState(userInfo.lastBalance) :
+							getFieldDecorator('lastBalance', {
+								initialValue: userInfo.lastBalance
 							})(
 								<InputNumber min={1} defaultValue={0} />
 							)
 					}
 				</FormItem>
-				<FormItem label="单位" {...formItemLayout}>
+
+				<FormItem label="本期应收款" {...formItemLayout}>
 					{
-						type == 'detail' ? this.getState(userInfo.unit) :
-							getFieldDecorator('unit', {
-								initialValue: userInfo.unit
+						type == 'detail' ? this.getState(userInfo.currentShouldcome) :
+							getFieldDecorator('currentShouldcome', {
+								initialValue: userInfo.currentShouldcome
 							})(
-								<Input type="text" placeholder="请输入单位" />
+								<InputNumber min={1} defaultValue={0} />
 							)
 					}
 				</FormItem>
-				<FormItem label="车牌号" {...formItemLayout}>
+
+				<FormItem label="本期已收款" {...formItemLayout}>
 					{
-						type == 'detail' ? this.getState(userInfo.vehicle) :
-							getFieldDecorator('vehicle', {
-								initialValue: userInfo.vehicle
+						type == 'detail' ? this.getState(userInfo.currentIncome) :
+							getFieldDecorator('currentIncome', {
+								initialValue: userInfo.currentIncome
 							})(
-								<Input type="text" placeholder="请输入车牌号" />
+								<InputNumber min={1} defaultValue={0} />
 							)
 					}
 				</FormItem>
-				<FormItem label="司机姓名" {...formItemLayout}>
+
+				<FormItem label="本期余额" {...formItemLayout}>
 					{
-						type == 'detail' ? this.getState(userInfo.driver) :
-							getFieldDecorator('driver', {
-								initialValue: userInfo.driver
+						type == 'detail' ? this.getState(userInfo.currentBalance) :
+							getFieldDecorator('currentBalance', {
+								initialValue: userInfo.currentBalance
 							})(
-								<Input type="text" placeholder="请输入司机姓名" />
+								<InputNumber min={1} defaultValue={0} />
 							)
 					}
 				</FormItem>
-				<FormItem label="手机号" {...formItemLayout}>
-					{
-						type == 'detail' ? this.getState(userInfo.phoneNumber) :
-							getFieldDecorator('phoneNumber', {
-								initialValue: userInfo.phoneNumber
-							})(
-								<Input type="text" placeholder="请输入手机号" />
-							)
-					}
-				</FormItem>
-				<FormItem label="身份证" {...formItemLayout}>
-					{
-						type == 'detail' ? this.getState(userInfo.IdNumber) :
-							getFieldDecorator('IdNumber', {
-								initialValue: userInfo.IdNumber
-							})(
-								<Input type="text" placeholder="请输入身份证" />
-							)
-					}
-				</FormItem>
-				{/* <FormItem label="用户名" {...formItemLayout}>
-					{
-						type == 'detail' ? userInfo.userName :
-							getFieldDecorator('user_name', {
-								initialValue: userInfo.userName
-							})(
-								<Input type="text" placeholder="请输入用户名" />
-							)
-					}
-				</FormItem>
-				<FormItem label="性别" {...formItemLayout}>
-					{
-						type == 'detail' ? userInfo.sex == 1 ? '男' : '女' :
-							getFieldDecorator('sex', {
-								initialValue: userInfo.sex
-							})(
-								<RadioGroup>
-									<Radio value={1}>男</Radio>
-									<Radio value={2}>女</Radio>
-								</RadioGroup>
-							)
-					}
-				</FormItem>
-				<FormItem label="状态" {...formItemLayout}>
-					{
-						type == 'detail' ? this.getState(userInfo.state) :
-							getFieldDecorator('state', {
-								initialValue: userInfo.state
-							})(
-								<Select>
-									<Option value={1}>咸鱼一条</Option>
-									<Option value={2}>风华浪子</Option>
-									<Option value={3}>北大才子一枚</Option>
-									<Option value={4}>百度FE</Option>
-									<Option value={5}>创业者</Option>
-								</Select>
-							)
-					}
-				</FormItem>
-				<FormItem label="生日" {...formItemLayout}>
-					{
-						type == 'detail' ? userInfo.birthday :
-							getFieldDecorator('birthday', {
-								initialValue: moment(userInfo.birthday)
-							})(
-								<DatePicker format="YYYY-MM-DD" />
-							)
-					}
-				</FormItem>
-				<FormItem label="联系地址" {...formItemLayout}>
-					{
-						type == 'detail' ? userInfo.address :
-							getFieldDecorator('address', {
-								initialValue: userInfo.address
-							})(
-								<TextArea rows={3} placeholder="请输入联系地址" />
-							)
-					}
-				</FormItem> */}
+
 			</Form>
 		)
 	}
