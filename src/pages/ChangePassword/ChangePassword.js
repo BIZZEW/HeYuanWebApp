@@ -343,7 +343,7 @@ class UserForm extends React.Component {
 			<Form onSubmit={this.handleSubmit} className="login-form" style={{
 				"max-width": "500px",
 				"margin": "100px auto",
-				"padding": "20px 50px",
+				"padding": "20px 50px 0px 50px",
 				"border": "1px solid #d9d9d9",
 				"border-radius": "10px"
 			}} layout={"horizontal"}>
@@ -370,7 +370,7 @@ class UserForm extends React.Component {
 					)}
 				</FormItem>
 				<FormItem>
-					<Button type="primary" htmlType="submit" className="login-form-button" onClick={this.handleSubmit}>
+					<Button type="primary" htmlType="submit" className="login-form-button" onClick={this.handleSubmit} style={{ "margin": "0 40%", "width": "20%" }}>
 						提交
 					</Button>
 				</FormItem>
