@@ -473,7 +473,7 @@ class UserForm extends React.Component {
 						{
 							type == 'detail' ? this.getState(userInfo.company) :
 								getFieldDecorator('company', {
-									initialValue: userInfo.company || undefined
+									initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].saleorgname) : undefined,
 								})(
 									<Select
 										placeholder={"请选择销售单位"}>
