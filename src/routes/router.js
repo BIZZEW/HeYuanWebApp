@@ -7,9 +7,6 @@ import Login from '../pages/login/Login'
 import AuthorizedRoute from './AuthorizedRoute'
 import NoFound from '../pages/noFound/NoFound'
 import Home from '../pages/home/Home'
-// import Order from '../pages/Order/Order'
-// import WorkOrder from '../pages/Order/WorkOrder'
-// import Operations from '../pages/operations/operations'
 import OnlineOrder from '../pages/OnlineOrder/OnlineOrder'
 import OnlineCheck from '../pages/OnlineCheck/OnlineCheck'
 import PickupReport from '../pages/PickupReport/PickupReport'
@@ -32,9 +29,6 @@ export const Router = () => (
 
 export const menuObject = {
 	'home': Home,
-	// 'order': Order,
-	// 'workOrder': WorkOrder,
-	// 'operations': Operations,
 	'OnlineOrder': OnlineOrder,
 	'OnlineCheck': OnlineCheck,
 	'PickupReport': PickupReport,

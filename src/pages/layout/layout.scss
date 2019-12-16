@@ -6,9 +6,11 @@
         font-size: 20px;
         color: white;
         background: #011529;
-        span:nth-of-type(1) {
-            // margin-left: 10px;
-        }
+        background: -webkit-linear-gradient(top , rgb(2, 37, 76) 0%, rgb(1, 20, 41) 100%);
+        background: -moz-linear-gradient(top , rgb(2, 37, 76) 0%, rgb(1, 20, 41) 100%);
+        background: -o-linear-gradient(top , rgb(2, 37, 76) 0%, rgb(1, 20, 41) 100%);
+        background: linear-gradient(to bottom, rgb(2, 37, 76) 0%, rgb(1, 20, 41) 100%);
+        
         span:nth-of-type(2) {
             float: right;
             &>i {
@@ -174,4 +176,8 @@
 
 .ant-card-body {
     padding: 10px !important;
+}
+
+.ant-avatar-lg:hover {
+    background-color: #5daffc !important;
 }
