@@ -70,9 +70,9 @@ export const login = (loginObject) => {
 							data: qs.stringify(res.result[0]),
 						}).then((response) => {
 							if (response.status === 200) {
-								let res2 = response.data;
-								if (res2.code === 0) {
-									sessionStorage.setItem('companyRef', res2.result ? JSON.stringify(res2.result) : "");
+								let res3 = response.data;
+								if (res3.code === 0) {
+									sessionStorage.setItem('companyRef', res3.result ? JSON.stringify(res3.result) : "");
 								}
 							}
 						})
