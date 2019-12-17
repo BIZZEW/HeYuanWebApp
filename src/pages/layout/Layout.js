@@ -245,11 +245,11 @@ class Layout extends React.Component {
 		paneObject.key = 'newTab0';
 		if (matchMenus.length > 0) {//如果有匹配到当前路由的菜单信息，就修改paneObject为当前路由的信息
 			Object.assign(paneObject, paneObject, matchMenus[0]);//对象合并方法，matchMenus[0]覆盖修改paneObject的同名属性值。
-		}
-		else {
+		} else {
 			paneObject.title = '404';
 			paneObject.url = '/layout/nofound';
 			paneObject.component = ' ';
+			matchMenus.push({ id: "404" });
 		}
 		this.setState({//更新panes对象
 			panes: [paneObject],
