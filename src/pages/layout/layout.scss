@@ -1,7 +1,7 @@
 .layout {
     height: 100%;
     .header {
-        height: 60px;
+        height: 70px;
         line-height: 60px;
         font-size: 20px;
         color: white;
@@ -25,7 +25,7 @@
     }
     .content {
         position: relative;
-        height: calc(100% - 60px);
+        height: calc(100% - 70px);
         .nav-content {
             position: absolute;
             width: 150px;
@@ -167,7 +167,7 @@
 }
 
 .ant-tabs.ant-tabs-card .ant-tabs-card-content > .ant-tabs-tabpane, .ant-tabs.ant-tabs-editable-card .ant-tabs-card-content > .ant-tabs-tabpane{
-    padding: 0 10px;
+    padding: 0 15px;
 }
 
 .content-wrap{
@@ -181,3 +181,26 @@
 .ant-avatar-lg:hover {
     background-color: #5daffc !important;
 }
+
+.ant-menu-vertical > .ant-menu-item, .ant-menu-vertical-left > .ant-menu-item, .ant-menu-vertical-right > .ant-menu-item, .ant-menu-inline > .ant-menu-item, .ant-menu-vertical > .ant-menu-submenu > .ant-menu-submenu-title, .ant-menu-vertical-left > .ant-menu-submenu > .ant-menu-submenu-title, .ant-menu-vertical-right > .ant-menu-submenu > .ant-menu-submenu-title, .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
+    height: 50px;
+    line-height: 50px;
+}
+
+.ant-menu-dark.ant-menu-inline, .ant-menu-dark.ant-menu-vertical, .ant-menu-dark.ant-menu-vertical-left, .ant-menu-dark.ant-menu-vertical-right {
+    // margin-top: 35px;
+}
+
+.ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+    background: #1890ff;
+    background: -webkit-linear-gradient(right , #1890ff 0%, #0d7ade 75%, #0265bf 100%);
+    background: -moz-linear-gradient(right , #1890ff 0%, #0d7ade 75%, #0265bf 100%);
+    background: -o-linear-gradient(right , #1890ff 0%, #0d7ade 75%, #0265bf 100%);
+    background: linear-gradient(to right, #1890ff 0%, #0d7ade 75%, #0265bf 100%);
+}
+
+// .ant-table {
+//     border-bottom: 1px solid #e8e8e8;
+//     border-right: 1px solid #e8e8e8;
+//     border-radius: 2px;
+// }

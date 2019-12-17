@@ -151,6 +151,19 @@ export default class User extends React.Component {
 		})
 	}
 
+	calTableHeight = () => {
+		let clientHeight = document.body.clientHeight;
+		let headerHeight = document.getElementsByClassName('header')[0].offsetHeight;
+		let tabsHeight = document.getElementsByClassName('ant-tabs-nav-scroll')[0].offsetHeight;
+		let cardHeight = 65;
+		let gapsHeight = 25;
+		let headernfooterHeight = 120;
+		let paginationHeight = 65;
+		let tableHeight = clientHeight - headerHeight - tabsHeight - cardHeight - gapsHeight - headernfooterHeight - paginationHeight;
+		console.log("tableHeight: " + tableHeight + " clientHeight: " + clientHeight + " headerHeight: " + headerHeight + " tabsHeight: " + tabsHeight);
+		return tableHeight;
+	}
+
 	render() {
 		const columns = [{
 			title: 'id',
@@ -283,13 +296,10 @@ export default class User extends React.Component {
 				<Card>
 					<BaseForm formList={this.formList} filterSubmit={this.handleFilter} />
 				</Card>
-				<Card style={{ marginTop: 10 }} className="operate-wrap">
+				{/* <Card style={{ marginTop: 10 }} className="operate-wrap">
 					<Button type="primary" icon="plus" onClick={() => this.handleOperate('create')}>新增</Button>
-					{/* <Button type="primary" icon="edit" onClick={() => this.handleOperate('edit')}>编辑员工</Button>
-					<Button type="primary" onClick={() => this.handleOperate('detail')}>员工详情</Button> */}
 					<Button type="primary" icon="delete" onClick={() => this.handleOperate('delete')}>删除</Button>
-					{/* <Button type="primary" icon="stop" onClick={() => this.handleOperate('delete')}>作废</Button> */}
-				</Card>
+				</Card> */}
 				<div className="content-wrap">
 					<ETable
 						columns={columns}
@@ -298,6 +308,13 @@ export default class User extends React.Component {
 						selectedItem={this.state.selectedItem}
 						dataSource={this.state.list}
 						pagination={this.state.pagination}
+						scroll={{ y: this.calTableHeight() }}
+						footer={() => {
+							return <div>
+								<Button type="primary" icon="plus" onClick={() => this.handleOperate('create')}>新增</Button>
+								<Button type="primary" icon="delete" style={{ marginLeft: "10px" }} onClick={() => this.handleOperate('delete')}>删除</Button>
+							</div>
+						}}
 					/>
 				</div>
 				<Modal

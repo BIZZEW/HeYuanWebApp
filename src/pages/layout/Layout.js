@@ -27,7 +27,7 @@ class CreateMenuList extends React.Component {
 	}
 	render() {
 		return (
-			<Menu mode="vertical" theme="dark">
+			<Menu mode="vertical" theme="dark" selectedKeys={[this.props.current]} >
 				{
 					menus.map((item) => {
 						return this.createMenu(item);
@@ -46,7 +46,8 @@ class Layout extends React.Component {
 			collapsed: false,
 			activeKey: 'newTab0',
 			isFullScreen: false,
-			panes: []
+			panes: [],
+			current: "1"
 		};
 	}
 	logout = () => {
@@ -76,7 +77,10 @@ class Layout extends React.Component {
 		this.setState({ isFullScreen: false });
 		let matchHomePane = this.getExitPane('title', '主页');
 		if (matchHomePane !== null) {
-			this.setState({ activeKey: matchHomePane.key });
+			this.setState({
+				activeKey: matchHomePane.key,
+				current: "1"
+			});
 			this.props.history.push(matchHomePane.url);
 			return;
 		}
@@ -87,7 +91,8 @@ class Layout extends React.Component {
 			prevState.panes.push(homePaneObject);
 			return {
 				panes: prevState.panes,
-				activeKey: homePaneObject.key
+				activeKey: homePaneObject.key,
+				current: "1"
 			};
 		});
 	}
@@ -95,7 +100,7 @@ class Layout extends React.Component {
 		let url = event.currentTarget.getAttribute('href');
 		let exitPane = this.getExitPane('url', url);
 		if (exitPane != null) {
-			this.setState({ activeKey: exitPane.key, isFullScreen: exitPane.isFullScreen });
+			this.setState({ activeKey: exitPane.key, isFullScreen: exitPane.isFullScreen, current: (exitPane.id + "") });
 			return;
 		}
 		//创建新的tab项
@@ -108,7 +113,8 @@ class Layout extends React.Component {
 				return {
 					panes: prevState.panes,
 					activeKey,
-					isFullScreen: matchMenus[0].isFullScreen
+					isFullScreen: matchMenus[0].isFullScreen,
+					current: (matchMenus[0].id + "")
 				}
 			})
 		}
@@ -147,7 +153,7 @@ class Layout extends React.Component {
 		const panes = this.state.panes.filter(pane => pane.key !== targetKey);
 		let length = panes.length;
 		if (length > 0) {
-			targetIndex = (targetIndex >= length) ? targetIndex-1 : targetIndex;
+			targetIndex = (targetIndex >= length) ? targetIndex - 1 : targetIndex;
 			let activeKey = panes[targetIndex].key;
 			this.setState({ panes, activeKey });
 			this.props.history.push(panes[targetIndex].url);
@@ -189,7 +195,7 @@ class Layout extends React.Component {
 			</div>
 			<div className={"content"}>
 				<nav className="nav-content">
-					<CreateMenuList addTabs={this.add} />
+					<CreateMenuList addTabs={this.add} current={this.state.current} />
 				</nav>
 
 				<div className="page-content">
@@ -224,14 +230,16 @@ class Layout extends React.Component {
 		paneObject.key = 'newTab0';
 		if (matchMenus.length > 0) {//如果有匹配到当前路由的菜单信息，就修改paneObject为当前路由的信息
 			Object.assign(paneObject, paneObject, matchMenus[0]);//对象合并方法，matchMenus[0]覆盖修改paneObject的同名属性值。
-		} else {
+		}
+		else {
 			paneObject.title = '404';
 			paneObject.url = '/layout/nofound';
 			paneObject.component = ' ';
 		}
 		this.setState({//更新panes对象
 			panes: [paneObject],
-			isFullScreen: paneObject.isFullScreen
+			isFullScreen: paneObject.isFullScreen,
+			current: matchMenus[0].id + ""
 		})
 	}
 }

@@ -80,7 +80,7 @@ export default class User extends React.Component {
 	}
 
 	//功能区操作
-	handleOperate = (type) => {
+	handleOperate = (type, index) => {
 		let item = this.state.selectedItem;
 		if (type == 'create') {
 			this.setState({
@@ -89,32 +89,33 @@ export default class User extends React.Component {
 				title: '新增'
 			})
 		} else if (type == 'edit') {
-			if (!item) {
-				Modal.info({
-					title: '提示',
-					content: '请选择一个用户'
-				})
-				return;
-			}
+			// if (!item) {
+			// 	Modal.info({
+			// 		title: '提示',
+			// 		content: '请选择一个用户'
+			// 	})
+			// 	return;
+			// }
 			this.setState({
 				type,
 				isVisible: true,
-				title: '编辑员工',
-				userInfo: item
+				title: '编辑',
+				userInfo: this.state.list[index]
 			})
 		} else if (type == 'detail') {
-			if (!item) {
-				Modal.info({
-					title: '提示',
-					content: '请选择一个用户'
-				})
-				return;
-			}
+			// if (!item) {
+			// 	Modal.info({
+			// 		title: '提示',
+			// 		content: '请选择一个用户'
+			// 	})
+			// 	return;
+			// }
+			console.log(index);
 			this.setState({
 				type,
 				isVisible: true,
-				title: '员工详情',
-				userInfo: item
+				title: '详情',
+				userInfo: this.state.list[index]
 			})
 		} else if (type == 'delete') {
 			if (!item) {
@@ -127,7 +128,7 @@ export default class User extends React.Component {
 			let _this = this;
 			Modal.confirm({
 				title: '确认删除',
-				content: `是否要删除当前选中的员工${item.id}`,
+				content: `是否要删除当前选中数据`,
 				onOk() {
 					axios.ajax({
 						url: '/user/delete',
@@ -177,125 +178,63 @@ export default class User extends React.Component {
 		axios.getOptions(this, '/querycemtype', param);
 	}
 
+	calTableHeight = () => {
+		let clientHeight = document.body.clientHeight;
+		let headerHeight = document.getElementsByClassName('header')[0].offsetHeight;
+		let tabsHeight = document.getElementsByClassName('ant-tabs-nav-scroll')[0].offsetHeight;
+		let cardHeight = 65;
+		let gapsHeight = 25;
+		let headernfooterHeight = 120;
+		let paginationHeight = 65;
+		let tableHeight = clientHeight - headerHeight - tabsHeight - cardHeight - gapsHeight - headernfooterHeight - paginationHeight;
+		console.log("tableHeight: " + tableHeight + " clientHeight: " + clientHeight + " headerHeight: " + headerHeight + " tabsHeight: " + tabsHeight);
+		return tableHeight;
+	}
+
 	render() {
-		const columns = [{
-			title: 'id',
-			dataIndex: 'id'
-		}, {
-			title: '用户名',
-			dataIndex: 'userName'
-		}, {
-			title: '性别',
-			dataIndex: 'sex',
-			render(sex) {
-				return sex == 1 ? '男' : '女'
-			}
-		}, {
-			title: '状态',
-			dataIndex: 'state',
-			render(state) {
-				let config = {
-					'1': '咸鱼一条',
-					'2': '风华浪子',
-					'3': '北大才子一枚',
-					'4': '百度FE',
-					'5': '创业者'
-				}
-				return config[state];
-			}
-		}, {
-			title: '婚姻',
-			dataIndex: 'isMarried',
-			render(isMarried) {
-				return isMarried == 1 ? '已婚' : '未婚'
-			}
-		}, {
-			title: '生日',
-			dataIndex: 'birthday'
-		}, {
-			title: '联系地址',
-			dataIndex: 'address'
-		}, {
-			title: '早起时间',
-			dataIndex: 'time'
-		},
-		{
-			title: '操作',
-			key: 'action',
-			render: (text, record) => (
-				<span>
-					<a>详情 {record.name}</a>
-					{/* <Divider type="vertical" /> */}
-					<a>编辑</a>
-				</span>
-			),
-		},
+		const columns = [
+			{
+				title: 'id',
+				dataIndex: 'id',
+				width: 100,
+			},
+			{
+				title: '客户',
+				dataIndex: 'client'
+			},
+			{
+				title: '日期',
+				dataIndex: 'date'
+			},
+			{
+				title: '物料',
+				dataIndex: 'material'
+			},
+			{
+				title: '数量',
+				dataIndex: 'amount'
+			},
+			{
+				title: '过皮状态',
+				dataIndex: 'status',
+			},
+			{
+				title: '车号',
+				dataIndex: 'vehicle',
+			},
+			{
+				title: '操作',
+				key: 'action',
+				width: 220,
+				render: (text, record) => (
+					<span>
+						<Button type="primary" onClick={() => this.handleOperate('detail', record.id)} icon="search">详情</Button>
+						<Divider type="vertical" />
+						<Button type="primary" onClick={() => this.handleOperate('edit', record.id)} icon="edit">编辑</Button>
+					</span>
+				),
+			},
 		];
-
-
-		// const columns = [{
-		// 	title: 'id',
-		// 	dataIndex: 'id'
-		// },
-		// {
-		// 	title: '客户',
-		// 	dataIndex: 'client'
-		// },
-		// {
-		// 	title: '日期',
-		// 	dataIndex: 'date'
-		// },
-		// {
-		// 	title: '物料',
-		// 	dataIndex: 'material'
-		// },
-		// {
-		// 	title: '数量',
-		// 	dataIndex: 'amount'
-		// },
-		// {
-		// 	title: '数量',
-		// 	dataIndex: 'amount'
-		// },
-		// {
-		// 	title: '过皮状态',
-		// 	dataIndex: 'status',
-		// },
-		// {
-		// 	title: '车号',
-		// 	dataIndex: 'vehicle',
-		// },
-
-		// 	// {
-		// 	// 	title: '状态',
-		// 	// 	dataIndex: 'state',
-		// 	// 	render(state) {
-		// 	// 		let config = {
-		// 	// 			'1': '咸鱼一条',
-		// 	// 			'2': '风华浪子',
-		// 	// 			'3': '北大才子一枚',
-		// 	// 			'4': '百度FE',
-		// 	// 			'5': '创业者'
-		// 	// 		}
-		// 	// 		return config[state];
-		// 	// 	}
-		// 	// }, {
-		// 	// 	title: '婚姻',
-		// 	// 	dataIndex: 'isMarried',
-		// 	// 	render(isMarried) {
-		// 	// 		return isMarried == 1 ? '已婚' : '未婚'
-		// 	// 	}
-		// 	// }, {
-		// 	// 	title: '生日',
-		// 	// 	dataIndex: 'birthday'
-		// 	// }, {
-		// 	// 	title: '联系地址',
-		// 	// 	dataIndex: 'address'
-		// 	// }, {
-		// 	// 	title: '早起时间',
-		// 	// 	dataIndex: 'time'
-		// 	// }
-		// ];
 
 		let footer = {};
 		if (this.state.type == 'detail') {
@@ -309,13 +248,11 @@ export default class User extends React.Component {
 				<Card>
 					<BaseForm wrappedComponentRef={(form) => this.formRef = form} formList={this.formList} filterSubmit={this.handleFilter} />
 				</Card>
-				<Card style={{ marginTop: 10 }} className="operate-wrap">
+				{/* <Card style={{ marginTop: 10 }} className="operate-wrap">
 					<Button type="primary" icon="plus" onClick={() => this.handleOperate('create')}>新增</Button>
-					{/* <Button type="primary" icon="edit" onClick={() => this.handleOperate('edit')}>编辑员工</Button>
-					<Button type="primary" onClick={() => this.handleOperate('detail')}>员工详情</Button> */}
 					<Button type="primary" icon="delete" onClick={() => this.handleOperate('delete')}>删除</Button>
 					<Button type="primary" icon="stop" onClick={() => this.handleOperate('delete')}>作废</Button>
-				</Card>
+				</Card> */}
 				<div className="content-wrap">
 					<ETable
 						columns={columns}
@@ -324,6 +261,15 @@ export default class User extends React.Component {
 						selectedItem={this.state.selectedItem}
 						dataSource={this.state.list}
 						pagination={this.state.pagination}
+						scroll={{ y: this.calTableHeight() }}
+						// bordered={true}
+						footer={() => {
+							return <div>
+								<Button type="primary" icon="plus" onClick={() => this.handleOperate('create')}>新增</Button>
+								<Button type="primary" icon="delete" style={{ marginLeft: "10px" }} onClick={() => this.handleOperate('delete')}>删除</Button>
+								<Button type="primary" icon="stop" style={{ marginLeft: "10px" }} onClick={() => this.handleOperate('delete')}>作废</Button>
+							</div>
+						}}
 					/>
 				</div>
 				<Modal

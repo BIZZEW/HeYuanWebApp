@@ -98,30 +98,48 @@ export default class Axios {
         })
     }
 
-    static requestList(_this, url, params, isMock) {
+    static requestList(_this, url, params) {
         var data = {
             params: params,
-            isMock //使用Mock数据
         }
-        this.ajax({
-            url,
-            data
-        }).then((data) => {
-            if (data && data.list) {
-                let list = data.list.item_list.map((item, index) => {
-                    item.key = index;
-                    return item;
-                });
-                _this.setState({
-                    list,
-                    selectedRowKeys: [],//重置
-                    pagination: Utils.pagination(data, (current) => {
-                        _this.params.page = current;
-                        _this.requestList();
-                    })
-                })
-            }
+
+        let list = [
+            { "id": 0, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+            { "id": 1, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+            { "id": 2, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+            { "id": 3, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+            { "id": 4, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+            { "id": 5, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+            { "id": 6, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+            { "id": 7, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+            { "id": 8, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+            { "id": 9, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+            { "id": 10, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+            { "id": 11, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+            { "id": 12, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+            { "id": 13, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+            { "id": 14, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+            { "id": 15, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+        ];
+        // this.ajax({
+        //     url,
+        //     data
+        // }).then((data) => {
+        //     if (data && data.list) {
+        //         let list = data.list.item_list.map((item, index) => {
+        //             item.key = index;
+        //             return item;
+        //         });
+        _this.setState({
+            list,
+            selectedRowKeys: [],//重置
+            pagination: Utils.pagination(data, (current) => {
+                _this.params.page = current;
+                _this.requestList();
+            })
         })
+        //     }
+        // })
     }
 
     static jsonp(options) {
