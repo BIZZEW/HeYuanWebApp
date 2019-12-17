@@ -179,7 +179,7 @@ class Layout extends React.Component {
 		return <div className={"layout " + fulllScreenClass}>
 			<div className="header">
 				<img src={require('./images/HeYuan.png')} style={{ "width": 45, "margin": "0 20px" }} />
-				<span style={{ "fontWeight": "bold" }}>金圆销售管理系统</span>
+				<span style={{ "fontWeight": "bold", }}>金圆销售管理系统</span>
 				<span>
 					<span>
 						&nbsp;&nbsp;欢迎您&nbsp;&nbsp;{sessionStorage.getItem('userName')}
