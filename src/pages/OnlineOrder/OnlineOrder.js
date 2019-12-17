@@ -11,7 +11,7 @@ const TextArea = Input.TextArea;
 const Option = Select.Option;
 const { Search } = Input;
 
-export default class User extends React.Component {
+export default class OnlineOrder extends React.Component {
 
 	state = {
 		list: [],
@@ -70,8 +70,9 @@ export default class User extends React.Component {
 		// axios.getOptions(this, '/querycemtype', eval(this.state.clientRef)[0]);
 	}
 
-	handleFilter = (params) => {
-		this.params = params;
+	handleFilter = (para) => {
+		para.page = 1;
+		this.params = para;
 		this.requestList();
 	}
 

@@ -99,28 +99,46 @@ export default class Axios {
     }
 
     static requestList(_this, url, params) {
-        var data = {
-            params: params,
-        }
+        // var data = {
+        //     params: params,
+        // }
 
-        let list = [
-            { "id": 0, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-            { "id": 1, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-            { "id": 2, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-            { "id": 3, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-            { "id": 4, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-            { "id": 5, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-            { "id": 6, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-            { "id": 7, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-            { "id": 8, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-            { "id": 9, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-            { "id": 10, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-            { "id": 11, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-            { "id": 12, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-            { "id": 13, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-            { "id": 14, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-            { "id": 15, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-        ];
+        var data = {};
+
+        if (params.page == 1) {
+            data = {
+                page: 1,
+                page_size: 10,
+                total: 16,
+                list: [
+                    { "id": 0, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+                    { "id": 1, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+                    { "id": 2, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+                    { "id": 3, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+                    { "id": 4, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+                    { "id": 5, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+                    { "id": 6, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+                    { "id": 7, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+                    { "id": 8, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+                    { "id": 9, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+                ]
+            }
+        } else {
+            data = {
+                page: 2,
+                page_size: 10,
+                total: 16,
+                list: [
+                    { "id": 10, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+                    { "id": 11, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+                    { "id": 12, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+                    { "id": 13, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+                    { "id": 14, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+                    { "id": 15, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+                ]
+            }
+        }
+        
         // this.ajax({
         //     url,
         //     data
@@ -131,9 +149,10 @@ export default class Axios {
         //             return item;
         //         });
         _this.setState({
-            list,
+            list: data.list,
             selectedRowKeys: [],//重置
             pagination: Utils.pagination(data, (current) => {
+                console.log(current);
                 _this.params.page = current;
                 _this.requestList();
             })

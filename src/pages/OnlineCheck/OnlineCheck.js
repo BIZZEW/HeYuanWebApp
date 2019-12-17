@@ -11,7 +11,7 @@ const TextArea = Input.TextArea;
 const Option = Select.Option;
 const { RangePicker } = DatePicker;
 
-export default class User extends React.Component {
+export default class OnlineCheck extends React.Component {
 
 	state = {
 		list: [],
