@@ -132,7 +132,8 @@ class Layout extends React.Component {
 		let exitPane = this.getExitPane('key', activeKey);
 		if (exitPane !== null) {
 			this.setState({
-				isFullScreen: exitPane.isFullScreen
+				isFullScreen: exitPane.isFullScreen,
+				current: exitPane.id + ""
 			})
 			this.props.history.push(exitPane.url);
 			this.setState({ activeKey });
@@ -155,7 +156,11 @@ class Layout extends React.Component {
 		if (length > 0) {
 			targetIndex = (targetIndex >= length) ? targetIndex - 1 : targetIndex;
 			let activeKey = panes[targetIndex].key;
-			this.setState({ panes, activeKey });
+			this.setState({
+				panes,
+				activeKey,
+				current: panes[targetIndex].id + ""
+			});
 			this.props.history.push(panes[targetIndex].url);
 		}
 	}
