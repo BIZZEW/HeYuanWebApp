@@ -19,7 +19,17 @@ class CreateMenuList extends React.Component {
 			childMenu = childMenuData.map((item) => {
 				return this.createMenu(item);
 			});
-			return <SubMenu key={data.id} title={data.title}>{childMenu}</SubMenu>
+			return <SubMenu
+				key={data.id}
+				title={
+					<div>
+						<Icon type={data.icon} />
+						<span>{data.title}</span>
+					</div>
+				}
+			>
+				{childMenu}
+			</SubMenu>
 		} else {
 			menuList.push({ ...data });
 			return <Menu.Item key={data.id} className={data.hide}><NavLink to={data.url} onClick={this.props.addTabs}><Icon type={data.icon} />{data.title}</NavLink></Menu.Item>

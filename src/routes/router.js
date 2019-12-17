@@ -65,6 +65,7 @@ export const menus = [
 	{
 		id: 4,
 		title: '统计报表',
+		icon: "line-chart",
 		child: [
 			{
 				id: 40,
@@ -88,7 +89,7 @@ export const menus = [
 				url: '/layout/sale_report',
 				component: 'SaleReport',
 				isFullScreen: false,
-				icon: "line-chart"
+				icon: "dot-chart"
 			}
 		]
 	},
