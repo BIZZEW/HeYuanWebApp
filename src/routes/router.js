@@ -9,9 +9,9 @@ import NoFound from '../pages/noFound/NoFound'
 import Home from '../pages/home/Home'
 import OnlineOrder from '../pages/OnlineOrder/OnlineOrder'
 import OnlineCheck from '../pages/OnlineCheck/OnlineCheck'
-import PickupReport from '../pages/PickupReport/PickupReport'
-import IncomeReport from '../pages/IncomeReport/IncomeReport'
-import SaleReport from '../pages/SaleReport/SaleReport'
+import PickupReport from '../pages/OnlineReport/PickupReport/PickupReport'
+import IncomeReport from '../pages/OnlineReport/IncomeReport/IncomeReport'
+import SaleReport from '../pages/OnlineReport/SaleReport/SaleReport'
 import ChangePassword from '../pages/ChangePassword/ChangePassword'
 
 export const Router = () => (
