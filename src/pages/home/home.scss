@@ -89,8 +89,14 @@ $prefix:'flow-login';
     text-align: center;
     // height: 160px;
     // line-height: 160px;
-    background: #011529;
+    // background: #00152a;
     overflow: hidden;
+
+    background: #00152a;
+    background: -webkit-linear-gradient(bottom , #00152a 0%, #000913 75%, #000000 100%);
+    background: -moz-linear-gradient(bottom , #00152a 0%, #000913 75%, #000000 100%);
+    background: -o-linear-gradient(bottom , #00152a 0%, #000913 75%, #000000 100%);
+    background: linear-gradient(to bottom, #00152a 0%, #000913 75%, #000000 100%);
 }
   
 .ant-carousel .slick-slide h3 {

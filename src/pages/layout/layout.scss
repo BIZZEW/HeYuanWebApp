@@ -5,11 +5,11 @@
         line-height: 60px;
         font-size: 20px;
         color: white;
-        background: #011529;
-        background: -webkit-linear-gradient(top , rgb(2, 37, 76) 0%, rgb(1, 20, 41) 100%);
-        background: -moz-linear-gradient(top , rgb(2, 37, 76) 0%, rgb(1, 20, 41) 100%);
-        background: -o-linear-gradient(top , rgb(2, 37, 76) 0%, rgb(1, 20, 41) 100%);
-        background: linear-gradient(to bottom, rgb(2, 37, 76) 0%, rgb(1, 20, 41) 100%);
+        background: #00152a;
+        background: -webkit-linear-gradient(top , rgb(2, 37, 76) 0%, #00152a 100%);
+        background: -moz-linear-gradient(top , rgb(2, 37, 76) 0%, #00152a 100%);
+        background: -o-linear-gradient(top , rgb(2, 37, 76) 0%, #00152a 100%);
+        background: linear-gradient(to bottom, rgb(2, 37, 76) 0%, #00152a 100%);
         
         span:nth-of-type(2) {
             float: right;
@@ -32,7 +32,11 @@
             height: 100%;
             left: 0;
             top: 0;
-            background: #001529;
+            background: #011529;
+            background: -webkit-linear-gradient(bottom , #00152a 0%, #00152a 30%, #000913 75%, #000000 100%);
+            background: -moz-linear-gradient(bottom , #00152a 0%, #00152a 30%, #000913 75%, #000000 100%);
+            background: -o-linear-gradient(bottom , #00152a 0%, #00152a 30%, #000913 75%, #000000 100%);
+            background: linear-gradient(to bottom, #00152a 0%, #00152a 30%, #000913 75%, #000000 100%);
             a {
                 color: #fff;
             }
