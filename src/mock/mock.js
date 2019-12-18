@@ -32,10 +32,13 @@ export const login = (loginObject) => {
 
 		axios({
 			url: "/login",
-			method: 'post',
+			method: 'get',
 			baseURL: baseApi,
 			timeout: 5000,
+			// params: qs.stringify(data),
+			// params: data,
 			data: qs.stringify(data),
+			// data: data,
 		}).then((response) => {
 			if (response.status === 200) {
 				let res = response.data;
@@ -48,10 +51,10 @@ export const login = (loginObject) => {
 						// 用默认客户获取水泥品种
 						axios({
 							url: "/querycemtype",
-							method: "post",
+							method: "get",
 							baseURL: baseApi,
 							timeout: 5000,
-							data: qs.stringify(res.result[0]),
+							params: res.result[0],
 						}).then((response) => {
 							if (response.status === 200) {
 								let res2 = response.data;
@@ -64,10 +67,10 @@ export const login = (loginObject) => {
 						// 用默认客户获取销售单位
 						axios({
 							url: "/querysaleunit",
-							method: "post",
+							method: "get",
 							baseURL: baseApi,
 							timeout: 5000,
-							data: qs.stringify(res.result[0]),
+							params: res.result[0],
 						}).then((response) => {
 							if (response.status === 200) {
 								let res3 = response.data;

@@ -7,12 +7,12 @@ import qs from 'qs'
 export default class Axios {
     // 通过车号获取司机信息
     static getDriverInfo(_this, url, params) {
-        var data = {
-            params: params,
-        }
+        // var data = {
+        //     params: params,
+        // }
         this.ajax({
             url,
-            data,
+            params,
             method: "get"
         }).then((data) => {
             _this.setState({
@@ -45,14 +45,15 @@ export default class Axios {
 
     // 查询form获取下拉选项（水泥品种）
     static getOptions(_this, url, params) {
-        var data = {
-            params: params,
-            isShowLoading: false,
-        }
+        // var data = {
+        //     params: params,
+        //     isShowLoading: false,
+        // }
         this.ajax({
             url,
-            data,
-            method: "get"
+            params,
+            method: "get",
+            isShowLoading: false,
         }).then((data) => {
             _this.formList[1].list = data.result;
             _this.forceUpdate();
@@ -78,15 +79,15 @@ export default class Axios {
 
     // 新增form获取下拉选型（水泥品种，销售单位）
     static getOptions2(_this, url, params, type) {
-        var data = {
-            params: params,
-            isShowLoading: false,
-        }
+        // var data = {
+        //     params: params,
+        // }
         let ref = {};
         this.ajax({
             url,
-            data,
-            method: "get"
+            params,
+            method: "get",
+            isShowLoading: false,
         }).then((data) => {
             ref[type] = data.result;
             _this.setState(ref);
@@ -103,69 +104,81 @@ export default class Axios {
         //     params: params,
         // }
 
-        var data = {};
-
-        if (params.page == 1) {
-            data = {
-                page: 1,
-                page_size: 10,
-                total: 16,
-                list: [
-                    { "id": 0, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-                    { "id": 1, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-                    { "id": 2, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-                    { "id": 3, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-                    { "id": 4, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-                    { "id": 5, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-                    { "id": 6, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-                    { "id": 7, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-                    { "id": 8, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-                    { "id": 9, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-                ]
+        this.ajax({
+            url,
+            params,
+            method: "get"
+        }).then((response) => {
+            if (response && response.result) {
+                _this.setState({
+                    list: response.result.list,
+                    selectedRowKeys: [],//重置
+                    pagination: Utils.pagination(response.result, (current) => {
+                        console.log(current);
+                        _this.params.page = current;
+                        _this.requestList();
+                    })
+                })
             }
-        } else {
-            data = {
-                page: 2,
-                page_size: 10,
-                total: 16,
-                list: [
-                    { "id": 10, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-                    { "id": 11, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-                    { "id": 12, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-                    { "id": 13, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-                    { "id": 14, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-                    { "id": 15, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
-                ]
-            }
-        }
+        }).catch((error) => {
 
-        // this.ajax({
-        //     url,
-        //     data
-        // }).then((data) => {
-        //     if (data && data.list) {
-        //         let list = data.list.item_list.map((item, index) => {
-        //             item.key = index;
-        //             return item;
-        //         });
-        _this.setState({
-            list: data.list,
-            selectedRowKeys: [],//重置
-            pagination: Utils.pagination(data, (current) => {
-                console.log(current);
-                _this.params.page = current;
-                _this.requestList();
-            })
+            // var data = {};
+
+            // if (params.page == 1) {
+            //     data = {
+            //         page: 1,
+            //         page_size: 10,
+            //         total: 2,
+            //         list: [
+            //             { "billno": "XJY2019121800007243", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKQC9", "cpreorderid": "1001B1100000000BKQCA", "customername": "散装测试客户", "dbilldate": "2019-12-18 15:53:12", "driveridentity": "330183198809081714", "drivername": "我们", "materialname": "散装测试", "ordernum": "2", "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "15858155946", "vehicle": "粤P06827" },
+            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": "2", "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" }
+            //         ]
+            //     }
+            // } else {
+            //     data = {
+            //         page: 2,
+            //         page_size: 10,
+            //         total: 16,
+            //         list: [
+            //             { "id": 10, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+            //             { "id": 11, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+            //             { "id": 12, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+            //             { "id": 13, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+            //             { "id": 14, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+            //             { "id": 15, "client": "trump", "date": "2019-12-09", "material": "leadleadleadleadleadleadlead", "amount": "2000", "status": "done", "vehicle": "浙A00000" },
+            //         ]
+            //     }
+            // }
+
+            // _this.setState({
+            //     list: data.list,
+            //     selectedRowKeys: [],//重置
+            //     pagination: Utils.pagination(data, (current) => {
+            //         console.log(current);
+            //         _this.params.page = current;
+            //         _this.requestList();
+            //     })
+            // })
+
+            if (String(error).toLowerCase().indexOf('timeout') != -1) {
+                Modal.info({
+                    title: '提示',
+                    content: '服务器繁忙，请稍后重试'
+                })
+            } else if (String(error).toLowerCase().indexOf('network') != -1) {
+                Modal.info({
+                    title: '提示',
+                    content: '服务器问失败，请稍后重试'
+                })
+            }
         })
-        //     }
-        // })
     }
 
     // 网上订货新增
-    static createNewOrder(_this, url, params) {
-        var data = {
-            params: params,
-        }
+    static createNewOrder(_this, url, data) {
+        // var data = {
+        //     params: params,
+        // }
 
         // _this.userForm.props.form.resetFields();
         // _this.setState({
@@ -227,7 +240,7 @@ export default class Axios {
 
     static ajax(options) {
         let loading;
-        if (options.data && options.data.isShowLoading !== false) {
+        if ((options.data || options.params) && options.isShowLoading !== false) {
             loading = document.getElementById('ajaxLoading');
             loading.style.display = 'block';
         }
@@ -240,12 +253,14 @@ export default class Axios {
                 method: options.method,
                 baseURL: baseApi,
                 timeout: 5000,
-                data: (options.data && options.data.params) || '',
+                // data: (options.data && options.data.params),
+                params: (options.params) || "",
+                data: (options.data) || "",
                 // paramsSerializer: function (params) {
                 //     return qs.stringify(params, { arrayFormat: 'indices' })
                 // }
             }).then((response) => {
-                if (options.data && options.data.isShowLoading !== false) {
+                if ((options.data || options.params) && options.isShowLoading !== false) {
                     loading = document.getElementById('ajaxLoading');
                     loading.style.display = 'none';
                 }
@@ -263,7 +278,7 @@ export default class Axios {
                     reject(response.data)
                 }
             }).catch((error) => {
-                if (options.data && options.data.isShowLoading !== false) {
+                if ((options.data || options.params) && options.isShowLoading !== false) {
                     loading = document.getElementById('ajaxLoading');
                     loading.style.display = 'none';
                 }

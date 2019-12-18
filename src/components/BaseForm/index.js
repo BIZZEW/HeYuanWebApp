@@ -73,9 +73,9 @@ class FilterForm extends React.Component {
                                     placeholder={[placeholder]}
                                     disabled={disabled}
                                     onSelect={(value) => {
-                                        if (field == "client") {
+                                        if (field == "customer") {
                                             this.getSubOptions({ "customer": value });
-                                            this.props.form.resetFields(["cementType"]);
+                                            this.props.form.resetFields(["pk_material"]);
                                         }
                                     }}
                                 >

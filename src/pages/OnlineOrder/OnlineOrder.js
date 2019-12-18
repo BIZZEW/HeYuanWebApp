@@ -32,10 +32,10 @@ export default class OnlineOrder extends React.Component {
 		{
 			type: 'SELECT',
 			label: '客户',
-			field: 'client',
+			field: 'customer',
 			placeholder: '请选择客户',
 			width: 200,
-			initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].customername) : undefined,
+			initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].customer) : undefined,
 			list: this.state.clientRef,
 			idKey: "customer",
 			valueKey: "customername"
@@ -43,29 +43,41 @@ export default class OnlineOrder extends React.Component {
 		{
 			type: 'SELECT',
 			label: '水泥品种',
-			field: 'cementType',
+			field: 'pk_material',
 			placeholder: '请选择水泥品种',
 			width: 200,
 			list: this.state.cementRef,
 			idKey: "pk_material",
 			valueKey: "name",
 		},
+		// {
+		// 	type: 'DATERANGE',
+		// 	label: '日期',
+		// 	field: 'date0',
+		// 	placeholder: '请输入日期'
+		// },
 		{
-			type: 'DATERANGE',
-			label: '日期',
-			field: 'date0',
-			placeholder: '请输入日期'
+			type: 'DATE',
+			label: '开始日期',
+			field: 'begindate',
+			placeholder: '请选择开始日期'
 		},
 		{
-			type: 'SELECT',
-			label: '车辆状态',
-			field: 'vehicleStatus',
-			placeholder: '请选择车辆状态',
-			width: 200,
-			list: sessionStorage.getItem('clientRef3'),
-			idKey: "customer",
-			valueKey: "customername"
+			type: 'DATE',
+			label: '结束日期',
+			field: 'enddate',
+			placeholder: '请选择结束日期'
 		},
+		// {
+		// 	type: 'SELECT',
+		// 	label: '车辆状态',
+		// 	field: 'vehicleStatus',
+		// 	placeholder: '请选择车辆状态',
+		// 	width: 200,
+		// 	list: sessionStorage.getItem('clientRef3'),
+		// 	idKey: "customer",
+		// 	valueKey: "customername"
+		// },
 	]
 
 	componentDidMount() {
@@ -81,7 +93,7 @@ export default class OnlineOrder extends React.Component {
 	}
 
 	requestList = () => {
-		axios.requestList(this, '/mock', this.params);
+		axios.requestList(this, '/querysaleorder', this.params);
 	}
 
 	//功能区操作
@@ -201,30 +213,30 @@ export default class OnlineOrder extends React.Component {
 
 	render() {
 		const columns = [
-			{
-				title: 'id',
-				dataIndex: 'id',
-				width: 100,
-			},
+			// {
+			// 	title: 'id',
+			// 	dataIndex: 'id',
+			// 	width: 100,
+			// },
 			{
 				title: '客户',
-				dataIndex: 'client'
+				dataIndex: 'customername'
 			},
 			{
 				title: '日期',
-				dataIndex: 'date'
+				dataIndex: 'dbilldate'
 			},
 			{
 				title: '物料',
-				dataIndex: 'material'
+				dataIndex: 'materialname'
 			},
 			{
 				title: '数量',
-				dataIndex: 'amount'
+				dataIndex: 'ordernum'
 			},
 			{
 				title: '过皮状态',
-				dataIndex: 'status',
+				dataIndex: 'billstatus',
 			},
 			{
 				title: '车号',
@@ -256,11 +268,6 @@ export default class OnlineOrder extends React.Component {
 				<Card>
 					<BaseForm wrappedComponentRef={(form) => this.formRef = form} formList={this.formList} filterSubmit={this.handleFilter} />
 				</Card>
-				{/* <Card style={{ marginTop: 10 }} className="operate-wrap">
-                    <Button type="primary" icon="plus" onClick={() => this.handleOperate('create')}>新增</Button>
-                    <Button type="primary" icon="delete" onClick={() => this.handleOperate('delete')}>删除</Button>
-                    <Button type="primary" icon="stop" onClick={() => this.handleOperate('delete')}>作废</Button>
-                </Card> */}
 				<div className="content-wrap">
 					<ETable
 						columns={columns}
