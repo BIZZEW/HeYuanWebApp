@@ -213,3 +213,11 @@
 //     border-right: 1px solid #e8e8e8;
 //     border-radius: 2px;
 // }
+
+.ant-table.ant-table-bordered .ant-table-title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+    letter-spacing: 5px;
+}

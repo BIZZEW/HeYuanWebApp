@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Button, Form, Input, Select, Radio, Icon, Modal, DatePicker, InputNumber, Divider } from 'antd'
+import { Card, Button, Form, Input, Select, Radio, Icon, Modal, DatePicker, InputNumber, Divider, Table } from 'antd'
 import axios from './../../axios'
 import Utils from './../../utils/utils'
 import BaseForm from './../../components/BaseForm'
@@ -11,11 +11,31 @@ const TextArea = Input.TextArea;
 const Option = Select.Option;
 const { RangePicker } = DatePicker;
 
+const data = [];
+for (let i = 0; i < 50; i++) {
+	data.push({
+		key: i,
+		date: '2019-12-18',
+		amount1: 10000,
+		amount2: 10000,
+		amount3: 10000,
+		amount4: 10000,
+		amount5: 10000,
+		price1: 100000,
+		price2: 100000,
+		price3: 100000,
+		price4: 100000,
+		price5: 100000,
+		totalAmount: 100000000,
+	});
+}
+
 export default class OnlineCheck extends React.Component {
 
 	state = {
 		list: [],
-		isVisible: false
+		isVisible: false,
+		level: true,
 	}
 
 	params = {
@@ -49,7 +69,7 @@ export default class OnlineCheck extends React.Component {
 	]
 
 	componentDidMount() {
-		// this.requestList();
+		this.requestList();
 	}
 
 	handleFilter = (params) => {
@@ -62,7 +82,7 @@ export default class OnlineCheck extends React.Component {
 	}
 
 	//功能区操作
-	handleOperate = (type) => {
+	handleOperate = (type, index) => {
 		let item = this.state.selectedItem;
 		if (type == 'create') {
 			this.setState({
@@ -85,19 +105,27 @@ export default class OnlineCheck extends React.Component {
 				userInfo: item
 			})
 		} else if (type == 'detail') {
-			if (!item) {
-				Modal.info({
-					title: '提示',
-					content: '请选择一个用户'
-				})
-				return;
-			}
 			this.setState({
-				type,
-				isVisible: true,
-				title: '员工详情',
-				userInfo: item
+				level: false
 			})
+
+			// this.goDetail(this.state.list[index]);
+
+
+
+			// if (!item) {
+			// 	Modal.info({
+			// 		title: '提示',
+			// 		content: '请选择一个用户'
+			// 	})
+			// 	return;
+			// }
+			// this.setState({
+			// 	type,
+			// 	isVisible: true,
+			// 	title: '员工详情',
+			// 	userInfo: item
+			// })
 		} else if (type == 'delete') {
 			if (!item) {
 				Modal.info({
@@ -131,25 +159,25 @@ export default class OnlineCheck extends React.Component {
 		}
 	}
 
-	//创建编辑员工提交
-	handleSubmit = () => {
-		let type = this.state.types;
-		let data = this.userForm.props.form.getFieldsValue();
-		axios.ajax({
-			url: type == 'create' ? '/user/add' : '/user/edit',
-			data: {
-				params: data
-			}
-		}).then((res) => {
-			if (res.code === 0) {
-				this.userForm.props.form.resetFields();
-				this.setState({
-					isVisible: false
-				})
-				this.requestList();
-			}
-		})
-	}
+	// //创建编辑员工提交
+	// handleSubmit = () => {
+	// 	let type = this.state.types;
+	// 	let data = this.userForm.props.form.getFieldsValue();
+	// 	axios.ajax({
+	// 		url: type == 'create' ? '/user/add' : '/user/edit',
+	// 		data: {
+	// 			params: data
+	// 		}
+	// 	}).then((res) => {
+	// 		if (res.code === 0) {
+	// 			this.userForm.props.form.resetFields();
+	// 			this.setState({
+	// 				isVisible: false
+	// 			})
+	// 			this.requestList();
+	// 		}
+	// 	})
+	// }
 
 	calTableHeight = () => {
 		let clientHeight = document.body.clientHeight;
@@ -157,7 +185,20 @@ export default class OnlineCheck extends React.Component {
 		let tabsHeight = document.getElementsByClassName('ant-tabs-nav-scroll')[0].offsetHeight;
 		let cardHeight = 65;
 		let gapsHeight = 25;
-		let headernfooterHeight = 120;
+		let headernfooterHeight = 55;
+		let paginationHeight = 65;
+		let tableHeight = clientHeight - headerHeight - tabsHeight - cardHeight - gapsHeight - headernfooterHeight - paginationHeight;
+		console.log("tableHeight: " + tableHeight + " clientHeight: " + clientHeight + " headerHeight: " + headerHeight + " tabsHeight: " + tabsHeight);
+		return tableHeight;
+	}
+
+	calTableHeight2 = () => {
+		let clientHeight = document.body.clientHeight;
+		let headerHeight = document.getElementsByClassName('header')[0].offsetHeight;
+		let tabsHeight = document.getElementsByClassName('ant-tabs-nav-scroll')[0].offsetHeight;
+		let cardHeight = 65;
+		let gapsHeight = 25;
+		let headernfooterHeight = 55;
 		let paginationHeight = 65;
 		let tableHeight = clientHeight - headerHeight - tabsHeight - cardHeight - gapsHeight - headernfooterHeight - paginationHeight;
 		console.log("tableHeight: " + tableHeight + " clientHeight: " + clientHeight + " headerHeight: " + headerHeight + " tabsHeight: " + tabsHeight);
@@ -211,78 +252,111 @@ export default class OnlineCheck extends React.Component {
 			key: 'action',
 			render: (text, record) => (
 				<span>
-					<a>详情 {record.name}</a>
-					{/* <Divider type="vertical" /> */}
-					<a>编辑</a>
+					<Button type="primary" onClick={() => this.handleOperate('detail', record.id)} icon="search">详情</Button>
 				</span>
 			),
 		},
 		];
 
-
-		// const columns = [{
-		// 	title: 'id',
-		// 	dataIndex: 'id'
-		// },
-		// {
-		// 	title: '客户',
-		// 	dataIndex: 'client'
-		// },
-		// {
-		// 	title: '日期',
-		// 	dataIndex: 'date'
-		// },
-		// {
-		// 	title: '物料',
-		// 	dataIndex: 'material'
-		// },
-		// {
-		// 	title: '数量',
-		// 	dataIndex: 'amount'
-		// },
-		// {
-		// 	title: '数量',
-		// 	dataIndex: 'amount'
-		// },
-		// {
-		// 	title: '过皮状态',
-		// 	dataIndex: 'status',
-		// },
-		// {
-		// 	title: '车号',
-		// 	dataIndex: 'vehicle',
-		// },
-
-		// 	// {
-		// 	// 	title: '状态',
-		// 	// 	dataIndex: 'state',
-		// 	// 	render(state) {
-		// 	// 		let config = {
-		// 	// 			'1': '咸鱼一条',
-		// 	// 			'2': '风华浪子',
-		// 	// 			'3': '北大才子一枚',
-		// 	// 			'4': '百度FE',
-		// 	// 			'5': '创业者'
-		// 	// 		}
-		// 	// 		return config[state];
-		// 	// 	}
-		// 	// }, {
-		// 	// 	title: '婚姻',
-		// 	// 	dataIndex: 'isMarried',
-		// 	// 	render(isMarried) {
-		// 	// 		return isMarried == 1 ? '已婚' : '未婚'
-		// 	// 	}
-		// 	// }, {
-		// 	// 	title: '生日',
-		// 	// 	dataIndex: 'birthday'
-		// 	// }, {
-		// 	// 	title: '联系地址',
-		// 	// 	dataIndex: 'address'
-		// 	// }, {
-		// 	// 	title: '早起时间',
-		// 	// 	dataIndex: 'time'
-		// 	// }
-		// ];
+		const columns2 = [
+			{
+				title: '日期',
+				dataIndex: 'date',
+				key: 'date',
+				width: 200,
+			},
+			{
+				title: '金圆品种1',
+				children: [
+					{
+						title: '数量',
+						dataIndex: 'amount1',
+						key: 'amount1',
+						width: 200,
+					},
+					{
+						title: '单价',
+						dataIndex: 'price1',
+						key: 'price1',
+						width: 200,
+					},
+				],
+			},
+			{
+				title: '金圆品种2',
+				children: [
+					{
+						title: '数量',
+						dataIndex: 'amount2',
+						key: 'amount2',
+						width: 200,
+					},
+					{
+						title: '单价',
+						dataIndex: 'price2',
+						key: 'price2',
+						width: 200,
+					},
+				],
+			},
+			{
+				title: '金圆品种3',
+				children: [
+					{
+						title: '数量',
+						dataIndex: 'amount3',
+						key: 'amount3',
+						width: 200,
+					},
+					{
+						title: '单价',
+						dataIndex: 'price3',
+						key: 'price3',
+						width: 200,
+					},
+				],
+			},
+			{
+				title: '金圆品种4',
+				children: [
+					{
+						title: '数量',
+						dataIndex: 'amount4',
+						key: 'amount4',
+						width: 200,
+					},
+					{
+						title: '单价',
+						dataIndex: 'price4',
+						key: 'price4',
+						width: 200,
+					},
+				],
+			},
+			{
+				title: '金圆品种5',
+				children: [
+					{
+						title: '数量',
+						dataIndex: 'amount5',
+						key: 'amount5',
+						width: 200,
+					},
+					{
+						title: '单价',
+						dataIndex: 'price5',
+						key: 'price5',
+						width: 200,
+					},
+				],
+			},
+			{
+				title: '总吨位',
+				dataIndex: 'totalAmount',
+				key: 'totalAmount',
+				width: 200,
+			},
+		];
 
 		let footer = {};
 		if (this.state.type == 'detail') {
@@ -291,33 +365,35 @@ export default class OnlineCheck extends React.Component {
 			}
 		}
 
-		return (
-			<div>
-				<Card>
-					<BaseForm formList={this.formList} filterSubmit={this.handleFilter} />
-				</Card>
-				{/* <Card style={{ marginTop: 10 }} className="operate-wrap">
+		if (this.state.level) {
+			return (
+				<div>
+					<Card>
+						<BaseForm formList={this.formList} filterSubmit={this.handleFilter} />
+					</Card>
+					{/* <Card style={{ marginTop: 10 }} className="operate-wrap">
 					<Button type="primary" icon="plus" onClick={() => this.handleOperate('create')}>新增</Button>
 					<Button type="primary" icon="delete" onClick={() => this.handleOperate('delete')}>删除</Button>
 				</Card> */}
-				<div className="content-wrap">
-					<ETable
-						columns={columns}
-						updateSelectedItem={Utils.updateSelectedItem.bind(this)}
-						selectedRowKeys={this.state.selectedRowKeys}
-						selectedItem={this.state.selectedItem}
-						dataSource={this.state.list}
-						pagination={this.state.pagination}
-						scroll={{ y: this.calTableHeight() }}
-						footer={() => {
-							return <div>
-								<Button type="primary" icon="plus" onClick={() => this.handleOperate('create')}>新增</Button>
-								<Button type="primary" icon="delete" style={{ marginLeft: "10px" }} onClick={() => this.handleOperate('delete')}>删除</Button>
-							</div>
-						}}
-					/>
-				</div>
-				<Modal
+					<div className="content-wrap">
+						<ETable
+							columns={columns}
+							updateSelectedItem={Utils.updateSelectedItem.bind(this)}
+							selectedRowKeys={this.state.selectedRowKeys}
+							selectedItem={this.state.selectedItem}
+							dataSource={this.state.list}
+							pagination={this.state.pagination}
+							scroll={{ y: this.calTableHeight() }}
+						// footer={() => {
+						// 	return <div>
+						// 		<Button type="primary" icon="plus" onClick={() => this.handleOperate('create')}>新增</Button>
+						// 		<Button type="primary" icon="delete" style={{ marginLeft: "10px" }} onClick={() => this.handleOperate('delete')}>删除</Button>
+						// 	</div>
+						// }}
+						/>
+					</div>
+
+					{/* <Modal
 					title={this.state.title}
 					visible={this.state.isVisible}
 					onOk={this.handleSubmit}
@@ -331,132 +407,152 @@ export default class OnlineCheck extends React.Component {
 					{...footer}
 				>
 					<UserForm type={this.state.type} userInfo={this.state.userInfo} wrappedComponentRef={(inst) => { this.userForm = inst; }} />
-				</Modal>
-			</div>
-		)
+				</Modal> */}
+				</div>
+			)
+		} else {
+			return (
+				<div>
+					<Button type="primary" onClick={() => { this.setState({ level: true }) }} icon="caret-left">返回</Button>
+					<div className="content-wrap">
+						<Table
+							columns={columns2}
+							// updateSelectedItem={Utils.updateSelectedItem.bind(this)}
+							// selectedRowKeys={this.state.selectedRowKeys}
+							// selectedItem={this.state.selectedItem}
+							dataSource={data}
+							pagination={this.state.pagination}
+							bordered={true}
+							scroll={{ y: this.calTableHeight2(), x: 500 }}
+							title={() => '河源对账单'}
+						/>
+					</div>
+				</div>
+			)
+		}
 	}
 }
 
 //子组件：创建员工表单
-class UserForm extends React.Component {
+// class UserForm extends React.Component {
 
-	getState = (state) => {
-		let config = {
-			'1': '咸鱼一条',
-			'2': '风华浪子',
-			'3': '北大才子一枚',
-			'4': '百度FE',
-			'5': '创业者'
-		}
-		return config[state];
-	}
+// 	getState = (state) => {
+// 		let config = {
+// 			'1': '咸鱼一条',
+// 			'2': '风华浪子',
+// 			'3': '北大才子一枚',
+// 			'4': '百度FE',
+// 			'5': '创业者'
+// 		}
+// 		return config[state];
+// 	}
 
-	render() {
-		let type = this.props.type;
-		let userInfo = this.props.userInfo || {};
-		const { getFieldDecorator } = this.props.form;
-		const formItemLayout = {
-			labelCol: { span: 5 },
-			wrapperCol: { span: 19 }
-		}
-		return (
-			<Form layout="horizontal">
-				<FormItem label="对账单号" {...formItemLayout}>
-					{
-						type == 'detail' ? userInfo.orderId :
-							getFieldDecorator('orderId', {
-								initialValue: userInfo.orderId
-							})(
-								<Input type="text" placeholder="请输入对账单号" />
-							)
-					}
-				</FormItem>
-				<FormItem label="对账日期" {...formItemLayout}>
-					{
-						type == 'detail' ? userInfo.date :
-							getFieldDecorator('date', {
-								initialValue: moment(userInfo.date)
-							})(
-								<DatePicker format="YYYY-MM-DD" />
-							)
-					}
-				</FormItem>
-				<FormItem label="客户" {...formItemLayout}>
-					{
-						type == 'detail' ? this.getState(userInfo.client) :
-							getFieldDecorator('client', {
-								initialValue: userInfo.client || undefined
-							})(
-								<Select
-									placeholder={"请选择客户"}>
-									<Option value={1}>特朗普</Option>
-									<Option value={2}>普京</Option>
-									<Option value={3}>默克尔</Option>
-									<Option value={4}>马克龙</Option>
-									<Option value={5}>安倍</Option>
-								</Select>
-							)
-					}
-				</FormItem>
+// 	render() {
+// 		let type = this.props.type;
+// 		let userInfo = this.props.userInfo || {};
+// 		const { getFieldDecorator } = this.props.form;
+// 		const formItemLayout = {
+// 			labelCol: { span: 5 },
+// 			wrapperCol: { span: 19 }
+// 		}
+// 		return (
+// 			<Form layout="horizontal">
+// 				<FormItem label="对账单号" {...formItemLayout}>
+// 					{
+// 						type == 'detail' ? userInfo.orderId :
+// 							getFieldDecorator('orderId', {
+// 								initialValue: userInfo.orderId
+// 							})(
+// 								<Input type="text" placeholder="请输入对账单号" />
+// 							)
+// 					}
+// 				</FormItem>
+// 				<FormItem label="对账日期" {...formItemLayout}>
+// 					{
+// 						type == 'detail' ? userInfo.date :
+// 							getFieldDecorator('date', {
+// 								initialValue: moment(userInfo.date)
+// 							})(
+// 								<DatePicker format="YYYY-MM-DD" />
+// 							)
+// 					}
+// 				</FormItem>
+// 				<FormItem label="客户" {...formItemLayout}>
+// 					{
+// 						type == 'detail' ? this.getState(userInfo.client) :
+// 							getFieldDecorator('client', {
+// 								initialValue: userInfo.client || undefined
+// 							})(
+// 								<Select
+// 									placeholder={"请选择客户"}>
+// 									<Option value={1}>特朗普</Option>
+// 									<Option value={2}>普京</Option>
+// 									<Option value={3}>默克尔</Option>
+// 									<Option value={4}>马克龙</Option>
+// 									<Option value={5}>安倍</Option>
+// 								</Select>
+// 							)
+// 					}
+// 				</FormItem>
 
-				<FormItem label="起止日期" {...formItemLayout}>
-					{
-						type == 'detail' ? this.getState(userInfo.lastBalance) :
-							getFieldDecorator('lastBalance', {
-								initialValue: userInfo.lastBalance
-							})(
-								<RangePicker />
-								// <RangePicker showTime={true} placeholder={placeholder} format="YYYY-MM-DD HH:mm:ss" />
-							)
-					}
-				</FormItem>
+// 				<FormItem label="起止日期" {...formItemLayout}>
+// 					{
+// 						type == 'detail' ? this.getState(userInfo.lastBalance) :
+// 							getFieldDecorator('lastBalance', {
+// 								initialValue: userInfo.lastBalance
+// 							})(
+// 								<RangePicker />
+// 								// <RangePicker showTime={true} placeholder={placeholder} format="YYYY-MM-DD HH:mm:ss" />
+// 							)
+// 					}
+// 				</FormItem>
 
-				<FormItem label="上期余额" {...formItemLayout}>
-					{
-						type == 'detail' ? this.getState(userInfo.lastBalance) :
-							getFieldDecorator('lastBalance', {
-								initialValue: userInfo.lastBalance
-							})(
-								<InputNumber min={1} defaultValue={0} />
-							)
-					}
-				</FormItem>
+// 				<FormItem label="上期余额" {...formItemLayout}>
+// 					{
+// 						type == 'detail' ? this.getState(userInfo.lastBalance) :
+// 							getFieldDecorator('lastBalance', {
+// 								initialValue: userInfo.lastBalance
+// 							})(
+// 								<InputNumber min={1} defaultValue={0} />
+// 							)
+// 					}
+// 				</FormItem>
 
-				<FormItem label="本期应收款" {...formItemLayout}>
-					{
-						type == 'detail' ? this.getState(userInfo.currentShouldcome) :
-							getFieldDecorator('currentShouldcome', {
-								initialValue: userInfo.currentShouldcome
-							})(
-								<InputNumber min={1} defaultValue={0} />
-							)
-					}
-				</FormItem>
+// 				<FormItem label="本期应收款" {...formItemLayout}>
+// 					{
+// 						type == 'detail' ? this.getState(userInfo.currentShouldcome) :
+// 							getFieldDecorator('currentShouldcome', {
+// 								initialValue: userInfo.currentShouldcome
+// 							})(
+// 								<InputNumber min={1} defaultValue={0} />
+// 							)
+// 					}
+// 				</FormItem>
 
-				<FormItem label="本期已收款" {...formItemLayout}>
-					{
-						type == 'detail' ? this.getState(userInfo.currentIncome) :
-							getFieldDecorator('currentIncome', {
-								initialValue: userInfo.currentIncome
-							})(
-								<InputNumber min={1} defaultValue={0} />
-							)
-					}
-				</FormItem>
+// 				<FormItem label="本期已收款" {...formItemLayout}>
+// 					{
+// 						type == 'detail' ? this.getState(userInfo.currentIncome) :
+// 							getFieldDecorator('currentIncome', {
+// 								initialValue: userInfo.currentIncome
+// 							})(
+// 								<InputNumber min={1} defaultValue={0} />
+// 							)
+// 					}
+// 				</FormItem>
 
-				<FormItem label="本期余额" {...formItemLayout}>
-					{
-						type == 'detail' ? this.getState(userInfo.currentBalance) :
-							getFieldDecorator('currentBalance', {
-								initialValue: userInfo.currentBalance
-							})(
-								<InputNumber min={1} defaultValue={0} />
-							)
-					}
-				</FormItem>
+// 				<FormItem label="本期余额" {...formItemLayout}>
+// 					{
+// 						type == 'detail' ? this.getState(userInfo.currentBalance) :
+// 							getFieldDecorator('currentBalance', {
+// 								initialValue: userInfo.currentBalance
+// 							})(
+// 								<InputNumber min={1} defaultValue={0} />
+// 							)
+// 					}
+// 				</FormItem>
 
-			</Form>
-		)
-	}
-}
-UserForm = Form.create({})(UserForm);
+// 			</Form>
+// 		)
+// 	}
+// }
+// UserForm = Form.create({})(UserForm);

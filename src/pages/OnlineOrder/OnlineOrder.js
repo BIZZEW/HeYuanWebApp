@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, Button, Form, Input, Select, Radio, Icon, Modal, DatePicker, InputNumber, Divider, Table } from 'antd'
 import axios from './../../axios'
+import qs from 'qs'
 import Utils from './../../utils/utils'
 import BaseForm from './../../components/BaseForm'
 import ETable from './../../components/ETable'
@@ -18,6 +19,9 @@ export default class OnlineOrder extends React.Component {
 		isVisible: false,
 		clientRef: sessionStorage.getItem('clientRef') || [],
 		cementRef: sessionStorage.getItem('cementRef') || [],
+
+		// 发货库存组织PK(隐藏字段)
+		sendstockorg: "",
 	}
 
 	params = {
@@ -65,7 +69,7 @@ export default class OnlineOrder extends React.Component {
 	]
 
 	componentDidMount() {
-		// this.requestList();
+		this.requestList();
 		// this.getSubOptions(eval(this.state.clientRef)[0]);
 		// axios.getOptions(this, '/querycemtype', eval(this.state.clientRef)[0]);
 	}
@@ -91,11 +95,11 @@ export default class OnlineOrder extends React.Component {
 			})
 		} else if (type == 'edit') {
 			// if (!item) {
-			// 	Modal.info({
-			// 		title: '提示',
-			// 		content: '请选择一个用户'
-			// 	})
-			// 	return;
+			//  Modal.info({
+			//      title: '提示',
+			//      content: '请选择一个用户'
+			//  })
+			//  return;
 			// }
 			this.setState({
 				type,
@@ -105,11 +109,11 @@ export default class OnlineOrder extends React.Component {
 			})
 		} else if (type == 'detail') {
 			// if (!item) {
-			// 	Modal.info({
-			// 		title: '提示',
-			// 		content: '请选择一个用户'
-			// 	})
-			// 	return;
+			//  Modal.info({
+			//      title: '提示',
+			//      content: '请选择一个用户'
+			//  })
+			//  return;
 			// }
 			console.log(index);
 			this.setState({
@@ -153,24 +157,27 @@ export default class OnlineOrder extends React.Component {
 
 	//创建编辑员工提交
 	handleSubmit = () => {
-		let type = this.state.types;
+		let type = this.state.type;
 		let data = this.userForm.props.form.getFieldsValue();
 		this.userForm.props.form.validateFields((err, values) => {
 			if (!err) {
-				axios.ajax({
-					url: type == 'create' ? '/user/add' : '/user/edit',
-					data: {
-						params: data
-					}
-				}).then((res) => {
-					if (res.code === 0) {
-						this.userForm.props.form.resetFields();
-						this.setState({
-							isVisible: false
-						})
-						this.requestList();
-					}
-				})
+				//  axios.ajax({
+				//      url: type == 'create' ? '/addsaleorder' : '/user/edit',
+				//      data: {
+				//          params: data
+				//      }
+				//  }).then((res) => {
+				//      if (res.code === 0) {
+				//          this.userForm.props.form.resetFields();
+				//          this.setState({
+				//              isVisible: false
+				//          })
+				//          this.requestList();
+				//      }
+				//  })
+
+				axios.createNewOrder(this, (type == 'create' ? '/addsaleorder' : '/user/edit'), qs.stringify(data));
+
 			}
 		});
 	}
@@ -185,7 +192,7 @@ export default class OnlineOrder extends React.Component {
 		let tabsHeight = document.getElementsByClassName('ant-tabs-nav-scroll')[0].offsetHeight;
 		let cardHeight = 65;
 		let gapsHeight = 25;
-		let headernfooterHeight = 120;
+		let headernfooterHeight = 122;
 		let paginationHeight = 65;
 		let tableHeight = clientHeight - headerHeight - tabsHeight - cardHeight - gapsHeight - headernfooterHeight - paginationHeight;
 		console.log("tableHeight: " + tableHeight + " clientHeight: " + clientHeight + " headerHeight: " + headerHeight + " tabsHeight: " + tabsHeight);
@@ -250,10 +257,10 @@ export default class OnlineOrder extends React.Component {
 					<BaseForm wrappedComponentRef={(form) => this.formRef = form} formList={this.formList} filterSubmit={this.handleFilter} />
 				</Card>
 				{/* <Card style={{ marginTop: 10 }} className="operate-wrap">
-					<Button type="primary" icon="plus" onClick={() => this.handleOperate('create')}>新增</Button>
-					<Button type="primary" icon="delete" onClick={() => this.handleOperate('delete')}>删除</Button>
-					<Button type="primary" icon="stop" onClick={() => this.handleOperate('delete')}>作废</Button>
-				</Card> */}
+                    <Button type="primary" icon="plus" onClick={() => this.handleOperate('create')}>新增</Button>
+                    <Button type="primary" icon="delete" onClick={() => this.handleOperate('delete')}>删除</Button>
+                    <Button type="primary" icon="stop" onClick={() => this.handleOperate('delete')}>作废</Button>
+                </Card> */}
 				<div className="content-wrap">
 					<ETable
 						columns={columns}
@@ -336,9 +343,9 @@ class UserForm extends React.Component {
 
 	handleSubmit = () => {
 		this.setState({ isVisible2: false });
-		this.props.form.setFieldsValue({ 'driver': this.state.selectedRowKeys.drivername });
-		this.props.form.setFieldsValue({ 'phoneNumber': this.state.selectedRowKeys.telphone });
-		this.props.form.setFieldsValue({ 'IDNumber': this.state.selectedRowKeys.driveridentity });
+		this.props.form.setFieldsValue({ 'drivername': this.state.selectedRowKeys.drivername });
+		this.props.form.setFieldsValue({ 'telphone': this.state.selectedRowKeys.telphone });
+		this.props.form.setFieldsValue({ 'driveridentity': this.state.selectedRowKeys.driveridentity });
 	}
 
 	render() {
@@ -374,38 +381,38 @@ class UserForm extends React.Component {
 		return (
 			<div>
 				<Form layout="horizontal">
-					<FormItem label="订单号" {...formItemLayout}>
-						{
-							type == 'detail' ? userInfo.orderId :
-								getFieldDecorator('orderId', {
-									initialValue: userInfo.orderId
-								})(
-									<Input type="text" placeholder="请输入订单号" />
-								)
-						}
-					</FormItem>
-					<FormItem label="日期" {...formItemLayout}>
-						{
-							type == 'detail' ? userInfo.date :
-								getFieldDecorator('date', {
-									initialValue: moment(userInfo.date)
-								})(
-									<DatePicker format="YYYY-MM-DD" />
-								)
-						}
-					</FormItem>
+					{/* <FormItem label="订单号" {...formItemLayout}>
+                        {
+                            type == 'detail' ? userInfo.orderId :
+                                getFieldDecorator('orderId', {
+                                    initialValue: userInfo.orderId
+                                })(
+                                    <Input type="text" placeholder="请输入订单号" />
+                                )
+                        }
+                    </FormItem> */}
+					{/* <FormItem label="日期" {...formItemLayout}>
+                        {
+                            type == 'detail' ? userInfo.date :
+                                getFieldDecorator('date', {
+                                    initialValue: moment(userInfo.date)
+                                })(
+                                    <DatePicker format="YYYY-MM-DD" />
+                                )
+                        }
+                    </FormItem> */}
 					<FormItem label="客户" {...formItemLayout}>
 						{
-							type == 'detail' ? this.getState(userInfo.client) :
-								getFieldDecorator('client', {
+							type == 'detail' ? this.getState(userInfo.customer) :
+								getFieldDecorator('customer', {
 									// initialValue: userInfo.client || undefined,
-									initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].customername) : undefined,
+									initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].customer) : undefined,
 								})(
 									<Select
 										placeholder={"请选择客户"}
 										onChange={(value) => {
 											this.getSubOptions({ "customer": value });
-											this.props.form.resetFields(["company", "cementType"]);
+											this.props.form.resetFields(["pk_salesorg", "pk_material"]);
 										}}>
 										{Utils.getOptionList({
 											list: this.state.clientRef,
@@ -418,9 +425,9 @@ class UserForm extends React.Component {
 					</FormItem>
 					<FormItem label="销售单位" {...formItemLayout}>
 						{
-							type == 'detail' ? this.getState(userInfo.company) :
-								getFieldDecorator('company', {
-									initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].saleorgname) : undefined,
+							type == 'detail' ? this.getState(userInfo.pk_salesorg) :
+								getFieldDecorator('pk_salesorg', {
+									initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].saleorg) : undefined,
 								})(
 									<Select
 										placeholder={"请选择销售单位"}>
@@ -433,14 +440,31 @@ class UserForm extends React.Component {
 								)
 						}
 					</FormItem>
+					<FormItem label="发货企业" {...formItemLayout}>
+						{
+							type == 'detail' ? this.getState(userInfo.sendstockorg) :
+								getFieldDecorator('sendstockorg', {
+									initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].sendstockorg) : undefined,
+								})(
+									<Select
+										placeholder={"请选择发货企业"} disabled>
+										{Utils.getOptionList({
+											list: this.state.clientRef,
+											idKey: "sendstockorg",
+											valueKey: "sendstockorgname"
+										})}
+									</Select>
+								)
+						}
+					</FormItem>
 
 					<Divider />
 
 					<FormItem label="水泥品种" {...formItemLayout}>
 						{
-							type == 'detail' ? this.getState(userInfo.cementType) :
-								getFieldDecorator('cementType', {
-									initialValue: userInfo.cementType || undefined
+							type == 'detail' ? this.getState(userInfo.pk_material) :
+								getFieldDecorator('pk_material', {
+									initialValue: userInfo.pk_material || undefined
 								})(
 									<Select
 										placeholder={"请选择水泥品种"}>
@@ -455,24 +479,24 @@ class UserForm extends React.Component {
 					</FormItem>
 					<FormItem label="数量" {...formItemLayout}>
 						{
-							type == 'detail' ? this.getState(userInfo.amount) :
-								getFieldDecorator('amount', {
-									initialValue: userInfo.amount
+							type == 'detail' ? this.getState(userInfo.ordernum) :
+								getFieldDecorator('ordernum', {
+									initialValue: userInfo.ordernum
 								})(
 									<InputNumber min={1} defaultValue={0} />
 								)
 						}
 					</FormItem>
-					<FormItem label="单位" {...formItemLayout}>
-						{
-							type == 'detail' ? this.getState(userInfo.unit) :
-								getFieldDecorator('unit', {
-									initialValue: userInfo.unit
-								})(
-									<Input type="text" placeholder="请输入单位" />
-								)
-						}
-					</FormItem>
+					{/* <FormItem label="单位" {...formItemLayout}>
+                        {
+                            type == 'detail' ? this.getState(userInfo.unit) :
+                                getFieldDecorator('unit', {
+                                    initialValue: userInfo.unit
+                                })(
+                                    <Input type="text" placeholder="请输入单位" />
+                                )
+                        }
+                    </FormItem> */}
 
 					<Divider />
 
@@ -499,10 +523,10 @@ class UserForm extends React.Component {
 					</FormItem>
 					<FormItem label="司机姓名" {...formItemLayout}>
 						{
-							type == 'detail' ? this.getState(userInfo.driver) :
-								getFieldDecorator('driver', {
-									initialValue: userInfo.driver,
-									rules: [{ required: true, message: '请获取司机信息!' }],
+							type == 'detail' ? this.getState(userInfo.drivername) :
+								getFieldDecorator('drivername', {
+									initialValue: userInfo.drivername,
+									// rules: [{ required: true, message: '请获取司机信息!' }],
 								})(
 									<Input type="text" placeholder="请获取司机信息" disabled />
 								)
@@ -510,10 +534,10 @@ class UserForm extends React.Component {
 					</FormItem>
 					<FormItem label="手机号" {...formItemLayout}>
 						{
-							type == 'detail' ? this.getState(userInfo.phoneNumber) :
-								getFieldDecorator('phoneNumber', {
-									initialValue: userInfo.phoneNumber,
-									rules: [{ required: true, message: '请获取司机信息!' }],
+							type == 'detail' ? this.getState(userInfo.telphone) :
+								getFieldDecorator('telphone', {
+									initialValue: userInfo.telphone,
+									// rules: [{ required: true, message: '请获取司机信息!' }],
 								})(
 									<Input type="text" placeholder="请获取司机信息" disabled />
 								)
@@ -521,10 +545,10 @@ class UserForm extends React.Component {
 					</FormItem>
 					<FormItem label="身份证" {...formItemLayout}>
 						{
-							type == 'detail' ? this.getState(userInfo.IdNumber) :
-								getFieldDecorator('IDNumber', {
-									initialValue: userInfo.IdNumber,
-									rules: [{ required: true, message: '请获取司机信息!' }],
+							type == 'detail' ? this.getState(userInfo.driveridentity) :
+								getFieldDecorator('driveridentity', {
+									initialValue: userInfo.driveridentity,
+									// rules: [{ required: true, message: '请获取司机信息!' }],
 								})(
 									<Input type="text" placeholder="请获取司机信息" disabled />
 								)
