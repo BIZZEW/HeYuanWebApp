@@ -104,6 +104,8 @@ export default class Axios {
         //     params: params,
         // }
 
+        params.username = sessionStorage.getItem('userName');
+
         this.ajax({
             url,
             params,
@@ -206,6 +208,52 @@ export default class Axios {
                     Modal.info({
                         title: '提示',
                         content: '新增成功'
+                    })
+                }
+            }
+        }).catch((error) => {
+            if (String(error).toLowerCase().indexOf('timeout') != -1) {
+                Modal.info({
+                    title: '提示',
+                    content: '服务器繁忙，请稍后重试'
+                })
+            } else if (String(error).toLowerCase().indexOf('network') != -1) {
+                Modal.info({
+                    title: '提示',
+                    content: '服务器问失败，请稍后重试'
+                })
+            }
+        })
+    }
+
+    // 网上订货删除
+    static deleteOrder(_this, url, data) {
+        // var data = {
+        //     params: params,
+        // }
+
+        // _this.userForm.props.form.resetFields();
+        // _this.setState({
+        //     isVisible: false
+        // })
+        // _this.requestList();
+        // Modal.info({
+        //     title: '提示',
+        //     content: '新增成功'
+        // })
+
+        this.ajax({
+            url,
+            data,
+            method: "post"
+        }).then((response) => {
+            if (response.status === 200) {
+                let res = response.data;
+                if (res.code === 0) {
+                    _this.requestList();
+                    Modal.info({
+                        title: '提示',
+                        content: '删除成功'
                     })
                 }
             }

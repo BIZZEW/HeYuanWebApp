@@ -103,7 +103,7 @@ class FilterForm extends React.Component {
                     const DATEPICKER = <FormItem label={label} key={field}>
                         {
                             getFieldDecorator([field])(
-                                <DatePicker showTime={true} placeholder={placeholder} format="YYYY-MM-DD HH:mm:ss" />
+                                <DatePicker showTime={true} placeholder={placeholder} format="YYYY-MM-DD" />
                             )
                         }
                     </FormItem>;

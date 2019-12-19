@@ -32,7 +32,7 @@ export const login = (loginObject) => {
 
 		axios({
 			url: "/login",
-			method: 'get',
+			method: 'post',
 			baseURL: baseApi,
 			timeout: 5000,
 			// params: qs.stringify(data),

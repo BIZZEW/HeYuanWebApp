@@ -93,6 +93,15 @@ export default class OnlineOrder extends React.Component {
 	}
 
 	requestList = () => {
+		if (this.params.begindate) {
+			this.params.begindate = this.params.begindate.format("YYYY-MM-DD");
+		}
+
+		if (this.params.enddate) {
+			this.params.enddate = this.params.enddate.format("YYYY-MM-DD");
+		}
+		// this.params.begindate = this.params.begindate ? this.params.begindate.split('T')[0] : this.params.begindate;
+		// this.params.enddate = this.params.enddate? this.params.enddate.split('T')[0] : this.params.enddate;
 		axios.requestList(this, '/querysaleorder', this.params);
 	}
 
@@ -147,21 +156,24 @@ export default class OnlineOrder extends React.Component {
 				title: '确认删除',
 				content: `是否要删除当前选中数据`,
 				onOk() {
-					axios.ajax({
-						url: '/user/delete',
-						data: {
-							params: {
-								id: item.id
-							}
-						}
-					}).then((res) => {
-						if (res.code === 0) {
-							_this.setState({
-								isVisible: false
-							})
-							_this.requestList();
-						}
-					})
+					// axios.ajax({
+					// 	url: '/invalidsaleorder',
+					// 	data: {
+					// 		params: {
+					// 			id: item.id
+					// 		}
+					// 	}
+					// }).then((res) => {
+					// 	if (res.code === 0) {
+					// 		_this.setState({
+					// 			isVisible: false
+					// 		})
+					// 		_this.requestList();
+					// 	}
+					// })
+					let data = item;
+					// console.log(data);
+					axios.deleteOrder(_this, 'invalidsaleorder', qs.stringify(data));
 				}
 			})
 		}
@@ -189,7 +201,6 @@ export default class OnlineOrder extends React.Component {
 				//  })
 
 				axios.createNewOrder(this, (type == 'create' ? '/addsaleorder' : '/user/edit'), qs.stringify(data));
-
 			}
 		});
 	}
@@ -282,7 +293,7 @@ export default class OnlineOrder extends React.Component {
 							return <div>
 								<Button type="primary" icon="plus" onClick={() => this.handleOperate('create')}>新增</Button>
 								<Button type="primary" icon="delete" style={{ marginLeft: "10px" }} onClick={() => this.handleOperate('delete')}>删除</Button>
-								<Button type="primary" icon="stop" style={{ marginLeft: "10px" }} onClick={() => this.handleOperate('delete')}>作废</Button>
+								{/* <Button type="primary" icon="stop" style={{ marginLeft: "10px" }} onClick={() => this.handleOperate('delete')}>作废</Button> */}
 							</div>
 						}}
 					/>
@@ -533,7 +544,7 @@ class UserForm extends React.Component {
 							type == 'detail' ? this.getState(userInfo.drivername) :
 								getFieldDecorator('drivername', {
 									initialValue: userInfo.drivername,
-									// rules: [{ required: true, message: '请获取司机信息!' }],
+									rules: [{ required: true, message: '请获取司机信息!' }],
 								})(
 									<Input type="text" placeholder="请获取司机信息" disabled />
 								)
@@ -544,7 +555,7 @@ class UserForm extends React.Component {
 							type == 'detail' ? this.getState(userInfo.telphone) :
 								getFieldDecorator('telphone', {
 									initialValue: userInfo.telphone,
-									// rules: [{ required: true, message: '请获取司机信息!' }],
+									rules: [{ required: true, message: '请获取司机信息!' }],
 								})(
 									<Input type="text" placeholder="请获取司机信息" disabled />
 								)
@@ -555,7 +566,7 @@ class UserForm extends React.Component {
 							type == 'detail' ? this.getState(userInfo.driveridentity) :
 								getFieldDecorator('driveridentity', {
 									initialValue: userInfo.driveridentity,
-									// rules: [{ required: true, message: '请获取司机信息!' }],
+									rules: [{ required: true, message: '请获取司机信息!' }],
 								})(
 									<Input type="text" placeholder="请获取司机信息" disabled />
 								)
