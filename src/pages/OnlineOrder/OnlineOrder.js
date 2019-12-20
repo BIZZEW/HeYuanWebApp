@@ -283,7 +283,7 @@ export default class OnlineOrder extends React.Component {
 					<BaseForm wrappedComponentRef={(form) => this.formRef = form} formList={this.formList} filterSubmit={this.handleFilter} />
 				</Card>
 				<div className="content-wrap">
-					<ETable
+					<Table
 						columns={columns}
 						updateSelectedItem={Utils.updateSelectedItem.bind(this)}
 						selectedRowKeys={this.state.selectedRowKeys}
@@ -292,7 +292,7 @@ export default class OnlineOrder extends React.Component {
 						pagination={this.state.pagination}
 						scroll={{ y: this.calTableHeight() }}
 						scrollToFirstRowOnChange={true}
-						// bordered={true}
+						bordered={true}
 						footer={() => {
 							return <div>
 								<Button type="primary" icon="plus" onClick={() => this.handleOperate('create')}>新增</Button>
