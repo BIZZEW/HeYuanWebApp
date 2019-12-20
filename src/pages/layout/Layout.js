@@ -44,13 +44,9 @@ class CreateMenuList extends React.Component {
 		this.setState({
 			collapsed: !this.state.collapsed,
 		});
-		if (!this.state.collapsed) {
-			document.getElementsByClassName("nav-content")[0].style.width = "80px";
-			document.getElementsByClassName("page-content")[0].style["padding-left"] = "80px";
-		} else {
-			document.getElementsByClassName("nav-content")[0].style.width = "150px";
-			document.getElementsByClassName("page-content")[0].style["padding-left"] = "150px";
-		}
+
+		document.getElementsByClassName("nav-content")[0].style["width"] = !this.state.collapsed ? "80px" : "150px";
+		document.getElementsByClassName("page-content")[0].style["padding-left"] = !this.state.collapsed ? "80px" : "150px";
 	};
 
 	render() {
@@ -89,7 +85,10 @@ class Layout extends React.Component {
 		this.setState({ isFullScreen: false });
 		let matchChangePassword = this.getExitPane('title', '修改密码');
 		if (matchChangePassword !== null) {
-			this.setState({ activeKey: matchChangePassword.key });
+			this.setState({
+				activeKey: matchChangePassword.key,
+				current: "5"
+			});
 			this.props.history.push(matchChangePassword.url);
 			return;
 		}
@@ -100,7 +99,8 @@ class Layout extends React.Component {
 			prevState.panes.push(ChangePasswordObject);
 			return {
 				panes: prevState.panes,
-				activeKey: ChangePasswordObject.key
+				activeKey: ChangePasswordObject.key,
+				current: "5"
 			};
 		});
 	}
