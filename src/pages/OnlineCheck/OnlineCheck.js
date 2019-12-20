@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Button, Form, Input, Select, Radio, Icon, Modal, DatePicker, InputNumber, Divider, Table } from 'antd'
+import { Card, Button, Form, Input, Select, Radio, Icon, Modal, DatePicker, InputNumber, Divider, Table, Col, Row } from 'antd'
 import axios from './../../axios'
 import Utils from './../../utils/utils'
 import BaseForm from './../../components/BaseForm'
@@ -11,35 +11,21 @@ const TextArea = Input.TextArea;
 const Option = Select.Option;
 const { RangePicker } = DatePicker;
 
-const data = [];
-for (let i = 0; i < 50; i++) {
-	data.push({
-		key: i,
-		date: '2019-12-18',
-		amount1: 10000,
-		amount2: 10000,
-		amount3: 10000,
-		amount4: 10000,
-		amount5: 10000,
-		price1: 100000,
-		price2: 100000,
-		price3: 100000,
-		price4: 100000,
-		price5: 100000,
-		totalAmount: 100000000,
-	});
-}
-
 export default class OnlineCheck extends React.Component {
 
 	state = {
 		list: [],
+		list1: [],
 		isVisible: false,
 		level: true,
 	}
 
 	params = {
 		page: 1
+	}
+
+	params1 = {
+		page1: 1
 	}
 
 	formList = [
@@ -81,6 +67,11 @@ export default class OnlineCheck extends React.Component {
 		axios.requestList(this, '/table/list1', this.params);
 	}
 
+	// 对账单详情的获取Ï
+	requestList1 = () => {
+		axios.requestList1(this, '/table/list2', this.params1);
+	}
+
 	//功能区操作
 	handleOperate = (type, index) => {
 		let item = this.state.selectedItem;
@@ -108,6 +99,8 @@ export default class OnlineCheck extends React.Component {
 			this.setState({
 				level: false
 			})
+
+			this.requestList1();
 
 			// this.goDetail(this.state.list[index]);
 
@@ -196,10 +189,10 @@ export default class OnlineCheck extends React.Component {
 		let clientHeight = document.body.clientHeight;
 		let headerHeight = document.getElementsByClassName('header')[0].offsetHeight;
 		let tabsHeight = document.getElementsByClassName('ant-tabs-nav-scroll')[0].offsetHeight;
-		let cardHeight = 65;
-		let gapsHeight = 25;
-		let headernfooterHeight = 55;
-		let paginationHeight = 65;
+		let cardHeight = 0;
+		let gapsHeight = 22;
+		let headernfooterHeight = 460;
+		let paginationHeight = 96;
 		let tableHeight = clientHeight - headerHeight - tabsHeight - cardHeight - gapsHeight - headernfooterHeight - paginationHeight;
 		console.log("tableHeight: " + tableHeight + " clientHeight: " + clientHeight + " headerHeight: " + headerHeight + " tabsHeight: " + tabsHeight);
 		return tableHeight;
@@ -384,6 +377,7 @@ export default class OnlineCheck extends React.Component {
 							dataSource={this.state.list}
 							pagination={this.state.pagination}
 							scroll={{ y: this.calTableHeight() }}
+							scrollToFirstRowOnChange={true}
 						// footer={() => {
 						// 	return <div>
 						// 		<Button type="primary" icon="plus" onClick={() => this.handleOperate('create')}>新增</Button>
@@ -420,11 +414,57 @@ export default class OnlineCheck extends React.Component {
 							// updateSelectedItem={Utils.updateSelectedItem.bind(this)}
 							// selectedRowKeys={this.state.selectedRowKeys}
 							// selectedItem={this.state.selectedItem}
-							dataSource={data}
-							pagination={this.state.pagination}
+							dataSource={this.state.list1}
+							pagination={this.state.pagination1}
 							bordered={true}
 							scroll={{ y: this.calTableHeight2(), x: 500 }}
-							title={() => '河源对账单'}
+							title={() => '河源市金杰环保建材有限公司对账单'}
+							scrollToFirstRowOnChange={true}
+							footer={() => {
+								return <div style={{ background: 'transparent' }}>
+									<Row gutter={24}>
+										<Col span={8}>
+											<Card title="注" bordered={true}>
+												<p>如有异议，请客户在__月__日前来电或来人核对，逾期视同默认此对账单。</p>
+											</Card>
+										</Col>
+										<Col span={8}>
+											<Card title="用户反馈意见" bordered={true}>
+												<p> </p>
+											</Card>
+										</Col>
+										<Col span={8}>
+											<Card title="制表" bordered={true}>
+												<p> </p>
+											</Card>
+										</Col>
+									</Row>
+									<Row gutter={24}>
+										<Col span={6}>
+											<Card title="河源市金杰环保建材有限公司对账单（盖章）" bordered={true}>
+												<p> </p>
+											</Card>
+										</Col>
+										<Col span={6}>
+											<Card title="对方单位（盖章）" bordered={true}>
+												<p> </p>
+											</Card>
+										</Col>
+										<Col span={6}>
+											<Card title="区域经理（签字）" bordered={true}>
+												<p> </p>
+											</Card>
+										</Col>
+										<Col span={6}>
+											<Card title="经办人（签字）" bordered={true}>
+												<p> </p>
+											</Card>
+										</Col>
+									</Row>
+								<Button type="primary" icon="check" onClick={() => this.handleOperate('create')}>确认无误</Button>
+								<Button type="primary" icon="question" style={{ marginLeft: "10px" }} onClick={() => this.handleOperate('delete')}>需要核对</Button>
+								</div>
+							}}
 						/>
 					</div>
 				</div>
