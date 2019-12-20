@@ -2,7 +2,7 @@ import React from 'react'
 import './Login.css'
 import { login } from '../../mock/mock'
 import { login1 } from '../../mock/mock'
-import { Form, Input, Button, Modal } from 'antd';
+import { Form, Input, Button, Modal, notification } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
 const FormItem = Form.Item;
@@ -17,10 +17,20 @@ class NormalLoginForm extends React.Component {
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
 				this.isLogging = true;
-				login(values).then((response) => {
+				login1(values).then((response) => {
 					this.isLogging = false;
 					let toPath = this.props.toPath === '' ? '/layout/home' : this.props.toPath
 					this.props.history.push(toPath);
+					notification["warning"]({
+						message: '提示',
+						description: '操作过程中如刷新页面将会清空数据。',
+						duration: 5,
+					});
+					notification["info"]({
+						message: '提示',
+						description: '请尽量使用chrome浏览器以获得较好的体验。',
+						duration: 5,
+					});
 				}).catch((error) => {
 					console.log("loginError", error);
 
