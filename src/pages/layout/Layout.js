@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
 import { menus, menuObject } from '../../routes/router'
-import { Tabs, Avatar, Menu, Icon, Tooltip, Dropdown } from 'antd';
+import { Tabs, Avatar, Menu, Icon, Tooltip, Dropdown, Button } from 'antd';
 import NoFound from '../noFound/NoFound';
 import './layout.scss'
 import { Route } from 'react-router-dom'
@@ -12,6 +12,10 @@ const TabPane = Tabs.TabPane;
 const menuList = [];//链式菜单对象，用于动态生成tabs的时候使用
 
 class CreateMenuList extends React.Component {
+	state = {
+		collapsed: false,
+	};
+
 	createMenu(data) {
 		const childMenuData = data.child;
 		let childMenu = <div></div>;
@@ -32,17 +36,34 @@ class CreateMenuList extends React.Component {
 			</SubMenu>
 		} else {
 			menuList.push({ ...data });
-			return <Menu.Item key={data.id} className={data.hide}><NavLink to={data.url} onClick={this.props.addTabs}><Icon type={data.icon} />{data.title}</NavLink></Menu.Item>
+			return <Menu.Item key={data.id} className={data.hide}><NavLink to={data.url} onClick={this.props.addTabs}><Icon type={data.icon} /><span>{data.title}</span></NavLink></Menu.Item>
 		}
 	}
+
+	toggleCollapsed = () => {
+		this.setState({
+			collapsed: !this.state.collapsed,
+		});
+		if (!this.state.collapsed) {
+			document.getElementsByClassName("nav-content")[0].style.width = "80px";
+			document.getElementsByClassName("page-content")[0].style["padding-left"] = "80px";
+		} else {
+			document.getElementsByClassName("nav-content")[0].style.width = "150px";
+			document.getElementsByClassName("page-content")[0].style["padding-left"] = "150px";
+		}
+	};
+
 	render() {
 		return (
-			<Menu mode="vertical" theme="dark" selectedKeys={[this.props.current]} >
+			<Menu mode="vertical" theme="dark" selectedKeys={[this.props.current]} inlineCollapsed={this.state.collapsed}>
 				{
 					menus.map((item) => {
 						return this.createMenu(item);
 					})
 				}
+				<Button type="primary" onClick={this.toggleCollapsed}>
+					<Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
+				</Button>
 			</Menu>
 		);
 	}

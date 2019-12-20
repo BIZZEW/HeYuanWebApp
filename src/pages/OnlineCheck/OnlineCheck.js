@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Button, Form, Input, Select, Radio, Icon, Modal, DatePicker, InputNumber, Divider, Table, Col, Row, Descriptions } from 'antd'
+import { Card, Button, Form, Input, Select, Radio, Icon, Modal, DatePicker, InputNumber, Divider, Table, Col, Row, Descriptions, Tooltip } from 'antd'
 import axios from './../../axios'
 import Utils from './../../utils/utils'
 import BaseForm from './../../components/BaseForm'
@@ -392,9 +392,9 @@ export default class OnlineCheck extends React.Component {
 		} else {
 			return (
 				<div>
-					<Button type="primary" onClick={() => { this.setState({ level: true }) }} icon="caret-left">返回</Button>
-					<Button type="primary" icon="check" style={{ marginLeft: "10px" }} onClick={() => this.handleOperate('create')}>确认无误</Button>
-					<Button type="primary" icon="question" style={{ marginLeft: "10px" }} onClick={() => this.handleOperate('delete')}>需要核对</Button>
+					<Tooltip title="返回"><Button type="default" onClick={() => { this.setState({ level: true }) }} icon="caret-left"></Button></Tooltip>
+					<Tooltip title="需要核对"><Button type="danger" icon="question" style={{ marginLeft: "10px", float: "right" }} onClick={() => this.handleOperate('delete')}>需要核对</Button></Tooltip>
+					<Tooltip title="确认无误"><Button type="primary" icon="check" style={{ marginLeft: "10px", float: "right" }} onClick={() => this.handleOperate('create')}>确认无误</Button></Tooltip>
 					<div className="content-wrap">
 						<Table
 							columns={columns2}

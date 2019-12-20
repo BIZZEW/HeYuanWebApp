@@ -264,7 +264,7 @@ export default class OnlineOrder extends React.Component {
 						<Button type="primary" onClick={() => this.handleOperate('detail', record)} icon="search">详情</Button>
 						<Divider type="vertical" />
 						{/* <Button type="primary" onClick={() => this.handleOperate('edit', record.id)} icon="edit">编辑</Button> */}
-						<Button type="primary" icon="delete" onClick={() => this.handleOperate('delete', record)}>删除</Button>
+						<Button type="danger" icon="delete" onClick={() => this.handleOperate('delete', record)}>删除</Button>
 					</span>
 				),
 			},
