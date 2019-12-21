@@ -16,6 +16,12 @@ class CreateMenuList extends React.Component {
 		collapsed: false,
 	};
 
+	componentDidMount() {
+		let menuStatus = sessionStorage.getItem('menuStatus');
+		if (menuStatus && menuStatus == "collapsed")
+			this.toggleCollapsed()
+	}
+
 	createMenu(data) {
 		const childMenuData = data.child;
 		let childMenu = <div></div>;
@@ -44,6 +50,8 @@ class CreateMenuList extends React.Component {
 		this.setState({
 			collapsed: !this.state.collapsed,
 		});
+
+		sessionStorage.setItem('menuStatus', (this.state.collapsed ? "expanded" : "collapsed"))
 
 		document.getElementsByClassName("nav-content")[0].style["width"] = !this.state.collapsed ? "80px" : "150px";
 		document.getElementsByClassName("page-content")[0].style["padding-left"] = !this.state.collapsed ? "80px" : "150px";
@@ -267,10 +275,11 @@ class Layout extends React.Component {
 		if (matchMenus.length > 0) {//如果有匹配到当前路由的菜单信息，就修改paneObject为当前路由的信息
 			Object.assign(paneObject, paneObject, matchMenus[0]);//对象合并方法，matchMenus[0]覆盖修改paneObject的同名属性值。
 		} else {
+			paneObject.id = '6';
 			paneObject.title = '404';
 			paneObject.url = '/layout/nofound';
 			paneObject.component = ' ';
-			matchMenus.push({ id: "404" });
+			matchMenus.push({ id: "6" });
 		}
 		this.setState({//更新panes对象
 			panes: [paneObject],

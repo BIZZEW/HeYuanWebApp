@@ -102,6 +102,15 @@ export const menus = [
 		icon: "edit",
 		hide: "hide",
 	},
+	{
+		id: 6,
+		title: '404',
+		url: '/layout/nofound',
+		component: ' ',
+		isFullScreen: false,
+		icon: "edit",
+		hide: "hide",
+	},
 ];
 
 
