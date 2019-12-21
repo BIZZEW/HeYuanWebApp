@@ -28,7 +28,7 @@ class NormalLoginForm extends React.Component {
 					});
 					notification["info"]({
 						message: '提示',
-						description: '请尽量使用chrome浏览器以获得较好的体验。',
+						description: '请尽量使用Chrome浏览器以获得较好的体验。',
 						duration: 5,
 					});
 				}).catch((error) => {

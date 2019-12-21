@@ -24,19 +24,19 @@ class Home extends React.Component {
 	render() {
 		return <Carousel autoplay>
 			<div>
-				<img src={require('./images/bg1.jpg')} style={{ "width": "80%", "margin": "10%" }} />
+				<img src={require('./images/bg1.jpg')} style={{ "width": "90%", "margin": "5%" }} />
 			</div>
 			<div>
-				<img src={require('./images/bg1.jpg')} style={{ "width": "80%", "margin": "10%" }} />
+				<img src={require('./images/bg1.jpg')} style={{ "width": "90%", "margin": "5%" }} />
 			</div>
 			<div>
-				<img src={require('./images/bg1.jpg')} style={{ "width": "80%", "margin": "10%" }} />
+				<img src={require('./images/bg1.jpg')} style={{ "width": "90%", "margin": "5%" }} />
 			</div>
 			<div>
-				<img src={require('./images/bg1.jpg')} style={{ "width": "80%", "margin": "10%" }} />
+				<img src={require('./images/bg1.jpg')} style={{ "width": "90%", "margin": "5%" }} />
 			</div>
 			<div>
-				<img src={require('./images/bg1.jpg')} style={{ "width": "80%", "margin": "10%" }} />
+				<img src={require('./images/bg1.jpg')} style={{ "width": "90%", "margin": "5%" }} />
 			</div>
 		</Carousel>
 	}
