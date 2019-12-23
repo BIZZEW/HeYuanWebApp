@@ -220,7 +220,7 @@ class Layout extends React.Component {
 									</Tooltip>
 								</Menu.Item>
 								<Menu.Item onClick={this.changePassword.bind(this)} >
-									<Tooltip title="修改账户的密码">
+									<Tooltip title="修改当前账户的密码">
 										<Icon type="edit" style={{ "margin": "10px 20px 10px 5px" }} />修改密码
 									</Tooltip>
 								</Menu.Item>

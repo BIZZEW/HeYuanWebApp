@@ -93,13 +93,6 @@ export default class OnlineCheck extends React.Component {
 	// 对账单详情的获取Ï
 	requestList1 = () => {
 		axios.requestList1(this, '/table/list2', this.params1);
-
-		// const table = this.refs.table;
-		// console.log(table);
-		// const tableCon = ReactDOM.findDOMNode(this.refs['table']);
-		// console.log(JSON.stringify(tableCon));
-		// const table = tableCon.querySelector('table');
-		// table.setAttribute('id', 'table-to-xls');
 	}
 
 	//功能区操作
@@ -182,26 +175,6 @@ export default class OnlineCheck extends React.Component {
 			})
 		}
 	}
-
-	// //创建编辑员工提交
-	// handleSubmit = () => {
-	// 	let type = this.state.types;
-	// 	let data = this.userForm.props.form.getFieldsValue();
-	// 	axios.ajax({
-	// 		url: type == 'create' ? '/user/add' : '/user/edit',
-	// 		data: {
-	// 			params: data
-	// 		}
-	// 	}).then((res) => {
-	// 		if (res.code === 0) {
-	// 			this.userForm.props.form.resetFields();
-	// 			this.setState({
-	// 				isVisible: false
-	// 			})
-	// 			this.requestList();
-	// 		}
-	// 	})
-	// }
 
 	calTableHeight = () => {
 		let clientHeight = document.body.clientHeight;
@@ -424,13 +397,13 @@ export default class OnlineCheck extends React.Component {
 			return (
 				<div>
 					<Tooltip title="返回"><Button type="default" onClick={() => { this.setState({ level: true }) }} icon="caret-left"></Button></Tooltip>
-					<Tooltip title="需要核对"><Button type="danger" icon="close" style={{ marginLeft: "10px", float: "right" }} onClick={() => this.handleOperate('delete')}>需要核对</Button></Tooltip>
-					<Tooltip title="确认无误"><Button type="primary" icon="check" style={{ marginLeft: "10px", float: "right" }} onClick={() => this.handleOperate('create')}>确认无误</Button></Tooltip>
+					<Tooltip title="账单存在着一些问题"><Button type="danger" icon="close" style={{ marginLeft: "10px", float: "right" }} onClick={() => this.handleOperate('delete')}>需要核对</Button></Tooltip>
+					<Tooltip title="账单不存在任何问题"><Button type="primary" icon="check" style={{ marginLeft: "10px", float: "right" }} onClick={() => this.handleOperate('create')}>确认无误</Button></Tooltip>
 					<ReactHTMLTableToExcel
 						id="test-table-xls-button"
 						className="download-table-xls-button ant-btn ant-btn-default"
 						table="table-to-xls"
-						filename="河源市金杰环保建材有限公司对账单"
+						filename={"河源市金杰环保建材有限公司对账单" + (2 + 3)}
 						sheet="tablexls"
 						style={{ marginLeft: "10px", float: "right" }}
 						buttonText="导出" />
@@ -489,127 +462,3 @@ export default class OnlineCheck extends React.Component {
 		}
 	}
 }
-
-//子组件：创建员工表单
-// class UserForm extends React.Component {
-
-// 	getState = (state) => {
-// 		let config = {
-// 			'1': '咸鱼一条',
-// 			'2': '风华浪子',
-// 			'3': '北大才子一枚',
-// 			'4': '百度FE',
-// 			'5': '创业者'
-// 		}
-// 		return config[state];
-// 	}
-
-// 	render() {
-// 		let type = this.props.type;
-// 		let userInfo = this.props.userInfo || {};
-// 		const { getFieldDecorator } = this.props.form;
-// 		const formItemLayout = {
-// 			labelCol: { span: 5 },
-// 			wrapperCol: { span: 19 }
-// 		}
-// 		return (
-// 			<Form layout="horizontal">
-// 				<FormItem label="对账单号" {...formItemLayout}>
-// 					{
-// 						type == 'detail' ? userInfo.orderId :
-// 							getFieldDecorator('orderId', {
-// 								initialValue: userInfo.orderId
-// 							})(
-// 								<Input type="text" placeholder="请输入对账单号" />
-// 							)
-// 					}
-// 				</FormItem>
-// 				<FormItem label="对账日期" {...formItemLayout}>
-// 					{
-// 						type == 'detail' ? userInfo.date :
-// 							getFieldDecorator('date', {
-// 								initialValue: moment(userInfo.date)
-// 							})(
-// 								<DatePicker format="YYYY-MM-DD" />
-// 							)
-// 					}
-// 				</FormItem>
-// 				<FormItem label="客户" {...formItemLayout}>
-// 					{
-// 						type == 'detail' ? this.getState(userInfo.client) :
-// 							getFieldDecorator('client', {
-// 								initialValue: userInfo.client || undefined
-// 							})(
-// 								<Select
-// 									placeholder={"请选择客户"}>
-// 									<Option value={1}>特朗普</Option>
-// 									<Option value={2}>普京</Option>
-// 									<Option value={3}>默克尔</Option>
-// 									<Option value={4}>马克龙</Option>
-// 									<Option value={5}>安倍</Option>
-// 								</Select>
-// 							)
-// 					}
-// 				</FormItem>
-
-// 				<FormItem label="起止日期" {...formItemLayout}>
-// 					{
-// 						type == 'detail' ? this.getState(userInfo.lastBalance) :
-// 							getFieldDecorator('lastBalance', {
-// 								initialValue: userInfo.lastBalance
-// 							})(
-// 								<RangePicker />
-// 								// <RangePicker showTime={true} placeholder={placeholder} format="YYYY-MM-DD HH:mm:ss" />
-// 							)
-// 					}
-// 				</FormItem>
-
-// 				<FormItem label="上期余额" {...formItemLayout}>
-// 					{
-// 						type == 'detail' ? this.getState(userInfo.lastBalance) :
-// 							getFieldDecorator('lastBalance', {
-// 								initialValue: userInfo.lastBalance
-// 							})(
-// 								<InputNumber min={1} defaultValue={0} />
-// 							)
-// 					}
-// 				</FormItem>
-
-// 				<FormItem label="本期应收款" {...formItemLayout}>
-// 					{
-// 						type == 'detail' ? this.getState(userInfo.currentShouldcome) :
-// 							getFieldDecorator('currentShouldcome', {
-// 								initialValue: userInfo.currentShouldcome
-// 							})(
-// 								<InputNumber min={1} defaultValue={0} />
-// 							)
-// 					}
-// 				</FormItem>
-
-// 				<FormItem label="本期已收款" {...formItemLayout}>
-// 					{
-// 						type == 'detail' ? this.getState(userInfo.currentIncome) :
-// 							getFieldDecorator('currentIncome', {
-// 								initialValue: userInfo.currentIncome
-// 							})(
-// 								<InputNumber min={1} defaultValue={0} />
-// 							)
-// 					}
-// 				</FormItem>
-
-// 				<FormItem label="本期余额" {...formItemLayout}>
-// 					{
-// 						type == 'detail' ? this.getState(userInfo.currentBalance) :
-// 							getFieldDecorator('currentBalance', {
-// 								initialValue: userInfo.currentBalance
-// 							})(
-// 								<InputNumber min={1} defaultValue={0} />
-// 							)
-// 					}
-// 				</FormItem>
-
-// 			</Form>
-// 		)
-// 	}
-// }
-// UserForm = Form.create({})(UserForm);

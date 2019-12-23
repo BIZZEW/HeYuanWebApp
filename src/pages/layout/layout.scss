@@ -210,10 +210,6 @@
     line-height: 50px;
 }
 
-.ant-menu-dark.ant-menu-inline, .ant-menu-dark.ant-menu-vertical, .ant-menu-dark.ant-menu-vertical-left, .ant-menu-dark.ant-menu-vertical-right {
-    // margin-top: 35px;
-}
-
 .ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
     background: #1890ff;
     background: -webkit-linear-gradient(right , #1890ff 0%, #0d7ade 75%, #0265bf 100%);
@@ -228,6 +224,7 @@
 //     border-radius: 2px;
 // }
 
+// 对账单表名
 .ant-table.ant-table-bordered .ant-table-title {
     text-align: center;
     font-size: 18px;
@@ -236,37 +233,13 @@
     letter-spacing: 5px;
 }
 
+// 对账单表尾
 .ant-col-8, .ant-col-6 {
     padding-left: 5px !important;
     padding-right: 5px !important;
 }
 
-// .ant-card { 
-//     .ant-card-head {
-//         .ant-card-head-title {
-//             font-size: 15px;
-//             font-weight: 400;
-//             padding: 10px !important;
-//         }
-//         min-height: 28px;
-//         padding: 0px; 
-//     }
-//     .ant-card-body {
-//         padding: 24px;
-//         min-height: 60px !important;
-//         p {
-//             margin-bottom: 0;
-//         }
-//     }
-//     margin-bottom: 10px !important;
-// }
-
+// 导出按钮
 .download-table-xls-button{
-    // color: #fff;
-    // background-color: #1890ff;
-    // border-color: #1890ff;
-    // text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
-    // -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
-    // box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
     float: right;
 }
