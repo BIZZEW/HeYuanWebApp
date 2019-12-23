@@ -45,6 +45,7 @@
     "react": "^16.3.2",
     "react-dev-utils": "^5.0.1",
     "react-dom": "^16.3.2",
+    "react-html-table-to-excel": "^2.0.0",
     "react-intl": "^2.4.0",
     "react-redux": "^5.0.7",
     "react-router-cache-route": "^1.8.4",

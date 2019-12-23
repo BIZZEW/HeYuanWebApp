@@ -1,10 +1,12 @@
 import React from 'react'
+import ReactDOM from 'react-dom';
 import { Card, Button, Form, Input, Select, Radio, Icon, Modal, DatePicker, InputNumber, Divider, Table, Col, Row, Descriptions, Tooltip } from 'antd'
 import axios from './../../axios'
 import Utils from './../../utils/utils'
 import BaseForm from './../../components/BaseForm'
 import ETable from './../../components/ETable'
 import moment from 'moment'
+import ReactHTMLTableToExcel from 'react-html-table-to-excel'
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const TextArea = Input.TextArea;
@@ -46,16 +48,37 @@ export default class OnlineCheck extends React.Component {
 			placeholder: '请输入对账单号',
 			width: 200
 		},
+		// {
+		// 	type: 'DATERANGE',
+		// 	label: '对账日期',
+		// 	field: 'date',
+		// 	placeholder: '请输入日期'
+		// },
 		{
-			type: 'DATERANGE',
-			label: '对账日期',
-			field: 'date',
-			placeholder: '请输入日期'
+			type: 'DATE',
+			label: '开始日期',
+			field: 'begindate',
+			placeholder: '请选择开始日期'
+		},
+		{
+			type: 'DATE',
+			label: '结束日期',
+			field: 'enddate',
+			placeholder: '请选择结束日期'
 		},
 	]
 
 	componentDidMount() {
 		this.requestList();
+	}
+
+	componentDidUpdate() {
+		const tableRef = this.refs.table;
+		if (tableRef) {
+			const tableCon = ReactDOM.findDOMNode(tableRef);
+			const table = tableCon.querySelector('table');
+			table.setAttribute('id', 'table-to-xls');
+		}
 	}
 
 	handleFilter = (params) => {
@@ -70,6 +93,13 @@ export default class OnlineCheck extends React.Component {
 	// 对账单详情的获取Ï
 	requestList1 = () => {
 		axios.requestList1(this, '/table/list2', this.params1);
+
+		// const table = this.refs.table;
+		// console.log(table);
+		// const tableCon = ReactDOM.findDOMNode(this.refs['table']);
+		// console.log(JSON.stringify(tableCon));
+		// const table = tableCon.querySelector('table');
+		// table.setAttribute('id', 'table-to-xls');
 	}
 
 	//功能区操作
@@ -96,6 +126,7 @@ export default class OnlineCheck extends React.Component {
 				userInfo: item
 			})
 		} else if (type == 'detail') {
+
 			this.setState({
 				level: false
 			})
@@ -393,8 +424,16 @@ export default class OnlineCheck extends React.Component {
 			return (
 				<div>
 					<Tooltip title="返回"><Button type="default" onClick={() => { this.setState({ level: true }) }} icon="caret-left"></Button></Tooltip>
-					<Tooltip title="需要核对"><Button type="danger" icon="question" style={{ marginLeft: "10px", float: "right" }} onClick={() => this.handleOperate('delete')}>需要核对</Button></Tooltip>
+					<Tooltip title="需要核对"><Button type="danger" icon="close" style={{ marginLeft: "10px", float: "right" }} onClick={() => this.handleOperate('delete')}>需要核对</Button></Tooltip>
 					<Tooltip title="确认无误"><Button type="primary" icon="check" style={{ marginLeft: "10px", float: "right" }} onClick={() => this.handleOperate('create')}>确认无误</Button></Tooltip>
+					<ReactHTMLTableToExcel
+						id="test-table-xls-button"
+						className="download-table-xls-button ant-btn ant-btn-default"
+						table="table-to-xls"
+						filename="河源市金杰环保建材有限公司对账单"
+						sheet="tablexls"
+						style={{ marginLeft: "10px", float: "right" }}
+						buttonText="导出" />
 					<div className="content-wrap">
 						<Table
 							columns={columns2}
@@ -420,6 +459,30 @@ export default class OnlineCheck extends React.Component {
 								</div>
 							}}
 						/>
+						<div style={{ "visibility": "hidden", "position": "absolute", "top": "0", "left": "0", "width": "1px", "height": "1px", "overflow": "hidden" }}>
+							<Table
+								ref='table'
+								columns={columns2}
+								dataSource={this.state.list1}
+								pagination={this.state.pagination1}
+								bordered={true}
+								title={() => '河源市金杰环保建材有限公司对账单'}
+								scrollToFirstRowOnChange={true}
+								footer={() => {
+									return <div style={{ background: 'transparent' }}>
+										<Descriptions>
+											<Descriptions.Item label="注" span={2}>如有异议，请客户在___月___日前来电或来人核对，逾期视同默认此对账单。</Descriptions.Item>
+											<Descriptions.Item label="制表"> </Descriptions.Item>
+											<Descriptions.Item label="河源市金杰环保建材有限公司（盖章）"> </Descriptions.Item>
+											<Descriptions.Item label="对方单位（盖章）"> </Descriptions.Item>
+											<Descriptions.Item label="区域经理（签字）"> </Descriptions.Item>
+											<Descriptions.Item label="经办人（签字）"> </Descriptions.Item>
+											<Descriptions.Item label="用户反馈意见" span={2}> </Descriptions.Item>
+										</Descriptions>
+									</div>
+								}}
+							/>
+						</div>
 					</div>
 				</div>
 			)
