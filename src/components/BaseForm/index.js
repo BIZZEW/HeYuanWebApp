@@ -11,8 +11,12 @@ class FilterForm extends React.Component {
     formList = []
 
     handleFilterSubmit = () => {
-        let fieldsValue = this.props.form.getFieldsValue();
-        this.props.filterSubmit(fieldsValue);
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                let fieldsValue = this.props.form.getFieldsValue();
+                this.props.filterSubmit(fieldsValue);
+            }
+        });
     }
 
     getSubOptions = (param) => {
@@ -35,6 +39,7 @@ class FilterForm extends React.Component {
                 let placeholder = item.placeholder;
                 let width = item.width;
                 let disabled = item.disabled;
+                let required = item.required || false;
                 if (item.type === '时间查询') {
                     const begin_time = <FormItem label="订单时间" key='begin'>
                         {
@@ -102,7 +107,11 @@ class FilterForm extends React.Component {
                 } else if (item.type === 'DATE') {
                     const DATEPICKER = <FormItem label={label} key={field}>
                         {
-                            getFieldDecorator([field])(
+                            getFieldDecorator([field], {
+                                rules: [
+                                    { required: required, message: '请选择日期!' }
+                                ],
+                            })(
                                 <DatePicker showTime={true} placeholder={placeholder} format="YYYY-MM-DD" />
                             )
                         }

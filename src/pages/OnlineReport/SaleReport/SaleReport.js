@@ -40,18 +40,20 @@ export default class SaleReport extends React.Component {
 			type: 'DATE',
 			label: '开始日期',
 			field: 'begindate',
-			placeholder: '请选择开始日期'
+			placeholder: '请选择开始日期',
+			required: true,
 		},
 		{
 			type: 'DATE',
 			label: '结束日期',
 			field: 'enddate',
-			placeholder: '请选择结束日期'
+			placeholder: '请选择结束日期',
+			required: true,
 		},
 	]
 
 	componentDidMount() {
-		this.requestList();
+		// this.requestList();
 		const tableRef = this.refs.table;
 		if (tableRef) {
 			const tableCon = ReactDOM.findDOMNode(tableRef);
