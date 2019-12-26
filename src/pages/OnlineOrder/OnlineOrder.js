@@ -187,21 +187,6 @@ export default class OnlineOrder extends React.Component {
 		let data = this.userForm.props.form.getFieldsValue();
 		this.userForm.props.form.validateFields((err, values) => {
 			if (!err) {
-				//  axios.ajax({
-				//      url: type == 'create' ? '/addsaleorder' : '/user/edit',
-				//      data: {
-				//          params: data
-				//      }
-				//  }).then((res) => {
-				//      if (res.code === 0) {
-				//          this.userForm.props.form.resetFields();
-				//          this.setState({
-				//              isVisible: false
-				//          })
-				//          this.requestList();
-				//      }
-				//  })
-
 				axios.createNewOrder(this, (type == 'create' ? '/addsaleorder' : '/user/edit'), qs.stringify(data));
 			}
 		});

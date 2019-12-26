@@ -124,51 +124,102 @@ export default class Axios {
             }
         }).catch((error) => {
 
-            var data = {};
+            // var data = {};
 
-            if (params.page == 1) {
-                data = {
-                    page: 1,
-                    page_size: 10,
-                    total: 16,
-                    list: [
-                        { "billno": "XJY2019121800007243", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKQC9", "cpreorderid": "1001B1100000000BKQCA", "customername": "散装测试客户", "dbilldate": "2019-12-18 15:53:12", "driveridentity": "330183198809081714", "drivername": "我们", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "15858155946", "vehicle": "粤P06827" },
-                        { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-                        { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-                        { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-                        { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-                        { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-                        { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-                        { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-                        { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-                        { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-                    ]
-                }
-            } else {
-                data = {
-                    page: 2,
-                    page_size: 10,
-                    total: 16,
-                    list: [
-                        { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-                        { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-                        { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-                        { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-                        { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-                        { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-                    ]
-                }
-            }
+            // if (params.page == 1) {
+            //     data = {
+            //         page: 1,
+            //         page_size: 10,
+            //         total: 16,
+            //         list: [
+            //             { "billno": "XJY2019121800007243", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKQC9", "cpreorderid": "1001B1100000000BKQCA", "customername": "散装测试客户", "dbilldate": "2019-12-18 15:53:12", "driveridentity": "330183198809081714", "drivername": "我们", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "15858155946", "vehicle": "粤P06827" },
+            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
+            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
+            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
+            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
+            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
+            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
+            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
+            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
+            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
+            //         ]
+            //     }
+            // } else {
+            //     data = {
+            //         page: 2,
+            //         page_size: 10,
+            //         total: 16,
+            //         list: [
+            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
+            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
+            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
+            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
+            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
+            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
+            //         ]
+            //     }
+            // }
 
-            _this.setState({
-                list: data.list,
-                selectedRowKeys: [],//重置
-                pagination: Utils.pagination(data, (current) => {
-                    console.log(current);
-                    _this.params.page = current;
-                    _this.requestList();
+            // _this.setState({
+            //     list: data.list,
+            //     selectedRowKeys: [],//重置
+            //     pagination: Utils.pagination(data, (current) => {
+            //         console.log(current);
+            //         _this.params.page = current;
+            //         _this.requestList();
+            //     })
+            // })
+
+            if (String(error).toLowerCase().indexOf('timeout') != -1) {
+                Modal.info({
+                    title: '提示',
+                    content: '服务器繁忙，请稍后重试'
                 })
-            })
+            } else if (String(error).toLowerCase().indexOf('network') != -1) {
+                Modal.info({
+                    title: '提示',
+                    content: '服务器问失败，请稍后重试'
+                })
+            }
+        })
+    }
+
+    // 数据不分页
+    static requestList2(_this, url, params) {
+        params.username = sessionStorage.getItem('userName');
+
+        this.ajax({
+            url,
+            params,
+            method: "get"
+        }).then((response) => {
+            if (response && response.result) {
+                _this.setState({
+                    list: response.result.data,
+                })
+            }
+        }).catch((error) => {
+
+            // var data = [
+            //     { "availablefund": "6.66", "costsheet": 100, "customername": "测试", "initialbalance": "6.66", "money": "6.66", "receipt": 20000.01, "saleout": 20800 },
+            //     { "availablefund": "6.66", "costsheet": 100, "customername": "测试", "initialbalance": "6.66", "money": "6.66", "receipt": 20000.01, "saleout": 20800 },
+            //     { "availablefund": "6.66", "costsheet": 100, "customername": "测试", "initialbalance": "6.66", "money": "6.66", "receipt": 20000.01, "saleout": 20800 },
+            //     { "availablefund": "6.66", "costsheet": 100, "customername": "测试", "initialbalance": "6.66", "money": "6.66", "receipt": 20000.01, "saleout": 20800 },
+            //     { "availablefund": "6.66", "costsheet": 100, "customername": "测试", "initialbalance": "6.66", "money": "6.66", "receipt": 20000.01, "saleout": 20800 },
+            //     { "availablefund": "6.66", "costsheet": 100, "customername": "测试", "initialbalance": "6.66", "money": "6.66", "receipt": 20000.01, "saleout": 20800 },
+            //     { "availablefund": "6.66", "costsheet": 100, "customername": "测试", "initialbalance": "6.66", "money": "6.66", "receipt": 20000.01, "saleout": 20800 },
+            //     { "availablefund": "6.66", "costsheet": 100, "customername": "测试", "initialbalance": "6.66", "money": "6.66", "receipt": 20000.01, "saleout": 20800 },
+            //     { "availablefund": "6.66", "costsheet": 100, "customername": "测试", "initialbalance": "6.66", "money": "6.66", "receipt": 20000.01, "saleout": 20800 },
+            //     { "availablefund": "6.66", "costsheet": 100, "customername": "测试", "initialbalance": "6.66", "money": "6.66", "receipt": 20000.01, "saleout": 20800 },
+            //     { "availablefund": "6.66", "costsheet": 100, "customername": "测试", "initialbalance": "6.66", "money": "6.66", "receipt": 20000.01, "saleout": 20800 },
+            //     { "availablefund": "6.66", "costsheet": 100, "customername": "测试", "initialbalance": "6.66", "money": "6.66", "receipt": 20000.01, "saleout": 20800 },
+            //     { "availablefund": "6.66", "costsheet": 100, "customername": "测试", "initialbalance": "6.66", "money": "6.66", "receipt": 20000.01, "saleout": 20800 },
+            // ];
+
+            // _this.setState({
+            //     list: data,
+            //     selectedRowKeys: [],
+            // })
 
             if (String(error).toLowerCase().indexOf('timeout') != -1) {
                 Modal.info({
@@ -210,81 +261,81 @@ export default class Axios {
             }
         }).catch((error) => {
 
-            let list = [];
-            let list1 = [];
-            for (let i = 0; i < 10; i++) {
-                list.push({
-                    key: i,
-                    date: '2019-12-18',
-                    amount1: 10000,
-                    amount2: 10000,
-                    amount3: 10000,
-                    amount4: 10000,
-                    amount5: 10000,
-                    price1: 100000,
-                    price2: 100000,
-                    price3: 100000,
-                    price4: 100000,
-                    price5: 100000,
-                    totalAmount: 100000000,
-                });
+            // let list = [];
+            // let list1 = [];
+            // for (let i = 0; i < 10; i++) {
+            //     list.push({
+            //         key: i,
+            //         date: '2019-12-18',
+            //         amount1: 10000,
+            //         amount2: 10000,
+            //         amount3: 10000,
+            //         amount4: 10000,
+            //         amount5: 10000,
+            //         price1: 100000,
+            //         price2: 100000,
+            //         price3: 100000,
+            //         price4: 100000,
+            //         price5: 100000,
+            //         totalAmount: 100000000,
+            //     });
 
-                list1.push({
-                    key: i,
-                    date: '9012-12-18',
-                    amount1: 555,
-                    amount2: 1005500,
-                    amount3: 100500,
-                    amount4: 5,
-                    amount5: 5,
-                    price1: 5555,
-                    price2: 10055000,
-                    price3: 55,
-                    price4: 100000,
-                    price5: 100000,
-                    totalAmount: 223333,
-                });
-            }
-
-            var data = {};
-
-            if (params.page1 == 1) {
-                data = {
-                    page: 1,
-                    page_size: 10,
-                    total: 20,
-                    list: list
-                }
-            } else {
-                data = {
-                    page: 2,
-                    page_size: 10,
-                    total: 20,
-                    list: list1
-                }
-            }
-
-            _this.setState({
-                list1: data.list,
-                // selectedRowKeys: [],//重置
-                pagination1: Utils.pagination(data, (current) => {
-                    console.log(current);
-                    _this.params1.page1 = current;
-                    _this.requestList1();
-                })
-            })
-
-            // if (String(error).toLowerCase().indexOf('timeout') != -1) {
-            //     Modal.info({
-            //         title: '提示',
-            //         content: '服务器繁忙，请稍后重试'
-            //     })
-            // } else if (String(error).toLowerCase().indexOf('network') != -1) {
-            //     Modal.info({
-            //         title: '提示',
-            //         content: '服务器问失败，请稍后重试'
-            //     })
+            //     list1.push({
+            //         key: i,
+            //         date: '9012-12-18',
+            //         amount1: 555,
+            //         amount2: 1005500,
+            //         amount3: 100500,
+            //         amount4: 5,
+            //         amount5: 5,
+            //         price1: 5555,
+            //         price2: 10055000,
+            //         price3: 55,
+            //         price4: 100000,
+            //         price5: 100000,
+            //         totalAmount: 223333,
+            //     });
             // }
+
+            // var data = {};
+
+            // if (params.page1 == 1) {
+            //     data = {
+            //         page: 1,
+            //         page_size: 10,
+            //         total: 20,
+            //         list: list
+            //     }
+            // } else {
+            //     data = {
+            //         page: 2,
+            //         page_size: 10,
+            //         total: 20,
+            //         list: list1
+            //     }
+            // }
+
+            // _this.setState({
+            //     list1: data.list,
+            //     // selectedRowKeys: [],//重置
+            //     pagination1: Utils.pagination(data, (current) => {
+            //         console.log(current);
+            //         _this.params1.page1 = current;
+            //         _this.requestList1();
+            //     })
+            // })
+
+            if (String(error).toLowerCase().indexOf('timeout') != -1) {
+                Modal.info({
+                    title: '提示',
+                    content: '服务器繁忙，请稍后重试'
+                })
+            } else if (String(error).toLowerCase().indexOf('network') != -1) {
+                Modal.info({
+                    title: '提示',
+                    content: '服务器问失败，请稍后重试'
+                })
+            }
         })
     }
 
@@ -366,6 +417,39 @@ export default class Axios {
                     Modal.info({
                         title: '提示',
                         content: '删除成功'
+                    })
+                }
+            }
+        }).catch((error) => {
+            if (String(error).toLowerCase().indexOf('timeout') != -1) {
+                Modal.info({
+                    title: '提示',
+                    content: '服务器繁忙，请稍后重试'
+                })
+            } else if (String(error).toLowerCase().indexOf('network') != -1) {
+                Modal.info({
+                    title: '提示',
+                    content: '服务器问失败，请稍后重试'
+                })
+            }
+        })
+    }
+
+    // 修改密码
+    static changePwd(_this, url, data) {
+
+        this.ajax({
+            url,
+            data,
+            method: "post"
+        }).then((response) => {
+            if (response.status === 200) {
+                let res = response.data;
+                if (res.code === 0) {
+                    _this.userForm.props.form.resetFields();
+                    Modal.info({
+                        title: '提示',
+                        content: '修改成功'
                     })
                 }
             }
