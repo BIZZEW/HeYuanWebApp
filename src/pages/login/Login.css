@@ -126,6 +126,7 @@
    transition-duration: 1s;
    transition-timing-function: ease-in-put;
    font-weight: bold;
+   letter-spacing: 8px;
    /* font-family: 'LOGOfont'; */
  }
 
