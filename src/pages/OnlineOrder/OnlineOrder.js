@@ -38,7 +38,8 @@ export default class OnlineOrder extends React.Component {
 			initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].customer) : undefined,
 			list: this.state.clientRef,
 			idKey: "customer",
-			valueKey: "customername"
+			valueKey: "customername",
+			cascade: true
 		},
 		{
 			type: 'SELECT',

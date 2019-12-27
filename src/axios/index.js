@@ -7,9 +7,6 @@ import qs from 'qs'
 export default class Axios {
     // 通过车号获取司机信息
     static getDriverInfo(_this, url, params) {
-        // var data = {
-        //     params: params,
-        // }
         this.ajax({
             url,
             params,
@@ -45,10 +42,6 @@ export default class Axios {
 
     // 查询form获取下拉选项（水泥品种）
     static getOptions(_this, url, params) {
-        // var data = {
-        //     params: params,
-        //     isShowLoading: false,
-        // }
         this.ajax({
             url,
             params,
@@ -79,9 +72,6 @@ export default class Axios {
 
     // 新增form获取下拉选型（水泥品种，销售单位）
     static getOptions2(_this, url, params, type) {
-        // var data = {
-        //     params: params,
-        // }
         let ref = {};
         this.ajax({
             url,
@@ -100,10 +90,6 @@ export default class Axios {
     }
 
     static requestList(_this, url, params) {
-        // var data = {
-        //     params: params,
-        // }
-
         params.username = sessionStorage.getItem('userName');
 
         this.ajax({
@@ -237,10 +223,6 @@ export default class Axios {
 
     // 获取对账单详情列表
     static requestList1(_this, url, params) {
-        // var data = {
-        //     params: params,
-        // }
-
         params.username = sessionStorage.getItem('userName');
 
         this.ajax({
@@ -341,38 +323,20 @@ export default class Axios {
 
     // 网上订货新增
     static createNewOrder(_this, url, data) {
-        // var data = {
-        //     params: params,
-        // }
-
-        // _this.userForm.props.form.resetFields();
-        // _this.setState({
-        //     isVisible: false
-        // })
-        // _this.requestList();
-        // Modal.info({
-        //     title: '提示',
-        //     content: '新增成功'
-        // })
-
         this.ajax({
             url,
             data,
             method: "post"
         }).then((response) => {
-            if (response.status === 200) {
-                if (response.code === 0) {
-                    _this.userForm.props.form.resetFields();
-                    _this.setState({
-                        isVisible: false
-                    })
-                    _this.requestList();
-                    Modal.info({
-                        title: '提示',
-                        content: '新增成功'
-                    })
-                }
-            }
+            _this.userForm.props.form.resetFields();
+            _this.setState({
+                isVisible: false
+            })
+            _this.requestList();
+            Modal.info({
+                title: '提示',
+                content: '新增成功'
+            })
         }).catch((error) => {
             if (String(error).toLowerCase().indexOf('timeout') != -1) {
                 Modal.info({
@@ -390,34 +354,16 @@ export default class Axios {
 
     // 网上订货删除
     static deleteOrder(_this, url, data) {
-        // var data = {
-        //     params: params,
-        // }
-
-        // _this.userForm.props.form.resetFields();
-        // _this.setState({
-        //     isVisible: false
-        // })
-        // _this.requestList();
-        // Modal.info({
-        //     title: '提示',
-        //     content: '新增成功'
-        // })
-
         this.ajax({
             url,
             data,
             method: "post"
         }).then((response) => {
-            if (response.status === 200) {
-                if (response.code === 0) {
-                    _this.requestList();
-                    Modal.info({
-                        title: '提示',
-                        content: '删除成功'
-                    })
-                }
-            }
+            _this.requestList();
+            Modal.info({
+                title: '提示',
+                content: '删除成功'
+            })
         }).catch((error) => {
             if (String(error).toLowerCase().indexOf('timeout') != -1) {
                 Modal.info({
@@ -441,15 +387,11 @@ export default class Axios {
             data,
             method: "post"
         }).then((response) => {
-            if (response.status === 200) {
-                if (response.code === 0) {
-                    _this.userForm.props.form.resetFields();
-                    Modal.info({
-                        title: '提示',
-                        content: '修改成功'
-                    })
-                }
-            }
+            _this.userForm.props.form.resetFields();
+            Modal.info({
+                title: '提示',
+                content: '修改成功'
+            })
         }).catch((error) => {
             if (String(error).toLowerCase().indexOf('timeout') != -1) {
                 Modal.info({
@@ -494,12 +436,8 @@ export default class Axios {
                 method: options.method,
                 baseURL: baseApi,
                 timeout: 5000,
-                // data: (options.data && options.data.params),
                 params: (options.params) || "",
                 data: (options.data) || "",
-                // paramsSerializer: function (params) {
-                //     return qs.stringify(params, { arrayFormat: 'indices' })
-                // }
             }).then((response) => {
                 if ((options.data || options.params) && options.isShowLoading !== false) {
                     loading = document.getElementById('ajaxLoading');

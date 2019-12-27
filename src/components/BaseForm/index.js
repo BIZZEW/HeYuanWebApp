@@ -40,6 +40,7 @@ class FilterForm extends React.Component {
                 let width = item.width;
                 let disabled = item.disabled;
                 let required = item.required || false;
+                let cascade = item.cascade;
                 if (item.type === '时间查询') {
                     const begin_time = <FormItem label="订单时间" key='begin'>
                         {
@@ -78,7 +79,7 @@ class FilterForm extends React.Component {
                                     placeholder={[placeholder]}
                                     disabled={disabled}
                                     onSelect={(value) => {
-                                        if (field == "customer") {
+                                        if (field == "customer" && cascade) {
                                             this.getSubOptions({ "customer": value });
                                             this.props.form.resetFields(["pk_material"]);
                                         }

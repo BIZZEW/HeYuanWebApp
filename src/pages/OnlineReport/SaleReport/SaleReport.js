@@ -34,7 +34,8 @@ export default class SaleReport extends React.Component {
 			// initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].customer) : undefined,
 			list: this.state.clientRef,
 			idKey: "customer",
-			valueKey: "customername"
+			valueKey: "customername",
+			cascade: false
 		},
 		{
 			type: 'DATE',
@@ -142,7 +143,7 @@ export default class SaleReport extends React.Component {
 									id="test-table-xls-button"
 									className="download-table-xls-button ant-btn ant-btn-default"
 									table="table-to-xls"
-									filename={"销售资金汇总表" + (2 + 3)}
+									filename={"销售资金汇总表"}
 									sheet="tablexls"
 									style={{ marginLeft: "10px" }}
 									buttonText="导出" />
