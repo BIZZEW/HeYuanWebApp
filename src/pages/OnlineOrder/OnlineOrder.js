@@ -113,7 +113,8 @@ export default class OnlineOrder extends React.Component {
 			this.setState({
 				type,
 				isVisible: true,
-				title: '新增'
+				title: '新增',
+				orderInfo: {}
 			})
 		} else if (type == 'edit') {
 			// if (!item) {

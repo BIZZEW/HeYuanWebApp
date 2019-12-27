@@ -31,7 +31,7 @@ export default class SaleReport extends React.Component {
 			field: 'customer',
 			placeholder: '请选择客户',
 			width: 200,
-			initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].customer) : undefined,
+			// initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].customer) : undefined,
 			list: this.state.clientRef,
 			idKey: "customer",
 			valueKey: "customername"
@@ -75,7 +75,7 @@ export default class SaleReport extends React.Component {
 			this.params.enddate = this.params.enddate.format("YYYY-MM-DD");
 
 		if (!this.params.customer)
-			this.params = { ...this.params, ...eval(this.state.clientRef)[0] };
+			this.params.sendstockorg = (eval(this.state.clientRef)[0]).sendstockorg;
 		else
 			for (var i of eval(this.state.clientRef))
 				if (i.customer === this.params.customer)

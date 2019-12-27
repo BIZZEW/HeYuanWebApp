@@ -361,8 +361,7 @@ export default class Axios {
             method: "post"
         }).then((response) => {
             if (response.status === 200) {
-                let res = response.data;
-                if (res.code === 0) {
+                if (response.code === 0) {
                     _this.userForm.props.form.resetFields();
                     _this.setState({
                         isVisible: false
@@ -411,8 +410,7 @@ export default class Axios {
             method: "post"
         }).then((response) => {
             if (response.status === 200) {
-                let res = response.data;
-                if (res.code === 0) {
+                if (response.code === 0) {
                     _this.requestList();
                     Modal.info({
                         title: '提示',
@@ -444,8 +442,7 @@ export default class Axios {
             method: "post"
         }).then((response) => {
             if (response.status === 200) {
-                let res = response.data;
-                if (res.code === 0) {
+                if (response.code === 0) {
                     _this.userForm.props.form.resetFields();
                     Modal.info({
                         title: '提示',
