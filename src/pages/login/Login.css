@@ -11,6 +11,11 @@
 
  /* @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300); */
 
+ /* @font-face {
+  font-family: 'LOGOfont';
+  src: url('../../common/logo6.ttf');
+} */
+
  * {
    box-sizing: border-box;
    margin: 0;
@@ -29,7 +34,9 @@
 
  .wallpaper {
    /* background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/slider-2.jpg'); */
-   background-image: url('./images/bg2.jpg');
+   /* background-image: url('./images/bg2.jpg'); */
+
+   background: url('./images/bg2.jpg') 0 / cover fixed;
    background-size: cover;
    background-position: center;
    overflow: auto;
@@ -80,8 +87,25 @@
    height: 500px;
    overflow: hidden;
    margin: -250px 25%;
-   border-radius: 10px;
-   box-shadow: 0px 5px 11px 1px #00000063;
+   border-radius: 20px;
+   box-shadow: 0px 8px 15px 5px #00000063;
+ }
+
+ .wrapper::before {
+   background: url('./images/bg2.jpg') 0 / cover fixed;
+   background-size: cover;
+   background-position: center;
+   overflow: auto;
+   content: '';
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   -webkit-filter: blur(8px);
+   filter: blur(8px);
+   z-index: 0;
+   margin: -30px;
  }
 
  .wrapper.form-success .container h1 {
@@ -102,6 +126,7 @@
    transition-duration: 1s;
    transition-timing-function: ease-in-put;
    font-weight: bold;
+   /* font-family: 'LOGOfont'; */
  }
 
  .container form {

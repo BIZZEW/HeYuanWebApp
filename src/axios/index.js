@@ -371,7 +371,7 @@ export default class Axios {
             data,
             method: "post"
         }).then((response) => {
-            _this.userForm.props.form.resetFields();
+            _this.props.form.resetFields();
             Modal.info({
                 title: '提示',
                 content: '修改成功'
