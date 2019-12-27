@@ -51,22 +51,6 @@ export default class Axios {
             _this.formList[1].list = data.result;
             _this.forceUpdate();
         }).catch((error) => {
-            // _this.formList[1].list = '[{ "code": "1001000037", "name": "散装测试", "pk_material": "1001B1100000000B4W9K" },{ "code": "1001000036", "name": "袋装测试", "pk_material": "1001B1100000000B4W5B" },{ "code": "0101000300", "name": "大宗原材料测试", "pk_material": "1001B1100000000B5KLK" },{ "code": "0101000001", "name": "石灰石", "pk_material": "1001A210000000001NUF" }]';
-            // _this.forceUpdate();
-
-            // _this.BaseForm.form.props.resetFields(["cementType"]);
-
-            // if (String(error).toLowerCase().indexOf('timeout') != -1) {
-            //     Modal.info({
-            //         title: '提示',
-            //         content: '服务器繁忙，请稍后重试'
-            //     })
-            // } else if (String(error).toLowerCase().indexOf('network') != -1) {
-            //     Modal.info({
-            //         title: '提示',
-            //         content: '服务器问失败，请稍后重试'
-            //     })
-            // }
         })
     }
 
