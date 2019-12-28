@@ -102,16 +102,16 @@ export default class Axios {
             //         page_size: 10,
             //         total: 16,
             //         list: [
-            //             { "billno": "XJY2019121800007243", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKQC9", "cpreorderid": "1001B1100000000BKQCA", "customername": "散装测试客户", "dbilldate": "2019-12-18 15:53:12", "driveridentity": "330183198809081714", "drivername": "我们", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "15858155946", "vehicle": "粤P06827" },
-            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
+            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
+            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
+            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
+            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
+            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
+            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
+            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
+            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
+            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
+            //             { "billdate": "", "local_money": 20000.01, "order": "", "paymethod": "合计", "remarks": "" }
             //         ]
             //     }
             // } else {
@@ -120,12 +120,12 @@ export default class Axios {
             //         page_size: 10,
             //         total: 16,
             //         list: [
-            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
-            //             { "billno": "XJY2019121800007242", "billstatus": "审批中", "cpreorderbid": "1001B1100000000BKO01", "cpreorderid": "1001B1100000000BKO02", "customername": "散装测试客户", "dbilldate": "2019-12-18 09:36:26", "driveridentity": "420922197909212978", "drivername": "张三", "materialname": "散装测试", "ordernum": 2, "saleorgname": "那曲地区纳木措金圆建材有限公司", "sendstockorgname": "那曲地区纳木措金圆建材有限公司", "telphone": "18957178856", "vehicle": "浙A123456" },
+            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
+            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
+            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
+            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
+            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
+            //             { "billdate": "", "local_money": 20000.01, "order": "", "paymethod": "合计", "remarks": "" }
             //         ]
             //     }
             // }
@@ -411,7 +411,8 @@ export default class Axios {
             loading = document.getElementById('ajaxLoading');
             loading.style.display = 'block';
         }
-        let baseApi = 'http://127.0.0.1:99/cusapl';
+        let baseApi0 = 'http://127.0.0.1:99/cusapl';
+        let baseApi = 'http://10.1.8.206:99/cusapl';
         let baseApi1 = 'http://rap2api.taobao.org/app/mock/239516/example/1576031001727';
 
         return new Promise((resolve, reject) => {

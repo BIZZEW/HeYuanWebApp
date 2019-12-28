@@ -17,7 +17,8 @@ export const login1 = (loginObject) => {
 }
 
 export const login = (loginObject) => {
-	let baseApi = 'http://127.0.0.1:99/cusapl';
+	let baseApi0 = 'http://127.0.0.1:99/cusapl';
+	let baseApi = 'http://10.1.8.206:99/cusapl';
 	let baseApi1 = 'http://rap2api.taobao.org/app/mock/239516/example/1576031001727';
 
 	return new Promise((resolve, reject) => {
@@ -87,6 +88,7 @@ export const login = (loginObject) => {
 						title: '提示',
 						content: res.msg
 					})
+					reject(response.data)
 				}
 			} else {
 				reject(response.data)

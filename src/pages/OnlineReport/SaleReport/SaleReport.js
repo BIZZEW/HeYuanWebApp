@@ -69,10 +69,10 @@ export default class SaleReport extends React.Component {
 	}
 
 	requestList = () => {
-		if (this.params.begindate)
+		if (this.params.begindate && (typeof (this.params.begindate) == "object"))
 			this.params.begindate = this.params.begindate.format("YYYY-MM-DD");
 
-		if (this.params.enddate)
+		if (this.params.enddate && (typeof (this.params.enddate) == "object"))
 			this.params.enddate = this.params.enddate.format("YYYY-MM-DD");
 
 		if (!this.params.customer)

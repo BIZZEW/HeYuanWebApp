@@ -94,13 +94,12 @@ export default class OnlineOrder extends React.Component {
 	}
 
 	requestList = () => {
-		if (this.params.begindate) {
+		if (this.params.begindate && (typeof (this.params.begindate) == "object"))
 			this.params.begindate = this.params.begindate.format("YYYY-MM-DD");
-		}
 
-		if (this.params.enddate) {
+		if (this.params.enddate && (typeof (this.params.enddate) == "object"))
 			this.params.enddate = this.params.enddate.format("YYYY-MM-DD");
-		}
+
 		// this.params.begindate = this.params.begindate ? this.params.begindate.split('T')[0] : this.params.begindate;
 		// this.params.enddate = this.params.enddate? this.params.enddate.split('T')[0] : this.params.enddate;
 		axios.requestList(this, '/querysaleorder', this.params);
