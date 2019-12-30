@@ -41,6 +41,7 @@ class FilterForm extends React.Component {
                 let disabled = item.disabled;
                 let required = item.required || false;
                 let cascade = item.cascade;
+                let rules = item.rules || null;
                 if (item.type === '时间查询') {
                     const begin_time = <FormItem label="订单时间" key='begin'>
                         {
@@ -62,7 +63,9 @@ class FilterForm extends React.Component {
                 } else if (item.type == 'INPUT') {
                     const INPUT = <FormItem label={label} key={field}>
                         {
-                            getFieldDecorator([field])(
+                            getFieldDecorator([field], {
+                                rules: rules
+                            })(
                                 <Input type="text" style={{ width: width }} placeholder={placeholder} />
                             )
                         }
@@ -113,7 +116,11 @@ class FilterForm extends React.Component {
                                     { required: required, message: '请选择日期!' }
                                 ],
                             })(
-                                <DatePicker showTime={true} placeholder={placeholder} format="YYYY-MM-DD" />
+                                <DatePicker
+                                    showTime={true}
+                                    placeholder={placeholder}
+                                    format="YYYY-MM-DD"
+                                />
                             )
                         }
                     </FormItem>;

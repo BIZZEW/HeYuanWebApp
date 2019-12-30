@@ -102,16 +102,16 @@ export default class Axios {
             //         page_size: 10,
             //         total: 16,
             //         list: [
-            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
-            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
-            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
-            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
-            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
-            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
-            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
-            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
-            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
-            //             { "billdate": "", "local_money": 20000.01, "order": "", "paymethod": "合计", "remarks": "" }
+            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "31", "norigtaxmny": "20150", "nqtorigtaxprice": "650" },
+            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+            //             { "casscustid": "", "cmaterialvid": "合计", "grossdate": "", "grosstime": "", "measbillno": "", "nnum": 32, "norigtaxmny": 20800, "nqtorigtaxprice": "", "skintime": "", "vcarnumber": "" }
             //         ]
             //     }
             // } else {
@@ -120,12 +120,12 @@ export default class Axios {
             //         page_size: 10,
             //         total: 16,
             //         list: [
-            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
-            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
-            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
-            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
-            //             { "billdate": "2019-12-26", "local_money": 20000.01, "order": 1, "paymethod": "现金" },
-            //             { "billdate": "", "local_money": 20000.01, "order": "", "paymethod": "合计", "remarks": "" }
+            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" }, 
+            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" }, 
+            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" }, 
+            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" }, 
+            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" }, 
+            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" }, 
             //         ]
             //     }
             // }
