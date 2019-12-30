@@ -258,3 +258,13 @@ body {
 .ant-table-footer .download-table-xls-button{
     float: none;
 }
+
+.ant-menu-submenu-selected{
+    background: #1890ff;
+    background: -webkit-linear-gradient(right, #1890ff 0%, #0d7ade 75%, #0265bf 100%);
+    background: -o-linear-gradient(right, #1890ff 0%, #0d7ade 75%, #0265bf 100%);
+    background: -webkit-gradient(linear, left top, right top, from(#1890ff), color-stop(75%, #0d7ade), to(#0265bf));
+    background: -webkit-linear-gradient(left, #1890ff 0%, #0d7ade 75%, #0265bf 100%);
+    background: -o-linear-gradient(left, #1890ff 0%, #0d7ade 75%, #0265bf 100%);
+    background: linear-gradient(to right, #1890ff 0%, #0d7ade 75%, #0265bf 100%);
+}
