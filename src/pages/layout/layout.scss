@@ -153,26 +153,6 @@ body {
   
   /****/
 
-.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab {
-    background: #eeeeee;
-    /* color: white; */
-    border: 1px solid #ffffff;
-    padding: 0 40px 0 40px;
-    box-shadow: inset 0px -15px 0px #e9e9e9c4;
-    margin-right: 4px;
-}
-
-.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active {
-    color: #0061b9 !important;
-    background: #ffffff;
-    box-shadow: none;
-}
-
-.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active div {
-    font-weight: bold;
-    letter-spacing: 5px;
-}
-
 .ant-tabs-extra-content{
     display: none;
 }
@@ -189,15 +169,60 @@ body {
     top: 60px !important;
 }
 
-.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab .ant-tabs-close-x {
-    width: 16px;
-    height: 16px;
-    height: 16px;
-    margin-right: -5px;
-    margin-left: 3px;
-    position: absolute;
-    right: 14px;
-    top: 12px;
+.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab:hover{
+    color: #0061b9 !important;
+}
+
+.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab {
+    background: #eeeeee;
+    border: 1px solid #ffffff;
+    padding: 0 40px 0 40px;
+    box-shadow: inset 0px -15px 0px #e9e9e9c4;
+    margin-right: 4px;
+    letter-spacing: 2px;
+    .ant-tabs-close-x {
+        width: 16px;
+        height: 16px;
+        height: 16px;
+        margin-right: -5px;
+        margin-left: 3px;
+        position: absolute;
+        right: 14px;
+        top: 12px;
+        svg{
+            border-radius: 50%;
+            padding: 1px;
+            color: #a5a5a5;
+        }
+    }
+}
+
+.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab .ant-tabs-close-x:hover{
+    svg{
+        background: #c9c9c9;
+        color: white;
+        padding: 2px;
+    }
+}
+
+.ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active {
+    color: #0061b9 !important;
+    background: #ffffff;
+    box-shadow: none;
+    .ant-tabs-close-x{
+        :hover{
+            svg{
+                color: white;
+            }
+        }
+        svg{
+            color: #0061b9;
+        }
+    }
+    div {
+        font-weight: bold;
+        letter-spacing: 6px;
+    }
 }
 
 .ant-tabs.ant-tabs-card .ant-tabs-card-content > .ant-tabs-tabpane, .ant-tabs.ant-tabs-editable-card .ant-tabs-card-content > .ant-tabs-tabpane{
