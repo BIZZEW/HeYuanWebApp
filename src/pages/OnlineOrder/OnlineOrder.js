@@ -180,7 +180,7 @@ export default class OnlineOrder extends React.Component {
 		this.closeForm.props.form.validateFields((err, values) => {
 			if (!err) {
 				let data2 = { ...data, ...this.state.orderInfo }
-				axios.closeOrder(this, '/closeOrder', qs.stringify(data2));
+				axios.closeOrder(this, '/closesaleorder', qs.stringify(data2));
 			}
 		});
 	}
