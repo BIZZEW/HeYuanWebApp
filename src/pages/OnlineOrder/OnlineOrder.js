@@ -541,9 +541,9 @@ class OrderForm extends React.Component {
 							type == 'detail' ? orderInfo.drivername :
 								getFieldDecorator('drivername', {
 									initialValue: orderInfo.drivername,
-									rules: [{ required: true, message: '请获取司机信息!' }],
+									// rules: [{ required: true, message: '请获取司机信息!' }],
 								})(
-									<Input type="text" placeholder="请获取司机信息" disabled />
+									<Input type="text" placeholder="请获取司机信息" />
 								)
 						}
 					</FormItem>
@@ -552,9 +552,9 @@ class OrderForm extends React.Component {
 							type == 'detail' ? orderInfo.telphone :
 								getFieldDecorator('telphone', {
 									initialValue: orderInfo.telphone,
-									rules: [{ required: true, message: '请获取司机信息!' }],
+									// rules: [{ required: true, message: '请获取司机信息!' }],
 								})(
-									<Input type="text" placeholder="请获取司机信息" disabled />
+									<Input type="text" placeholder="请获取司机信息" />
 								)
 						}
 					</FormItem>
@@ -563,9 +563,9 @@ class OrderForm extends React.Component {
 							type == 'detail' ? orderInfo.driveridentity :
 								getFieldDecorator('driveridentity', {
 									initialValue: orderInfo.driveridentity,
-									rules: [{ required: true, message: '请获取司机信息!' }],
+									// rules: [{ required: true, message: '请获取司机信息!' }],
 								})(
-									<Input type="text" placeholder="请获取司机信息" disabled />
+									<Input type="text" placeholder="请获取司机信息" />
 								)
 						}
 					</FormItem>
