@@ -35,7 +35,6 @@
  .wallpaper {
    /* background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/slider-2.jpg'); */
    /* background-image: url('./images/bg2.jpg'); */
-
    background: url('./images/bg2.jpg') 0 / cover fixed;
    background-size: cover;
    background-position: center;
@@ -120,13 +119,14 @@
    text-align: center;
  }
 
- .container h1 {
+ .container #title {
    color: white;
    font-size: 40px;
    transition-duration: 1s;
    transition-timing-function: ease-in-put;
-   font-weight: bold;
+   font-weight: inherit;
    letter-spacing: 8px;
+   text-shadow: 0px 8px 15px 5px #00000063;
    /* font-family: 'LOGOfont'; */
  }
 

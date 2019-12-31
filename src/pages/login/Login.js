@@ -58,7 +58,7 @@ class NormalLoginForm extends React.Component {
 			<div className="wallpaper">
 				<div className="wrapper">
 					<div className="container">
-						<h1 style={{ "marginBottom": "40px", "position": "relative" }}>金圆销售管理系统</h1>
+						<h1 id="title" style={{ "marginBottom": "40px", "position": "relative"}}>金圆销售管理系统</h1>
 
 						<Form onSubmit={this.handleSubmit.bind(this)} className="login-form">
 							<FormItem>
