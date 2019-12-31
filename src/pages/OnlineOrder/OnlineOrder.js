@@ -319,10 +319,14 @@ class CloseForm extends React.Component {
 	render() {
 		const { getFieldDecorator } = this.props.form;
 		return (
-			<Form>
+			<Form id="closeForm">
 				<FormItem>
 					{
-						getFieldDecorator('reason')(
+						getFieldDecorator('reason', {
+							rules: [
+								{ required: true, message: '请填写原因!' }
+							],
+						})(
 							<TextArea></TextArea>
 						)
 					}

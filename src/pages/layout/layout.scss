@@ -293,3 +293,7 @@ body {
     background: -o-linear-gradient(left, #1890ff 0%, #0d7ade 75%, #0265bf 100%);
     background: linear-gradient(to right, #1890ff 0%, #0d7ade 75%, #0265bf 100%);
 }
+
+#closeForm .ant-form-item{
+    margin-bottom: 0;
+}

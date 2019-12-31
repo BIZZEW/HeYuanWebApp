@@ -94,63 +94,63 @@ export default class Axios {
             }
         }).catch((error) => {
 
-            // var data = {};
+            var data = {};
 
-            // if (params.page == 1) {
-            //     data = {
-            //         page: 1,
-            //         page_size: 10,
-            //         total: 16,
-            //         list: [
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "31", "norigtaxmny": "20150", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "", "cmaterialvid": "合计", "grossdate": "", "grosstime": "", "measbillno": "", "nnum": 32, "norigtaxmny": 20800, "nqtorigtaxprice": "", "skintime": "", "vcarnumber": "" }
-            //         ]
-            //     }
-            // } else {
-            //     data = {
-            //         page: 2,
-            //         page_size: 10,
-            //         total: 16,
-            //         list: [
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //         ]
-            //     }
-            // }
-
-            // _this.setState({
-            //     list: data.list,
-            //     selectedRowKeys: [],//重置
-            //     pagination: Utils.pagination(data, (current) => {
-            //         console.log(current);
-            //         _this.params.page = current;
-            //         _this.requestList();
-            //     })
-            // })
-
-            if (String(error).toLowerCase().indexOf('timeout') != -1) {
-                Modal.info({
-                    title: '提示',
-                    content: '服务器繁忙，请稍后重试'
-                })
-            } else if (String(error).toLowerCase().indexOf('network') != -1) {
-                Modal.info({
-                    title: '提示',
-                    content: '服务器问失败，请稍后重试'
-                })
+            if (params.page == 1) {
+                data = {
+                    page: 1,
+                    page_size: 10,
+                    total: 16,
+                    list: [
+                        { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "31", "norigtaxmny": "20150", "nqtorigtaxprice": "650" },
+                        { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+                        { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+                        { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+                        { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+                        { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+                        { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+                        { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+                        { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+                        { "casscustid": "", "cmaterialvid": "合计", "grossdate": "", "grosstime": "", "measbillno": "", "nnum": 32, "norigtaxmny": 20800, "nqtorigtaxprice": "", "skintime": "", "vcarnumber": "" }
+                    ]
+                }
+            } else {
+                data = {
+                    page: 2,
+                    page_size: 10,
+                    total: 16,
+                    list: [
+                        { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+                        { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+                        { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+                        { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+                        { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+                        { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+                    ]
+                }
             }
+
+            _this.setState({
+                list: data.list,
+                selectedRowKeys: [],//重置
+                pagination: Utils.pagination(data, (current) => {
+                    console.log(current);
+                    _this.params.page = current;
+                    _this.requestList();
+                })
+            })
+
+            // if (String(error).toLowerCase().indexOf('timeout') != -1) {
+            //     Modal.info({
+            //         title: '提示',
+            //         content: '服务器繁忙，请稍后重试'
+            //     })
+            // } else if (String(error).toLowerCase().indexOf('network') != -1) {
+            //     Modal.info({
+            //         title: '提示',
+            //         content: '服务器问失败，请稍后重试'
+            //     })
+            // }
         })
     }
 
