@@ -16,7 +16,9 @@ export default class OnlineOrder extends React.Component {
 
 	state = {
 		list: [],
+		// 订单弹窗显示控制
 		isVisible: false,
+		// 关闭原因弹窗控制
 		isVisible3: false,
 		clientRef: sessionStorage.getItem('clientRef') || [],
 		cementRef: sessionStorage.getItem('cementRef') || [],
@@ -84,8 +86,6 @@ export default class OnlineOrder extends React.Component {
 
 	componentDidMount() {
 		this.requestList();
-		// this.getSubOptions(eval(this.state.clientRef)[0]);
-		// axios.getOptions(this, '/querycemtype', eval(this.state.clientRef)[0]);
 	}
 
 	handleFilter = (para) => {
@@ -280,6 +280,7 @@ export default class OnlineOrder extends React.Component {
 						}}
 					/>
 				</div>
+
 				<Modal
 					title={this.state.title}
 					visible={this.state.isVisible}
@@ -295,6 +296,7 @@ export default class OnlineOrder extends React.Component {
 				>
 					<OrderForm type={this.state.type} orderInfo={this.state.orderInfo} wrappedComponentRef={(inst) => { this.orderForm = inst; }} getSubOptions={this.getSubOptions} />
 				</Modal>
+
 				<Modal
 					title={this.state.title3}
 					visible={this.state.isVisible3}
@@ -431,7 +433,6 @@ class OrderForm extends React.Component {
 						{
 							type == 'detail' ? orderInfo.customername :
 								getFieldDecorator('customer', {
-									// initialValue: orderInfo.client || undefined,
 									initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].customer) : undefined,
 								})(
 									<Select
@@ -526,8 +527,6 @@ class OrderForm extends React.Component {
 										{ required: true, message: '请输入车牌!' }
 									],
 								})(
-									// <Search type="text" placeholder="请输入车牌号" />
-
 									<Search
 										placeholder="请输入车牌号"
 										enterButton="获取"
@@ -577,13 +576,11 @@ class OrderForm extends React.Component {
 					visible={this.state.isVisible2}
 					onOk={this.handleSubmit}
 					onCancel={() => {
-						// this.orderForm.props.form.resetFields();
 						this.setState({
 							isVisible2: false
 						})
 					}}
 					width={1000}
-				// {...footer}
 				>
 					<div className="content-wrap">
 						<Table
@@ -592,7 +589,6 @@ class OrderForm extends React.Component {
 							dataSource={this.state.list}
 							rowSelection={rowRadioSelection}
 							pagination={false}
-						// rowKey={dataSource => dataSource.openid}
 						/>
 					</div>
 				</Modal>
