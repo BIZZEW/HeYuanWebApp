@@ -182,7 +182,7 @@ export default class OnlineCheck extends React.Component {
 		let tabsHeight = document.getElementsByClassName('ant-tabs-nav-scroll')[0].offsetHeight;
 		let cardHeight = 65;
 		let gapsHeight = 25;
-		let headernfooterHeight = 55;
+		let headernfooterHeight = 56;
 		let paginationHeight = 65;
 		let tableHeight = clientHeight - headerHeight - tabsHeight - cardHeight - gapsHeight - headernfooterHeight - paginationHeight;
 		console.log("tableHeight: " + tableHeight + " clientHeight: " + clientHeight + " headerHeight: " + headerHeight + " tabsHeight: " + tabsHeight);

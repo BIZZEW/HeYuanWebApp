@@ -312,7 +312,7 @@ export default class Axios {
             data,
             method: "post"
         }).then((response) => {
-            _this.userForm.props.form.resetFields();
+            _this.orderForm.props.form.resetFields();
             _this.setState({
                 isVisible: false
             })

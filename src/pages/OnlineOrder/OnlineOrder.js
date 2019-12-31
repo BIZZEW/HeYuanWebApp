@@ -351,17 +351,6 @@ class OrderForm extends React.Component {
 		// cementRef: [],
 	}
 
-	getState = (state) => {
-		let config = {
-			'1': '咸鱼一条',
-			'2': '风华浪子',
-			'3': '北大才子一枚',
-			'4': '百度FE',
-			'5': '创业者'
-		}
-		return config[state];
-	}
-
 	getDriverOptions = (value) => {
 		let _this = this;
 		this.props.form.validateFields(["vehicle"], (err, values) => {
@@ -524,16 +513,6 @@ class OrderForm extends React.Component {
 								)
 						}
 					</FormItem>
-					{/* <FormItem label="单位" {...formItemLayout}>
-                        {
-                            type == 'detail' ? this.getState(orderInfo.unit) :
-                                getFieldDecorator('unit', {
-                                    initialValue: orderInfo.unit
-                                })(
-                                    <Input type="text" placeholder="请输入单位" />
-                                )
-                        }
-                    </FormItem> */}
 
 					<Divider />
 

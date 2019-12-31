@@ -14,7 +14,7 @@ const Option = Select.Option;
 
 moment.locale('zh-cn');
 
-export default class User extends React.Component {
+export default class ChangePassword extends React.Component {
 
 	state = {
 	}
@@ -25,13 +25,13 @@ export default class User extends React.Component {
 
 	render() {
 		return (
-			<UserForm wrappedComponentRef={(inst) => { this.userForm = inst; }} />
+			<ChangeForm wrappedComponentRef={(inst) => { this.changeForm = inst; }} />
 		)
 	}
 }
 
 //子组件：创建员工表单
-class UserForm extends React.Component {
+class ChangeForm extends React.Component {
 
 	//确认修改密码
 	handleSubmit = (e) => {
@@ -91,4 +91,4 @@ class UserForm extends React.Component {
 		)
 	}
 }
-UserForm = Form.create({})(UserForm);
+ChangeForm = Form.create({})(ChangeForm);
