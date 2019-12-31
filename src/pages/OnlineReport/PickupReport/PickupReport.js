@@ -112,9 +112,9 @@ export default class User extends React.Component {
 		let clientHeight = document.body.clientHeight;
 		let headerHeight = document.getElementsByClassName('header')[0].offsetHeight;
 		let tabsHeight = document.getElementsByClassName('ant-tabs-nav-scroll')[0].offsetHeight;
-		let cardHeight = 65;
+		let cardHeight = 105;
 		let gapsHeight = 25;
-		let headernfooterHeight = 120;
+		let headernfooterHeight = 122;
 		let paginationHeight = 65;
 		let tableHeight = clientHeight - headerHeight - tabsHeight - cardHeight - gapsHeight - headernfooterHeight - paginationHeight;
 		console.log("tableHeight: " + tableHeight + " clientHeight: " + clientHeight + " headerHeight: " + headerHeight + " tabsHeight: " + tabsHeight);
