@@ -17,6 +17,7 @@ export default class OnlineOrder extends React.Component {
 	state = {
 		list: [],
 		isVisible: false,
+		isVisible3: false,
 		clientRef: sessionStorage.getItem('clientRef') || [],
 		cementRef: sessionStorage.getItem('cementRef') || [],
 
@@ -136,13 +137,6 @@ export default class OnlineOrder extends React.Component {
 			// 	orderInfo: this.state.list[index]
 			// })
 		} else if (type == 'detail') {
-			// if (!item) {
-			//  Modal.info({
-			//      title: '提示',
-			//      content: '请选择一个用户'
-			//  })
-			//  return;
-			// }
 			console.log(record);
 			this.setState({
 				type,
@@ -151,49 +145,42 @@ export default class OnlineOrder extends React.Component {
 				orderInfo: record
 			})
 		} else if (type == 'delete') {
-			// if (!item) {
-			// 	Modal.info({
-			// 		title: '提示',
-			// 		content: '请选择一个用户'
-			// 	})
-			// 	return;
-			// }
-
 			let _this = this;
 			Modal.confirm({
 				title: '确认删除',
 				content: `是否要删除当前选中数据`,
 				onOk() {
-					// axios.ajax({
-					// 	url: '/invalidsaleorder',
-					// 	data: {
-					// 		params: {
-					// 			id: item.id
-					// 		}
-					// 	}
-					// }).then((res) => {
-					// 	if (res.code === 0) {
-					// 		_this.setState({
-					// 			isVisible: false
-					// 		})
-					// 		_this.requestList();
-					// 	}
-					// })
-					let data = record;
-					// console.log("record", JSON.stringify(data));
 					axios.deleteOrder(_this, 'invalidsaleorder', qs.stringify(record));
 				}
+			})
+		} else if (type == 'stop') {
+			let _this = this;
+			this.setState({
+				isVisible3: true,
+				title3: '关闭原因',
+				stoppingRecord: record
 			})
 		}
 	}
 
-	//创建编辑员工提交
+	//创建编辑订单提交
 	handleSubmit = () => {
 		let type = this.state.type;
 		let data = this.userForm.props.form.getFieldsValue();
 		this.userForm.props.form.validateFields((err, values) => {
 			if (!err) {
 				axios.createNewOrder(this, (type == 'create' ? '/addsaleorder' : '/user/edit'), qs.stringify(data));
+			}
+		});
+	}
+
+	//关闭订单提交
+	handleSubmit3 = () => {
+		let data = this.closeForm.props.form.getFieldsValue();
+		this.closeForm.props.form.validateFields((err, values) => {
+			if (!err) {
+				let data2 = { ...data, ...this.state.stoppingRecord }
+				axios.closeOrder(this, '/closeOrder', qs.stringify(data2));
 			}
 		});
 	}
@@ -255,7 +242,7 @@ export default class OnlineOrder extends React.Component {
 						<Button type="primary" onClick={() => this.handleOperate('detail', record)} icon="search">详情</Button>
 						<Divider type="vertical" />
 						{/* <Button type="primary" onClick={() => this.handleOperate('edit', record.id)} icon="edit">编辑</Button> */}
-						<Button type="danger" icon="delete" onClick={() => this.handleOperate('delete', record)}>删除</Button>
+						<Button type="danger" icon="stop" onClick={() => this.handleOperate('stop', record)}>关闭</Button>
 					</span>
 				),
 			},
@@ -308,12 +295,45 @@ export default class OnlineOrder extends React.Component {
 				>
 					<UserForm type={this.state.type} orderInfo={this.state.orderInfo} wrappedComponentRef={(inst) => { this.userForm = inst; }} getSubOptions={this.getSubOptions} />
 				</Modal>
+				<Modal
+					title={this.state.title3}
+					visible={this.state.isVisible3}
+					onOk={this.handleSubmit3}
+					onCancel={() => {
+						this.closeForm.props.form.resetFields();
+						this.setState({
+							isVisible3: false
+						})
+					}}
+					width={600}
+				>
+					<CloseForm wrappedComponentRef={(inst) => { this.closeForm = inst; }} />
+				</Modal>
 			</div>
 		)
 	}
 }
 
-//子组件：创建员工表单
+//子组件：关闭订单表单
+class CloseForm extends React.Component {
+	render() {
+		const { getFieldDecorator } = this.props.form;
+		return (
+			<Form>
+				<FormItem>
+					{
+						getFieldDecorator('reason')(
+							<TextArea></TextArea>
+						)
+					}
+				</FormItem>
+			</Form >
+		)
+	}
+}
+CloseForm = Form.create({})(CloseForm);
+
+//子组件：创建订单表单
 class UserForm extends React.Component {
 	state = {
 		isVisible2: false,

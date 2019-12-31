@@ -120,12 +120,12 @@ export default class Axios {
             //         page_size: 10,
             //         total: 16,
             //         list: [
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" }, 
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" }, 
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" }, 
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" }, 
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" }, 
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" }, 
+            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
+            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
             //         ]
             //     }
             // }
@@ -320,6 +320,37 @@ export default class Axios {
             Modal.info({
                 title: '提示',
                 content: '新增成功'
+            })
+        }).catch((error) => {
+            if (String(error).toLowerCase().indexOf('timeout') != -1) {
+                Modal.info({
+                    title: '提示',
+                    content: '服务器繁忙，请稍后重试'
+                })
+            } else if (String(error).toLowerCase().indexOf('network') != -1) {
+                Modal.info({
+                    title: '提示',
+                    content: '服务器问失败，请稍后重试'
+                })
+            }
+        })
+    }
+
+    // 网上订货关闭
+    static closeOrder(_this, url, data) {
+        this.ajax({
+            url,
+            data,
+            method: "post"
+        }).then((response) => {
+            _this.closeForm.props.form.resetFields();
+            _this.setState({
+                isVisible3: false
+            })
+            _this.requestList();
+            Modal.info({
+                title: '提示',
+                content: '关闭成功'
             })
         }).catch((error) => {
             if (String(error).toLowerCase().indexOf('timeout') != -1) {
