@@ -12,7 +12,7 @@ const RadioGroup = Radio.Group;
 const TextArea = Input.TextArea;
 const Option = Select.Option;
 
-export default class User extends React.Component {
+export default class PickupReport extends React.Component {
 
 	state = {
 		list: [],

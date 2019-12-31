@@ -158,7 +158,7 @@ export default class OnlineOrder extends React.Component {
 			this.setState({
 				isVisible3: true,
 				title3: '关闭原因',
-				stoppingRecord: record
+				orderInfo: record
 			})
 		}
 	}
@@ -166,8 +166,8 @@ export default class OnlineOrder extends React.Component {
 	//创建编辑订单提交
 	handleSubmit = () => {
 		let type = this.state.type;
-		let data = this.userForm.props.form.getFieldsValue();
-		this.userForm.props.form.validateFields((err, values) => {
+		let data = this.orderForm.props.form.getFieldsValue();
+		this.orderForm.props.form.validateFields((err, values) => {
 			if (!err) {
 				axios.createNewOrder(this, (type == 'create' ? '/addsaleorder' : '/user/edit'), qs.stringify(data));
 			}
@@ -179,7 +179,7 @@ export default class OnlineOrder extends React.Component {
 		let data = this.closeForm.props.form.getFieldsValue();
 		this.closeForm.props.form.validateFields((err, values) => {
 			if (!err) {
-				let data2 = { ...data, ...this.state.stoppingRecord }
+				let data2 = { ...data, ...this.state.orderInfo }
 				axios.closeOrder(this, '/closeOrder', qs.stringify(data2));
 			}
 		});
@@ -285,7 +285,7 @@ export default class OnlineOrder extends React.Component {
 					visible={this.state.isVisible}
 					onOk={this.handleSubmit}
 					onCancel={() => {
-						this.userForm.props.form.resetFields();
+						this.orderForm.props.form.resetFields();
 						this.setState({
 							isVisible: false
 						})
@@ -293,7 +293,7 @@ export default class OnlineOrder extends React.Component {
 					width={600}
 					{...footer}
 				>
-					<UserForm type={this.state.type} orderInfo={this.state.orderInfo} wrappedComponentRef={(inst) => { this.userForm = inst; }} getSubOptions={this.getSubOptions} />
+					<OrderForm type={this.state.type} orderInfo={this.state.orderInfo} wrappedComponentRef={(inst) => { this.orderForm = inst; }} getSubOptions={this.getSubOptions} />
 				</Modal>
 				<Modal
 					title={this.state.title3}
@@ -338,7 +338,7 @@ class CloseForm extends React.Component {
 CloseForm = Form.create({})(CloseForm);
 
 //子组件：创建订单表单
-class UserForm extends React.Component {
+class OrderForm extends React.Component {
 	state = {
 		isVisible2: false,
 		list: [],
@@ -598,7 +598,7 @@ class UserForm extends React.Component {
 					visible={this.state.isVisible2}
 					onOk={this.handleSubmit}
 					onCancel={() => {
-						// this.userForm.props.form.resetFields();
+						// this.orderForm.props.form.resetFields();
 						this.setState({
 							isVisible2: false
 						})
@@ -621,4 +621,4 @@ class UserForm extends React.Component {
 		)
 	}
 }
-UserForm = Form.create({})(UserForm);
+OrderForm = Form.create({})(OrderForm);
