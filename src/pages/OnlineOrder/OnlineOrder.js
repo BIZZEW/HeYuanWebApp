@@ -39,7 +39,7 @@ export default class OnlineOrder extends React.Component {
 			list: this.state.clientRef,
 			idKey: "customer",
 			valueKey: "customername",
-			cascade: true
+			cascade: "pk_material"
 		},
 		{
 			type: 'SELECT',

@@ -82,9 +82,11 @@ class FilterForm extends React.Component {
                                     placeholder={[placeholder]}
                                     disabled={disabled}
                                     onSelect={(value) => {
-                                        if (field == "customer" && cascade) {
-                                            this.getSubOptions({ "customer": value });
-                                            this.props.form.resetFields(["pk_material"]);
+                                        if (cascade) {
+                                            let obj = {};
+                                            obj[field] = value;
+                                            this.getSubOptions(obj);
+                                            this.props.form.resetFields([cascade]);
                                         }
                                     }}
                                 >

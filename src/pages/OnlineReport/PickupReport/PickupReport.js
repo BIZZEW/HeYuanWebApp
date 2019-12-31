@@ -36,7 +36,7 @@ export default class User extends React.Component {
 			list: this.state.clientRef,
 			idKey: "customer",
 			valueKey: "customername",
-			cascade: true
+			cascade: "cmaterialvid"
 		},
 		{
 			type: 'SELECT',
