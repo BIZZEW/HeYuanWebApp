@@ -210,6 +210,10 @@ export default class OnlineOrder extends React.Component {
 			// 	width: 100,
 			// },
 			{
+				title: '单据号',
+				dataIndex: 'orderno'
+			},
+			{
 				title: '客户',
 				dataIndex: 'customername'
 			},
@@ -226,7 +230,7 @@ export default class OnlineOrder extends React.Component {
 				dataIndex: 'ordernum'
 			},
 			{
-				title: '过皮状态',
+				title: '单据状态',
 				dataIndex: 'billstatus',
 			},
 			{
