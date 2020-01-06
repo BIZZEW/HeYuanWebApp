@@ -451,7 +451,7 @@ export default class Axios {
                 url: options.url,
                 method: options.method,
                 baseURL: baseApi,
-                timeout: 5000,
+                timeout: 8000,
                 params: (options.params) || "",
                 data: (options.data) || "",
             }).then((response) => {
