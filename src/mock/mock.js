@@ -35,7 +35,7 @@ export const login = (loginObject) => {
 			url: "/login",
 			method: 'post',
 			baseURL: baseApi,
-			timeout: 5000,
+			timeout: 8000,
 			// params: qs.stringify(data),
 			// params: data,
 			data: qs.stringify(data),
@@ -54,7 +54,7 @@ export const login = (loginObject) => {
 							url: "/querycemtype",
 							method: "get",
 							baseURL: baseApi,
-							timeout: 5000,
+							timeout: 8000,
 							params: res.result[0],
 						}).then((response) => {
 							if (response.status === 200) {
@@ -70,7 +70,7 @@ export const login = (loginObject) => {
 							url: "/querysaleunit",
 							method: "get",
 							baseURL: baseApi,
-							timeout: 5000,
+							timeout: 8000,
 							params: res.result[0],
 						}).then((response) => {
 							if (response.status === 200) {
