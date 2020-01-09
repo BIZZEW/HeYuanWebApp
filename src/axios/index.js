@@ -97,63 +97,63 @@ export default class Axios {
             }
         }).catch((error) => {
 
-            var data = {};
+            // var data = {};
 
-            if (params.page == 1) {
-                data = {
-                    page: 1,
-                    page_size: 10,
-                    total: 16,
-                    list: [
-                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-                    ]
-                }
-            } else {
-                data = {
-                    page: 2,
-                    page_size: 10,
-                    total: 16,
-                    list: [
-                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-                    ]
-                }
-            }
-
-            _this.setState({
-                list: data.list,
-                selectedRowKeys: [],//重置
-                pagination: Utils.pagination(data, (current) => {
-                    console.log(current);
-                    _this.params.page = current;
-                    _this.requestList();
-                })
-            })
-
-            // if (String(error).toLowerCase().indexOf('timeout') != -1) {
-            //     Modal.info({
-            //         title: '提示',
-            //         content: '服务器繁忙，请稍后重试'
-            //     })
-            // } else if (String(error).toLowerCase().indexOf('network') != -1) {
-            //     Modal.info({
-            //         title: '提示',
-            //         content: '服务器问失败，请稍后重试'
-            //     })
+            // if (params.page == 1) {
+            //     data = {
+            //         page: 1,
+            //         page_size: 10,
+            //         total: 16,
+            //         list: [
+            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+            //         ]
+            //     }
+            // } else {
+            //     data = {
+            //         page: 2,
+            //         page_size: 10,
+            //         total: 16,
+            //         list: [
+            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+            //         ]
+            //     }
             // }
+
+            // _this.setState({
+            //     list: data.list,
+            //     selectedRowKeys: [],//重置
+            //     pagination: Utils.pagination(data, (current) => {
+            //         console.log(current);
+            //         _this.params.page = current;
+            //         _this.requestList();
+            //     })
+            // })
+
+            if (String(error).toLowerCase().indexOf('timeout') != -1) {
+                Modal.info({
+                    title: '提示',
+                    content: '服务器繁忙，请稍后重试'
+                })
+            } else if (String(error).toLowerCase().indexOf('network') != -1) {
+                Modal.info({
+                    title: '提示',
+                    content: '服务器问失败，请稍后重试'
+                })
+            }
         })
     }
 
