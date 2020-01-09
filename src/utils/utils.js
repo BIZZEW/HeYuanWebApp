@@ -33,7 +33,10 @@ export default {
         // var parsedList = eval(list);
         if (list)
             eval(list).map((item) => {
-                options.push(<Option value={item[idKey]} key={item[idKey]}>{item[valueKey]}</Option>)
+                if (idKey)
+                    options.push(<Option value={item[idKey]} key={item[idKey]}>{item[valueKey]}</Option>)
+                else
+                    options.push(<Option value={item} key={item[idKey]}>{item}</Option>)
             })
         return options;
     },

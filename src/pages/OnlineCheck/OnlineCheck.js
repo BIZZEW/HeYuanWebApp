@@ -19,6 +19,8 @@ export default class OnlineCheck extends React.Component {
 		list: [],
 		list1: [],
 		isVisible: false,
+		clientRef: sessionStorage.getItem('clientRef') || [],
+		checkNoRef: sessionStorage.getItem('checkNoRef') || [],
 		level: true,
 	}
 
@@ -34,26 +36,23 @@ export default class OnlineCheck extends React.Component {
 		{
 			type: 'SELECT',
 			label: '客户',
-			field: 'client',
+			field: 'customer',
 			placeholder: '请选择客户',
 			width: 200,
-			list: sessionStorage.getItem('clientRef'),
+			initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].customer) : undefined,
+			list: this.state.clientRef,
 			idKey: "customer",
-			valueKey: "customername"
+			valueKey: "customername",
+			cascade: "billno"
 		},
 		{
-			type: 'INPUT',
+			type: 'SELECT',
 			label: '对账单号',
-			field: 'checkOrderId',
-			placeholder: '请输入对账单号',
-			width: 200
+			field: 'billno',
+			placeholder: '请选择对账单号',
+			width: 200,
+			list: this.state.checkNoRef,
 		},
-		// {
-		// 	type: 'DATERANGE',
-		// 	label: '对账日期',
-		// 	field: 'date',
-		// 	placeholder: '请输入日期'
-		// },
 		{
 			type: 'DATE',
 			label: '开始日期',
@@ -81,13 +80,27 @@ export default class OnlineCheck extends React.Component {
 		}
 	}
 
-	handleFilter = (params) => {
-		this.params = params;
+	handleFilter = (para) => {
+		para.page = 1;
+		this.params = para;
 		this.requestList();
 	}
 
 	requestList = () => {
-		axios.requestList(this, '/table/list1', this.params);
+		if (this.params.begindate && (typeof (this.params.begindate) == "object"))
+			this.params.begindate = this.params.begindate.format("YYYY-MM-DD");
+
+		if (this.params.enddate && (typeof (this.params.enddate) == "object"))
+			this.params.enddate = this.params.enddate.format("YYYY-MM-DD");
+
+		if (!this.params.customer)
+			this.params.customer = (eval(this.state.clientRef)[0]).customer;
+
+		for (var i of eval(this.state.clientRef))
+			if (i.customer === this.params.customer)
+				this.params = { ...this.params, ...i };
+
+		axios.requestList(this, '/queryaccounts', this.params);
 	}
 
 	// 对账单详情的获取Ï
@@ -205,28 +218,28 @@ export default class OnlineCheck extends React.Component {
 	render() {
 		const columns = [
 			{
+				title: '对账单号',
+				dataIndex: 'billno'
+			},
+			{
 				title: '客户',
-				dataIndex: 'customername'
+				dataIndex: 'customer'
 			},
 			{
-				title: '日期',
-				dataIndex: 'dbilldate'
+				title: '对账日期',
+				dataIndex: 'billdate'
 			},
 			{
-				title: '物料',
-				dataIndex: 'materialname'
+				title: '公司余额',
+				dataIndex: 'lastmonthbalance'
 			},
 			{
-				title: '数量',
-				dataIndex: 'ordernum'
+				title: '对账金额',
+				dataIndex: 'account',
 			},
 			{
-				title: '过皮状态',
-				dataIndex: 'billstatus',
-			},
-			{
-				title: '车号',
-				dataIndex: 'vehicle',
+				title: '确认状态',
+				dataIndex: 'isconfirmation',
 			},
 			{
 				title: '操作',

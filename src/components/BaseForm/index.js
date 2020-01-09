@@ -6,7 +6,9 @@ const FormItem = Form.Item;
 const { RangePicker } = DatePicker;
 
 class FilterForm extends React.Component {
-
+    state = {
+        clientRef: sessionStorage.getItem('clientRef') || [],
+    }
 
     formList = []
 
@@ -19,8 +21,15 @@ class FilterForm extends React.Component {
         });
     }
 
-    getSubOptions = (param) => {
-        axios.getOptions(this, '/querycemtype', param);
+    getSubOptions = (param, cascade) => {
+        for (var i of eval(this.state.clientRef))
+            if (i.customer === param.customer)
+                param = { ...param, ...i };
+
+        if (cascade === "billno")
+            axios.getOptions(this, '/querybillno', param);
+        else
+            axios.getOptions(this, '/querycemtype', param);
     }
 
     reset = () => {
@@ -85,7 +94,7 @@ class FilterForm extends React.Component {
                                         if (cascade) {
                                             let obj = {};
                                             obj[field] = value;
-                                            this.getSubOptions(obj);
+                                            this.getSubOptions(obj, cascade);
                                             this.props.form.resetFields([cascade]);
                                         }
                                     }}

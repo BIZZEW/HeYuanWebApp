@@ -40,8 +40,9 @@ export default class Axios {
         })
     }
 
-    // 查询form获取下拉选项（水泥品种）
+    // 查询form获取下拉选项
     static getOptions(_this, url, params) {
+        params.username = sessionStorage.getItem('userName');
         this.ajax({
             url,
             params,
@@ -51,6 +52,8 @@ export default class Axios {
             _this.formList[1].list = data.result;
             _this.forceUpdate();
         }).catch((error) => {
+            // _this.formList[1].list = ["zzzzzzzzz", "H4302020010600000001"];
+            // _this.forceUpdate();
         })
     }
 
@@ -94,63 +97,63 @@ export default class Axios {
             }
         }).catch((error) => {
 
-            // var data = {};
+            var data = {};
 
-            // if (params.page == 1) {
-            //     data = {
-            //         page: 1,
-            //         page_size: 10,
-            //         total: 16,
-            //         list: [
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "31", "norigtaxmny": "20150", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "", "cmaterialvid": "合计", "grossdate": "", "grosstime": "", "measbillno": "", "nnum": 32, "norigtaxmny": 20800, "nqtorigtaxprice": "", "skintime": "", "vcarnumber": "" }
-            //         ]
-            //     }
-            // } else {
-            //     data = {
-            //         page: 2,
-            //         page_size: 10,
-            //         total: 16,
-            //         list: [
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //             { "casscustid": "测试", "cmaterialvid": "袋装测试", "grossdate": "2019-12-26", "nnum": "1", "norigtaxmny": "650", "nqtorigtaxprice": "650" },
-            //         ]
-            //     }
-            // }
-
-            // _this.setState({
-            //     list: data.list,
-            //     selectedRowKeys: [],//重置
-            //     pagination: Utils.pagination(data, (current) => {
-            //         console.log(current);
-            //         _this.params.page = current;
-            //         _this.requestList();
-            //     })
-            // })
-
-            if (String(error).toLowerCase().indexOf('timeout') != -1) {
-                Modal.info({
-                    title: '提示',
-                    content: '服务器繁忙，请稍后重试'
-                })
-            } else if (String(error).toLowerCase().indexOf('network') != -1) {
-                Modal.info({
-                    title: '提示',
-                    content: '服务器问失败，请稍后重试'
-                })
+            if (params.page == 1) {
+                data = {
+                    page: 1,
+                    page_size: 10,
+                    total: 16,
+                    list: [
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                    ]
+                }
+            } else {
+                data = {
+                    page: 2,
+                    page_size: 10,
+                    total: 16,
+                    list: [
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                    ]
+                }
             }
+
+            _this.setState({
+                list: data.list,
+                selectedRowKeys: [],//重置
+                pagination: Utils.pagination(data, (current) => {
+                    console.log(current);
+                    _this.params.page = current;
+                    _this.requestList();
+                })
+            })
+
+            // if (String(error).toLowerCase().indexOf('timeout') != -1) {
+            //     Modal.info({
+            //         title: '提示',
+            //         content: '服务器繁忙，请稍后重试'
+            //     })
+            // } else if (String(error).toLowerCase().indexOf('network') != -1) {
+            //     Modal.info({
+            //         title: '提示',
+            //         content: '服务器问失败，请稍后重试'
+            //     })
+            // }
         })
     }
 
@@ -450,7 +453,7 @@ export default class Axios {
             axios({
                 url: options.url,
                 method: options.method,
-                baseURL: baseApi,
+                baseURL: baseApi0,
                 timeout: 8000,
                 params: (options.params) || "",
                 data: (options.data) || "",
