@@ -142,7 +142,7 @@ export default class OnlineOrder extends React.Component {
 				type,
 				isVisible: true,
 				title: '详情',
-				orderInfo: record
+				orderInfo: record,
 			})
 		} else if (type == 'delete') {
 			let _this = this;

@@ -97,63 +97,300 @@ export default class Axios {
             }
         }).catch((error) => {
 
-            // var data = {};
+            var data = {};
 
-            // if (params.page == 1) {
-            //     data = {
-            //         page: 1,
-            //         page_size: 10,
-            //         total: 16,
-            //         list: [
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //         ]
-            //     }
-            // } else {
-            //     data = {
-            //         page: 2,
-            //         page_size: 10,
-            //         total: 16,
-            //         list: [
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //         ]
-            //     }
-            // }
+            if (params.page == 1) {
+                data = {
+                    page: 1,
+                    page_size: 10,
+                    total: 16,
+                    list: [
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                    ]
+                }
+            } else {
+                data = {
+                    page: 2,
+                    page_size: 10,
+                    total: 16,
+                    list: [
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                        { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+                    ]
+                }
+            }
 
-            // _this.setState({
-            //     list: data.list,
-            //     selectedRowKeys: [],//重置
-            //     pagination: Utils.pagination(data, (current) => {
-            //         console.log(current);
-            //         _this.params.page = current;
-            //         _this.requestList();
-            //     })
-            // })
-
-            if (String(error).toLowerCase().indexOf('timeout') != -1) {
-                Modal.info({
-                    title: '提示',
-                    content: '服务器繁忙，请稍后重试'
+            _this.setState({
+                list: data.list,
+                selectedRowKeys: [],//重置
+                pagination: Utils.pagination(data, (current) => {
+                    console.log(current);
+                    _this.params.page = current;
+                    _this.requestList();
                 })
-            } else if (String(error).toLowerCase().indexOf('network') != -1) {
-                Modal.info({
-                    title: '提示',
-                    content: '服务器问失败，请稍后重试'
+            })
+
+            // if (String(error).toLowerCase().indexOf('timeout') != -1) {
+            //     Modal.info({
+            //         title: '提示',
+            //         content: '服务器繁忙，请稍后重试'
+            //     })
+            // } else if (String(error).toLowerCase().indexOf('network') != -1) {
+            //     Modal.info({
+            //         title: '提示',
+            //         content: '服务器问失败，请稍后重试'
+            //     })
+            // }
+        })
+    }
+
+    // 获取对账单详情列表
+    static requestList1(_this, url, params) {
+        params.username = sessionStorage.getItem('userName');
+
+        this.ajax({
+            url,
+            params,
+            method: "get"
+        }).then((response) => {
+            if (response && response.result) {
+                let result = response.result;
+                let materialList = [];
+                let columns = [{
+                    title: '日期',
+                    dataIndex: 'statisticaldate',
+                    key: 'statisticaldate',
+                    width: 200,
+                }];
+                let columns2 = [
+                    {
+                        title: '总吨位',
+                        dataIndex: 'totaltonnage',
+                        key: 'totaltonnage',
+                        width: 200,
+                    },
+                    {
+                        title: '总金额',
+                        dataIndex: 'totalamount',
+                        key: 'totalamount',
+                        width: 200,
+                    },
+                    {
+                        title: '现金',
+                        dataIndex: 'cash',
+                        key: 'cash',
+                        width: 200,
+                    },
+                    {
+                        title: '承兑',
+                        dataIndex: 'acceptancebill',
+                        key: 'acceptancebill',
+                        width: 200,
+                    },
+                    {
+                        title: '上月余额',
+                        dataIndex: 'lastmonthbalance',
+                        key: 'lastmonthbalance',
+                        width: 200,
+                    },
+                    {
+                        title: '优惠金额',
+                        dataIndex: 'preferentialamount',
+                        key: 'preferentialamount',
+                        width: 200,
+                    },
+                    {
+                        title: '本月余额',
+                        dataIndex: 'balancemonth',
+                        key: 'balancemonth',
+                        width: 200,
+                    },
+                    {
+                        title: '调整金额',
+                        dataIndex: 'adjustmentamount',
+                        key: 'adjustmentamount',
+                        width: 200,
+                    }
+                ];
+
+                if (result.material) {
+                    materialList = result.material
+                    for (let material of materialList) {
+                        columns.push({
+                            title: material.name,
+                            children: [
+                                {
+                                    title: '数量',
+                                    dataIndex: material.num,
+                                    key: material.num,
+                                    width: 200,
+                                },
+                                {
+                                    title: '单价',
+                                    dataIndex: material.price,
+                                    key: material.price,
+                                    width: 200,
+                                },
+                            ],
+                        });
+                    }
+                }
+
+                _this.setState({
+                    columnsDetail: columns.concat(columns2),
+                    list1: response.result.obj.bodyobj,
                 })
             }
+        }).catch((error) => {
+            var response = {
+                "result": {
+                    "material": [
+                        { "name": "金圆32.5散装", "num": "def1", "pk": "1001A210000000001OGP", "price": "def2" },
+                        { "name": "金圆32.5散装", "num": "def11", "pk": "1001A210000000001OGP", "price": "def22" },
+                        { "name": "金圆32.5散装", "num": "def111", "pk": "1001A210000000001OGP", "price": "def222" },
+                        { "name": "金圆32.5散装", "num": "def1111", "pk": "1001A210000000001OGP", "price": "def2222" },
+                    ],
+                    "obj": {
+                        "bodyobj": [
+                            { "acceptancebill": "2222", "adjustmentamount": "3333", "balancemonth": "44444", "cash": "55555", "def1": "55", "def11": "55", "def111": "55", "def1111": "55", "def2": "55", "def22": "55", "def222": "55", "def2222": "55", "lastmonthbalance": "5", "statisticaldate": "2019-12-09", "totalamount": "5555", "totaltonnage": "55555" },
+                            { "acceptancebill": "22dddd22", "adjustmentamount": "3333", "balancemonth": "44444", "cash": "55555", "def1": "55", "def11": "55", "def111": "55", "def1111": "55", "def2": "55", "def22": "55", "def222": "55", "def2222": "55", "lastmonthbalance": "5", "statisticaldate": "2019-12-09", "totalamount": "5555", "totaltonnage": "55555" },
+                            { "acceptancebill": "2222", "adjustmentamount": "3333", "balancemonth": "44444", "cash": "55555", "def1": "55", "def11": "55", "def111": "55", "def1111": "55", "def2": "55", "def22": "55", "def222": "55", "def2222": "55", "lastmonthbalance": "5", "statisticaldate": "2019-12-09", "totalamount": "5555", "totaltonnage": "55555" },
+                            { "acceptancebill": "2222", "adjustmentamount": "3333", "balancemonth": "44444", "cash": "55555", "def1": "55", "def11": "55", "def111": "55", "def1111": "55", "def2": "55", "def22": "55", "def222": "55", "def2222": "55", "lastmonthbalance": "5", "statisticaldate": "2019-12-09", "totalamount": "5555", "totaltonnage": "55555" },
+                            { "acceptancebill": "22fff22", "adjustmentamount": "3ff333", "balancemonth": "44444", "cash": "55555", "def1": "55", "def11": "55", "def111": "5fffff5", "def1111": "55", "def2": "55", "def22": "55", "def222": "55", "def2222": "55", "lastmonthbalance": "5", "statisticaldate": "2019-12-09", "totalamount": "5555", "totaltonnage": "55555" },
+                            { "acceptancebill": "2222", "adjustmentamount": "3333", "balancemonth": "44444", "cash": "55555", "def1": "55", "def11": "55", "def111": "55", "def1111": "55", "def2": "55", "def22": "55", "def222": "55", "def2222": "55", "lastmonthbalance": "5", "statisticaldate": "2019-12-09", "totalamount": "5555", "totaltonnage": "55555" },
+                            { "acceptancebill": "2222", "adjustmentamount": "3333", "balancemonth": "44444", "cash": "55ffff555", "def1": "55", "def11": "55", "def111": "55", "def1111": "55", "def2": "55", "def22": "55", "def222": "55", "def2222": "55", "lastmonthbalance": "5", "statisticaldate": "2019-12-09", "totalamount": "5555", "totaltonnage": "55555" },
+                            { "acceptancebill": "2222", "adjustmentamount": "333fff3", "balancemonth": "44444", "cash": "55555", "def1": "55", "def11": "55", "def111": "5fffff5", "def1111": "55", "def2": "55", "def22": "55", "def222": "55", "def2222": "55", "lastmonthbalance": "5", "statisticaldate": "2019-12-09", "totalamount": "5555", "totaltonnage": "55555" },
+                            { "acceptancebill": "ffff", "adjustmentamount": "3333", "balancemonth": "44444", "cash": "55555", "def1": "55", "def11": "55", "def111": "55", "def1111": "55", "def2": "55", "def22": "5ffff5", "def222": "55", "def2222": "55", "lastmonthbalance": "5", "statisticaldate": "2019-12-09", "totalamount": "5555", "totaltonnage": "55555" },
+                            { "acceptancebill": "2222", "adjustmentamount": "3333", "balancemonth": "44444", "cash": "55555", "def1": "55", "def11": "55", "def111": "55", "def1111": "55", "def2": "55", "def22": "55", "def222": "55", "def2222": "55", "lastmonthbalance": "5", "statisticaldate": "2019-12-09", "totalamount": "5555", "totaltonnage": "55555" },
+                            { "acceptancebill": "2222", "adjustmentamount": "3333", "balancemonth": "44444", "cash": "555ffff55", "def1": "55", "def11": "55", "def111": "55", "def1111": "55", "def2": "55", "def22": "55", "def222": "55", "def2222": "55", "lastmonthbalance": "5", "statisticaldate": "2019-12-09", "totalamount": "5555", "totaltonnage": "55555" },
+                            { "acceptancebill": "2222", "adjustmentamount": "3333", "balancemonth": "44444", "cash": "55555", "def1": "55", "def11": "55", "def111": "55", "def1111": "55", "def2": "55", "def22": "55", "def222": "55", "def2222": "55", "lastmonthbalance": "5", "statisticaldate": "2019-12-09", "totalamount": "5555", "totaltonnage": "55555" },
+                        ],
+                        "head": {
+                            "adjustmentamount": "",
+                            "billdate": "2020-01-09",
+                            "billmaker": "陶程凯",
+                            "customer": "测试",
+                            "note": ""
+                        }
+                    }
+                },
+                "status": 200
+            };
+
+
+            if (response && response.result) {
+                let result = response.result;
+                let materialList = [];
+                let columns = [{
+                    title: '日期',
+                    dataIndex: 'statisticaldate',
+                    key: 'statisticaldate',
+                    width: 200,
+                }];
+                let columns2 = [
+                    {
+                        title: '总吨位',
+                        dataIndex: 'totaltonnage',
+                        key: 'totaltonnage',
+                        width: 200,
+                    },
+                    {
+                        title: '总金额',
+                        dataIndex: 'totalamount',
+                        key: 'totalamount',
+                        width: 200,
+                    },
+                    {
+                        title: '现金',
+                        dataIndex: 'cash',
+                        key: 'cash',
+                        width: 200,
+                    },
+                    {
+                        title: '承兑',
+                        dataIndex: 'acceptancebill',
+                        key: 'acceptancebill',
+                        width: 200,
+                    },
+                    {
+                        title: '上月余额',
+                        dataIndex: 'lastmonthbalance',
+                        key: 'lastmonthbalance',
+                        width: 200,
+                    },
+                    {
+                        title: '优惠金额',
+                        dataIndex: 'preferentialamount',
+                        key: 'preferentialamount',
+                        width: 200,
+                    },
+                    {
+                        title: '本月余额',
+                        dataIndex: 'balancemonth',
+                        key: 'balancemonth',
+                        width: 200,
+                    },
+                    {
+                        title: '调整金额',
+                        dataIndex: 'adjustmentamount',
+                        key: 'adjustmentamount',
+                        width: 200,
+                    }
+                ];
+
+                if (result.material) {
+                    materialList = result.material
+                    for (let material of materialList) {
+                        columns.push({
+                            title: material.name,
+                            children: [
+                                {
+                                    title: '数量',
+                                    dataIndex: material.num,
+                                    key: material.num,
+                                    width: 200,
+                                },
+                                {
+                                    title: '单价',
+                                    dataIndex: material.price,
+                                    key: material.price,
+                                    width: 200,
+                                },
+                            ],
+                        });
+                    }
+                }
+
+                _this.setState({
+                    columnsDetail: columns.concat(columns2),
+                    list1: response.result.obj.bodyobj,
+                })
+            }
+
+            // if (String(error).toLowerCase().indexOf('timeout') != -1) {
+            //     Modal.info({
+            //         title: '提示',
+            //         content: '服务器繁忙，请稍后重试'
+            //     })
+            // } else if (String(error).toLowerCase().indexOf('network') != -1) {
+            //     Modal.info({
+            //         title: '提示',
+            //         content: '服务器问失败，请稍后重试'
+            //     })
+            // }
         })
     }
 
@@ -192,106 +429,6 @@ export default class Axios {
             // _this.setState({
             //     list: data,
             //     selectedRowKeys: [],
-            // })
-
-            if (String(error).toLowerCase().indexOf('timeout') != -1) {
-                Modal.info({
-                    title: '提示',
-                    content: '服务器繁忙，请稍后重试'
-                })
-            } else if (String(error).toLowerCase().indexOf('network') != -1) {
-                Modal.info({
-                    title: '提示',
-                    content: '服务器问失败，请稍后重试'
-                })
-            }
-        })
-    }
-
-    // 获取对账单详情列表
-    static requestList1(_this, url, params) {
-        params.username = sessionStorage.getItem('userName');
-
-        this.ajax({
-            url,
-            params,
-            method: "get"
-        }).then((response) => {
-            if (response && response.result) {
-                _this.setState({
-                    list1: response.result.list,
-                    // selectedRowKeys: [],//重置
-                    pagination1: Utils.pagination(response.result, (current) => {
-                        console.log(current);
-                        _this.params1.page1 = current;
-                        _this.requestList();
-                    })
-                })
-            }
-        }).catch((error) => {
-
-            // let list = [];
-            // let list1 = [];
-            // for (let i = 0; i < 10; i++) {
-            //     list.push({
-            //         key: i,
-            //         date: '2019-12-18',
-            //         amount1: 10000,
-            //         amount2: 10000,
-            //         amount3: 10000,
-            //         amount4: 10000,
-            //         amount5: 10000,
-            //         price1: 100000,
-            //         price2: 100000,
-            //         price3: 100000,
-            //         price4: 100000,
-            //         price5: 100000,
-            //         totalAmount: 100000000,
-            //     });
-
-            //     list1.push({
-            //         key: i,
-            //         date: '9012-12-18',
-            //         amount1: 555,
-            //         amount2: 1005500,
-            //         amount3: 100500,
-            //         amount4: 5,
-            //         amount5: 5,
-            //         price1: 5555,
-            //         price2: 10055000,
-            //         price3: 55,
-            //         price4: 100000,
-            //         price5: 100000,
-            //         totalAmount: 223333,
-            //     });
-            // }
-
-            // var data = {};
-
-            // if (params.page1 == 1) {
-            //     data = {
-            //         page: 1,
-            //         page_size: 10,
-            //         total: 20,
-            //         list: list
-            //     }
-            // } else {
-            //     data = {
-            //         page: 2,
-            //         page_size: 10,
-            //         total: 20,
-            //         list: list1
-            //     }
-            // }
-
-            // _this.setState({
-            //     list1: data.list,
-            //     // selectedRowKeys: [],//重置
-            //     pagination1: Utils.pagination(data, (current) => {
-            //         console.log(current);
-            //         _this.params1.page1 = current;
-            //         _this.requestList1();
-            //     })
             // })
 
             if (String(error).toLowerCase().indexOf('timeout') != -1) {
@@ -383,6 +520,47 @@ export default class Axios {
                 content: '删除成功'
             })
         }).catch((error) => {
+            if (String(error).toLowerCase().indexOf('timeout') != -1) {
+                Modal.info({
+                    title: '提示',
+                    content: '服务器繁忙，请稍后重试'
+                })
+            } else if (String(error).toLowerCase().indexOf('network') != -1) {
+                Modal.info({
+                    title: '提示',
+                    content: '服务器问失败，请稍后重试'
+                })
+            }
+        })
+    }
+
+    // 网上对账操作
+    static detailCheckop(_this, url, data) {
+        data.username = sessionStorage.getItem('userName');
+
+        this.ajax({
+            url,
+            data,
+            method: "post"
+        }).then((response) => {
+            _this.setState({
+                level: true
+            })
+            _this.requestList();
+            Modal.info({
+                title: '提示',
+                content: '操作成功'
+            })
+        }).catch((error) => {
+            // _this.setState({
+            //     level: true
+            // })
+            // _this.requestList();
+            // Modal.info({
+            //     title: '提示',
+            //     content: '操作成功'
+            // })
+
             if (String(error).toLowerCase().indexOf('timeout') != -1) {
                 Modal.info({
                     title: '提示',

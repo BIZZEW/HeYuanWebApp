@@ -22,6 +22,7 @@ export default class OnlineCheck extends React.Component {
 		clientRef: sessionStorage.getItem('clientRef') || [],
 		checkNoRef: sessionStorage.getItem('checkNoRef') || [],
 		level: true,
+		btnHide: true,
 	}
 
 	params = {
@@ -103,89 +104,35 @@ export default class OnlineCheck extends React.Component {
 		axios.requestList(this, '/queryaccounts', this.params);
 	}
 
-	// 对账单详情的获取Ï
+	// 对账单详情的获取
 	requestList1 = () => {
-		axios.requestList1(this, '/table/list2', this.params1);
+		axios.requestList1(this, '/queryaccountdetail', this.params1);
+	}
+
+	// 对账单详情的操作
+	detailCheckop = (type) => {
+		this.params1.type = (type == "dcheck" ? 2 : 1);
+		axios.detailCheckop(this, '/customercon', this.params1);
 	}
 
 	//功能区操作
-	handleOperate = (type, index) => {
+	handleOperate = (type, record) => {
 		let item = this.state.selectedItem;
-		if (type == 'create') {
+		if (type == 'detail') {
 			this.setState({
-				type,
-				isVisible: true,
-				title: '新增'
+				level: false,
+				btnHide: record.isconfirmation != "未确认",
+				currentCheck: record,
 			})
-		} else if (type == 'edit') {
-			if (!item) {
-				Modal.info({
-					title: '提示',
-					content: '请选择一个用户'
-				})
-				return;
-			}
-			this.setState({
-				type,
-				isVisible: true,
-				title: '编辑员工',
-				userInfo: item
-			})
-		} else if (type == 'detail') {
 
-			this.setState({
-				level: false
-			})
+			this.params1 = {
+				...record,
+				sendstockorg: (eval(this.state.clientRef)[0]).sendstockorg
+			}
 
 			this.requestList1();
-
-			// this.goDetail(this.state.list[index]);
-
-
-
-			// if (!item) {
-			// 	Modal.info({
-			// 		title: '提示',
-			// 		content: '请选择一个用户'
-			// 	})
-			// 	return;
-			// }
-			// this.setState({
-			// 	type,
-			// 	isVisible: true,
-			// 	title: '员工详情',
-			// 	userInfo: item
-			// })
-		} else if (type == 'delete') {
-			if (!item) {
-				Modal.info({
-					title: '提示',
-					content: '请选择一个用户'
-				})
-				return;
-			}
-			let _this = this;
-			Modal.confirm({
-				title: '确认删除',
-				content: `是否要删除当前选中的员工${item.id}`,
-				onOk() {
-					axios.ajax({
-						url: '/user/delete',
-						data: {
-							params: {
-								id: item.id
-							}
-						}
-					}).then((res) => {
-						if (res.code === 0) {
-							_this.setState({
-								isVisible: false
-							})
-							_this.requestList();
-						}
-					})
-				}
-			})
+		} else if (type == 'dcheck' || type == 'confirm') {
+			this.detailCheckop(type);
 		}
 	}
 
@@ -246,109 +193,9 @@ export default class OnlineCheck extends React.Component {
 				key: 'action',
 				render: (text, record) => (
 					<span>
-						<Button type="primary" onClick={() => this.handleOperate('detail', record.id)} icon="search">详情</Button>
+						<Button type="primary" onClick={() => this.handleOperate('detail', record)} icon="search">详情</Button>
 					</span>
 				),
-			},
-		];
-
-		const columns2 = [
-			{
-				title: '日期',
-				dataIndex: 'date',
-				key: 'date',
-				width: 200,
-			},
-			{
-				title: '金圆品种1',
-				children: [
-					{
-						title: '数量',
-						dataIndex: 'amount1',
-						key: 'amount1',
-						width: 200,
-					},
-					{
-						title: '单价',
-						dataIndex: 'price1',
-						key: 'price1',
-						width: 200,
-					},
-				],
-			},
-			{
-				title: '金圆品种2',
-				children: [
-					{
-						title: '数量',
-						dataIndex: 'amount2',
-						key: 'amount2',
-						width: 200,
-					},
-					{
-						title: '单价',
-						dataIndex: 'price2',
-						key: 'price2',
-						width: 200,
-					},
-				],
-			},
-			{
-				title: '金圆品种3',
-				children: [
-					{
-						title: '数量',
-						dataIndex: 'amount3',
-						key: 'amount3',
-						width: 200,
-					},
-					{
-						title: '单价',
-						dataIndex: 'price3',
-						key: 'price3',
-						width: 200,
-					},
-				],
-			},
-			{
-				title: '金圆品种4',
-				children: [
-					{
-						title: '数量',
-						dataIndex: 'amount4',
-						key: 'amount4',
-						width: 200,
-					},
-					{
-						title: '单价',
-						dataIndex: 'price4',
-						key: 'price4',
-						width: 200,
-					},
-				],
-			},
-			{
-				title: '金圆品种5',
-				children: [
-					{
-						title: '数量',
-						dataIndex: 'amount5',
-						key: 'amount5',
-						width: 200,
-					},
-					{
-						title: '单价',
-						dataIndex: 'price5',
-						key: 'price5',
-						width: 200,
-					},
-				],
-			},
-			{
-				title: '总吨位',
-				dataIndex: 'totalAmount',
-				key: 'totalAmount',
-				width: 200,
 			},
 		];
 
@@ -410,8 +257,8 @@ export default class OnlineCheck extends React.Component {
 			return (
 				<div>
 					<Tooltip title="返回"><Button type="default" onClick={() => { this.setState({ level: true }) }} icon="caret-left"></Button></Tooltip>
-					<Tooltip title="账单存在着一些问题"><Button type="danger" icon="close" style={{ marginLeft: "10px", float: "right" }} onClick={() => this.handleOperate('delete')}>需要核对</Button></Tooltip>
-					<Tooltip title="账单不存在任何问题"><Button type="primary" icon="check" style={{ marginLeft: "10px", float: "right" }} onClick={() => this.handleOperate('create')}>确认无误</Button></Tooltip>
+					<Tooltip title={this.state.btnHide ? "本账单报表已确认，无法进行本操作" : "账单存在着一些问题"}><Button type="danger" icon="close" style={{ marginLeft: "10px", float: "right" }} onClick={() => this.handleOperate('dcheck')} disabled={this.state.btnHide}>需要核对</Button></Tooltip>
+					<Tooltip title={this.state.btnHide ? "本账单报表已确认，无法进行本操作" : "账单不存在任何问题"}><Button type="primary" icon="check" style={{ marginLeft: "10px", float: "right" }} onClick={() => this.handleOperate('confirm')} disabled={this.state.btnHide}>确认无误</Button></Tooltip>
 					<ReactHTMLTableToExcel
 						id="test-table-xls-button"
 						className="download-table-xls-button ant-btn ant-btn-default"
@@ -422,9 +269,9 @@ export default class OnlineCheck extends React.Component {
 						buttonText="导出" />
 					<div className="content-wrap">
 						<Table
-							columns={columns2}
+							columns={this.state.columnsDetail}
 							dataSource={this.state.list1}
-							pagination={this.state.pagination1}
+							pagination={false}
 							bordered={true}
 							scroll={{ y: this.calTableHeight2(), x: 500 }}
 							title={() => '河源市金杰环保建材有限公司对账单'}
@@ -448,9 +295,9 @@ export default class OnlineCheck extends React.Component {
 						<div style={{ "visibility": "hidden", "position": "absolute", "top": "0", "left": "0", "width": "1px", "height": "1px", "overflow": "hidden" }}>
 							<Table
 								ref='table'
-								columns={columns2}
+								columns={this.state.columnsDetail}
 								dataSource={this.state.list1}
-								pagination={this.state.pagination1}
+								pagination={false}
 								bordered={true}
 								title={() => '河源市金杰环保建材有限公司对账单'}
 								scrollToFirstRowOnChange={true}
@@ -470,7 +317,7 @@ export default class OnlineCheck extends React.Component {
 							/>
 						</div>
 					</div>
-				</div>
+				</div >
 			)
 		}
 	}
