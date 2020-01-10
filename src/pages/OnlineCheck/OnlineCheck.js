@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom';
 import { Card, Button, Form, Input, Select, Radio, Icon, Modal, DatePicker, InputNumber, Divider, Table, Col, Row, Descriptions, Tooltip } from 'antd'
 import axios from './../../axios'
+import qs from 'qs'
 import Utils from './../../utils/utils'
 import BaseForm from './../../components/BaseForm'
 import ETable from './../../components/ETable'
@@ -121,7 +122,7 @@ export default class OnlineCheck extends React.Component {
 	// 对账单详情的操作
 	detailCheckop = (type) => {
 		this.params1.type = (type == "dcheck" ? 2 : 1);
-		axios.detailCheckop(this, '/customercon', this.params1);
+		axios.detailCheckop(this, '/customercon', qs.stringify(this.params1));
 	}
 
 	//功能区操作
