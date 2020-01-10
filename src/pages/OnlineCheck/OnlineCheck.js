@@ -23,6 +23,14 @@ export default class OnlineCheck extends React.Component {
 		checkNoRef: sessionStorage.getItem('checkNoRef') || [],
 		level: true,
 		btnHide: true,
+		columnsDetail: [],
+
+		adjustmentamount: "调整金额",
+		billdate: "日期",
+		billmaker: "制表人",
+		customer: "客户",
+		note: "备注",
+		currentOrg: "公司名称"
 	}
 
 	params = {
@@ -123,6 +131,7 @@ export default class OnlineCheck extends React.Component {
 				level: false,
 				btnHide: record.isconfirmation != "未确认",
 				currentCheck: record,
+				currentOrg:(eval(this.state.clientRef)[0]).saleorgname
 			})
 
 			this.params1 = {
@@ -162,6 +171,23 @@ export default class OnlineCheck extends React.Component {
 		return tableHeight;
 	}
 
+	conductList = () => {
+		let extraList = [
+			{ "statisticaldate": "客户： " + this.state.customer, },
+			{ "statisticaldate": "日期： " + this.state.billdate },
+			{ "statisticaldate": "调整金额：  " + this.state.adjustmentamount },
+			{ "statisticaldate": "备注： " + this.state.note },
+			{ "statisticaldate": "注：如有异议，请客户在___月___日前来电或来人核对，逾期视同默认此对账单。 " },
+			{ "statisticaldate": "制表： " + this.state.billmaker },
+			{ "statisticaldate": this.state.currentOrg + "（盖章）： " },
+			{ "statisticaldate": "对方单位（盖章）： " },
+			{ "statisticaldate": "区域经理（签字）： " },
+			{ "statisticaldate": "经办人（签字）： " },
+			{ "statisticaldate": "用户反馈意见： " },
+		]
+		return this.state.list1.concat(extraList);
+	}
+
 	render() {
 		const columns = [
 			{
@@ -199,23 +225,12 @@ export default class OnlineCheck extends React.Component {
 			},
 		];
 
-		let footer = {};
-		if (this.state.type == 'detail') {
-			footer = {
-				footer: null
-			}
-		}
-
 		if (this.state.level) {
 			return (
 				<div>
 					<Card>
 						<BaseForm formList={this.formList} filterSubmit={this.handleFilter} />
 					</Card>
-					{/* <Card style={{ marginTop: 10 }} className="operate-wrap">
-					<Button type="primary" icon="plus" onClick={() => this.handleOperate('create')}>新增</Button>
-					<Button type="primary" icon="delete" onClick={() => this.handleOperate('delete')}>删除</Button>
-				</Card> */}
 					<div className="content-wrap">
 						<Table
 							columns={columns}
@@ -227,30 +242,8 @@ export default class OnlineCheck extends React.Component {
 							scroll={{ y: this.calTableHeight() }}
 							scrollToFirstRowOnChange={true}
 							bordered={true}
-						// footer={() => {
-						// 	return <div>
-						// 		<Button type="primary" icon="plus" onClick={() => this.handleOperate('create')}>新增</Button>
-						// 		<Button type="primary" icon="delete" style={{ marginLeft: "10px" }} onClick={() => this.handleOperate('delete')}>删除</Button>
-						// 	</div>
-						// }}
 						/>
 					</div>
-
-					{/* <Modal
-					title={this.state.title}
-					visible={this.state.isVisible}
-					onOk={this.handleSubmit}
-					onCancel={() => {
-						this.userForm.props.form.resetFields();
-						this.setState({
-							isVisible: false
-						})
-					}}
-					width={600}
-					{...footer}
-				>
-					<UserForm type={this.state.type} userInfo={this.state.userInfo} wrappedComponentRef={(inst) => { this.userForm = inst; }} />
-				</Modal> */}
 				</div>
 			)
 		} else {
@@ -263,7 +256,7 @@ export default class OnlineCheck extends React.Component {
 						id="test-table-xls-button"
 						className="download-table-xls-button ant-btn ant-btn-default"
 						table="table-to-xls"
-						filename={"河源市金杰环保建材有限公司对账单" + (2 + 3)}
+						filename={this.state.currentOrg + "对账单_" + this.state.billdate}
 						sheet="tablexls"
 						style={{ marginLeft: "10px", float: "right" }}
 						buttonText="导出" />
@@ -274,21 +267,24 @@ export default class OnlineCheck extends React.Component {
 							pagination={false}
 							bordered={true}
 							scroll={{ y: this.calTableHeight2(), x: 500 }}
-							title={() => '河源市金杰环保建材有限公司对账单'}
+							title={() => (this.state.currentOrg + '对账单')}
 							scrollToFirstRowOnChange={true}
 							footer={() => {
 								return <div style={{ background: 'transparent' }}>
-									<Descriptions>
+									<Descriptions column={{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }}>
+										<Descriptions.Item label="客户">{this.state.customer}</Descriptions.Item>
+										<Descriptions.Item label="日期">{this.state.billdate}</Descriptions.Item>
+										<Descriptions.Item label="调整金额">{this.state.adjustmentamount}</Descriptions.Item>
+										<Descriptions.Item label="备注" span={2}>{this.state.note}</Descriptions.Item>
+
 										<Descriptions.Item label="注" span={2}>如有异议，请客户在___月___日前来电或来人核对，逾期视同默认此对账单。</Descriptions.Item>
-										<Descriptions.Item label="制表"> </Descriptions.Item>
-										<Descriptions.Item label="河源市金杰环保建材有限公司（盖章）"> </Descriptions.Item>
+										<Descriptions.Item label="制表">{this.state.billmaker}</Descriptions.Item>
+										<Descriptions.Item label={this.state.currentOrg + "（盖章）"}> </Descriptions.Item>
 										<Descriptions.Item label="对方单位（盖章）"> </Descriptions.Item>
 										<Descriptions.Item label="区域经理（签字）"> </Descriptions.Item>
 										<Descriptions.Item label="经办人（签字）"> </Descriptions.Item>
 										<Descriptions.Item label="用户反馈意见" span={2}> </Descriptions.Item>
 									</Descriptions>
-									{/* <Button type="primary" icon="check" onClick={() => this.handleOperate('create')}>确认无误</Button>
-									<Button type="primary" icon="question" style={{ marginLeft: "10px" }} onClick={() => this.handleOperate('delete')}>需要核对</Button> */}
 								</div>
 							}}
 						/>
@@ -296,24 +292,10 @@ export default class OnlineCheck extends React.Component {
 							<Table
 								ref='table'
 								columns={this.state.columnsDetail}
-								dataSource={this.state.list1}
+								dataSource={this.conductList()}
 								pagination={false}
 								bordered={true}
-								title={() => '河源市金杰环保建材有限公司对账单'}
 								scrollToFirstRowOnChange={true}
-								footer={() => {
-									return <div style={{ background: 'transparent' }}>
-										<Descriptions>
-											<Descriptions.Item label="注" span={2}>如有异议，请客户在___月___日前来电或来人核对，逾期视同默认此对账单。</Descriptions.Item>
-											<Descriptions.Item label="制表"> </Descriptions.Item>
-											<Descriptions.Item label="河源市金杰环保建材有限公司（盖章）"> </Descriptions.Item>
-											<Descriptions.Item label="对方单位（盖章）"> </Descriptions.Item>
-											<Descriptions.Item label="区域经理（签字）"> </Descriptions.Item>
-											<Descriptions.Item label="经办人（签字）"> </Descriptions.Item>
-											<Descriptions.Item label="用户反馈意见" span={2}> </Descriptions.Item>
-										</Descriptions>
-									</div>
-								}}
 							/>
 						</div>
 					</div>

@@ -1,4 +1,6 @@
 import JsonP from 'jsonp'
+import React from 'react'
+import ReactDOM from 'react-dom';
 import axios from 'axios'
 import { Modal } from 'antd';
 import Utils from './../utils/utils'
@@ -299,6 +301,62 @@ export default class Axios {
                     dataIndex: 'statisticaldate',
                     key: 'statisticaldate',
                     width: 200,
+                    render: (text, row, index) => {
+                        let len = response.result.obj.bodyobj.length;
+                        let indexcut = index - len;
+                        switch (indexcut) {
+                            case 3:
+                                return {
+                                    children: text,
+                                    props: {
+                                        colSpan: 5,
+                                        // rowSpan: 3
+                                    },
+                                };
+                            case 4:
+                                return {
+                                    children: text,
+                                    props: {
+                                        colSpan: 5,
+                                    },
+                                };
+                            case 6:
+                                return {
+                                    children: text,
+                                    props: {
+                                        // rowSpan: 3,
+                                        colSpan: 5,
+                                    },
+                                };
+                            case 7:
+                                return {
+                                    children: text,
+                                    props: {
+                                        // rowSpan: 3,
+                                        colSpan: 5,
+                                    },
+                                };
+                            case 10:
+                                return {
+                                    children: text,
+                                    props: {
+                                        colSpan: 5,
+                                    },
+                                };
+                            default:
+                                return text;
+                        }
+
+                        // if (index < len)
+                        //     return text;
+                        // return {
+                        //     children: text,
+                        //     props: {
+                        //         colSpan: 5,
+                        //         // rowSpan: 2
+                        //     },
+                        // };
+                    },
                 }];
                 let columns2 = [
                     {
@@ -343,13 +401,16 @@ export default class Axios {
                         key: 'balancemonth',
                         width: 200,
                     },
-                    {
-                        title: '调整金额',
-                        dataIndex: 'adjustmentamount',
-                        key: 'adjustmentamount',
-                        width: 200,
-                    }
+                    // {
+                    //     title: '调整金额',
+                    //     dataIndex: 'adjustmentamount',
+                    //     key: 'adjustmentamount',
+                    //     width: 200,
+                    // }
                 ];
+
+                if (result.obj.head)
+                    _this.setState({ ...result.obj.head })
 
                 if (result.material) {
                     materialList = result.material
