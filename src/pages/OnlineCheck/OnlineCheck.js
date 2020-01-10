@@ -256,14 +256,6 @@ export default class OnlineCheck extends React.Component {
 					<Tooltip title={this.state.btnHide ? "本账单报表已确认，无法进行本操作" : "账单不存在任何问题"}><Button type="primary" icon="check" style={{ marginLeft: "10px", float: "right" }} onClick={() => this.handleOperate('confirm')} disabled={this.state.btnHide}>确认无误</Button></Tooltip>
 					<Tooltip title="导出EXCEL格式的文件"><Button type="default" icon="file-excel" style={{ marginLeft: "10px", float: "right" }} onClick={() => this.setState({ isVisible2: true })} >导出</Button></Tooltip>
 
-					{/* <ReactHTMLTableToExcel
-						id="test-table-xls-button"
-						className="download-table-xls-button ant-btn ant-btn-default"
-						table="table-to-xls"
-						filename={this.state.currentOrg + "对账单_" + this.state.billdate}
-						sheet="tablexls"
-						style={{ marginLeft: "10px", float: "right" }}
-						buttonText="导出" /> */}
 					<div className="content-wrap">
 						<Table
 							columns={this.state.columnsDetail}
