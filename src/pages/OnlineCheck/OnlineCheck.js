@@ -122,7 +122,7 @@ export default class OnlineCheck extends React.Component {
 	// 对账单详情的操作
 	detailCheckop = (type) => {
 		this.params1.type = (type == "dcheck" ? 2 : 1);
-		his.params1.type = sessionStorage.getItem('userName');
+		this.params1.username = sessionStorage.getItem('userName');
 		axios.detailCheckop(this, '/customercon', qs.stringify(this.params1));
 	}
 
