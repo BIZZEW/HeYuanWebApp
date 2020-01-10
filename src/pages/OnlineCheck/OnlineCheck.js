@@ -19,6 +19,7 @@ export default class OnlineCheck extends React.Component {
 		list: [],
 		list1: [],
 		isVisible: false,
+		isVisible2: false,
 		clientRef: sessionStorage.getItem('clientRef') || [],
 		checkNoRef: sessionStorage.getItem('checkNoRef') || [],
 		level: true,
@@ -131,7 +132,7 @@ export default class OnlineCheck extends React.Component {
 				level: false,
 				btnHide: record.isconfirmation != "未确认",
 				currentCheck: record,
-				currentOrg:(eval(this.state.clientRef)[0]).saleorgname
+				currentOrg: (eval(this.state.clientRef)[0]).saleorgname
 			})
 
 			this.params1 = {
@@ -171,6 +172,7 @@ export default class OnlineCheck extends React.Component {
 		return tableHeight;
 	}
 
+	// 加上额外的字段
 	conductList = () => {
 		let extraList = [
 			{ "statisticaldate": "客户： " + this.state.customer, },
@@ -252,14 +254,16 @@ export default class OnlineCheck extends React.Component {
 					<Tooltip title="返回"><Button type="default" onClick={() => { this.setState({ level: true }) }} icon="caret-left"></Button></Tooltip>
 					<Tooltip title={this.state.btnHide ? "本账单报表已确认，无法进行本操作" : "账单存在着一些问题"}><Button type="danger" icon="close" style={{ marginLeft: "10px", float: "right" }} onClick={() => this.handleOperate('dcheck')} disabled={this.state.btnHide}>需要核对</Button></Tooltip>
 					<Tooltip title={this.state.btnHide ? "本账单报表已确认，无法进行本操作" : "账单不存在任何问题"}><Button type="primary" icon="check" style={{ marginLeft: "10px", float: "right" }} onClick={() => this.handleOperate('confirm')} disabled={this.state.btnHide}>确认无误</Button></Tooltip>
-					<ReactHTMLTableToExcel
+					<Tooltip title="导出EXCEL格式的文件"><Button type="default" icon="file-excel" style={{ marginLeft: "10px", float: "right" }} onClick={() => this.setState({ isVisible2: true })} >导出</Button></Tooltip>
+
+					{/* <ReactHTMLTableToExcel
 						id="test-table-xls-button"
 						className="download-table-xls-button ant-btn ant-btn-default"
 						table="table-to-xls"
 						filename={this.state.currentOrg + "对账单_" + this.state.billdate}
 						sheet="tablexls"
 						style={{ marginLeft: "10px", float: "right" }}
-						buttonText="导出" />
+						buttonText="导出" /> */}
 					<div className="content-wrap">
 						<Table
 							columns={this.state.columnsDetail}
@@ -299,6 +303,29 @@ export default class OnlineCheck extends React.Component {
 							/>
 						</div>
 					</div>
+					<Modal
+						title="确认导出"
+						visible={this.state.isVisible2}
+						onCancel={() => {
+							this.setState({
+								isVisible2: false
+							})
+						}}
+						width={600}
+						footer={[
+							<Button type="default" onClick={() => this.setState({ isVisible2: false })}>取消</Button>,
+							<ReactHTMLTableToExcel
+								id="test-table-xls-button"
+								className="download-table-xls-button ant-btn ant-btn-primary"
+								table="table-to-xls"
+								filename={this.state.currentOrg + "对账单_" + this.state.billdate}
+								sheet="tablexls"
+								// style={{ marginLeft: "10px", float: "right" }}
+								buttonText="确认" />
+						]}
+					>
+						是否确认导出当前账单报表的EXCEL文件？
+					</Modal>
 				</div >
 			)
 		}
