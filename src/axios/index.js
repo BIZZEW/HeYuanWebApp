@@ -276,12 +276,12 @@ export default class Axios {
                         key: 'balancemonth',
                         width: 200,
                     },
-                    // {
-                    //     title: '调整金额',
-                    //     dataIndex: 'adjustmentamount',
-                    //     key: 'adjustmentamount',
-                    //     width: 200,
-                    // }
+                    {
+                        title: '调整金额',
+                        dataIndex: 'adjustmentamount',
+                        key: 'adjustmentamount',
+                        width: 200,
+                    }
                 ];
 
                 if (result.obj.head)
@@ -656,7 +656,7 @@ export default class Axios {
 
     // 网上对账操作
     static detailCheckop(_this, url, data) {
-        data.username = sessionStorage.getItem('userName');
+        // data.username = sessionStorage.getItem('userName');
 
         this.ajax({
             url,
