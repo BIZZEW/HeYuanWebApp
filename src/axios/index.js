@@ -744,14 +744,14 @@ export default class Axios {
             loading.style.display = 'block';
         }
         let baseApi0 = 'http://127.0.0.1:99/cusapl';
-        let baseApi = 'http://10.1.8.206:99/cusapl';
+        let baseApi = 'http://10.1.8.231:80/cusapl';
         let baseApi1 = 'http://rap2api.taobao.org/app/mock/239516/example/1576031001727';
 
         return new Promise((resolve, reject) => {
             axios({
                 url: options.url,
                 method: options.method,
-                baseURL: baseApi0,
+                baseURL: baseApi,
                 timeout: 8000,
                 params: (options.params) || "",
                 data: (options.data) || "",

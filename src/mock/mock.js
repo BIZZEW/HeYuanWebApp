@@ -19,7 +19,7 @@ export const login1 = (loginObject) => {
 
 export const login = (loginObject) => {
 	let baseApi0 = 'http://127.0.0.1:99/cusapl';
-	let baseApi = 'http://10.1.8.206:99/cusapl';
+	let baseApi = 'http://10.1.8.231:80/cusapl';
 	let baseApi1 = 'http://rap2api.taobao.org/app/mock/239516/example/1576031001727';
 
 	return new Promise((resolve, reject) => {
@@ -35,7 +35,7 @@ export const login = (loginObject) => {
 		axios({
 			url: "/login",
 			method: 'post',
-			baseURL: baseApi0,
+			baseURL: baseApi,
 			timeout: 8000,
 			// params: qs.stringify(data),
 			// params: data,
@@ -58,7 +58,7 @@ export const login = (loginObject) => {
 						axios({
 							url: "/querycemtype",
 							method: "get",
-							baseURL: baseApi0,
+							baseURL: baseApi,
 							timeout: 8000,
 							params: defaultCustomer,
 						}).then((response) => {
@@ -74,7 +74,7 @@ export const login = (loginObject) => {
 						axios({
 							url: "/querysaleunit",
 							method: "get",
-							baseURL: baseApi0,
+							baseURL: baseApi,
 							timeout: 8000,
 							params: defaultCustomer,
 						}).then((response) => {
@@ -90,7 +90,7 @@ export const login = (loginObject) => {
 						axios({
 							url: "/querybillno",
 							method: "get",
-							baseURL: baseApi0,
+							baseURL: baseApi,
 							timeout: 8000,
 							params: defaultCustomer,
 						}).then((response) => {
