@@ -207,8 +207,8 @@ export default class OnlineCheck extends React.Component {
 				dataIndex: 'billdate'
 			},
 			{
-				title: '公司余额',
-				dataIndex: 'lastmonthbalance'
+				title: '本月余额',
+				dataIndex: 'balancemonth'
 			},
 			{
 				title: '对账金额',
