@@ -113,6 +113,9 @@ export default class SaleReport extends React.Component {
 				title: '本期返利',
 				dataIndex: 'costsheet'
 			}, {
+				title: '调整金额',
+				dataIndex: 'costadjust'
+			}, {
 				title: '期初余额',
 				dataIndex: 'initialbalance'
 			}, {
