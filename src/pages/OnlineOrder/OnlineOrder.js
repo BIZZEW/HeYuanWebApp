@@ -840,67 +840,63 @@ class VehicleForm extends React.Component {
 				<Form layout="horizontal">
 					<FormItem label="车牌号" {...formItemLayout}>
 						{
-							type2 == 'detail' ? vehicleInfo.vehicle :
-								getFieldDecorator('vehicle', {
-									initialValue: vehicleInfo.vehicle,
-									rules: [
-										{ pattern: /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/, message: '请输入有效的车牌号!' },
-										{ required: true, message: '请输入车牌!' }
-									],
-								})(
-									<Search
-										placeholder="请输入车牌号"
-										enterButton="获取"
-										// size="large"
-										onSearch={value => this.getDriverOptions(value)}
-									/>
-								)
+							getFieldDecorator('vehicle', {
+								initialValue: vehicleInfo.vehicle,
+								rules: [
+									{ pattern: /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/, message: '请输入有效的车牌号!' },
+									{ required: true, message: '请输入车牌!' }
+								],
+							})(
+								<Search
+									placeholder="请输入车牌号"
+									enterButton="获取"
+									// size="large"
+									onSearch={value => this.getDriverOptions(value)}
+								/>
+							)
 						}
 					</FormItem>
 					<FormItem label="司机姓名" {...formItemLayout}>
 						{
-							type2 == 'detail' ? vehicleInfo.drivername :
-								getFieldDecorator('drivername', {
-									initialValue: vehicleInfo.drivername,
-									// rules: [{ required: true, message: '请获取司机信息!' }],
-								})(
-									<Input type="text" placeholder="请获取司机信息" />
-								)
+							getFieldDecorator('drivername', {
+								initialValue: vehicleInfo.drivername,
+								// rules: [{ required: true, message: '请获取司机信息!' }],
+							})(
+								<Input type="text" placeholder="请获取司机信息" />
+							)
 						}
 					</FormItem>
 					<FormItem label="手机号" {...formItemLayout}>
 						{
-							type2 == 'detail' ? vehicleInfo.telphone :
-								getFieldDecorator('telphone', {
-									initialValue: vehicleInfo.telphone,
-									// rules: [{ required: true, message: '请获取司机信息!' }],
-								})(
-									<Input type="text" placeholder="请获取司机信息" />
-								)
+							getFieldDecorator('telphone', {
+								initialValue: vehicleInfo.telphone,
+								// rules: [{ required: true, message: '请获取司机信息!' }],
+							})(
+								<Input type="text" placeholder="请获取司机信息" />
+							)
 						}
 					</FormItem>
 					<FormItem label="身份证" {...formItemLayout}>
 						{
-							type2 == 'detail' ? vehicleInfo.driveridentity :
-								getFieldDecorator('driveridentity', {
-									initialValue: vehicleInfo.driveridentity,
-									// rules: [{ required: true, message: '请获取司机信息!' }],
-								})(
-									<Input type="text" placeholder="请获取司机信息" />
-								)
+							getFieldDecorator('driveridentity', {
+								initialValue: vehicleInfo.driveridentity,
+								// rules: [{ required: true, message: '请获取司机信息!' }],
+							})(
+								<Input type="text" placeholder="请获取司机信息" />
+							)
 						}
 					</FormItem>
 					<FormItem label="车数" {...formItemLayout}>
 						{
-							type2 == 'detail' ? vehicleInfo.amount :
-								getFieldDecorator('amount', {
-									initialValue: vehicleInfo.amount,
-									rules: [
-										{ required: true, message: '请输入车数!' }
-									],
-								})(
-									<InputNumber min={1} defaultValue={0} />
-								)
+
+							getFieldDecorator('amount', {
+								initialValue: type2 == 'edit' ? vehicleInfo.amount : 1,
+								rules: [
+									{ required: true, message: '请输入车数!' }
+								],
+							})(
+								<InputNumber min={1} defaultValue={0} />
+							)
 						}
 					</FormItem>
 				</Form>
