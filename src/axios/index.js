@@ -15,16 +15,16 @@ export default class Axios {
             method: "get"
         }).then((data) => {
             _this.setState({
-                isVisible2: true,
-                title2: '司机信息',
+                isVisible5: true,
+                title5: '司机信息',
                 list: data.result
             })
         }).catch((error) => {
             // let data = { "code": 0, "msg": "查询成功", "result": [{ "driveridentity": "420922197909212978", "drivername": "张三", "telphone": "18957178856" }], "status": 200 };
             // console.log("list", data.result);
             // _this.setState({
-            //     isVisible2: true,
-            //     title2: '司机信息',
+            //     isVisible5: true,
+            //     title5: '司机信息',
             //     list: data.result
             // })
 
