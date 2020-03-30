@@ -170,7 +170,7 @@ export default class OnlineOrder extends React.Component {
 		let data = this.orderForm.props.form.getFieldsValue();
 		let vehicles = this.state.vehicles;
 		if (vehicles && vehicles.length > 0) {
-			let data2 = { ...data, vehicles };
+			let data2 = { ...data, vehicles: JSON.stringify(vehicles) };
 			this.orderForm.props.form.validateFields((err, values) => {
 				if (!err) {
 					axios.createNewOrder(this, (type == 'create' ? '/addsaleorder' : '/user/edit'), qs.stringify(data2));
