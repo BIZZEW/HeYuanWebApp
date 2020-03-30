@@ -643,7 +643,7 @@ class OrderForm extends React.Component {
 								)
 						}
 					</FormItem>
-					{/* <FormItem label="数量" {...formItemLayout}>
+					<FormItem label="数量" {...formItemLayout}>
 						{
 							type == 'detail' ? orderInfo.ordernum :
 								getFieldDecorator('ordernum', {
@@ -652,7 +652,7 @@ class OrderForm extends React.Component {
 									<InputNumber min={1} defaultValue={0} />
 								)
 						}
-					</FormItem> */}
+					</FormItem>
 
 					<Divider />
 					{(type == "detail") && (<div>
