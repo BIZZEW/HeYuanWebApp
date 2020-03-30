@@ -170,9 +170,10 @@ export default class OnlineOrder extends React.Component {
 		let data = this.orderForm.props.form.getFieldsValue();
 		let vehicles = this.state.vehicles;
 		if (vehicles && vehicles.length > 0) {
+			let data2 = { ...data, vehicles };
 			this.orderForm.props.form.validateFields((err, values) => {
 				if (!err) {
-					axios.createNewOrder(this, (type == 'create' ? '/addsaleorder' : '/user/edit'), qs.stringify(data));
+					axios.createNewOrder(this, (type == 'create' ? '/addsaleorder' : '/user/edit'), qs.stringify(data2));
 				}
 			});
 		} else {
@@ -642,7 +643,7 @@ class OrderForm extends React.Component {
 								)
 						}
 					</FormItem>
-					<FormItem label="数量" {...formItemLayout}>
+					{/* <FormItem label="数量" {...formItemLayout}>
 						{
 							type == 'detail' ? orderInfo.ordernum :
 								getFieldDecorator('ordernum', {
@@ -651,7 +652,7 @@ class OrderForm extends React.Component {
 									<InputNumber min={1} defaultValue={0} />
 								)
 						}
-					</FormItem>
+					</FormItem> */}
 
 					<Divider />
 					{(type == "detail") && (<div>
