@@ -171,6 +171,7 @@ export default class OnlineOrder extends React.Component {
 		let vehicles = this.state.vehicles;
 		if (vehicles && vehicles.length > 0) {
 			let data2 = { ...data, vehicles: JSON.stringify(vehicles) };
+			console.log(data2)
 			this.orderForm.props.form.validateFields((err, values) => {
 				if (!err) {
 					axios.createNewOrder(this, (type == 'create' ? '/addsaleorder' : '/user/edit'), qs.stringify(data2));
@@ -307,7 +308,8 @@ export default class OnlineOrder extends React.Component {
 					onCancel={() => {
 						this.orderForm.props.form.resetFields();
 						this.setState({
-							isVisible1: false
+							isVisible1: false,
+							vehicles: [],
 						})
 					}}
 					width={600}
@@ -372,7 +374,6 @@ class OrderForm extends React.Component {
 		cementRef: sessionStorage.getItem('cementRef') || [],
 		companyRef: sessionStorage.getItem('companyRef') || [],
 		vehicleList: [],
-		vehicleInfoNum: 0,
 	}
 
 	//功能区操作
@@ -430,7 +431,11 @@ class OrderForm extends React.Component {
 				content: `是否要删除当前选中数据`,
 				onOk() {
 					let vehicleList = _this.state.vehicleList;
-					vehicleList.splice(item.id, 1);
+
+					for (var i = 0; i < vehicleList.length; i++)
+						if (vehicleList[i].id === item.id)
+							vehicleList.splice(i, 1);
+
 					_this.setState({
 						vehicleList,
 						selectedRowKeys: []
@@ -457,7 +462,6 @@ class OrderForm extends React.Component {
 
 	handleSubmit3 = () => {
 		this.setState({
-			vehicleInfoNum: this.state.vehicleList.length,
 			isVisible3: false,
 		}, () => { this.props.updateVehicles(this.state.vehicleList) })
 	}
@@ -498,27 +502,13 @@ class OrderForm extends React.Component {
 	render() {
 		const { selectedRowKeys } = this.state;
 		let type = this.props.type;
+		let vehicleInfoNum = this.props.vehicles.length;
 		let orderInfo = this.props.orderInfo || {};
 		const { getFieldDecorator } = this.props.form;
 		const formItemLayout = {
 			labelCol: { span: 5 },
 			wrapperCol: { span: 19 }
 		}
-
-		// const rowRadioSelection2 = {
-		// 	type: 'radio',
-		// 	columnTitle: "",
-		// 	selectedRowKeys: this.state.selectedRowKeys,
-		// 	onChange: (selectedRowKeys, selectedRows) => {
-		// 		this.setState({ selectedRowKeys, selectedRows })
-		// 	},
-		// }
-
-		// const rowSelection = {
-		// 	onChange: (selectedRowKeys, selectedRows) => {
-		// 		this.setState({ selectedRowKeys, selectedRows });
-		// 	},
-		// };
 
 		const rowSelection = {
 			selectedRowKeys,
@@ -709,7 +699,7 @@ class OrderForm extends React.Component {
 							}
 						</FormItem>
 					</div>)}
-					{(type != "detail") && (<Button type="primary" visible={type != "detail"} onClick={this.editVehicles}>当前有 {this.state.vehicleInfoNum} 条车辆信息</Button>)}
+					{(type != "detail") && (<Button type="primary" visible={type != "detail"} onClick={this.editVehicles}>当前有 {vehicleInfoNum} 条车辆信息</Button>)}
 				</Form>
 
 				{/* 车辆信息 */}
@@ -726,13 +716,13 @@ class OrderForm extends React.Component {
 						<Button key="edit" type="primary" onClick={() => this.handleOperate('create')} icon="plus">
 							增加
             			</Button>,
-						<Button key="delete" type="danger" onClick={() => this.handleOperate('delete')}>
+						<Button key="delete" type="danger" onClick={() => this.handleOperate('delete')} icon="delete">
 							删除
             			</Button>,
-						<Button key="edit" type="primary" onClick={() => this.handleOperate('edit')}>
+						<Button key="edit" type="primary" onClick={() => this.handleOperate('edit')} icon="edit">
 							编辑
             			</Button>,
-						<Button key="confirm" type="primary" onClick={this.handleSubmit3}>
+						<Button key="confirm" type="primary" onClick={this.handleSubmit3} icon="check">
 							确定
             			</Button>,
 					]}
