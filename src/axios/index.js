@@ -42,6 +42,41 @@ export default class Axios {
         })
     }
 
+    // 获取采购订单
+    static getProcureOrder(_this, url, params) {
+        this.ajax({
+            url,
+            params,
+            method: "get"
+        }).then((data) => {
+            _this.setState({
+                isVisible0: true,
+                title0: '采购订单',
+                list: data.result
+            })
+        }).catch((error) => {
+            let data = { "code": 0, "msg": "查询成功", "result": [{ "driveridentity": "420922197909212978", "drivername": "张三", "telphone": "18957178856" }], "status": 200 };
+            console.log("list", data.result);
+            _this.setState({
+                isVisible0: true,
+                title0: '采购订单',
+                list: data.result
+            })
+
+            // if (String(error).toLowerCase().indexOf('timeout') != -1) {
+            //     Modal.info({
+            //         title: '提示',
+            //         content: '服务器繁忙，请稍后重试'
+            //     })
+            // } else if (String(error).toLowerCase().indexOf('network') != -1) {
+            //     Modal.info({
+            //         title: '提示',
+            //         content: '服务器问失败，请稍后重试'
+            //     })
+            // }
+        })
+    }
+
     // 查询form获取下拉选项
     static getOptions(_this, url, params) {
         params.username = sessionStorage.getItem('userName');

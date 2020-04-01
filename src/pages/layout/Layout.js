@@ -95,7 +95,7 @@ class Layout extends React.Component {
 		if (matchChangePassword !== null) {
 			this.setState({
 				activeKey: matchChangePassword.key,
-				current: "5"
+				current: "7"
 			});
 			this.props.history.push(matchChangePassword.url);
 			return;
@@ -108,7 +108,7 @@ class Layout extends React.Component {
 			return {
 				panes: prevState.panes,
 				activeKey: ChangePasswordObject.key,
-				current: "5"
+				current: "7"
 			};
 		});
 	}
@@ -275,11 +275,11 @@ class Layout extends React.Component {
 		if (matchMenus.length > 0) {//如果有匹配到当前路由的菜单信息，就修改paneObject为当前路由的信息
 			Object.assign(paneObject, paneObject, matchMenus[0]);//对象合并方法，matchMenus[0]覆盖修改paneObject的同名属性值。
 		} else {
-			paneObject.id = '6';
+			paneObject.id = '8';
 			paneObject.title = '404';
 			paneObject.url = '/layout/nofound';
 			paneObject.component = ' ';
-			matchMenus.push({ id: "6" });
+			matchMenus.push({ id: "8" });
 		}
 		this.setState({//更新panes对象
 			panes: [paneObject],

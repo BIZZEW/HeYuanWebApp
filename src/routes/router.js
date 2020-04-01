@@ -13,6 +13,8 @@ import PickupReport from '../pages/OnlineReport/PickupReport/PickupReport'
 import IncomeReport from '../pages/OnlineReport/IncomeReport/IncomeReport'
 import SaleReport from '../pages/OnlineReport/SaleReport/SaleReport'
 import ChangePassword from '../pages/ChangePassword/ChangePassword'
+import Delivery from '../pages/Delivery/Delivery'
+import LongDelivery from '../pages/LongDelivery/LongDelivery'
 
 export const Router = () => (
 	<BrowserRouter>
@@ -35,6 +37,8 @@ export const menuObject = {
 	'IncomeReport': IncomeReport,
 	'SaleReport': SaleReport,
 	'ChangePassword': ChangePassword,
+	'Delivery': Delivery,
+	'LongDelivery': LongDelivery,
 }
 
 export const menus = [
@@ -95,6 +99,22 @@ export const menus = [
 	},
 	{
 		id: 5,
+		title: '送货单',
+		url: '/layout/delivery',
+		component: 'Delivery',
+		isFullScreen: false,
+		icon: "shopping-cart"
+	},
+	{
+		id: 6,
+		title: '长期送货单',
+		url: '/layout/longdelivery',
+		component: 'LongDelivery',
+		isFullScreen: false,
+		icon: "car"
+	},
+	{
+		id: 7,
 		title: '修改密码',
 		url: '/layout/change_password',
 		component: 'ChangePassword',
@@ -103,7 +123,7 @@ export const menus = [
 		hide: "hide",
 	},
 	{
-		id: 6,
+		id: 8,
 		title: '404',
 		url: '/layout/nofound',
 		component: ' ',
