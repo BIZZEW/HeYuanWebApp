@@ -446,6 +446,16 @@ class OrderForm extends React.Component {
 		},
 		{
 			type: 'SELECT',
+			label: '矿点',
+			field: 'pk_material',
+			placeholder: '请选择矿点',
+			width: 200,
+			list: this.state.cementRef,
+			idKey: "pk_material",
+			valueKey: "name",
+		},
+		{
+			type: 'SELECT',
 			label: '货物',
 			field: 'pk_material',
 			placeholder: '请选择货物',
@@ -692,7 +702,7 @@ class OrderForm extends React.Component {
 						expandIcon={({ isActive }) => <Icon rotate={isActive ? 90 : 0} type="caret-right" />}
 						className="site-collapse-custom-collapse"
 					>
-						<Panel header={"采购订单详情 （货物: " + (orderInfo.drivername ? orderInfo.drivername : "") + " 余量: " + (orderInfo.drivername ? orderInfo.drivername : "") + "）"} key="1" className="site-collapse-custom-panel">
+						<Panel header={"采购订单详情 （货物: " + (orderInfo.drivername ? orderInfo.drivername : "") + " 余量: " + (orderInfo.drivername ? orderInfo.drivername : "") + " 矿点: " + (orderInfo.drivername ? orderInfo.drivername : "") + "）"} key="1" className="site-collapse-custom-panel">
 							<FormItem label="采购订单日期" {...formItemLayout}>
 								{
 									type == 'detail' ? orderInfo.drivername :
