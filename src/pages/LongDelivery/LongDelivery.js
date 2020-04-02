@@ -59,9 +59,9 @@ export default class Long extends React.Component {
 		},
 		{
 			type: 'SELECT',
-			label: '物料',
+			label: '货物',
 			field: 'pk_material',
-			placeholder: '请选择物料',
+			placeholder: '请选择货物',
 			width: 200,
 			list: this.state.cementRef,
 			idKey: "pk_material",
@@ -254,7 +254,7 @@ export default class Long extends React.Component {
 				dataIndex: 'materialname'
 			},
 			{
-				title: '物料',
+				title: '货物',
 				dataIndex: 'billstatus',
 			},
 			{
@@ -910,7 +910,7 @@ class OrderForm extends React.Component {
 							isVisible0: false
 						})
 					}}
-					width={1000}
+					width={1200}
 				>
 					<Card>
 						<BaseForm wrappedComponentRef={(form) => this.formRef = form} formList={this.formList} filterSubmit={this.handleFilter} />
