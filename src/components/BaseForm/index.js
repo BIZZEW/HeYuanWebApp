@@ -4,6 +4,7 @@ import Utils from '../../utils/utils'
 import axios from './../../axios'
 const FormItem = Form.Item;
 const { RangePicker } = DatePicker;
+const { Search } = Input;
 
 class FilterForm extends React.Component {
     state = {
@@ -105,6 +106,31 @@ class FilterForm extends React.Component {
                         }
                     </FormItem>;
                     formItemList.push(SELECT);
+                } else if (item.type === 'ADVSELECT') {
+                    const ADVSELECT = <FormItem label={label} key={field}>
+                        {
+                            getFieldDecorator([field])(
+                                <Search
+                                    style={{ width: width }}
+                                    placeholder={"请选择" + label}
+                                    enterButton="获取"
+                                    onSearch={() => { item.trigger(item) }}
+                                    onClick={() => { item.trigger(item) }}
+                                    readOnly
+                                />
+                            )
+                        }
+                    </FormItem>;
+                    formItemList.push(ADVSELECT);
+                } else if (item.type === 'ADVSELECTPK') {
+                    const ADVSELECTPK = <FormItem key={field} style={{ display: "none" }} >
+                        {
+                            getFieldDecorator([field])(
+                                <div />
+                            )
+                        }
+                    </FormItem>;
+                    formItemList.push(ADVSELECTPK);
                 } else if (item.type === 'CHECKBOX') {
                     const CHECKBOX = <FormItem label={label} key={field}>
                         {

@@ -113,6 +113,89 @@ export default class Axios {
         })
     }
 
+    static requestRef(_this, url, params) {
+        this.ajax({
+            url,
+            params,
+            method: "get"
+        }).then((response) => {
+            if (response && response.datas) {
+                _this.setState({
+                    refList: response.datas.queryresults,
+                    selectedRowKeys2: null,//重置
+                    pagination2: Utils.pagination(response.datas, (current) => {
+                        console.log(current);
+                        _this.params.page2 = current;
+                        _this.requestRef();
+                    })
+                })
+            }
+        }).catch((error) => {
+
+            var data = {};
+
+            if (params.page == 1) {
+                data = {
+                    datas: {
+                        page: 1,
+                        page_size: 10,
+                        total: 16,
+                        queryresults: [
+                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
+                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
+                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
+                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
+                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
+                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
+                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
+                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
+                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
+                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
+                        ]
+                    }
+                }
+            } else {
+                data = {
+                    datas: {
+                        page: 2,
+                        page_size: 10,
+                        total: 16,
+                        queryresults: [
+                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
+                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
+                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
+                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
+                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
+                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
+                        ]
+                    }
+                }
+            }
+
+            _this.setState({
+                refList: data.datas.queryresults,
+                selectedRowKeys2: null,//重置
+                pagination2: Utils.pagination(data.datas, (current) => {
+                    console.log(current);
+                    _this.params.page2 = current;
+                    _this.requestRef();
+                })
+            })
+
+            // if (String(error).toLowerCase().indexOf('timeout') != -1) {
+            //     Modal.info({
+            //         title: '提示',
+            //         content: '服务器繁忙，请稍后重试'
+            //     })
+            // } else if (String(error).toLowerCase().indexOf('network') != -1) {
+            //     Modal.info({
+            //         title: '提示',
+            //         content: '服务器问失败，请稍后重试'
+            //     })
+            // }
+        })
+    }
+
     static requestList(_this, url, params) {
         params.username = sessionStorage.getItem('userName');
 
