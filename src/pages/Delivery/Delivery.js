@@ -48,9 +48,9 @@ export default class Delivery extends React.Component {
 		page2: 1
 	}
 
-	requestRef = (selectType) => {
+	requestRef = () => {
 		let param = {
-			action: selectType,
+			action: this.params.action,
 			serviceid: "refInfoService",
 			page: this.params.page2,
 			numbersperpage: 10,
@@ -61,11 +61,12 @@ export default class Delivery extends React.Component {
 	}
 
 	openRef = (item) => {
-		let { field, key, code, label } = item;
+		let { field, key, action, label } = item;
 		this.setState({
 			pagination2: false
 		})
 		this.params.page2 = 1;
+		this.params.action = action;
 		this.setState({
 			isVisible99: true,
 			title99: label,
@@ -73,14 +74,14 @@ export default class Delivery extends React.Component {
 			currentkey: key,
 			currentname: field,
 		})
-		this.requestRef(code);
+		this.requestRef();
 	}
 
 	formList = [
 		{
 			type: 'ADVSELECT',
 			label: '供应商',
-			code: 2,
+			action: 7,
 			key: 'pk_supplier',
 			field: 'suppliername',
 			width: 200,
@@ -93,7 +94,7 @@ export default class Delivery extends React.Component {
 		{
 			type: 'ADVSELECT',
 			label: '矿点',
-			code: 20,
+			action: 20,
 			key: 'pk_orespot',
 			field: 'orespotname',
 			width: 200,
@@ -106,7 +107,7 @@ export default class Delivery extends React.Component {
 		{
 			type: 'ADVSELECT',
 			label: '货物',
-			code: 8,
+			action: 8,
 			key: 'pk_cargo',
 			field: 'cargoname',
 			width: 200,
@@ -320,13 +321,17 @@ export default class Delivery extends React.Component {
 		const { selectedRowKeys99 } = this.state;
 		const columns99 = [
 			{
-				title: '编码',
-				dataIndex: 'pk'
-			},
-			{
 				title: '名称',
 				dataIndex: 'name'
 			},
+			{
+				title: '编码',
+				dataIndex: 'code'
+			},
+			// {
+			// 	title: '主键',
+			// 	dataIndex: 'pk'
+			// },
 		];
 
 		const columns = [

@@ -35,7 +35,7 @@ export const login = (loginObject) => {
 		axios({
 			url: "/login",
 			method: 'post',
-			baseURL: baseApi,
+			baseURL: baseApi0,
 			timeout: 8000,
 			// params: qs.stringify(data),
 			// params: data,
@@ -49,7 +49,7 @@ export const login = (loginObject) => {
 
 					if (res.result && res.result[0] && res.result[0]) {
 						sessionStorage.setItem('clientRef', res.result ? JSON.stringify(res.result) : "");
-						sessionStorage.setItem('pkAppuser', res.pk_appuser ? JSON.stringify(res.pk_appuser) : "");
+						sessionStorage.setItem('pkAppuser', res.pk_appuser ? res.pk_appuser : "");
 
 						let defaultCustomer = res.result[0];
 
@@ -59,7 +59,7 @@ export const login = (loginObject) => {
 						axios({
 							url: "/querycemtype",
 							method: "get",
-							baseURL: baseApi,
+							baseURL: baseApi0,
 							timeout: 8000,
 							params: defaultCustomer,
 						}).then((response) => {
@@ -75,7 +75,7 @@ export const login = (loginObject) => {
 						axios({
 							url: "/querysaleunit",
 							method: "get",
-							baseURL: baseApi,
+							baseURL: baseApi0,
 							timeout: 8000,
 							params: defaultCustomer,
 						}).then((response) => {
@@ -91,7 +91,7 @@ export const login = (loginObject) => {
 						axios({
 							url: "/querybillno",
 							method: "get",
-							baseURL: baseApi,
+							baseURL: baseApi0,
 							timeout: 8000,
 							params: defaultCustomer,
 						}).then((response) => {

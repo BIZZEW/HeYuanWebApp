@@ -80,7 +80,7 @@ class OrderForm extends React.Component {
 		{
 			type: 'ADVSELECT',
 			label: '供应商',
-			code: 2,
+			code: 7,
 			key: 'pk_supplier',
 			field: 'suppliername',
 			width: 200,
@@ -93,7 +93,7 @@ class OrderForm extends React.Component {
 		{
 			type: 'ADVSELECT',
 			label: '采购单位',
-			code: 2,
+			code: 7,
 			key: 'pk_buyer',
 			field: 'buyername',
 			width: 200,
@@ -106,7 +106,7 @@ class OrderForm extends React.Component {
 		{
 			type: 'ADVSELECT',
 			label: '收货企业',
-			code: 2,
+			code: 7,
 			key: 'pk_stock',
 			field: 'stockname',
 			width: 200,
