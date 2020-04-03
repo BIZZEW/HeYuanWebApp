@@ -19,13 +19,49 @@ class OrderForm extends React.Component {
 		isVisible3: false,
 		// 车辆信息表单弹窗显示控制
 		isVisible4: false,
+		// 车辆信息表单弹窗显示控制
+		isVisible99: false,
 		list: [],
 		selectedRowKeys: [],
 		selectedRows: null,
+		selectedRowKeys99: null,
 		clientRef: sessionStorage.getItem('clientRef') || [],
 		cementRef: sessionStorage.getItem('cementRef') || [],
 		companyRef: sessionStorage.getItem('companyRef') || [],
 		vehicleList: [],
+	}
+
+	params = {
+		// 页面基础数据查询页码
+		page2: 1
+	}
+
+	requestRef = (selectType) => {
+		let param = {
+			action: selectType,
+			serviceid: "refInfoService",
+			page: this.params.page2,
+			numbersperpage: 10,
+			flag: true,
+			pk_appuser: sessionStorage.getItem("pkAppuser") || ""
+		}
+		axios.requestRef(this, '/purchase', param);
+	}
+
+	openRef = (item) => {
+		let { field, key, code, label } = item;
+		this.setState({
+			pagination2: false
+		})
+		this.params.page2 = 1;
+		this.setState({
+			isVisible99: true,
+			title99: label,
+			refList: [],
+			currentkey: key,
+			currentname: field,
+		})
+		this.requestRef(code);
 	}
 
 	formList = [
@@ -42,56 +78,69 @@ class OrderForm extends React.Component {
 			placeholder: '请选择结束日期'
 		},
 		{
-			type: 'SELECT',
+			type: 'ADVSELECT',
 			label: '供应商',
-			field: 'customer',
-			placeholder: '请选择供应商',
+			code: 2,
+			key: 'pk_supplier',
+			field: 'suppliername',
 			width: 200,
-			initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].customer) : undefined,
-			list: this.state.clientRef,
-			idKey: "customer",
-			valueKey: "customername",
-			cascade: "pk_material"
+			trigger: item => this.openRef(item)
 		},
 		{
-			type: 'SELECT',
+			type: 'ADVSELECTPK',
+			field: 'pk_supplier',
+		},
+		{
+			type: 'ADVSELECT',
 			label: '采购单位',
-			field: 'pk_material',
-			placeholder: '请选择采购单位',
+			code: 2,
+			key: 'pk_buyer',
+			field: 'buyername',
 			width: 200,
-			list: this.state.cementRef,
-			idKey: "pk_material",
-			valueKey: "name",
+			trigger: item => this.openRef(item)
 		},
 		{
-			type: 'SELECT',
+			type: 'ADVSELECTPK',
+			field: 'pk_buyer',
+		},
+		{
+			type: 'ADVSELECT',
 			label: '收货企业',
-			field: 'pk_material',
-			placeholder: '请选择收货企业',
+			code: 2,
+			key: 'pk_stock',
+			field: 'stockname',
 			width: 200,
-			list: this.state.cementRef,
-			idKey: "pk_material",
-			valueKey: "name",
+			trigger: item => this.openRef(item)
 		},
 		{
-			type: 'SELECT',
+			type: 'ADVSELECTPK',
+			field: 'pk_stock',
+		},
+		{
+			type: 'ADVSELECT',
 			label: '矿点',
-			field: 'pk_material',
-			placeholder: '请选择矿点',
+			code: 20,
+			key: 'pk_orespot',
+			field: 'orespotname',
 			width: 200,
-			list: this.state.cementRef,
-			idKey: "pk_material",
-			valueKey: "name",
+			trigger: item => this.openRef(item)
 		},
 		{
-			type: 'SELECT',
+			type: 'ADVSELECTPK',
+			field: 'pk_orespot',
+		},
+		{
+			type: 'ADVSELECT',
 			label: '货物',
-			field: 'pk_material',
-			placeholder: '请选择货物',
+			code: 8,
+			key: 'pk_cargo',
+			field: 'cargoname',
 			width: 200,
-			list: this.state.cementRef,
-			idKey: "pk_material",
-			valueKey: "name",
+			trigger: item => this.openRef(item)
+		},
+		{
+			type: 'ADVSELECTPK',
+			field: 'pk_cargo',
 		},
 		{
 			type: 'INPUT',
@@ -234,6 +283,35 @@ class OrderForm extends React.Component {
 		});
 	}
 
+	//高级选择确认
+	handleSubmit99 = () => {
+		if (this.state.selectedRows99 && this.state.selectedRows99[0]) {
+			let item = this.state.selectedRows99[0];
+			this.setState({
+				isVisible99: false,
+				selectedRowKeys99: [],
+				selectedRows99: []
+			})
+
+			let _form = {};
+			_form[this.state.currentkey] = item.pk;
+			_form[this.state.currentname] = item.name;
+
+			this.proqRef.props.form.setFieldsValue(_form);
+
+			// this.proqRef.props.form.validateFields((err, values) => {
+			// 	if (!err) {
+			// 		console.log(values)
+			// 	}
+			// });
+		} else {
+			Modal.info({
+				title: '提示',
+				content: '请选择一条数据'
+			})
+		}
+	}
+
 	onSelectChange = selectedRowKeys => {
 		console.log(selectedRowKeys);
 		this.setState({ selectedRowKeys });
@@ -249,6 +327,7 @@ class OrderForm extends React.Component {
 
 	render() {
 		const { selectedRowKeys } = this.state;
+		const { selectedRowKeys99 } = this.state;
 		let type = this.props.type;
 		let vehicleInfoNum = this.props.vehicles.length;
 		let orderInfo = this.props.orderInfo || {};
@@ -261,6 +340,14 @@ class OrderForm extends React.Component {
 		const rowSelection = {
 			selectedRowKeys,
 			onChange: this.onSelectChange,
+		};
+
+		const rowSelection99 = {
+			selectedRowKeys: selectedRowKeys99,
+			onChange: (selectedRowKeys99, selectedRows99) => {
+				console.log(`selectedRowKeys: ${selectedRowKeys99}`, 'selectedRows: ', selectedRows99);
+				this.setState({ selectedRowKeys99, selectedRows99 })
+			},
 		};
 
 		const columns0 = [
@@ -302,6 +389,17 @@ class OrderForm extends React.Component {
 			}, {
 				title: '余量',
 				dataIndex: 'driveridentity',
+			},
+		];
+
+		const columns99 = [
+			{
+				title: '编码',
+				dataIndex: 'pk'
+			},
+			{
+				title: '名称',
+				dataIndex: 'name'
 			},
 		];
 
@@ -538,11 +636,12 @@ class OrderForm extends React.Component {
 						this.setState({
 							isVisible0: false
 						})
+						this.proqRef.props.form.resetFields();
 					}}
 					width={1200}
 				>
 					<Card>
-						<BaseForm wrappedComponentRef={(form) => this.formRef = form} formList={this.formList} filterSubmit={this.handleFilter} />
+						<BaseForm wrappedComponentRef={(form) => this.proqRef = form} formList={this.formList} filterSubmit={this.handleFilter} />
 					</Card>
 					<div className="content-wrap">
 						<Table
@@ -609,6 +708,33 @@ class OrderForm extends React.Component {
 					width={600}
 				>
 					<VehicleForm type2={this.state.type2} vehicleInfo={this.state.vehicleInfo} wrappedComponentRef={(inst) => { this.vehicleForm = inst; }} />
+				</Modal>
+
+				{/* 基础数据弹窗 */}
+				<Modal
+					title={this.state.title99}
+					visible={this.state.isVisible99}
+					onOk={this.handleSubmit99}
+					onCancel={() => {
+						this.setState({
+							isVisible99: false,
+							selectedRowKeys99: [],
+						})
+					}}
+					width={1000}
+				>
+					<div className="content-wrap">
+						<Table
+							bordered
+							columns={columns99}
+							dataSource={this.state.refList}
+							pagination={this.state.pagination2}
+							rowSelection={{
+								type: "radio",
+								...rowSelection99,
+							}}
+						/>
+					</div>
 				</Modal>
 			</div >
 		)

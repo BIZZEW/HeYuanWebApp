@@ -49,6 +49,7 @@ export const login = (loginObject) => {
 
 					if (res.result && res.result[0] && res.result[0]) {
 						sessionStorage.setItem('clientRef', res.result ? JSON.stringify(res.result) : "");
+						sessionStorage.setItem('pkAppuser', res.pk_appuser ? JSON.stringify(res.pk_appuser) : "");
 
 						let defaultCustomer = res.result[0];
 

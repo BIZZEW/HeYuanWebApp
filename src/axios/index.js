@@ -122,7 +122,7 @@ export default class Axios {
             if (response && response.datas) {
                 _this.setState({
                     refList: response.datas.queryresults,
-                    selectedRowKeys2: null,//重置
+                    selectedRowKeys99: null,//重置
                     pagination2: Utils.pagination(response.datas, (current) => {
                         console.log(current);
                         _this.params.page2 = current;
@@ -132,67 +132,67 @@ export default class Axios {
             }
         }).catch((error) => {
 
-            var data = {};
+            // var data = {};
 
-            if (params.page == 1) {
-                data = {
-                    datas: {
-                        page: 1,
-                        page_size: 10,
-                        total: 16,
-                        queryresults: [
-                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
-                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
-                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
-                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
-                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
-                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
-                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
-                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
-                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
-                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
-                        ]
-                    }
-                }
-            } else {
-                data = {
-                    datas: {
-                        page: 2,
-                        page_size: 10,
-                        total: 16,
-                        queryresults: [
-                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
-                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
-                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
-                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
-                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
-                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "1001ZZ100000000KEWHZ" },
-                        ]
-                    }
-                }
-            }
-
-            _this.setState({
-                refList: data.datas.queryresults,
-                selectedRowKeys2: null,//重置
-                pagination2: Utils.pagination(data.datas, (current) => {
-                    console.log(current);
-                    _this.params.page2 = current;
-                    _this.requestRef();
-                })
-            })
-
-            // if (String(error).toLowerCase().indexOf('timeout') != -1) {
-            //     Modal.info({
-            //         title: '提示',
-            //         content: '服务器繁忙，请稍后重试'
-            //     })
-            // } else if (String(error).toLowerCase().indexOf('network') != -1) {
-            //     Modal.info({
-            //         title: '提示',
-            //         content: '服务器问失败，请稍后重试'
-            //     })
+            // if (params.page == 1) {
+            //     data = {
+            //         datas: {
+            //             page: 1,
+            //             page_size: 10,
+            //             total: 16,
+            //             queryresults: [
+            //                 { "name": "\u91d1\u5706\u73af\u4fdd\u80a1\u4efd\u6709\u9650\u516c\u53f8", "code": "00", "pk": "1001A2100000000019LI" },
+            //                 { "name": "\u9752\u6d77\u4e92\u52a9\u91d1\u5706\u6c34\u6ce5\u6709\u9650\u516c\u53f8", "code": "000101", "pk": "1001A11000000001TYA5" },
+            //                 { "name": "\u9752\u6d77\u6c11\u548c\u91d1\u5706\u6c34\u6ce5\u6709\u9650\u516c\u53f8", "code": "000102", "pk": "1001A11000000001TYA7" },
+            //                 { "name": "\u9752\u6d77\u5b8f\u626c\u6c34\u6ce5\u6709\u9650\u8d23\u4efb\u516c\u53f8", "code": "000103", "pk": "1001A11000000001TYA9" },
+            //                 { "name": "\u9752\u6d77\u9752\u6d77\u6e56\u6c34\u6ce5\u6709\u9650\u516c\u53f8", "code": "000104", "pk": "1001A11000000001TYAB" },
+            //                 { "name": "\u676d\u5dde\u8fde\u5a01\u8d38\u6613\u6709\u9650\u516c\u53f8", "code": "000105", "pk": "1001A11000000001TYAC" },
+            //                 { "name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "code": "000106", "pk": "1001A11000000001TYAD" },
+            //                 { "name": "\u90a3\u66f2\u5730\u533a\u7eb3\u6728\u63aa\u91d1\u5706\u5efa\u6750\u6709\u9650\u516c\u53f8", "code": "000107", "pk": "1001A11000000001TYAE" },
+            //                 { "name": "\u9752\u6d77\u91d1\u5706\u5de5\u7a0b\u7206\u7834\u6709\u9650\u516c\u53f8", "code": "000108", "pk": "1001A11000000001TYAF" },
+            //                 { "name": "\u9752\u6d77\u535a\u53cb\u5efa\u6750\u6709\u9650\u516c\u53f8", "code": "000201", "pk": "1001A11000000001TYAG" }
+            //             ]
+            //         }
+            //     }
+            // } else {
+            //     data = {
+            //         datas: {
+            //             page: 2,
+            //             page_size: 10,
+            //             total: 16,
+            //             queryresults: [
+            //                 { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "101001ZZ100000000KEWHZ" },
+            //                 { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "111001ZZ100000000KEWHZ" },
+            //                 { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "121001ZZ100000000KEWHZ" },
+            //                 { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "131001ZZ100000000KEWHZ" },
+            //                 { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "141001ZZ100000000KEWHZ" },
+            //                 { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "151001ZZ100000000KEWHZ" },
+            //             ]
+            //         }
+            //     }
             // }
+
+            // _this.setState({
+            //     refList: data.datas.queryresults,
+            //     selectedRowKeys99: null,//重置
+            //     pagination2: Utils.pagination(data.datas, (current) => {
+            //         console.log(current);
+            //         _this.params.page2 = current;
+            //         _this.requestRef();
+            //     })
+            // })
+
+            if (String(error).toLowerCase().indexOf('timeout') != -1) {
+                Modal.info({
+                    title: '提示',
+                    content: '服务器繁忙，请稍后重试'
+                })
+            } else if (String(error).toLowerCase().indexOf('network') != -1) {
+                Modal.info({
+                    title: '提示',
+                    content: '服务器问失败，请稍后重试'
+                })
+            }
         })
     }
 
@@ -869,8 +869,8 @@ export default class Axios {
             axios({
                 url: options.url,
                 method: options.method,
-                baseURL: baseApi,
-                timeout: 8000,
+                baseURL: baseApi0,
+                timeout: 60000,
                 params: (options.params) || "",
                 data: (options.data) || "",
             }).then((response) => {

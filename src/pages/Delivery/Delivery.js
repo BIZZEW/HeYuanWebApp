@@ -24,7 +24,7 @@ export default class Delivery extends React.Component {
 		// 关闭原因弹窗控制
 		isVisible2: false,
 		// 高级选择弹窗控制
-		isVisible3: false,
+		isVisible99: false,
 		clientRef: sessionStorage.getItem('clientRef') || [],
 		cementRef: sessionStorage.getItem('cementRef') || [],
 
@@ -34,7 +34,7 @@ export default class Delivery extends React.Component {
 
 		// 基础数据
 		refList: [],
-		selectedRowKeys2: null,
+		selectedRowKeys99: null,
 
 		// 当前选择的基础数据
 		currentkey: null,
@@ -54,7 +54,8 @@ export default class Delivery extends React.Component {
 			serviceid: "refInfoService",
 			page: this.params.page2,
 			numbersperpage: 10,
-			flag: true
+			flag: true,
+			pk_appuser: sessionStorage.getItem("pkAppuser") || ""
 		}
 		axios.requestRef(this, '/purchase', param);
 	}
@@ -66,8 +67,8 @@ export default class Delivery extends React.Component {
 		})
 		this.params.page2 = 1;
 		this.setState({
-			isVisible3: true,
-			title3: label,
+			isVisible99: true,
+			title99: label,
 			refList: [],
 			currentkey: key,
 			currentname: field,
@@ -82,7 +83,7 @@ export default class Delivery extends React.Component {
 			code: 2,
 			key: 'pk_supplier',
 			field: 'suppliername',
-			width: 300,
+			width: 200,
 			trigger: item => this.openRef(item)
 		},
 		{
@@ -95,7 +96,7 @@ export default class Delivery extends React.Component {
 			code: 20,
 			key: 'pk_orespot',
 			field: 'orespotname',
-			width: 300,
+			width: 200,
 			trigger: item => this.openRef(item)
 		},
 		{
@@ -108,7 +109,7 @@ export default class Delivery extends React.Component {
 			code: 8,
 			key: 'pk_cargo',
 			field: 'cargoname',
-			width: 300,
+			width: 200,
 			trigger: item => this.openRef(item)
 		},
 		{
@@ -174,7 +175,7 @@ export default class Delivery extends React.Component {
 				if (i.customer === this.params.customer)
 					this.params = { ...this.params, ...i };
 
-		axios.requestList(this, '/querysaleorder', this.params);
+		axios.requestList(this, '/purchase', { ...this.params, action: 4, serviceid: "receiveOrderService" });
 	}
 
 	//功能区操作
@@ -261,13 +262,13 @@ export default class Delivery extends React.Component {
 	}
 
 	//高级选择确认
-	handleSubmit3 = () => {
-		if (this.state.selectedRows2 && this.state.selectedRows2[0]) {
-			let item = this.state.selectedRows2[0];
+	handleSubmit99 = () => {
+		if (this.state.selectedRows99 && this.state.selectedRows99[0]) {
+			let item = this.state.selectedRows99[0];
 			this.setState({
-				isVisible3: false,
-				selectedRowKeys2: [],
-				selectedRows2: []
+				isVisible99: false,
+				selectedRowKeys99: [],
+				selectedRows99: []
 			})
 
 			let _form = {};
@@ -311,13 +312,13 @@ export default class Delivery extends React.Component {
 		return tableHeight;
 	}
 
-	onSelectChange = selectedRowKeys2 => {
-		this.setState({ selectedRowKeys2 });
+	onSelectChange = selectedRowKeys99 => {
+		this.setState({ selectedRowKeys99 });
 	};
 
 	render() {
-		const { selectedRowKeys2 } = this.state;
-		const columns0 = [
+		const { selectedRowKeys99 } = this.state;
+		const columns99 = [
 			{
 				title: '编码',
 				dataIndex: 'pk'
@@ -373,11 +374,11 @@ export default class Delivery extends React.Component {
 			},
 		];
 
-		const rowSelection = {
-			selectedRowKeys: selectedRowKeys2,
-			onChange: (selectedRowKeys2, selectedRows2) => {
-				console.log(`selectedRowKeys: ${selectedRowKeys2}`, 'selectedRows: ', selectedRows2);
-				this.setState({ selectedRowKeys2, selectedRows2 })
+		const rowSelection99 = {
+			selectedRowKeys: selectedRowKeys99,
+			onChange: (selectedRowKeys99, selectedRows99) => {
+				console.log(`selectedRowKeys: ${selectedRowKeys99}`, 'selectedRows: ', selectedRows99);
+				this.setState({ selectedRowKeys99, selectedRows99 })
 			},
 		};
 
@@ -448,13 +449,13 @@ export default class Delivery extends React.Component {
 
 				{/* 基础数据弹窗 */}
 				<Modal
-					title={this.state.title3}
-					visible={this.state.isVisible3}
-					onOk={this.handleSubmit3}
+					title={this.state.title99}
+					visible={this.state.isVisible99}
+					onOk={this.handleSubmit99}
 					onCancel={() => {
 						this.setState({
-							isVisible3: false,
-							selectedRowKeys2: [],
+							isVisible99: false,
+							selectedRowKeys99: [],
 						})
 					}}
 					width={1000}
@@ -462,12 +463,12 @@ export default class Delivery extends React.Component {
 					<div className="content-wrap">
 						<Table
 							bordered
-							columns={columns0}
+							columns={columns99}
 							dataSource={this.state.refList}
 							pagination={this.state.pagination2}
 							rowSelection={{
 								type: "radio",
-								...rowSelection,
+								...rowSelection99,
 							}}
 						/>
 					</div>
