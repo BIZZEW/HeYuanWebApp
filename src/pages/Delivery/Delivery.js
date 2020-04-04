@@ -24,57 +24,95 @@ export default class Delivery extends React.Component {
 		// 关闭原因弹窗控制
 		isVisible2: false,
 		// 高级选择弹窗控制
-		isVisible99: false,
+		isVisibleRef: false,
 		clientRef: sessionStorage.getItem('clientRef') || [],
 		cementRef: sessionStorage.getItem('cementRef') || [],
 
 		// 发货库存组织PK(隐藏字段)
-		sendstockorg: "",
+		// sendstockorg: "",
 		vehicles: [],
 
 		// 基础数据
 		refList: [],
-		selectedRowKeys99: null,
-
-		// 当前选择的基础数据
-		currentkey: null,
-		currentname: null,
+		selectedRowKeysRef: null,
 	}
 
 	params = {
 		// 页面主要业务查询页码
 		page: 1,
+	}
+
+	refParam = {
 		// 页面基础数据查询页码
-		page2: 1
+		page: 1,
+		serviceid: "refInfoService",
+		numbersperpage: 10,
+		flag: true,
+		pk_appuser: sessionStorage.getItem("pkAppuser") || "",
+	}
+
+	refItem = {
+
 	}
 
 	requestRef = () => {
-		let param = {
-			action: this.params.action,
-			serviceid: "refInfoService",
-			page: this.params.page2,
-			numbersperpage: 10,
-			flag: true,
-			pk_appuser: sessionStorage.getItem("pkAppuser") || ""
-		}
-		axios.requestRef(this, '/purchase', param);
+		axios.requestRef(this, '/purchase', this.refParam);
 	}
 
 	openRef = (item) => {
-		let { field, key, action, label } = item;
-		this.setState({
-			pagination2: false
-		})
-		this.params.page2 = 1;
-		this.params.action = action;
-		this.setState({
-			isVisible99: true,
-			title99: label,
-			refList: [],
-			currentkey: key,
-			currentname: field,
-		})
-		this.requestRef();
+		let { field, key, action, label, flag, subs, sups } = item;
+		let keyfield = this.formRef.props.form.getFieldValue(key);
+		if (flag && keyfield && keyfield != "") {
+			let _form = {};
+			_form[key] = "";
+			_form[field] = "";
+
+			// 清空下级
+			if (subs) {
+				for (let i of subs) {
+					if (i && i.key && i.field) {
+						_form[i.key] = "";
+						_form[i.field] = "";
+					}
+				}
+			}
+
+			this.formRef.props.form.setFieldsValue(_form);
+		} else {
+			// 上级先选
+			if (sups) {
+				for (let i of sups) {
+					if (i && i.key && i.field) {
+						let supskey = this.formRef.props.form.getFieldValue(i.key);
+						let supsfield = this.formRef.props.form.getFieldValue(i.field);
+
+						if (supskey && supskey != "" && supsfield && supsfield != "")
+							this.refParam[i.key] = supskey;
+						else {
+							Modal.info({
+								title: '提示',
+								content: '请选择请先选择' + (i.name || "上级查询条件")
+							});
+							return;
+						}
+					}
+				}
+			}
+
+			this.setState({
+				paginationRef: false
+			})
+			this.refParam.page = 1;
+			this.refParam.action = action;
+			this.refItem = item;
+			this.setState({
+				isVisibleRef: true,
+				titleRef: label,
+				refList: [],
+			}, () => {
+				this.requestRef();
+			});
+		}
 	}
 
 	formList = [
@@ -106,10 +144,32 @@ export default class Delivery extends React.Component {
 		},
 		{
 			type: 'ADVSELECT',
+			label: '收货企业',
+			action: 5,
+			key: 'pk_stockorg',
+			field: 'stockorgname',
+			subs: [{
+				key: "pk_cargo",
+				field: "cargoname"
+			}],
+			width: 200,
+			trigger: item => this.openRef(item)
+		},
+		{
+			type: 'ADVSELECTPK',
+			field: 'pk_stockorg',
+		},
+		{
+			type: 'ADVSELECT',
 			label: '货物',
 			action: 8,
 			key: 'pk_cargo',
 			field: 'cargoname',
+			sups: [{
+				key: "pk_stockorg",
+				field: "stockorgname",
+				name: "收货企业"
+			}],
 			width: 200,
 			trigger: item => this.openRef(item)
 		},
@@ -154,6 +214,11 @@ export default class Delivery extends React.Component {
 
 	componentDidMount() {
 		// this.requestList();
+		let dftstockorg;
+		if (sessionStorage.getItem("dftstockorg")) {
+			dftstockorg = JSON.parse(sessionStorage.getItem("dftstockorg"));
+			this.formRef.props.form.setFieldsValue({ "stockorgname": dftstockorg.name, "pk_stockorg": dftstockorg.pk_org });
+		}
 	}
 
 	handleFilter = (para) => {
@@ -169,12 +234,12 @@ export default class Delivery extends React.Component {
 		if (this.params.enddate && (typeof (this.params.enddate) == "object"))
 			this.params.enddate = this.params.enddate.format("YYYY-MM-DD");
 
-		if (!this.params.customer)
-			this.params.sendstockorg = (eval(this.state.clientRef)[0]).sendstockorg;
-		else
-			for (var i of eval(this.state.clientRef))
-				if (i.customer === this.params.customer)
-					this.params = { ...this.params, ...i };
+		// if (!this.params.customer)
+		// 	this.params.sendstockorg = (eval(this.state.clientRef)[0]).sendstockorg;
+		// else
+		// 	for (var i of eval(this.state.clientRef))
+		// 		if (i.customer === this.params.customer)
+		// 			this.params = { ...this.params, ...i };
 
 		axios.requestList(this, '/purchase', { ...this.params, action: 4, serviceid: "receiveOrderService" });
 	}
@@ -263,18 +328,30 @@ export default class Delivery extends React.Component {
 	}
 
 	//高级选择确认
-	handleSubmit99 = () => {
-		if (this.state.selectedRows99 && this.state.selectedRows99[0]) {
-			let item = this.state.selectedRows99[0];
+	handleSubmitRef = () => {
+		if (this.state.selectedRowsRef && this.state.selectedRowsRef[0]) {
+			let item = this.state.selectedRowsRef[0];
 			this.setState({
-				isVisible99: false,
-				selectedRowKeys99: [],
-				selectedRows99: []
+				isVisibleRef: false,
+				selectedRowKeysRef: [],
+				selectedRowsRef: []
 			})
 
+			let { field, key, subs } = this.refItem;
+
 			let _form = {};
-			_form[this.state.currentkey] = item.pk;
-			_form[this.state.currentname] = item.name;
+			_form[key] = item.pk;
+			_form[field] = item.name;
+
+			// 清空下级
+			if (subs) {
+				for (let i of subs) {
+					if (i && i.key && i.field) {
+						_form[i.key] = "";
+						_form[i.field] = "";
+					}
+				}
+			}
 
 			this.formRef.props.form.setFieldsValue(_form);
 
@@ -313,13 +390,13 @@ export default class Delivery extends React.Component {
 		return tableHeight;
 	}
 
-	onSelectChange = selectedRowKeys99 => {
-		this.setState({ selectedRowKeys99 });
+	onSelectChange = selectedRowKeysRef => {
+		this.setState({ selectedRowKeysRef });
 	};
 
 	render() {
-		const { selectedRowKeys99 } = this.state;
-		const columns99 = [
+		const { selectedRowKeysRef } = this.state;
+		const columnsRef = [
 			{
 				title: '名称',
 				dataIndex: 'name'
@@ -379,11 +456,11 @@ export default class Delivery extends React.Component {
 			},
 		];
 
-		const rowSelection99 = {
-			selectedRowKeys: selectedRowKeys99,
-			onChange: (selectedRowKeys99, selectedRows99) => {
-				console.log(`selectedRowKeys: ${selectedRowKeys99}`, 'selectedRows: ', selectedRows99);
-				this.setState({ selectedRowKeys99, selectedRows99 })
+		const rowSelectionRef = {
+			selectedRowKeys: selectedRowKeysRef,
+			onChange: (selectedRowKeysRef, selectedRowsRef) => {
+				console.log(`selectedRowKeys: ${selectedRowKeysRef}`, 'selectedRows: ', selectedRowsRef);
+				this.setState({ selectedRowKeysRef, selectedRowsRef })
 			},
 		};
 
@@ -454,13 +531,13 @@ export default class Delivery extends React.Component {
 
 				{/* 基础数据弹窗 */}
 				<Modal
-					title={this.state.title99}
-					visible={this.state.isVisible99}
-					onOk={this.handleSubmit99}
+					title={this.state.titleRef}
+					visible={this.state.isVisibleRef}
+					onOk={this.handleSubmitRef}
 					onCancel={() => {
 						this.setState({
-							isVisible99: false,
-							selectedRowKeys99: [],
+							isVisibleRef: false,
+							selectedRowKeysRef: [],
 						})
 					}}
 					width={1000}
@@ -468,12 +545,12 @@ export default class Delivery extends React.Component {
 					<div className="content-wrap">
 						<Table
 							bordered
-							columns={columns99}
+							columns={columnsRef}
 							dataSource={this.state.refList}
-							pagination={this.state.pagination2}
+							pagination={this.state.paginationRef}
 							rowSelection={{
 								type: "radio",
-								...rowSelection99,
+								...rowSelectionRef,
 							}}
 						/>
 					</div>

@@ -109,13 +109,29 @@ class FilterForm extends React.Component {
                 } else if (item.type === 'ADVSELECT') {
                     const ADVSELECT = <FormItem label={label} key={field}>
                         {
-                            getFieldDecorator([field])(
+                            getFieldDecorator([field], {
+                                initialValue: initialValue
+                            })(
                                 <Search
                                     style={{ width: width }}
                                     placeholder={"请选择" + label}
                                     // enterButton="获取"
-                                    onSearch={() => { item.trigger(item) }}
-                                    // onClick={() => { item.trigger(item) }}
+                                    onSearch={
+                                        (e) => {
+                                            if (e != "")
+                                                item.trigger({ ...item, flag: 0 })
+                                            else
+                                                item.trigger({ ...item, flag: 1 })
+                                        }
+                                    }
+                                    onClick={
+                                        (e) => {
+                                            if (e != "")
+                                                item.trigger({ ...item, flag: 0 })
+                                            else
+                                                item.trigger({ ...item, flag: 1 })
+                                        }
+                                    }
                                     readOnly
                                     allowClear
                                 />
