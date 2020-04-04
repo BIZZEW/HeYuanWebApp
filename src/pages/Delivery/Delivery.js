@@ -51,9 +51,7 @@ export default class Delivery extends React.Component {
 		pk_appuser: sessionStorage.getItem("pkAppuser") || "",
 	}
 
-	refItem = {
-
-	}
+	refItem = {}
 
 	requestRef = () => {
 		axios.requestRef(this, '/purchase', this.refParam);
