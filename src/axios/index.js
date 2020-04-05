@@ -132,67 +132,67 @@ export default class Axios {
             }
         }).catch((error) => {
 
-            var data = {};
+            // var data = {};
 
-            if (params.page == 1) {
-                data = {
-                    datas: {
-                        page: 1,
-                        page_size: 10,
-                        total: 16,
-                        queryresults: [
-                            { "name": "\u91d1\u5706\u73af\u4fdd\u80a1\u4efd\u6709\u9650\u516c\u53f8", "code": "00", "pk": "1001A2100000000019LI" },
-                            { "name": "\u9752\u6d77\u4e92\u52a9\u91d1\u5706\u6c34\u6ce5\u6709\u9650\u516c\u53f8", "code": "000101", "pk": "1001A11000000001TYA5" },
-                            { "name": "\u9752\u6d77\u6c11\u548c\u91d1\u5706\u6c34\u6ce5\u6709\u9650\u516c\u53f8", "code": "000102", "pk": "1001A11000000001TYA7" },
-                            { "name": "\u9752\u6d77\u5b8f\u626c\u6c34\u6ce5\u6709\u9650\u8d23\u4efb\u516c\u53f8", "code": "000103", "pk": "1001A11000000001TYA9" },
-                            { "name": "\u9752\u6d77\u9752\u6d77\u6e56\u6c34\u6ce5\u6709\u9650\u516c\u53f8", "code": "000104", "pk": "1001A11000000001TYAB" },
-                            { "name": "\u676d\u5dde\u8fde\u5a01\u8d38\u6613\u6709\u9650\u516c\u53f8", "code": "000105", "pk": "1001A11000000001TYAC" },
-                            { "name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "code": "000106", "pk": "1001A11000000001TYAD" },
-                            { "name": "\u90a3\u66f2\u5730\u533a\u7eb3\u6728\u63aa\u91d1\u5706\u5efa\u6750\u6709\u9650\u516c\u53f8", "code": "000107", "pk": "1001A11000000001TYAE" },
-                            { "name": "\u9752\u6d77\u91d1\u5706\u5de5\u7a0b\u7206\u7834\u6709\u9650\u516c\u53f8", "code": "000108", "pk": "1001A11000000001TYAF" },
-                            { "name": "\u9752\u6d77\u535a\u53cb\u5efa\u6750\u6709\u9650\u516c\u53f8", "code": "000201", "pk": "1001A11000000001TYAG" }
-                        ]
-                    }
-                }
-            } else {
-                data = {
-                    datas: {
-                        page: 2,
-                        page_size: 10,
-                        total: 16,
-                        queryresults: [
-                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "101001ZZ100000000KEWHZ" },
-                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "111001ZZ100000000KEWHZ" },
-                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "121001ZZ100000000KEWHZ" },
-                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "131001ZZ100000000KEWHZ" },
-                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "141001ZZ100000000KEWHZ" },
-                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "151001ZZ100000000KEWHZ" },
-                        ]
-                    }
-                }
-            }
-
-            _this.setState({
-                refList: data.datas.queryresults,
-                selectedRowKeysRef: null,//重置
-                paginationRef: Utils.pagination(data.datas, (current) => {
-                    console.log(current);
-                    _this.refParam.page = current;
-                    _this.requestRef();
-                })
-            })
-
-            // if (String(error).toLowerCase().indexOf('timeout') != -1) {
-            //     Modal.info({
-            //         title: '提示',
-            //         content: '服务器繁忙，请稍后重试'
-            //     })
-            // } else if (String(error).toLowerCase().indexOf('network') != -1) {
-            //     Modal.info({
-            //         title: '提示',
-            //         content: '服务器问失败，请稍后重试'
-            //     })
+            // if (params.page == 1) {
+            //     data = {
+            //         datas: {
+            //             page: 1,
+            //             page_size: 10,
+            //             total: 16,
+            //             queryresults: [
+            //                 { "name": "\u91d1\u5706\u73af\u4fdd\u80a1\u4efd\u6709\u9650\u516c\u53f8", "code": "00", "pk": "1001A2100000000019LI" },
+            //                 { "name": "\u9752\u6d77\u4e92\u52a9\u91d1\u5706\u6c34\u6ce5\u6709\u9650\u516c\u53f8", "code": "000101", "pk": "1001A11000000001TYA5" },
+            //                 { "name": "\u9752\u6d77\u6c11\u548c\u91d1\u5706\u6c34\u6ce5\u6709\u9650\u516c\u53f8", "code": "000102", "pk": "1001A11000000001TYA7" },
+            //                 { "name": "\u9752\u6d77\u5b8f\u626c\u6c34\u6ce5\u6709\u9650\u8d23\u4efb\u516c\u53f8", "code": "000103", "pk": "1001A11000000001TYA9" },
+            //                 { "name": "\u9752\u6d77\u9752\u6d77\u6e56\u6c34\u6ce5\u6709\u9650\u516c\u53f8", "code": "000104", "pk": "1001A11000000001TYAB" },
+            //                 { "name": "\u676d\u5dde\u8fde\u5a01\u8d38\u6613\u6709\u9650\u516c\u53f8", "code": "000105", "pk": "1001A11000000001TYAC" },
+            //                 { "name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "code": "000106", "pk": "1001A11000000001TYAD" },
+            //                 { "name": "\u90a3\u66f2\u5730\u533a\u7eb3\u6728\u63aa\u91d1\u5706\u5efa\u6750\u6709\u9650\u516c\u53f8", "code": "000107", "pk": "1001A11000000001TYAE" },
+            //                 { "name": "\u9752\u6d77\u91d1\u5706\u5de5\u7a0b\u7206\u7834\u6709\u9650\u516c\u53f8", "code": "000108", "pk": "1001A11000000001TYAF" },
+            //                 { "name": "\u9752\u6d77\u535a\u53cb\u5efa\u6750\u6709\u9650\u516c\u53f8", "code": "000201", "pk": "1001A11000000001TYAG" }
+            //             ]
+            //         }
+            //     }
+            // } else {
+            //     data = {
+            //         datas: {
+            //             page: 2,
+            //             page_size: 10,
+            //             total: 16,
+            //             queryresults: [
+            //                 { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "101001ZZ100000000KEWHZ" },
+            //                 { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "111001ZZ100000000KEWHZ" },
+            //                 { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "121001ZZ100000000KEWHZ" },
+            //                 { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "131001ZZ100000000KEWHZ" },
+            //                 { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "141001ZZ100000000KEWHZ" },
+            //                 { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "151001ZZ100000000KEWHZ" },
+            //             ]
+            //         }
+            //     }
             // }
+
+            // _this.setState({
+            //     refList: data.datas.queryresults,
+            //     selectedRowKeysRef: null,//重置
+            //     paginationRef: Utils.pagination(data.datas, (current) => {
+            //         console.log(current);
+            //         _this.refParam.page = current;
+            //         _this.requestRef();
+            //     })
+            // })
+
+            if (String(error).toLowerCase().indexOf('timeout') != -1) {
+                Modal.info({
+                    title: '提示',
+                    content: '服务器繁忙，请稍后重试'
+                })
+            } else if (String(error).toLowerCase().indexOf('network') != -1) {
+                Modal.info({
+                    title: '提示',
+                    content: '服务器问失败，请稍后重试'
+                })
+            }
         })
     }
 
@@ -225,16 +225,16 @@ export default class Axios {
             //         page_size: 10,
             //         total: 16,
             //         list: [
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+            //             { "supplier_code": "24400365", "purchaseorg_pk_org": "0001A2100000000025DX", "supplier_pk_supplier": "1001A210000000001D6M", "pk_order_b": "1001ZZ100000000KEQNY", "nnum": 4000, "drivertelephone": "15858960450", "material_code": "0101000037", "material_pk_material": "1001A210000000001NWH", "pdbilldate": "2020-03-31 14:38:53", "rcvstockorg_pk_org": "0001A2100000000025DX", "status_name": "\u5df2\u63d0\u4ea4", "drivername": "\u9648\u6613", "rcvstockorg_code": "000106", "ordercode": "CD2020033100021119", "rcvstockorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "purchaseorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "status_code": 0, "srcsendnum": "1.00", "driveridcode": "330724199612295652", "pk_order": "1001ZZ100000000KEQNX", "supplier_name": "\u65b0\u4e30\u53bf\u946b\u6052\u798f\u5316\u5de5\u6709\u9650\u516c\u53f8", "remainnum": 3979, "material_dw": "\u5428", "pk_noticeorder": "1001A31000000000JMSL", "vlicense": "\u4e91JHUHDU", "material_name": "\u6c28\u6c34", "vbillcode": "CD2020033100021119", "num": 1, "source": "Y", "denddate": "2020-04-02 20:43:29", "purchaseorg_code": "000106", "dbilldate": "2020-04-01 20:43:29", "containerno": "666", "noticecode": "DH2004010006" },
+            //             { "supplier_code": "24400365", "purchaseorg_pk_org": "0001A2100000000025DX", "supplier_pk_supplier": "1001A210000000001D6M", "pk_order_b": "1001ZZ100000000KEQNY", "nnum": 4000, "drivertelephone": "15858960450", "material_code": "0101000037", "material_pk_material": "1001A210000000001NWH", "pdbilldate": "2020-03-31 14:38:53", "rcvstockorg_pk_org": "0001A2100000000025DX", "status_name": "\u5df2\u63d0\u4ea4", "drivername": "\u9648\u6613", "rcvstockorg_code": "000106", "ordercode": "CD2020033100021119", "rcvstockorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "purchaseorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "status_code": 0, "srcsendnum": "1.00", "driveridcode": "330724199612295652", "pk_order": "1001ZZ100000000KEQNX", "supplier_name": "\u65b0\u4e30\u53bf\u946b\u6052\u798f\u5316\u5de5\u6709\u9650\u516c\u53f8", "remainnum": 3979, "material_dw": "\u5428", "pk_noticeorder": "1001A31000000000JMSL", "vlicense": "\u4e91JHUHDU", "material_name": "\u6c28\u6c34", "vbillcode": "CD2020033100021119", "num": 1, "source": "Y", "denddate": "2020-04-02 20:43:29", "purchaseorg_code": "000106", "dbilldate": "2020-04-01 20:43:29", "containerno": "666", "noticecode": "DH2004010006" },
+            //             { "supplier_code": "24400365", "purchaseorg_pk_org": "0001A2100000000025DX", "supplier_pk_supplier": "1001A210000000001D6M", "pk_order_b": "1001ZZ100000000KEQNY", "nnum": 4000, "drivertelephone": "15858960450", "material_code": "0101000037", "material_pk_material": "1001A210000000001NWH", "pdbilldate": "2020-03-31 14:38:53", "rcvstockorg_pk_org": "0001A2100000000025DX", "status_name": "\u5df2\u63d0\u4ea4", "drivername": "\u9648\u6613", "rcvstockorg_code": "000106", "ordercode": "CD2020033100021119", "rcvstockorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "purchaseorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "status_code": 0, "srcsendnum": "1.00", "driveridcode": "330724199612295652", "pk_order": "1001ZZ100000000KEQNX", "supplier_name": "\u65b0\u4e30\u53bf\u946b\u6052\u798f\u5316\u5de5\u6709\u9650\u516c\u53f8", "remainnum": 3979, "material_dw": "\u5428", "pk_noticeorder": "1001A31000000000JMSL", "vlicense": "\u4e91JHUHDU", "material_name": "\u6c28\u6c34", "vbillcode": "CD2020033100021119", "num": 1, "source": "Y", "denddate": "2020-04-02 20:43:29", "purchaseorg_code": "000106", "dbilldate": "2020-04-01 20:43:29", "containerno": "666", "noticecode": "DH2004010006" },
+            //             { "supplier_code": "24400365", "purchaseorg_pk_org": "0001A2100000000025DX", "supplier_pk_supplier": "1001A210000000001D6M", "pk_order_b": "1001ZZ100000000KEQNY", "nnum": 4000, "drivertelephone": "15858960450", "material_code": "0101000037", "material_pk_material": "1001A210000000001NWH", "pdbilldate": "2020-03-31 14:38:53", "rcvstockorg_pk_org": "0001A2100000000025DX", "status_name": "\u5df2\u63d0\u4ea4", "drivername": "\u9648\u6613", "rcvstockorg_code": "000106", "ordercode": "CD2020033100021119", "rcvstockorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "purchaseorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "status_code": 0, "srcsendnum": "1.00", "driveridcode": "330724199612295652", "pk_order": "1001ZZ100000000KEQNX", "supplier_name": "\u65b0\u4e30\u53bf\u946b\u6052\u798f\u5316\u5de5\u6709\u9650\u516c\u53f8", "remainnum": 3979, "material_dw": "\u5428", "pk_noticeorder": "1001A31000000000JMSL", "vlicense": "\u4e91JHUHDU", "material_name": "\u6c28\u6c34", "vbillcode": "CD2020033100021119", "num": 1, "source": "Y", "denddate": "2020-04-02 20:43:29", "purchaseorg_code": "000106", "dbilldate": "2020-04-01 20:43:29", "containerno": "666", "noticecode": "DH2004010006" },
+            //             { "supplier_code": "24400365", "purchaseorg_pk_org": "0001A2100000000025DX", "supplier_pk_supplier": "1001A210000000001D6M", "pk_order_b": "1001ZZ100000000KEQNY", "nnum": 4000, "drivertelephone": "15858960450", "material_code": "0101000037", "material_pk_material": "1001A210000000001NWH", "pdbilldate": "2020-03-31 14:38:53", "rcvstockorg_pk_org": "0001A2100000000025DX", "status_name": "\u5df2\u63d0\u4ea4", "drivername": "\u9648\u6613", "rcvstockorg_code": "000106", "ordercode": "CD2020033100021119", "rcvstockorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "purchaseorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "status_code": 0, "srcsendnum": "1.00", "driveridcode": "330724199612295652", "pk_order": "1001ZZ100000000KEQNX", "supplier_name": "\u65b0\u4e30\u53bf\u946b\u6052\u798f\u5316\u5de5\u6709\u9650\u516c\u53f8", "remainnum": 3979, "material_dw": "\u5428", "pk_noticeorder": "1001A31000000000JMSL", "vlicense": "\u4e91JHUHDU", "material_name": "\u6c28\u6c34", "vbillcode": "CD2020033100021119", "num": 1, "source": "Y", "denddate": "2020-04-02 20:43:29", "purchaseorg_code": "000106", "dbilldate": "2020-04-01 20:43:29", "containerno": "666", "noticecode": "DH2004010006" },
+            //             { "supplier_code": "24400365", "purchaseorg_pk_org": "0001A2100000000025DX", "supplier_pk_supplier": "1001A210000000001D6M", "pk_order_b": "1001ZZ100000000KEQNY", "nnum": 4000, "drivertelephone": "15858960450", "material_code": "0101000037", "material_pk_material": "1001A210000000001NWH", "pdbilldate": "2020-03-31 14:38:53", "rcvstockorg_pk_org": "0001A2100000000025DX", "status_name": "\u5df2\u63d0\u4ea4", "drivername": "\u9648\u6613", "rcvstockorg_code": "000106", "ordercode": "CD2020033100021119", "rcvstockorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "purchaseorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "status_code": 0, "srcsendnum": "1.00", "driveridcode": "330724199612295652", "pk_order": "1001ZZ100000000KEQNX", "supplier_name": "\u65b0\u4e30\u53bf\u946b\u6052\u798f\u5316\u5de5\u6709\u9650\u516c\u53f8", "remainnum": 3979, "material_dw": "\u5428", "pk_noticeorder": "1001A31000000000JMSJ", "vlicense": "\u4e91JHUHDU", "material_name": "\u6c28\u6c34", "vbillcode": "CD2020033100021119", "num": 1, "source": "Y", "denddate": "2020-04-02 20:43:29", "purchaseorg_code": "000106", "dbilldate": "2020-04-01 20:43:29", "containerno": "666", "noticecode": "DH2004010005" },
+            //             { "supplier_code": "24400365", "purchaseorg_pk_org": "0001A2100000000025DX", "supplier_pk_supplier": "1001A210000000001D6M", "nnum": 4000, "pk_order_b": "1001ZZ100000000KEQNY", "material_code": "0101000037", "material_pk_material": "1001A210000000001NWH", "pdbilldate": "2020-03-31 14:38:53", "rcvstockorg_pk_org": "0001A2100000000025DX", "status_name": "\u5df2\u63d0\u4ea4", "rcvstockorg_code": "000106", "ordercode": "CD2020033100021119", "rcvstockorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "purchaseorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "status_code": 0, "srcsendnum": "5.00", "pk_order": "1001ZZ100000000KEQNX", "supplier_name": "\u65b0\u4e30\u53bf\u946b\u6052\u798f\u5316\u5de5\u6709\u9650\u516c\u53f8", "remainnum": 3983, "material_dw": "\u5428", "pk_noticeorder": "1001A31000000000JKHB", "vlicense": "\u7ca4P51165", "material_name": "\u6c28\u6c34", "vbillcode": "CD2020033100021119", "num": 5, "source": "Y", "denddate": "2020-04-02 17:04:20", "purchaseorg_code": "000106", "dbilldate": "2020-04-01 17:04:20", "noticecode": "DH2004010004" },
+            //             { "supplier_code": "24400365", "purchaseorg_pk_org": "0001A2100000000025DX", "supplier_pk_supplier": "1001A210000000001D6M", "nnum": 4000, "pk_order_b": "1001ZZ100000000KEQNY", "material_code": "0101000037", "material_pk_material": "1001A210000000001NWH", "pdbilldate": "2020-03-31 14:38:53", "rcvstockorg_pk_org": "0001A2100000000025DX", "status_name": "\u5df2\u63d0\u4ea4", "rcvstockorg_code": "000106", "ordercode": "CD2020033100021119", "rcvstockorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "purchaseorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "status_code": 0, "srcsendnum": "3.00", "pk_order": "1001ZZ100000000KEQNX", "supplier_name": "\u65b0\u4e30\u53bf\u946b\u6052\u798f\u5316\u5de5\u6709\u9650\u516c\u53f8", "remainnum": 3981, "material_dw": "\u5428", "pk_noticeorder": "1001A31000000000JKH7", "vlicense": "\u7ca4P21332", "material_name": "\u6c28\u6c34", "vbillcode": "CD2020033100021119", "num": 3, "source": "Y", "denddate": "2020-04-02 17:01:43", "purchaseorg_code": "000106", "dbilldate": "2020-04-01 17:01:43", "noticecode": "DH2004010003" },
+            //             { "supplier_code": "24400365", "purchaseorg_pk_org": "0001A2100000000025DX", "supplier_pk_supplier": "1001A210000000001D6M", "nnum": 4000, "pk_order_b": "1001ZZ100000000KEQNY", "material_code": "0101000037", "material_pk_material": "1001A210000000001NWH", "pdbilldate": "2020-03-31 14:38:53", "rcvstockorg_pk_org": "0001A2100000000025DX", "status_name": "\u5df2\u63d0\u4ea4", "rcvstockorg_code": "000106", "ordercode": "CD2020033100021119", "rcvstockorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "purchaseorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "status_code": 0, "srcsendnum": "1.00", "pk_order": "1001ZZ100000000KEQNX", "supplier_name": "\u65b0\u4e30\u53bf\u946b\u6052\u798f\u5316\u5de5\u6709\u9650\u516c\u53f8", "remainnum": 3979, "material_dw": "\u5428", "pk_noticeorder": "1001A31000000000JJPD", "vlicense": "\u8d63D65808", "material_name": "\u6c28\u6c34", "vbillcode": "CD2020033100021119", "num": 1, "source": "Y", "denddate": "2020-04-02 16:50:22", "purchaseorg_code": "000106", "dbilldate": "2020-04-01 16:50:22", "noticecode": "DH2004010002" },
+            //             { "supplier_code": "24400365", "purchaseorg_pk_org": "0001A2100000000025DX", "supplier_pk_supplier": "1001A210000000001D6M", "nnum": 4000, "pk_order_b": "1001ZZ100000000KEQNY", "material_code": "0101000037", "material_pk_material": "1001A210000000001NWH", "pdbilldate": "2020-03-31 14:38:53", "rcvstockorg_pk_org": "0001A2100000000025DX", "status_name": "\u5df2\u63d0\u4ea4", "rcvstockorg_code": "000106", "ordercode": "CD2020033100021119", "rcvstockorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "purchaseorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "status_code": 0, "srcsendnum": "6.00", "pk_order": "1001ZZ100000000KEQNX", "supplier_name": "\u65b0\u4e30\u53bf\u946b\u6052\u798f\u5316\u5de5\u6709\u9650\u516c\u53f8", "remainnum": 3984, "material_dw": "\u5428", "pk_noticeorder": "1001A31000000000IAFE", "vlicense": "\u7ca4YY9900", "material_name": "\u6c28\u6c34", "vbillcode": "CD2020033100021119", "num": 6, "source": "Y", "denddate": "2020-04-02 10:40:06", "purchaseorg_code": "000106", "dbilldate": "2020-04-01 10:40:06", "noticecode": "DH2004010001" }
             //         ]
             //     }
             // } else {
@@ -243,12 +243,12 @@ export default class Axios {
             //         page_size: 10,
             //         total: 16,
             //         list: [
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
-            //             { "account": 46315.64, "billdate": "2020-01-06", "billno": "H4302020010600000001", "customer": "测试", "isconfirmation": "未确认", "lastmonthbalance": 0 },
+            //             { "supplier_code": "24400365", "purchaseorg_pk_org": "0001A2100000000025DX", "supplier_pk_supplier": "1001A210000000001D6M", "pk_order_b": "1001ZZ100000000KEQNY", "nnum": 4000, "drivertelephone": "15858960450", "material_code": "0101000037", "material_pk_material": "1001A210000000001NWH", "pdbilldate": "2020-03-31 14:38:53", "rcvstockorg_pk_org": "0001A2100000000025DX", "status_name": "\u5df2\u63d0\u4ea4", "drivername": "\u9648\u6613", "rcvstockorg_code": "000106", "ordercode": "CD2020033100021119", "rcvstockorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "purchaseorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "status_code": 0, "srcsendnum": "1.00", "driveridcode": "330724199612295652", "pk_order": "1001ZZ100000000KEQNX", "supplier_name": "\u65b0\u4e30\u53bf\u946b\u6052\u798f\u5316\u5de5\u6709\u9650\u516c\u53f8", "remainnum": 3979, "material_dw": "\u5428", "pk_noticeorder": "1001A31000000000JMSL", "vlicense": "\u4e91JHUHDU", "material_name": "\u6c28\u6c34", "vbillcode": "CD2020033100021119", "num": 1, "source": "Y", "denddate": "2020-04-02 20:43:29", "purchaseorg_code": "000106", "dbilldate": "2020-04-01 20:43:29", "containerno": "666", "noticecode": "DH2004010006" },
+            //             { "supplier_code": "24400365", "purchaseorg_pk_org": "0001A2100000000025DX", "supplier_pk_supplier": "1001A210000000001D6M", "pk_order_b": "1001ZZ100000000KEQNY", "nnum": 4000, "drivertelephone": "15858960450", "material_code": "0101000037", "material_pk_material": "1001A210000000001NWH", "pdbilldate": "2020-03-31 14:38:53", "rcvstockorg_pk_org": "0001A2100000000025DX", "status_name": "\u5df2\u63d0\u4ea4", "drivername": "\u9648\u6613", "rcvstockorg_code": "000106", "ordercode": "CD2020033100021119", "rcvstockorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "purchaseorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "status_code": 0, "srcsendnum": "1.00", "driveridcode": "330724199612295652", "pk_order": "1001ZZ100000000KEQNX", "supplier_name": "\u65b0\u4e30\u53bf\u946b\u6052\u798f\u5316\u5de5\u6709\u9650\u516c\u53f8", "remainnum": 3979, "material_dw": "\u5428", "pk_noticeorder": "1001A31000000000JMSL", "vlicense": "\u4e91JHUHDU", "material_name": "\u6c28\u6c34", "vbillcode": "CD2020033100021119", "num": 1, "source": "Y", "denddate": "2020-04-02 20:43:29", "purchaseorg_code": "000106", "dbilldate": "2020-04-01 20:43:29", "containerno": "666", "noticecode": "DH2004010006" },
+            //             { "supplier_code": "24400365", "purchaseorg_pk_org": "0001A2100000000025DX", "supplier_pk_supplier": "1001A210000000001D6M", "pk_order_b": "1001ZZ100000000KEQNY", "nnum": 4000, "drivertelephone": "15858960450", "material_code": "0101000037", "material_pk_material": "1001A210000000001NWH", "pdbilldate": "2020-03-31 14:38:53", "rcvstockorg_pk_org": "0001A2100000000025DX", "status_name": "\u5df2\u63d0\u4ea4", "drivername": "\u9648\u6613", "rcvstockorg_code": "000106", "ordercode": "CD2020033100021119", "rcvstockorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "purchaseorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "status_code": 0, "srcsendnum": "1.00", "driveridcode": "330724199612295652", "pk_order": "1001ZZ100000000KEQNX", "supplier_name": "\u65b0\u4e30\u53bf\u946b\u6052\u798f\u5316\u5de5\u6709\u9650\u516c\u53f8", "remainnum": 3979, "material_dw": "\u5428", "pk_noticeorder": "1001A31000000000JMSL", "vlicense": "\u4e91JHUHDU", "material_name": "\u6c28\u6c34", "vbillcode": "CD2020033100021119", "num": 1, "source": "Y", "denddate": "2020-04-02 20:43:29", "purchaseorg_code": "000106", "dbilldate": "2020-04-01 20:43:29", "containerno": "666", "noticecode": "DH2004010006" },
+            //             { "supplier_code": "24400365", "purchaseorg_pk_org": "0001A2100000000025DX", "supplier_pk_supplier": "1001A210000000001D6M", "pk_order_b": "1001ZZ100000000KEQNY", "nnum": 4000, "drivertelephone": "15858960450", "material_code": "0101000037", "material_pk_material": "1001A210000000001NWH", "pdbilldate": "2020-03-31 14:38:53", "rcvstockorg_pk_org": "0001A2100000000025DX", "status_name": "\u5df2\u63d0\u4ea4", "drivername": "\u9648\u6613", "rcvstockorg_code": "000106", "ordercode": "CD2020033100021119", "rcvstockorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "purchaseorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "status_code": 0, "srcsendnum": "1.00", "driveridcode": "330724199612295652", "pk_order": "1001ZZ100000000KEQNX", "supplier_name": "\u65b0\u4e30\u53bf\u946b\u6052\u798f\u5316\u5de5\u6709\u9650\u516c\u53f8", "remainnum": 3979, "material_dw": "\u5428", "pk_noticeorder": "1001A31000000000JMSL", "vlicense": "\u4e91JHUHDU", "material_name": "\u6c28\u6c34", "vbillcode": "CD2020033100021119", "num": 1, "source": "Y", "denddate": "2020-04-02 20:43:29", "purchaseorg_code": "000106", "dbilldate": "2020-04-01 20:43:29", "containerno": "666", "noticecode": "DH2004010006" },
+            //             { "supplier_code": "24400365", "purchaseorg_pk_org": "0001A2100000000025DX", "supplier_pk_supplier": "1001A210000000001D6M", "pk_order_b": "1001ZZ100000000KEQNY", "nnum": 4000, "drivertelephone": "15858960450", "material_code": "0101000037", "material_pk_material": "1001A210000000001NWH", "pdbilldate": "2020-03-31 14:38:53", "rcvstockorg_pk_org": "0001A2100000000025DX", "status_name": "\u5df2\u63d0\u4ea4", "drivername": "\u9648\u6613", "rcvstockorg_code": "000106", "ordercode": "CD2020033100021119", "rcvstockorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "purchaseorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "status_code": 0, "srcsendnum": "1.00", "driveridcode": "330724199612295652", "pk_order": "1001ZZ100000000KEQNX", "supplier_name": "\u65b0\u4e30\u53bf\u946b\u6052\u798f\u5316\u5de5\u6709\u9650\u516c\u53f8", "remainnum": 3979, "material_dw": "\u5428", "pk_noticeorder": "1001A31000000000JMSL", "vlicense": "\u4e91JHUHDU", "material_name": "\u6c28\u6c34", "vbillcode": "CD2020033100021119", "num": 1, "source": "Y", "denddate": "2020-04-02 20:43:29", "purchaseorg_code": "000106", "dbilldate": "2020-04-01 20:43:29", "containerno": "666", "noticecode": "DH2004010006" },
+            //             { "supplier_code": "24400365", "purchaseorg_pk_org": "0001A2100000000025DX", "supplier_pk_supplier": "1001A210000000001D6M", "pk_order_b": "1001ZZ100000000KEQNY", "nnum": 4000, "drivertelephone": "15858960450", "material_code": "0101000037", "material_pk_material": "1001A210000000001NWH", "pdbilldate": "2020-03-31 14:38:53", "rcvstockorg_pk_org": "0001A2100000000025DX", "status_name": "\u5df2\u63d0\u4ea4", "drivername": "\u9648\u6613", "rcvstockorg_code": "000106", "ordercode": "CD2020033100021119", "rcvstockorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "purchaseorg_name": "\u6cb3\u6e90\u5e02\u91d1\u6770\u73af\u4fdd\u5efa\u6750\u6709\u9650\u516c\u53f8", "status_code": 0, "srcsendnum": "1.00", "driveridcode": "330724199612295652", "pk_order": "1001ZZ100000000KEQNX", "supplier_name": "\u65b0\u4e30\u53bf\u946b\u6052\u798f\u5316\u5de5\u6709\u9650\u516c\u53f8", "remainnum": 3979, "material_dw": "\u5428", "pk_noticeorder": "1001A31000000000JMSJ", "vlicense": "\u4e91JHUHDU", "material_name": "\u6c28\u6c34", "vbillcode": "CD2020033100021119", "num": 1, "source": "Y", "denddate": "2020-04-02 20:43:29", "purchaseorg_code": "000106", "dbilldate": "2020-04-01 20:43:29", "containerno": "666", "noticecode": "DH2004010005" },
             //         ]
             //     }
             // }

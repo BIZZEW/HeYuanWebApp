@@ -7,6 +7,7 @@ export const login1 = (loginObject) => {
 	return new Promise((resolve, reject) => {
 		setTimeout(() => {
 			sessionStorage.setItem('userName', loginObject.username);
+			sessionStorage.setItem('passWord', loginObject.password);
 			sessionStorage.setItem('dftstockorg', '{"code": "000106","name": "河源市金杰环保建材有限公司","pk_org": "0001A2100000000025DX"}');
 			sessionStorage.setItem('clientRef', '[{"customer":"1001B1100000000BCPKD","customername":"王长见散装测试","saleorg":"0001A2100000000025EO","saleorgname":"那曲地区纳木措金圆建材有限公司","sendstockorg":"0001A2100000000025EO33333","sendstockorgname":"那曲地区纳木措金圆建材有限公司2222"},{"customer":"1001B1100000000BCPKI","customername":"王长见袋装测试","saleorg":"0001A2100000000025EO","saleorgname":"那曲地区纳木措金圆建材有限公司","sendstockorg":"0001A2100000000025EO","sendstockorgname":"那曲地区纳木措金圆建材有限公司"}]');
 			sessionStorage.setItem('cementRef', '[{"code":"1001000037","name":"散装测试","pk_material":"1001B1100000000B4W9K"},{"code":"1001000036","name":"袋装测试","pk_material":"1001B1100000000B4W5B"},{"code":"0101000300","name":"大宗原材料测试","pk_material":"1001B1100000000B5KLK"},{"code":"0101000001","name":"石灰石","pk_material":"1001A210000000001NUF"}]');
@@ -47,6 +48,7 @@ export const login = (loginObject) => {
 				let res = response.data;
 				if (res.code === 0) {
 					sessionStorage.setItem('userName', loginObject.username);
+					sessionStorage.setItem('passWord', loginObject.password);
 
 					if (res.result && res.result[0] && res.result[0]) {
 						sessionStorage.setItem('clientRef', res.result ? JSON.stringify(res.result) : "");

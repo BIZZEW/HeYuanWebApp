@@ -147,8 +147,8 @@ export default class Delivery extends React.Component {
 			key: 'pk_stockorg',
 			field: 'stockorgname',
 			subs: [{
-				key: "pk_cargo",
-				field: "cargoname"
+				key: "cmaterialid",
+				field: "materialname"
 			}],
 			width: 200,
 			trigger: item => this.openRef(item)
@@ -161,8 +161,8 @@ export default class Delivery extends React.Component {
 			type: 'ADVSELECT',
 			label: '货物',
 			action: 8,
-			key: 'pk_cargo',
-			field: 'cargoname',
+			key: 'cmaterialid',
+			field: 'materialname',
 			sups: [{
 				key: "pk_stockorg",
 				field: "stockorgname",
@@ -173,22 +173,22 @@ export default class Delivery extends React.Component {
 		},
 		{
 			type: 'ADVSELECTPK',
-			field: 'pk_cargo',
+			field: 'cmaterialid',
 		},
 		{
 			type: 'INPUT',
 			label: '订单号',
-			field: 'pk_material',
+			field: 'noticecode',
 			placeholder: '请输入订单号',
 			width: 200,
 			list: this.state.cementRef,
-			idKey: "pk_material",
+			idKey: "noticecode",
 			valueKey: "name",
 		},
 		{
 			type: 'INPUT',
 			label: '车号',
-			field: 'vcarnumber',
+			field: 'vlicense',
 			placeholder: '请输入车号',
 			width: 200,
 			rules: [
@@ -239,7 +239,13 @@ export default class Delivery extends React.Component {
 		// 		if (i.customer === this.params.customer)
 		// 			this.params = { ...this.params, ...i };
 
-		axios.requestList(this, '/purchase', { ...this.params, action: 4, serviceid: "receiveOrderService" });
+		axios.requestList(this, '/purchase', {
+			...this.params,
+			action: 4,
+			serviceid: "receiveOrderService",
+			ncusercode: sessionStorage.getItem("userName") || "",
+			ncuserpassword: sessionStorage.getItem("passWord") || ""
+		});
 	}
 
 	//功能区操作
@@ -412,35 +418,35 @@ export default class Delivery extends React.Component {
 		const columns = [
 			{
 				title: '单据号',
-				dataIndex: 'orderno'
+				dataIndex: 'noticecode'
 			},
 			{
 				title: '供应商',
-				dataIndex: 'customername'
+				dataIndex: 'supplier_name'
 			},
 			{
 				title: '矿点',
-				dataIndex: 'customername'
+				dataIndex: 'orespotname'
 			},
 			{
-				title: '日期',
-				dataIndex: 'materialname'
+				title: '送货日期',
+				dataIndex: 'dbilldate'
 			},
 			{
 				title: '货物',
-				dataIndex: 'billstatus',
+				dataIndex: 'material_name',
 			},
 			{
-				title: '数量',
-				dataIndex: 'ordernum'
+				title: '到货数量',
+				dataIndex: 'num'
 			},
 			{
 				title: '单据状态',
-				dataIndex: 'ordernum'
+				dataIndex: 'status_name'
 			},
 			{
 				title: '车号',
-				dataIndex: 'vehicle',
+				dataIndex: 'vlicense',
 			},
 			{
 				title: '操作',
