@@ -40,7 +40,6 @@ export default class Delivery extends React.Component {
 	params = {
 		// 页面主要业务查询页码
 		page: 1,
-		pk_appuser: sessionStorage.getItem("pkAppuser") || "",
 	}
 
 	refParam = {
@@ -222,6 +221,7 @@ export default class Delivery extends React.Component {
 
 	handleFilter = (para) => {
 		para.page = 1;
+		para.pk_appuser = sessionStorage.getItem("pkAppuser") || "";
 		this.params = para;
 		this.requestList();
 	}
