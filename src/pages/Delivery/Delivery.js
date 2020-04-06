@@ -221,7 +221,6 @@ export default class Delivery extends React.Component {
 
 	handleFilter = (para) => {
 		para.page = 1;
-		para.pk_appuser = sessionStorage.getItem("pkAppuser") || "";
 		this.params = para;
 		this.requestList();
 	}
@@ -240,12 +239,14 @@ export default class Delivery extends React.Component {
 		// 		if (i.customer === this.params.customer)
 		// 			this.params = { ...this.params, ...i };
 
-		axios.requestList(this, '/purchase', {
+		axios.requestListPurchase(this, '/purchase', {
 			...this.params,
 			action: 4,
 			serviceid: "receiveOrderService",
 			ncusercode: sessionStorage.getItem("userName") || "",
-			ncuserpassword: sessionStorage.getItem("passWord") || ""
+			ncuserpassword: sessionStorage.getItem("passWord") || "",
+			pk_appuser: sessionStorage.getItem("pkAppuser") || "",
+			flag: true
 		});
 	}
 
