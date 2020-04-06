@@ -232,13 +232,6 @@ export default class Delivery extends React.Component {
 		if (this.params.enddate && (typeof (this.params.enddate) == "object"))
 			this.params.enddate = this.params.enddate.format("YYYY-MM-DD");
 
-		// if (!this.params.customer)
-		// 	this.params.sendstockorg = (eval(this.state.clientRef)[0]).sendstockorg;
-		// else
-		// 	for (var i of eval(this.state.clientRef))
-		// 		if (i.customer === this.params.customer)
-		// 			this.params = { ...this.params, ...i };
-
 		axios.requestListPurchase(this, '/purchase', {
 			...this.params,
 			action: 4,
