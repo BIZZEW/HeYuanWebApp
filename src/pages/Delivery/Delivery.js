@@ -40,6 +40,7 @@ export default class Delivery extends React.Component {
 	params = {
 		// 页面主要业务查询页码
 		page: 1,
+		pk_appuser: sessionStorage.getItem("pkAppuser") || "",
 	}
 
 	refParam = {
