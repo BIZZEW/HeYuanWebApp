@@ -35,7 +35,9 @@ class OrderForm extends React.Component {
 		refList: [],
 		selectedRowKeysRef: null,
 
-		refDfltValues: {},
+		// 采购订单
+		selectedRowKeysProq: [],
+		selectedRowsProq: [],
 	}
 
 	params = {
@@ -90,7 +92,7 @@ class OrderForm extends React.Component {
 						else {
 							Modal.info({
 								title: '提示',
-								content: '请选择请先选择' + (i.name || "上级查询条件")
+								content: '请先选择' + (i.name || "上级查询条件")
 							});
 							return;
 						}
@@ -134,6 +136,10 @@ class OrderForm extends React.Component {
 			action: 7,
 			key: 'pk_supplier',
 			field: 'suppliername',
+			subs: [{
+				key: "pk_purchaseorg",
+				field: "purchaseorgname"
+			}],
 			width: 200,
 			trigger: item => this.openRef(item)
 		},
@@ -146,14 +152,19 @@ class OrderForm extends React.Component {
 			type: 'ADVSELECT',
 			label: '采购单位',
 			action: 4,
-			key: 'pk_buyer',
-			field: 'buyername',
+			key: 'pk_purchaseorg',
+			field: 'purchaseorgname',
+			sups: [{
+				key: "pk_supplier",
+				field: "suppliername",
+				name: "供应商"
+			}],
 			width: 200,
 			trigger: item => this.openRef(item)
 		},
 		{
 			type: 'ADVSELECTPK',
-			field: 'pk_buyer',
+			field: 'pk_purchaseorg',
 		},
 
 		{
@@ -342,6 +353,23 @@ class OrderForm extends React.Component {
 		axios.getOptions2(this, '/querysaleunit', param, "companyRef");
 	}
 
+	handleSubmit0 = () => {
+		console.log(this.state.selectedRowsProq)
+		if (this.state.selectedRowsProq && this.state.selectedRowsProq[0]) {
+			let item = this.state.selectedRowsProq[0];
+			this.setState({
+				isVisible0: false,
+				selectedRowKeysProq: [],
+				selectedRowsProq: []
+			}, (() => { this.props.form.setFieldsValue(item); }));
+		} else {
+			Modal.info({
+				title: '提示',
+				content: '请选择一个采购订单'
+			})
+		}
+	}
+
 	handleSubmit3 = () => {
 		this.setState({
 			isVisible3: false,
@@ -422,34 +450,45 @@ class OrderForm extends React.Component {
 	};
 
 	getProcureOptions = () => {
-		let dftstockorg, dfltValues = {};
-		if (sessionStorage.getItem("dftstockorg")) {
-			dftstockorg = JSON.parse(sessionStorage.getItem("dftstockorg"));
-			dfltValues = { "stockorgname": dftstockorg.name, "pk_stockorg": dftstockorg.pk_org };
-		}
 		this.setState({
 			isVisible0: true,
 			title0: '采购订单',
 			list: [],
-			refDfltValues: dfltValues
 		})
 	}
 
 	render() {
 		const { selectedRowKeys } = this.state;
 		const { selectedRowKeysRef } = this.state;
+		const { selectedRowKeysProq } = this.state;
+
 		let type = this.props.type;
 		let vehicleInfoNum = this.props.vehicles.length;
 		let orderInfo = this.props.orderInfo || {};
+
 		const { getFieldDecorator } = this.props.form;
 		const formItemLayout = {
 			labelCol: { span: 5 },
 			wrapperCol: { span: 19 }
 		}
 
+		let dftstockorg, dfltValues = {}, curDate = new Date();
+		if (sessionStorage.getItem("dftstockorg")) {
+			dftstockorg = JSON.parse(sessionStorage.getItem("dftstockorg"));
+			dfltValues = { "stockorgname": dftstockorg.name, "pk_stockorg": dftstockorg.pk_org, "begindate": moment(new Date(curDate.getTime() - 24 * 60 * 60 * 1000), "YYYY-MM-DD"), "enddate": moment(new Date(), "YYYY-MM-DD") };
+		}
+
 		const rowSelection = {
 			selectedRowKeys,
 			onChange: this.onSelectChange,
+		};
+
+		const rowSelectionProq = {
+			selectedRowKeys: selectedRowKeysProq,
+			onChange: (selectedRowKeysProq, selectedRowsProq) => {
+				console.log(`selectedRowKeys: ${selectedRowKeysProq}`, 'selectedRows: ', selectedRowsProq);
+				this.setState({ selectedRowKeysProq, selectedRowsProq })
+			},
 		};
 
 		const rowSelectionRef = {
@@ -483,22 +522,22 @@ class OrderForm extends React.Component {
 		const columns2 = [
 			{
 				title: '采购订单日期',
-				dataIndex: 'drivername'
+				dataIndex: 'dbilldate'
 			}, {
 				title: '采购单位',
-				dataIndex: 'telphone',
+				dataIndex: 'purchaseorg_name',
 			}, {
 				title: '收货企业',
-				dataIndex: 'driveridentity',
+				dataIndex: 'rcvstockorg_name',
 			}, {
 				title: '供应商',
-				dataIndex: 'driveridentity',
+				dataIndex: 'supplier_name',
 			}, {
 				title: '货物',
-				dataIndex: 'driveridentity',
+				dataIndex: 'material_name',
 			}, {
 				title: '余量',
-				dataIndex: 'driveridentity',
+				dataIndex: 'remainnum',
 			},
 		];
 
@@ -522,18 +561,19 @@ class OrderForm extends React.Component {
 				<Form layout="horizontal">
 					<FormItem label="采购订单" {...formItemLayout} style={{ "marginBottom": "15px" }}>
 						{
-							getFieldDecorator('vehicle', {
-								initialValue: orderInfo.vehicle,
-							})(
-								<Search
-									placeholder="请选择采购订单"
-									enterButton="获取"
-									readOnly
-									// size="large"
-									onSearch={value => this.getProcureOptions(value)}
-									onClick={value => this.getProcureOptions(value)}
-								/>
-							)
+							type == 'detail' ? orderInfo.vbillcode :
+								getFieldDecorator('vbillcode', {
+									initialValue: orderInfo.vbillcode,
+								})(
+									<Search
+										placeholder="请选择采购订单"
+										enterButton="获取"
+										readOnly
+										// size="large"
+										onSearch={value => this.getProcureOptions(value)}
+										onClick={value => this.getProcureOptions(value)}
+									/>
+								)
 						}
 					</FormItem>
 
@@ -543,12 +583,12 @@ class OrderForm extends React.Component {
 						expandIcon={({ isActive }) => <Icon rotate={isActive ? 90 : 0} type="caret-right" />}
 						className="site-collapse-custom-collapse"
 					>
-						<Panel header={"采购订单详情 （货物: " + (orderInfo.drivername ? orderInfo.drivername : "") + " 余量: " + (orderInfo.drivername ? orderInfo.drivername : "") + " 矿点: " + (orderInfo.drivername ? orderInfo.drivername : "") + "）"} key="1" className="site-collapse-custom-panel">
+						<Panel header={"采购订单详情 （货物: " + (this.props.form.getFieldValue("material_name") || "") + " 余量: " + (this.props.form.getFieldValue("remainnum") || "") + " 矿点: " + (this.props.form.getFieldValue("orespotname") || "") + "）"} key="1" className="site-collapse-custom-panel">
 							<FormItem label="采购订单日期" {...formItemLayout}>
 								{
-									type == 'detail' ? orderInfo.drivername :
-										getFieldDecorator('drivername', {
-											initialValue: orderInfo.drivername,
+									type == 'detail' ? orderInfo.dbilldate :
+										getFieldDecorator('dbilldate', {
+											initialValue: orderInfo.dbilldate,
 										})(
 											<Input type="text" placeholder="请选择采购订单" readOnly />
 										)
@@ -556,9 +596,9 @@ class OrderForm extends React.Component {
 							</FormItem>
 							<FormItem label="采购单位" {...formItemLayout}>
 								{
-									type == 'detail' ? orderInfo.drivername :
-										getFieldDecorator('drivername', {
-											initialValue: orderInfo.drivername,
+									type == 'detail' ? orderInfo.purchaseorg_name :
+										getFieldDecorator('purchaseorg_name', {
+											initialValue: orderInfo.purchaseorg_name,
 										})(
 											<Input type="text" placeholder="请选择采购订单" readOnly />
 										)
@@ -566,18 +606,18 @@ class OrderForm extends React.Component {
 							</FormItem>
 							<FormItem label="收货企业" {...formItemLayout}>
 								{
-									type == 'detail' ? orderInfo.drivername :
-										getFieldDecorator('drivername', {
-											initialValue: orderInfo.drivername,
+									type == 'detail' ? orderInfo.rcvstockorg_name :
+										getFieldDecorator('rcvstockorg_name', {
+											initialValue: orderInfo.rcvstockorg_name,
 										})(
 											<Input type="text" placeholder="请选择采购订单" readOnly />
 										)
 								}
 							</FormItem><FormItem label="供应商" {...formItemLayout}>
 								{
-									type == 'detail' ? orderInfo.drivername :
-										getFieldDecorator('drivername', {
-											initialValue: orderInfo.drivername,
+									type == 'detail' ? orderInfo.supplier_name :
+										getFieldDecorator('supplier_name', {
+											initialValue: orderInfo.supplier_name,
 										})(
 											<Input type="text" placeholder="请选择采购订单" readOnly />
 										)
@@ -586,9 +626,9 @@ class OrderForm extends React.Component {
 
 							<FormItem label="货物" {...formItemLayout}>
 								{
-									type == 'detail' ? orderInfo.drivername :
-										getFieldDecorator('drivername', {
-											initialValue: orderInfo.drivername,
+									type == 'detail' ? orderInfo.material_name :
+										getFieldDecorator('material_name', {
+											initialValue: orderInfo.material_name,
 										})(
 											<Input type="text" placeholder="请选择采购订单" readOnly />
 										)
@@ -597,9 +637,20 @@ class OrderForm extends React.Component {
 
 							<FormItem label="余量" {...formItemLayout}>
 								{
-									type == 'detail' ? orderInfo.drivername :
-										getFieldDecorator('drivername', {
-											initialValue: orderInfo.drivername,
+									type == 'detail' ? orderInfo.remainnum :
+										getFieldDecorator('remainnum', {
+											initialValue: orderInfo.remainnum,
+										})(
+											<Input type="text" placeholder="请选择采购订单" readOnly />
+										)
+								}
+							</FormItem>
+
+							<FormItem label="矿点" {...formItemLayout}>
+								{
+									type == 'detail' ? orderInfo.orespotname :
+										getFieldDecorator('orespotname', {
+											initialValue: orderInfo.orespotname,
 										})(
 											<Input type="text" placeholder="请选择采购订单" readOnly />
 										)
@@ -748,23 +799,30 @@ class OrderForm extends React.Component {
 					onOk={this.handleSubmit0}
 					onCancel={() => {
 						this.setState({
-							isVisible0: false
+							isVisible0: false,
+							selectedRowKeysProq: [],
+							selectedRowsProq: []
 						})
 						this.formRef.props.form.resetFields();
 					}}
 					width={1200}
+					// centered={true}
 					destroyOnClose={true}
 				>
 					<Card>
-						<BaseForm wrappedComponentRef={(form) => this.formRef = form} formList={this.formList} filterSubmit={this.handleFilter} dfltValues={this.state.refDfltValues} />
+						<BaseForm wrappedComponentRef={(form) => this.formRef = form} formList={this.formList} filterSubmit={this.handleFilter} dfltValues={dfltValues} />
 					</Card>
 					<div className="content-wrap">
 						<Table
 							bordered
 							columns={columns2}
 							dataSource={this.state.list}
-							rowSelection={rowSelection}
-							pagination={false}
+							rowSelection={{
+								type: "radio",
+								...rowSelectionProq,
+							}}
+							pagination={this.state.pagination}
+							scroll={{ y: 250 }}
 						/>
 					</div>
 				</Modal>

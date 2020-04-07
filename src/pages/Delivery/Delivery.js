@@ -90,7 +90,7 @@ export default class Delivery extends React.Component {
 						else {
 							Modal.info({
 								title: '提示',
-								content: '请选择请先选择' + (i.name || "上级查询条件")
+								content: '请先选择' + (i.name || "上级查询条件")
 							});
 							return;
 						}
@@ -213,11 +213,11 @@ export default class Delivery extends React.Component {
 
 	componentDidMount() {
 		// this.requestList();
-		let dftstockorg;
-		if (sessionStorage.getItem("dftstockorg")) {
-			dftstockorg = JSON.parse(sessionStorage.getItem("dftstockorg"));
-			this.formRef.props.form.setFieldsValue({ "stockorgname": dftstockorg.name, "pk_stockorg": dftstockorg.pk_org });
-		}
+		// let dftstockorg;
+		// if (sessionStorage.getItem("dftstockorg")) {
+		// 	dftstockorg = JSON.parse(sessionStorage.getItem("dftstockorg"));
+		// 	this.formRef.props.form.setFieldsValue({ "stockorgname": dftstockorg.name, "pk_stockorg": dftstockorg.pk_org });
+		// }
 	}
 
 	handleFilter = (para) => {
@@ -471,10 +471,16 @@ export default class Delivery extends React.Component {
 			}
 		}
 
+		let dftstockorg, dfltValues = {}, curDate = new Date();
+		if (sessionStorage.getItem("dftstockorg")) {
+			dftstockorg = JSON.parse(sessionStorage.getItem("dftstockorg"));
+			dfltValues = { "stockorgname": dftstockorg.name, "pk_stockorg": dftstockorg.pk_org, "begindate": moment(new Date(curDate.getTime() - 24 * 60 * 60 * 1000), "YYYY-MM-DD"), "enddate": moment(new Date(), "YYYY-MM-DD") };
+		}
+
 		return (
 			<div>
 				<Card>
-					<BaseForm wrappedComponentRef={(form) => this.formRef = form} formList={this.formList} filterSubmit={this.handleFilter} />
+					<BaseForm wrappedComponentRef={(form) => this.formRef = form} formList={this.formList} filterSubmit={this.handleFilter} dfltValues={dfltValues} />
 				</Card>
 				<div className="content-wrap">
 					<Table
