@@ -22,11 +22,6 @@ class FilterForm extends React.Component {
         });
     }
 
-    componentDidMount() {
-        if (this.props.dfltValues)
-            this.props.form.setFieldsValue(this.props.dfltValues);
-    }
-
     getSubOptions = (param, cascade) => {
         for (var i of eval(this.state.clientRef))
             if (i.customer === param.customer)
@@ -147,7 +142,9 @@ class FilterForm extends React.Component {
                 } else if (item.type === 'ADVSELECTPK') {
                     const ADVSELECTPK = <FormItem key={field} style={{ display: "none" }} >
                         {
-                            getFieldDecorator([field])(
+                            getFieldDecorator([field], {
+                                initialValue: initialValue
+                            })(
                                 <div />
                             )
                         }
@@ -171,6 +168,7 @@ class FilterForm extends React.Component {
                     const DATEPICKER = <FormItem label={label} key={field}>
                         {
                             getFieldDecorator([field], {
+                                initialValue: initialValue,
                                 rules: [
                                     { required: required, message: '请选择日期!' }
                                 ],

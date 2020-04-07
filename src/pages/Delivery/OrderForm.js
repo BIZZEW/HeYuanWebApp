@@ -38,6 +38,8 @@ class OrderForm extends React.Component {
 		// 采购订单
 		selectedRowKeysProq: [],
 		selectedRowsProq: [],
+
+		dftstockorg: JSON.parse(sessionStorage.getItem("dftstockorg") || "")
 	}
 
 	params = {
@@ -121,13 +123,15 @@ class OrderForm extends React.Component {
 			type: 'DATE',
 			label: '开始日期',
 			field: 'begindate',
-			placeholder: '请选择开始日期'
+			placeholder: '请选择开始日期',
+			initialValue: moment(new Date(new Date().getTime() - 24 * 60 * 60 * 1000), "YYYY-MM-DD"),
 		},
 		{
 			type: 'DATE',
 			label: '结束日期',
 			field: 'enddate',
-			placeholder: '请选择结束日期'
+			placeholder: '请选择结束日期',
+			initialValue: moment(new Date(), "YYYY-MM-DD"),
 		},
 
 		{
@@ -191,12 +195,14 @@ class OrderForm extends React.Component {
 				key: "cmaterialid",
 				field: "materialname"
 			}],
+			initialValue: this.state.dftstockorg.name || "",
 			width: 200,
 			trigger: item => this.openRef(item)
 		},
 		{
 			type: 'ADVSELECTPK',
 			field: 'pk_stockorg',
+			initialValue: this.state.dftstockorg.pk_org || "",
 		},
 
 		{
@@ -470,12 +476,6 @@ class OrderForm extends React.Component {
 		const formItemLayout = {
 			labelCol: { span: 5 },
 			wrapperCol: { span: 19 }
-		}
-
-		let dftstockorg, dfltValues = {}, curDate = new Date();
-		if (sessionStorage.getItem("dftstockorg")) {
-			dftstockorg = JSON.parse(sessionStorage.getItem("dftstockorg"));
-			dfltValues = { "stockorgname": dftstockorg.name, "pk_stockorg": dftstockorg.pk_org, "begindate": moment(new Date(curDate.getTime() - 24 * 60 * 60 * 1000), "YYYY-MM-DD"), "enddate": moment(new Date(), "YYYY-MM-DD") };
 		}
 
 		const rowSelection = {
@@ -810,7 +810,7 @@ class OrderForm extends React.Component {
 					destroyOnClose={true}
 				>
 					<Card>
-						<BaseForm wrappedComponentRef={(form) => this.formRef = form} formList={this.formList} filterSubmit={this.handleFilter} dfltValues={dfltValues} />
+						<BaseForm wrappedComponentRef={(form) => this.formRef = form} formList={this.formList} filterSubmit={this.handleFilter} />
 					</Card>
 					<div className="content-wrap">
 						<Table
