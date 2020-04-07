@@ -538,6 +538,9 @@ class OrderForm extends React.Component {
 			}, {
 				title: '余量',
 				dataIndex: 'remainnum',
+			}, {
+				title: '矿点',
+				dataIndex: 'orespotname',
 			},
 		];
 
