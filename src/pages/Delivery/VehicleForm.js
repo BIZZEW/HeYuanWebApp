@@ -144,6 +144,7 @@ class VehicleForm extends React.Component {
 						})
 					}}
 					width={1000}
+					destroyOnClose={true}
 				>
 					<div className="content-wrap">
 						<Table

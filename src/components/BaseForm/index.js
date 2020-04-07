@@ -22,6 +22,11 @@ class FilterForm extends React.Component {
         });
     }
 
+    componentDidMount() {
+        if (this.props.dfltValues)
+            this.props.form.setFieldsValue(this.props.dfltValues);
+    }
+
     getSubOptions = (param, cascade) => {
         for (var i of eval(this.state.clientRef))
             if (i.customer === param.customer)

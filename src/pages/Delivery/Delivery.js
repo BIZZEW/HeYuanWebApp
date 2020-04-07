@@ -25,6 +25,7 @@ export default class Delivery extends React.Component {
 		isVisible2: false,
 		// 高级选择弹窗控制
 		isVisibleRef: false,
+
 		clientRef: sessionStorage.getItem('clientRef') || [],
 		cementRef: sessionStorage.getItem('cementRef') || [],
 
@@ -115,6 +116,18 @@ export default class Delivery extends React.Component {
 
 	formList = [
 		{
+			type: 'DATE',
+			label: '开始日期',
+			field: 'begindate',
+			placeholder: '请选择开始日期'
+		},
+		{
+			type: 'DATE',
+			label: '结束日期',
+			field: 'enddate',
+			placeholder: '请选择结束日期'
+		},
+		{
 			type: 'ADVSELECT',
 			label: '供应商',
 			action: 7,
@@ -195,18 +208,6 @@ export default class Delivery extends React.Component {
 				{ pattern: /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/, message: '请输入有效的车牌号!' },
 				// { required: true, message: '请输入车牌!' }
 			],
-		},
-		{
-			type: 'DATE',
-			label: '开始日期',
-			field: 'begindate',
-			placeholder: '请选择开始日期'
-		},
-		{
-			type: 'DATE',
-			label: '结束日期',
-			field: 'enddate',
-			placeholder: '请选择结束日期'
 		},
 	]
 
@@ -509,6 +510,7 @@ export default class Delivery extends React.Component {
 					}}
 					width={600}
 					{...footer}
+					destroyOnClose={true}
 				>
 					<OrderForm type={this.state.type} orderInfo={this.state.orderInfo} wrappedComponentRef={(inst) => { this.orderForm = inst; }} getSubOptions={this.getSubOptions} updateVehicles={this.updateVehicles} vehicles={this.state.vehicles} />
 				</Modal>
@@ -524,6 +526,7 @@ export default class Delivery extends React.Component {
 						})
 					}}
 					width={600}
+					destroyOnClose={true}
 				>
 					<CloseForm wrappedComponentRef={(inst) => { this.closeForm = inst; }} />
 				</Modal>
@@ -540,6 +543,7 @@ export default class Delivery extends React.Component {
 						})
 					}}
 					width={1000}
+					destroyOnClose={true}
 				>
 					<div className="content-wrap">
 						<Table
