@@ -115,7 +115,7 @@ class FilterForm extends React.Component {
                                 <Search
                                     style={{ width: width }}
                                     placeholder={"请选择" + label}
-                                    // enterButton="获取"
+                                    enterButton
                                     onSearch={
                                         (e) => {
                                             if (e != "")

@@ -110,7 +110,8 @@ export const login = (loginObject) => {
 
 					resolve(res);
 				} else {
-					Modal.info({
+					Modal.error({
+						zIndex: 1002,
 						title: '提示',
 						content: res.msg
 					})

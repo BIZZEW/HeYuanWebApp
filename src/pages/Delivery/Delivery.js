@@ -91,6 +91,7 @@ export default class Delivery extends React.Component {
 							this.refParam[i.key] = supskey;
 						else {
 							Modal.info({
+								zIndex: 1002,
 								title: '提示',
 								content: '请先选择' + (i.name || "上级查询条件")
 							});
@@ -263,7 +264,7 @@ export default class Delivery extends React.Component {
 			})
 		} else if (type == 'edit') {
 			// if (!item) {
-			//  Modal.info({
+			//  Modal.info({zIndex: 1002,
 			//      title: '提示',
 			//      content: '请选择一个用户'
 			//  })
@@ -286,6 +287,7 @@ export default class Delivery extends React.Component {
 		} else if (type == 'delete') {
 			let _this = this;
 			Modal.confirm({
+				zIndex: 1002,
 				title: '确认删除',
 				content: `是否要删除当前选中数据`,
 				onOk() {
@@ -322,11 +324,12 @@ export default class Delivery extends React.Component {
 			console.log(data2)
 			this.orderForm.props.form.validateFields((err, values) => {
 				if (!err) {
-					axios.createNewOrder(this, (type == 'create' ? '/addsaleorder' : '/user/edit'), qs.stringify(data2));
+					axios.createNewOrder(this, "purchase", qs.stringify(data2));
 				}
 			});
 		} else {
 			Modal.info({
+				zIndex: 1002,
 				title: '提示',
 				content: '请至少添加一条车辆信息'
 			})
@@ -379,6 +382,7 @@ export default class Delivery extends React.Component {
 			});
 		} else {
 			Modal.info({
+				zIndex: 1002,
 				title: '提示',
 				content: '请选择一条数据'
 			})

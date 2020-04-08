@@ -35,12 +35,14 @@ class NormalLoginForm extends React.Component {
 					console.log("loginError", error);
 
 					if (String(error).toLowerCase().indexOf('timeout') != -1) {
-						Modal.info({
+						Modal.error({
+							zIndex: 1002,
 							title: '提示',
 							content: '服务器繁忙，请稍后重试'
 						})
 					} else if (String(error).toLowerCase().indexOf('network') != -1) {
-						Modal.info({
+						Modal.error({
+							zIndex: 1002,
 							title: '提示',
 							content: '服务器问失败，请稍后重试'
 						})
@@ -58,7 +60,7 @@ class NormalLoginForm extends React.Component {
 			<div className="wallpaper">
 				<div className="wrapper">
 					<div className="container">
-						<h1 id="title" style={{ "marginBottom": "40px", "position": "relative"}}>金圆供销管理系统</h1>
+						<h1 id="title" style={{ "marginBottom": "40px", "position": "relative" }}>金圆供销管理系统</h1>
 
 						<Form onSubmit={this.handleSubmit.bind(this)} className="login-form">
 							<FormItem>

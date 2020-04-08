@@ -142,7 +142,7 @@ export default class Long extends React.Component {
 			})
 		} else if (type == 'edit') {
 			// if (!item) {
-			//  Modal.info({
+			//  Modal.info({zIndex: 1002,
 			//      title: '提示',
 			//      content: '请选择一个用户'
 			//  })
@@ -165,6 +165,7 @@ export default class Long extends React.Component {
 		} else if (type == 'delete') {
 			let _this = this;
 			Modal.confirm({
+				zIndex: 1002,
 				title: '确认删除',
 				content: `是否要删除当前选中数据`,
 				onOk() {
@@ -196,6 +197,7 @@ export default class Long extends React.Component {
 			});
 		} else {
 			Modal.info({
+				zIndex: 1002,
 				title: '提示',
 				content: '请至少添加一条车辆信息'
 			})
@@ -515,6 +517,7 @@ class OrderForm extends React.Component {
 				})
 			} else {
 				Modal.info({
+					zIndex: 1002,
 					title: '提示',
 					content: '请选择一个车辆信息'
 				})
@@ -531,6 +534,7 @@ class OrderForm extends React.Component {
 		} else if (type == 'delete') {
 			if (!item) {
 				Modal.info({
+					zIndex: 1002,
 					title: '提示',
 					content: '请选择一个车辆信息'
 				})
@@ -538,6 +542,7 @@ class OrderForm extends React.Component {
 			}
 			let _this = this;
 			Modal.confirm({
+				zIndex: 1002,
 				title: '确认删除',
 				content: `是否要删除当前选中数据`,
 				onOk() {
@@ -1013,6 +1018,7 @@ class VehicleForm extends React.Component {
 			this.props.form.setFieldsValue({ 'driveridentity': this.state.selectedRowKeys.driveridentity });
 		} else {
 			Modal.info({
+				zIndex: 1002,
 				title: '提示',
 				content: '请选择一个司机信息'
 			})

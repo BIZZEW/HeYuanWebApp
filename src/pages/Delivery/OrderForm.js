@@ -103,6 +103,7 @@ class OrderForm extends React.Component {
 							this.refParam[i.key] = supskey;
 						else {
 							Modal.info({
+								zIndex: 1002,
 								title: '提示',
 								content: '请先选择' + (i.name || "上级查询条件")
 							});
@@ -313,6 +314,7 @@ class OrderForm extends React.Component {
 				})
 			} else {
 				Modal.info({
+					zIndex: 1002,
 					title: '提示',
 					content: '请选择一个车辆信息'
 				})
@@ -329,6 +331,7 @@ class OrderForm extends React.Component {
 		} else if (type == 'delete') {
 			if (!item) {
 				Modal.info({
+					zIndex: 1002,
 					title: '提示',
 					content: '请选择一个车辆信息'
 				})
@@ -336,6 +339,7 @@ class OrderForm extends React.Component {
 			}
 			let _this = this;
 			Modal.confirm({
+				zIndex: 1002,
 				title: '确认删除',
 				content: `是否要删除当前选中数据`,
 				onOk() {
@@ -355,12 +359,22 @@ class OrderForm extends React.Component {
 	}
 
 	editVehicles = () => {
-		var oldVehicles = this.props.vehicles;
-		this.setState({
-			isVisible3: true,
-			title3: '车辆信息',
-			vehicleList: oldVehicles.slice(0),
-		})
+		let pk_supplier = this.props.form.getFieldValue("pk_supplier");
+		if (pk_supplier) {
+			var oldVehicles = this.props.vehicles;
+			this.setState({
+				isVisible3: true,
+				title3: '车辆信息',
+				vehicleList: oldVehicles.slice(0),
+				pk_supplier: pk_supplier,
+			})
+		} else {
+			Modal.info({
+				zIndex: 1002,
+				title: '提示',
+				content: '请先获取采购订单'
+			})
+		}
 	}
 
 	getSubOptions = (param) => {
@@ -387,6 +401,7 @@ class OrderForm extends React.Component {
 			}, (() => { this.props.form.setFieldsValue(item); }));
 		} else {
 			Modal.info({
+				zIndex: 1002,
 				title: '提示',
 				content: '请选择一个采购订单'
 			})
@@ -467,6 +482,7 @@ class OrderForm extends React.Component {
 			});
 		} else {
 			Modal.info({
+				zIndex: 1002,
 				title: '提示',
 				content: '请选择一条数据'
 			})
@@ -524,17 +540,17 @@ class OrderForm extends React.Component {
 		const columns0 = [
 			{
 				title: '车牌',
-				dataIndex: 'vehicle'
+				dataIndex: 'vlicense'
 			},
 			{
 				title: '司机姓名',
 				dataIndex: 'drivername'
 			}, {
 				title: '司机手机号',
-				dataIndex: 'telphone',
+				dataIndex: 'drivertelephone',
 			}, {
 				title: '司机身份证',
-				dataIndex: 'driveridentity',
+				dataIndex: 'driveridcode',
 			}, {
 				title: '车数',
 				dataIndex: 'amount',
@@ -738,10 +754,10 @@ class OrderForm extends React.Component {
 						{
 							type == 'detail' ? orderInfo.srcsendnum :
 								getFieldDecorator('srcsendnum', {
-									initialValue: 0.00
+									initialValue: 0
 								})(
 									<div>
-										<InputNumber min={0} defaultValue={0.00} step={0.01} style={{ width: "200px" }} />
+										<Input type="number" min={0} defaultValue={0.00} step={0.01} style={{ width: "200px" }} />
 										<div style={{ "display": "inline", "margin": "0 10px" }}>{this.props.form.getFieldValue("material_dw") || "单位"}</div>
 									</div>
 								)
@@ -754,7 +770,7 @@ class OrderForm extends React.Component {
 									initialValue: 0.00
 								})(
 									<div>
-										<InputNumber min={0} defaultValue={0.00} step={0.01} style={{ width: "200px" }} />
+										<Input type="number" min={0} defaultValue={0.00} step={0.01} style={{ width: "200px" }} />
 										<div style={{ "display": "inline", "margin": "0 10px" }}>{this.props.form.getFieldValue("material_dw") || "单位"}</div>
 									</div>
 								)
@@ -776,7 +792,7 @@ class OrderForm extends React.Component {
 									<Search
 										// style={{ width: 200 }}
 										placeholder={"请选择运输商"}
-										// enterButton="获取"
+										enterButton
 										onSearch={
 											(e) => {
 												if (e != "")
@@ -990,7 +1006,7 @@ class OrderForm extends React.Component {
 					width={600}
 					destroyOnClose={true}
 				>
-					<VehicleForm type2={this.state.type2} vehicleInfo={this.state.vehicleInfo} wrappedComponentRef={(inst) => { this.vehicleForm = inst; }} />
+					<VehicleForm type2={this.state.type2} vehicleInfo={this.state.vehicleInfo} wrappedComponentRef={(inst) => { this.vehicleForm = inst; }} pk_supplier={this.state.pk_supplier} />
 				</Modal>
 
 				{/* 基础数据弹窗 */}
