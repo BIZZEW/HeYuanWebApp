@@ -305,9 +305,20 @@ export default class Delivery extends React.Component {
 	handleSubmit1 = () => {
 		let type = this.state.type;
 		let data = this.orderForm.props.form.getFieldsValue();
+		console.log(data);
 		let vehicles = this.state.vehicles;
+
 		if (vehicles && vehicles.length > 0) {
-			let data2 = { ...data, vehicles: JSON.stringify(vehicles) };
+			let data2 = {
+				...data,
+				vehicles: JSON.stringify(vehicles),
+				action: 1,
+				serviceid: "receiveOrderService",
+				usercode: sessionStorage.getItem("userName") || "",
+				// ncuserpassword: sessionStorage.getItem("passWord") || "",
+				pk_appuser: sessionStorage.getItem("pkAppuser") || "",
+				// flag: true
+			};
 			console.log(data2)
 			this.orderForm.props.form.validateFields((err, values) => {
 				if (!err) {

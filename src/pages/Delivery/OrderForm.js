@@ -62,9 +62,19 @@ class OrderForm extends React.Component {
 		axios.requestRef(this, '/purchase', this.refParam);
 	}
 
+	componentDidUpdate() {
+		console.log("componentDidUpdate triggered!", this.props.form.getFieldsValue())
+	}
+
 	openRef = (item) => {
 		let { field, key, action, label, flag, subs, sups } = item;
-		let keyfield = this.formRef.props.form.getFieldValue(key);
+		let scope;
+		if (this.state.isVisible0)
+			scope = this.formRef
+		else
+			scope = this
+
+		let keyfield = scope.props.form.getFieldValue(key);
 		if (flag && keyfield && keyfield != "") {
 			let _form = {};
 			_form[key] = "";
@@ -80,14 +90,14 @@ class OrderForm extends React.Component {
 				}
 			}
 
-			this.formRef.props.form.setFieldsValue(_form);
+			scope.props.form.setFieldsValue(_form);
 		} else {
 			// 上级先选
 			if (sups) {
 				for (let i of sups) {
 					if (i && i.key && i.field) {
-						let supskey = this.formRef.props.form.getFieldValue(i.key);
-						let supsfield = this.formRef.props.form.getFieldValue(i.field);
+						let supskey = scope.props.form.getFieldValue(i.key);
+						let supsfield = scope.props.form.getFieldValue(i.field);
 
 						if (supskey && supskey != "" && supsfield && supsfield != "")
 							this.refParam[i.key] = supskey;
@@ -363,6 +373,13 @@ class OrderForm extends React.Component {
 		console.log(this.state.selectedRowsProq)
 		if (this.state.selectedRowsProq && this.state.selectedRowsProq[0]) {
 			let item = this.state.selectedRowsProq[0];
+
+			item.pk_stockorg = item.purchaseorg_pk_org || "";
+			item.ordercode = item.vbillcode || "";
+			item.pk_purchaseorder = item.pk_order || "";
+			item.cmaterialid = item.material_pk_material || "";
+			item.pk_supplier = item.supplier_pk_supplier || "";
+
 			this.setState({
 				isVisible0: false,
 				selectedRowKeysProq: [],
@@ -421,6 +438,11 @@ class OrderForm extends React.Component {
 			})
 
 			let { field, key, subs } = this.refItem;
+			let scope;
+			if (this.state.isVisible0)
+				scope = this.formRef
+			else
+				scope = this
 
 			let _form = {};
 			_form[key] = item.pk;
@@ -436,9 +458,9 @@ class OrderForm extends React.Component {
 				}
 			}
 
-			this.formRef.props.form.setFieldsValue(_form);
+			scope.props.form.setFieldsValue(_form);
 
-			this.formRef.props.form.validateFields((err, values) => {
+			scope.props.form.validateFields((err, values) => {
 				if (!err) {
 					console.log(values)
 				}
@@ -564,9 +586,9 @@ class OrderForm extends React.Component {
 				<Form layout="horizontal">
 					<FormItem label="采购订单" {...formItemLayout} style={{ "marginBottom": "15px" }}>
 						{
-							type == 'detail' ? orderInfo.vbillcode :
-								getFieldDecorator('vbillcode', {
-									initialValue: orderInfo.vbillcode,
+							type == 'detail' ? orderInfo.ordercode :
+								getFieldDecorator('ordercode', {
+									initialValue: orderInfo.ordercode,
 								})(
 									<Search
 										placeholder="请选择采购订单"
@@ -586,7 +608,7 @@ class OrderForm extends React.Component {
 						expandIcon={({ isActive }) => <Icon rotate={isActive ? 90 : 0} type="caret-right" />}
 						className="site-collapse-custom-collapse"
 					>
-						<Panel header={"采购订单详情 （货物: " + (this.props.form.getFieldValue("material_name") || "") + " 余量: " + (this.props.form.getFieldValue("remainnum") || "") + " 矿点: " + (this.props.form.getFieldValue("orespotname") || "") + "）"} key="1" className="site-collapse-custom-panel">
+						<Panel header={"采购订单详情 / 货物: " + (this.props.form.getFieldValue("material_name") || "") + " / 余量: " + (this.props.form.getFieldValue("remainnum") || "") + " " + (this.props.form.getFieldValue("material_dw") || "") + " / 矿点: " + (this.props.form.getFieldValue("orespotname") || "") + " /"} key="1" className="site-collapse-custom-panel">
 							<FormItem label="采购订单日期" {...formItemLayout}>
 								{
 									type == 'detail' ? orderInfo.dbilldate :
@@ -616,7 +638,8 @@ class OrderForm extends React.Component {
 											<Input type="text" placeholder="请选择采购订单" readOnly />
 										)
 								}
-							</FormItem><FormItem label="供应商" {...formItemLayout}>
+							</FormItem>
+							<FormItem label="供应商" {...formItemLayout}>
 								{
 									type == 'detail' ? orderInfo.supplier_name :
 										getFieldDecorator('supplier_name', {
@@ -624,6 +647,14 @@ class OrderForm extends React.Component {
 										})(
 											<Input type="text" placeholder="请选择采购订单" readOnly />
 										)
+								}
+							</FormItem>
+
+							<FormItem key="pk_supplier" style={{ display: "none" }} >
+								{
+									getFieldDecorator("pk_supplier")(
+										<div />
+									)
 								}
 							</FormItem>
 
@@ -635,6 +666,14 @@ class OrderForm extends React.Component {
 										})(
 											<Input type="text" placeholder="请选择采购订单" readOnly />
 										)
+								}
+							</FormItem>
+
+							<FormItem style={{ display: "none" }} >
+								{
+									getFieldDecorator("cmaterialid")(
+										<div />
+									)
 								}
 							</FormItem>
 
@@ -659,12 +698,28 @@ class OrderForm extends React.Component {
 										)
 								}
 							</FormItem>
+
+							<FormItem style={{ display: "none" }} >
+								{
+									getFieldDecorator("pk_stockorg")(
+										<div />
+									)
+								}
+							</FormItem>
+
+							<FormItem style={{ display: "none" }} >
+								{
+									getFieldDecorator("pk_purchaseorder")(
+										<div />
+									)
+								}
+							</FormItem>
 						</Panel>
 					</Collapse>
 
 					<Divider />
 
-					<FormItem label="收货单号" {...formItemLayout}>
+					{(type == "detail") && (<FormItem label="收货单号" {...formItemLayout}>
 						{
 							type == 'detail' ? orderInfo.drivername :
 								getFieldDecorator('drivername', {
@@ -673,66 +728,116 @@ class OrderForm extends React.Component {
 									<Input type="text" placeholder="请填写收货单号" />
 								)
 						}
-					</FormItem>
+					</FormItem>)}
+
 					<FormItem label="收货日期" {...formItemLayout}>
-						{
-							type == 'detail' ? orderInfo.date :
-								getFieldDecorator('date', {
-									initialValue: moment(orderInfo.date)
-								})(
-									<DatePicker format="YYYY-MM-DD" />
-								)
-						}
+						<DatePicker format="YYYY-MM-DD" disabled style={{ width: "200px" }} defaultValue={moment(new Date(), "YYYY-MM-DD")} />
 					</FormItem>
 
 					<FormItem label="原发净重" {...formItemLayout}>
 						{
-							type == 'detail' ? orderInfo.ordernum :
-								getFieldDecorator('ordernum', {
+							type == 'detail' ? orderInfo.srcsendnum :
+								getFieldDecorator('srcsendnum', {
 									initialValue: 0.00
 								})(
-									<InputNumber min={0} defaultValue={0.00} step={0.01} />
+									<div>
+										<InputNumber min={0} defaultValue={0.00} step={0.01} style={{ width: "200px" }} />
+										<div style={{ "display": "inline", "margin": "0 10px" }}>{this.props.form.getFieldValue("material_dw") || "单位"}</div>
+									</div>
 								)
 						}
 					</FormItem>
 					<FormItem label="到货量" {...formItemLayout}>
 						{
-							type == 'detail' ? orderInfo.ordernum2 :
-								getFieldDecorator('ordernum2', {
+							type == 'detail' ? orderInfo.num :
+								getFieldDecorator('num', {
 									initialValue: 0.00
 								})(
-									<InputNumber min={0} defaultValue={0.00} step={0.01} />
+									<div>
+										<InputNumber min={0} defaultValue={0.00} step={0.01} style={{ width: "200px" }} />
+										<div style={{ "display": "inline", "margin": "0 10px" }}>{this.props.form.getFieldValue("material_dw") || "单位"}</div>
+									</div>
 								)
 						}
 					</FormItem>
-					<FormItem label="集装箱号" {...formItemLayout}>
+
+					<FormItem style={{ display: "none" }} >
 						{
-							type == 'detail' ? orderInfo.drivername :
-								getFieldDecorator('drivername', {
-									initialValue: orderInfo.drivername,
-								})(
-									<Input type="text" placeholder="请填写集装箱号" />
-								)
+							getFieldDecorator("material_dw")(
+								<div />
+							)
 						}
 					</FormItem>
+
 					<FormItem label="运输商" {...formItemLayout}>
 						{
-							type == 'detail' ? orderInfo.customername :
-								getFieldDecorator('customer', {
-									initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].customer) : undefined,
-								})(
-									<Select
+							type == 'detail' ? orderInfo.sendsuppliername :
+								getFieldDecorator('sendsuppliername')(
+									<Search
+										// style={{ width: 200 }}
 										placeholder={"请选择运输商"}
-										onChange={(value) => {
-											this.getSubOptions({ "customer": value });
-											this.props.form.resetFields(["pk_salesorg", "pk_material"]);
-										}}>
-										{Utils.getOptionList({
-											list: this.state.clientRef,
-											idKey: "customer",
-											valueKey: "customername"
-										})}
-									</Select>
+										// enterButton="获取"
+										onSearch={
+											(e) => {
+												if (e != "")
+													this.openRef({
+														action: 15,
+														label: "运输商",
+														key: 'pk_sendsupplier',
+														field: 'sendsuppliername',
+														flag: 0
+													})
+												else
+													this.openRef({
+														action: 15,
+														label: "运输商",
+														key: 'pk_sendsupplier',
+														field: 'sendsuppliername',
+														flag: 1
+													})
+											}
+										}
+										onClick={
+											(e) => {
+												if (e != "")
+													this.openRef({
+														action: 15,
+														label: "运输商",
+														key: 'pk_sendsupplier',
+														field: 'sendsuppliername',
+														flag: 0
+													})
+												else
+													this.openRef({
+														action: 15,
+														label: "运输商",
+														key: 'pk_sendsupplier',
+														field: 'sendsuppliername',
+														flag: 1
+													})
+											}
+										}
+										readOnly
+										allowClear
+									/>
+								)
+						}
+					</FormItem>
+					<FormItem key="pk_sendsupplier" style={{ display: "none" }} >
+						{
+							getFieldDecorator("pk_sendsupplier")(
+								<div />
+							)
+						}
+					</FormItem>
+
+					<FormItem label="集装箱号" {...formItemLayout}>
+						{
+							type == 'detail' ? orderInfo.containerno :
+								getFieldDecorator('containerno', {
+									initialValue: orderInfo.containerno,
+								})(
+									<Input type="text" placeholder="请填写集装箱号" />
 								)
 						}
 					</FormItem>
@@ -900,6 +1005,7 @@ class OrderForm extends React.Component {
 						})
 					}}
 					width={1000}
+					zIndex={1001}
 					destroyOnClose={true}
 				>
 					<div className="content-wrap">
