@@ -119,9 +119,11 @@ class VehicleForm extends React.Component {
 		let driverInfo = driver || this.state.selectedRowKeys || null;
 		if (driverInfo) {
 			this.setState({ isVisible5: false });
-			this.props.form.setFieldsValue({ 'drivername': driverInfo.code });
-			this.props.form.setFieldsValue({ 'drivertelephone': (driverInfo.name.split(" ")[1]) || "" });
-			this.props.form.setFieldsValue({ 'driveridcode': driverInfo.pk });
+			this.props.form.setFieldsValue({
+				'drivername': driverInfo.code,
+				'drivertelephone': (driverInfo.name.split(" ")[1]) || "",
+				'driveridcode': driverInfo.pk
+			});
 		} else {
 			Modal.info({
 				zIndex: 1002,
@@ -285,8 +287,8 @@ class VehicleForm extends React.Component {
 					</FormItem>
 					<FormItem label="手机号" {...formItemLayout}>
 						{
-							getFieldDecorator('telphone', {
-								initialValue: vehicleInfo.telphone,
+							getFieldDecorator('drivertelephone', {
+								initialValue: vehicleInfo.drivertelephone,
 								// rules: [{ required: true, message: '请获取司机信息!' }],
 							})(
 								<Input type="text" placeholder="请获取司机信息" />
@@ -295,8 +297,8 @@ class VehicleForm extends React.Component {
 					</FormItem>
 					<FormItem label="身份证" {...formItemLayout}>
 						{
-							getFieldDecorator('driveridentity', {
-								initialValue: vehicleInfo.driveridentity,
+							getFieldDecorator('driveridcode', {
+								initialValue: vehicleInfo.driveridcode,
 								// rules: [{ required: true, message: '请获取司机信息!' }],
 							})(
 								<Input type="text" placeholder="请获取司机信息" />

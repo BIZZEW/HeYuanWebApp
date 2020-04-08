@@ -219,12 +219,7 @@ export default class Delivery extends React.Component {
 	]
 
 	componentDidMount() {
-		// this.requestList();
-		// let dftstockorg;
-		// if (sessionStorage.getItem("dftstockorg")) {
-		// 	dftstockorg = JSON.parse(sessionStorage.getItem("dftstockorg"));
-		// 	this.formRef.props.form.setFieldsValue({ "stockorgname": dftstockorg.name, "pk_stockorg": dftstockorg.pk_org });
-		// }
+		this.requestList();
 	}
 
 	handleFilter = (para) => {
@@ -239,6 +234,15 @@ export default class Delivery extends React.Component {
 
 		if (this.params.enddate && (typeof (this.params.enddate) == "object"))
 			this.params.enddate = this.params.enddate.format("YYYY-MM-DD");
+
+		let dftstockorg;
+
+		if (!this.params.pk_stockorg) {
+			if (sessionStorage.getItem("dftstockorg")) {
+				dftstockorg = JSON.parse(sessionStorage.getItem("dftstockorg"));
+				this.params.pk_stockorg = dftstockorg.pk_org;
+			} else return;
+		}
 
 		axios.requestListPurchase(this, '/purchase', {
 			...this.params,
