@@ -229,10 +229,14 @@ export default class Delivery extends React.Component {
 	}
 
 	requestList = () => {
-		if (this.params.begindate && (typeof (this.params.begindate) == "object"))
+		if (!this.params.begindate)
+			this.params.begindate = moment(new Date(new Date().getTime() - 24 * 60 * 60 * 1000), "YYYY-MM-DD").format("YYYY-MM-DD");
+		else if (this.params.begindate && (typeof (this.params.begindate) == "object"))
 			this.params.begindate = this.params.begindate.format("YYYY-MM-DD");
 
-		if (this.params.enddate && (typeof (this.params.enddate) == "object"))
+		if (!this.params.enddate)
+			this.params.enddate = moment(new Date(), "YYYY-MM-DD").format("YYYY-MM-DD");
+		else if (this.params.enddate && (typeof (this.params.enddate) == "object"))
 			this.params.enddate = this.params.enddate.format("YYYY-MM-DD");
 
 		let dftstockorg;
@@ -328,7 +332,27 @@ export default class Delivery extends React.Component {
 			console.log(data2)
 			this.orderForm.props.form.validateFields((err, values) => {
 				if (!err) {
-					axios.createNewOrder(this, "purchase", qs.stringify(data2));
+					if (this.orderForm.props.form.getFieldValue("num") > 0) {
+						let srcsendnum = this.orderForm.props.form.getFieldValue("srcsendnum");
+						let remainnum = this.orderForm.props.form.getFieldValue("remainnum");
+						if (remainnum && srcsendnum <= remainnum)
+							axios.createNewOrder(this, "purchase", qs.stringify(data2));
+						else {
+							Modal.info({
+								zIndex: 1002,
+								title: '提示',
+								content: '原发净重不得大于余量'
+							})
+							return;
+						}
+					} else {
+						Modal.info({
+							zIndex: 1002,
+							title: '提示',
+							content: '到货量必须大于零'
+						})
+						return;
+					}
 				}
 			});
 		} else {
