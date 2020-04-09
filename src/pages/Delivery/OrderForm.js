@@ -754,7 +754,7 @@ class OrderForm extends React.Component {
 						{
 							type == 'detail' ? orderInfo.srcsendnum :
 								getFieldDecorator('srcsendnum', {
-									initialValue: 0
+									initialValue: 0.00
 								})(
 									<Input type="number" min={0} defaultValue={0.00} step={0.01} style={{ width: "200px" }} />
 								)
