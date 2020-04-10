@@ -611,8 +611,8 @@ class OrderForm extends React.Component {
 										enterButton="获取"
 										readOnly
 										// size="large"
-										onSearch={value => this.getProcureOptions(value)}
-										onClick={value => this.getProcureOptions(value)}
+										onSearch={() => this.getProcureOptions()}
+										onClick={() => this.getProcureOptions()}
 									/>
 								)
 						}
@@ -625,7 +625,7 @@ class OrderForm extends React.Component {
 						className="site-collapse-custom-collapse"
 					>
 						<Panel header={"采购订单详情 / 货物: " + (this.props.form.getFieldValue("material_name") || "") + " / 余量: " + (this.props.form.getFieldValue("remainnum") || "") + " " + (this.props.form.getFieldValue("material_dw") || "") + " / 矿点: " + (this.props.form.getFieldValue("orespotname") || "") + " /"} key="1" className="site-collapse-custom-panel">
-							<FormItem label="采购订单日期" {...formItemLayout}>
+							<FormItem label="采购订单日期" {...formItemLayout} onClick={() => this.getProcureOptions()}>
 								{
 									type == 'detail' ? orderInfo.dbilldate :
 										getFieldDecorator('dbilldate', {
@@ -635,7 +635,7 @@ class OrderForm extends React.Component {
 										)
 								}
 							</FormItem>
-							<FormItem label="采购单位" {...formItemLayout}>
+							<FormItem label="采购单位" {...formItemLayout} onClick={() => this.getProcureOptions()}>
 								{
 									type == 'detail' ? orderInfo.purchaseorg_name :
 										getFieldDecorator('purchaseorg_name', {
@@ -645,7 +645,7 @@ class OrderForm extends React.Component {
 										)
 								}
 							</FormItem>
-							<FormItem label="收货企业" {...formItemLayout}>
+							<FormItem label="收货企业" {...formItemLayout} onClick={() => this.getProcureOptions()}>
 								{
 									type == 'detail' ? orderInfo.rcvstockorg_name :
 										getFieldDecorator('rcvstockorg_name', {
@@ -655,7 +655,7 @@ class OrderForm extends React.Component {
 										)
 								}
 							</FormItem>
-							<FormItem label="供应商" {...formItemLayout}>
+							<FormItem label="供应商" {...formItemLayout} onClick={() => this.getProcureOptions()}>
 								{
 									type == 'detail' ? orderInfo.supplier_name :
 										getFieldDecorator('supplier_name', {
@@ -665,7 +665,6 @@ class OrderForm extends React.Component {
 										)
 								}
 							</FormItem>
-
 							<FormItem key="pk_supplier" style={{ display: "none" }} >
 								{
 									getFieldDecorator("pk_supplier")(
@@ -673,8 +672,7 @@ class OrderForm extends React.Component {
 									)
 								}
 							</FormItem>
-
-							<FormItem label="货物" {...formItemLayout}>
+							<FormItem label="货物" {...formItemLayout} onClick={() => this.getProcureOptions()}>
 								{
 									type == 'detail' ? orderInfo.material_name :
 										getFieldDecorator('material_name', {
@@ -684,7 +682,6 @@ class OrderForm extends React.Component {
 										)
 								}
 							</FormItem>
-
 							<FormItem style={{ display: "none" }} >
 								{
 									getFieldDecorator("cmaterialid")(
@@ -692,8 +689,7 @@ class OrderForm extends React.Component {
 									)
 								}
 							</FormItem>
-
-							<FormItem label="余量" {...formItemLayout}>
+							<FormItem label="余量" {...formItemLayout} onClick={() => this.getProcureOptions()}>
 								{
 									type == 'detail' ? orderInfo.remainnum :
 										getFieldDecorator('remainnum', {
@@ -703,8 +699,7 @@ class OrderForm extends React.Component {
 										)
 								}
 							</FormItem>
-
-							<FormItem label="矿点" {...formItemLayout}>
+							<FormItem label="矿点" {...formItemLayout} onClick={() => this.getProcureOptions()}>
 								{
 									type == 'detail' ? orderInfo.orespotname :
 										getFieldDecorator('orespotname', {
@@ -714,7 +709,6 @@ class OrderForm extends React.Component {
 										)
 								}
 							</FormItem>
-
 							<FormItem style={{ display: "none" }} >
 								{
 									getFieldDecorator("pk_stockorg")(
@@ -722,7 +716,6 @@ class OrderForm extends React.Component {
 									)
 								}
 							</FormItem>
-
 							<FormItem style={{ display: "none" }} >
 								{
 									getFieldDecorator("pk_purchaseorder")(
