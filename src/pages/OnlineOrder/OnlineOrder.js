@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom';
 import { Card, Button, Form, Input, Select, Radio, Icon, Modal, DatePicker, InputNumber, Divider, Table } from 'antd'
 import axios from './../../axios'
 import qs from 'qs'
@@ -208,10 +209,22 @@ export default class OnlineOrder extends React.Component {
 	}
 
 	calTableHeight = () => {
+		let cardH, cardHeight = this.cardHeight;
+		const cardRef = this.refs.card;
+		if (cardRef) {
+			const cardCon = ReactDOM.findDOMNode(cardRef);
+			cardCon.setAttribute('id', 'cardBoxOO');
+			if (document.getElementById('cardBoxOO')) {
+				cardH = document.getElementById('cardBoxOO').offsetHeight;
+				if (cardH) {
+					cardHeight = cardH + 3;
+					this.cardHeight = cardHeight;
+				}
+			}
+		}
 		let clientHeight = document.body.clientHeight;
 		let headerHeight = document.getElementsByClassName('header')[0].offsetHeight;
 		let tabsHeight = document.getElementsByClassName('ant-tabs-nav-scroll')[0].offsetHeight;
-		let cardHeight = 65;
 		let gapsHeight = 25;
 		let headernfooterHeight = 122;
 		let paginationHeight = 65;
@@ -279,7 +292,7 @@ export default class OnlineOrder extends React.Component {
 
 		return (
 			<div>
-				<Card>
+				<Card ref='card'>
 					<BaseForm wrappedComponentRef={(form) => this.formRef = form} formList={this.formList} filterSubmit={this.handleFilter} />
 				</Card>
 				<div className="content-wrap">

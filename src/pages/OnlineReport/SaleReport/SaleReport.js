@@ -86,10 +86,22 @@ export default class SaleReport extends React.Component {
 	}
 
 	calTableHeight = () => {
+		let cardH, cardHeight = this.cardHeight;
+		const cardRef = this.refs.card;
+		if (cardRef) {
+			const cardCon = ReactDOM.findDOMNode(cardRef);
+			cardCon.setAttribute('id', 'cardBoxSR');
+			if (document.getElementById('cardBoxSR')) {
+				cardH = document.getElementById('cardBoxSR').offsetHeight;
+				if (cardH) {
+					cardHeight = cardH + 3;
+					this.cardHeight = cardHeight;
+				}
+			}
+		}
 		let clientHeight = document.body.clientHeight;
 		let headerHeight = document.getElementsByClassName('header')[0].offsetHeight;
 		let tabsHeight = document.getElementsByClassName('ant-tabs-nav-scroll')[0].offsetHeight;
-		let cardHeight = 65;
 		let gapsHeight = 25;
 		let headernfooterHeight = 120;
 		let paginationHeight = 65;
@@ -129,7 +141,7 @@ export default class SaleReport extends React.Component {
 
 		return (
 			<div>
-				<Card>
+				<Card ref='card'>
 					<BaseForm formList={this.formList} filterSubmit={this.handleFilter} />
 				</Card>
 				<div className="content-wrap">
