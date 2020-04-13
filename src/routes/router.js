@@ -97,22 +97,22 @@ export const menus = [
 			}
 		]
 	},
-	{
-		id: 5,
-		title: '送货单',
-		url: '/layout/delivery',
-		component: 'Delivery',
-		isFullScreen: false,
-		icon: "shopping-cart"
-	},
-	{
-		id: 6,
-		title: '长期送货单',
-		url: '/layout/longdelivery',
-		component: 'LongDelivery',
-		isFullScreen: false,
-		icon: "car"
-	},
+	// {
+	// 	id: 5,
+	// 	title: '送货单',
+	// 	url: '/layout/delivery',
+	// 	component: 'Delivery',
+	// 	isFullScreen: false,
+	// 	icon: "shopping-cart"
+	// },
+	// {
+	// 	id: 6,
+	// 	title: '长期送货单',
+	// 	url: '/layout/longdelivery',
+	// 	component: 'LongDelivery',
+	// 	isFullScreen: false,
+	// 	icon: "car"
+	// },
 	{
 		id: 7,
 		title: '修改密码',

@@ -124,6 +124,7 @@ export default class Delivery extends React.Component {
 			label: '开始日期',
 			field: 'begindate',
 			placeholder: '请选择开始日期',
+			required: true,
 			initialValue: moment(new Date(new Date().getTime() - 24 * 60 * 60 * 1000), "YYYY-MM-DD"),
 		},
 		{
@@ -131,6 +132,7 @@ export default class Delivery extends React.Component {
 			label: '结束日期',
 			field: 'enddate',
 			placeholder: '请选择结束日期',
+			required: true,
 			initialValue: moment(new Date(), "YYYY-MM-DD"),
 		},
 		{
@@ -139,7 +141,7 @@ export default class Delivery extends React.Component {
 			action: 7,
 			key: 'pk_supplier',
 			field: 'suppliername',
-			width: 200,
+			width: 300,
 			trigger: item => this.openRef(item)
 		},
 		{
@@ -152,7 +154,7 @@ export default class Delivery extends React.Component {
 			action: 20,
 			key: 'pk_orespot',
 			field: 'orespotname',
-			width: 200,
+			width: 300,
 			trigger: item => this.openRef(item)
 		},
 		{
@@ -169,8 +171,9 @@ export default class Delivery extends React.Component {
 				key: "cmaterialid",
 				field: "materialname"
 			}],
+			required: true,
 			initialValue: this.state.dftstockorg.name || "",
-			width: 200,
+			width: 300,
 			trigger: item => this.openRef(item)
 		},
 		{
@@ -189,7 +192,7 @@ export default class Delivery extends React.Component {
 				field: "stockorgname",
 				name: "收货企业"
 			}],
-			width: 200,
+			width: 300,
 			trigger: item => this.openRef(item)
 		},
 		{

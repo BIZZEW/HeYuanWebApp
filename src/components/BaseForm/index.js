@@ -110,7 +110,10 @@ class FilterForm extends React.Component {
                     const ADVSELECT = <FormItem label={label} key={field}>
                         {
                             getFieldDecorator([field], {
-                                initialValue: initialValue
+                                initialValue: initialValue,
+                                rules: [
+                                    { required: required, message: '请选择该项!' }
+                                ],
                             })(
                                 <Search
                                     style={{ width: width }}
