@@ -23,7 +23,7 @@ class VehicleForm extends React.Component {
 		// 页面基础数据查询页码
 		page: 1,
 		serviceid: "refInfoService",
-		numbersperpage: 10,
+		numbersperpage: 30,
 		flag: true,
 		pk_appuser: sessionStorage.getItem("pkAppuser") || "",
 		pk_supplier: this.props.pk_supplier,
@@ -103,7 +103,7 @@ class VehicleForm extends React.Component {
 					...param,
 					action: 10,
 					page: 1,
-					numbersperpage: 10,
+					numbersperpage: 30,
 					serviceid: "refInfoService",
 					ncusercode: sessionStorage.getItem("userName") || "",
 					ncuserpassword: sessionStorage.getItem("passWord") || "",
@@ -241,7 +241,7 @@ class VehicleForm extends React.Component {
 							getFieldDecorator('vlicense', {
 								initialValue: vehicleInfo.vlicense,
 								rules: [
-									{ pattern: /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/, message: '请输入有效的车牌号!' },
+									{ pattern: /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}([A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1})|([A-Z0-9]{7})$/, message: '请输入有效的车牌号!' },
 									{ required: true, message: '请输入车牌!' }
 								],
 							})(
