@@ -982,6 +982,38 @@ export default class Axios {
         })
     }
 
+    static exportReport(_this, url, data, filename) {
+        let baseApi = 'http://10.1.8.231:80/service';
+        let baseApi0 = 'http://127.0.0.1:99/service';
+        let baseApi1 = 'http://rap2api.taobao.org/app/mock/239516/example/1576031001727';
+        let baseApi2 = 'http://10.1.8.111:80/service';
+        let baseApi3 = 'http://61.164.33.26:5555/service';
+
+        axios({
+            url: url,
+            method: 'post',
+            baseURL: baseApi0,
+            data: data,
+            responseType: 'blob'
+        }).then((res) => {
+            const content = res.data;
+            const blob = new Blob([content]);
+            const fileName = filename;
+            if ('download' in document.createElement('a')) {
+                const elink = document.createElement('a');
+                elink.download = fileName;
+                elink.style.display = 'none';
+                elink.href = URL.createObjectURL(blob);
+                document.body.appendChild(elink);
+                elink.click();
+                URL.revokeObjectURL(elink.href);
+                document.body.removeChild(elink);
+            } else {
+                navigator.msSaveBlob(blob, fileName);
+            }
+        })
+    }
+
     static ajax(options) {
         let loading;
         if ((options.data || options.params) && options.isShowLoading !== false) {
@@ -998,7 +1030,7 @@ export default class Axios {
             axios({
                 url: options.url,
                 method: options.method,
-                baseURL: baseApi3,
+                baseURL: baseApi0,
                 timeout: 60000,
                 params: (options.params) || "",
                 data: (options.data) || "",

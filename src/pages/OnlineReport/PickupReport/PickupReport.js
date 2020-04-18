@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Card, Button, Form, Input, Select, Radio, Icon, Modal, DatePicker, InputNumber, Divider, Table } from 'antd'
 import axios from '../../../axios'
+import qs from 'qs'
 import Utils from '../../../utils/utils'
 import BaseForm from '../../../components/BaseForm'
 import ETable from '../../../components/ETable'
@@ -133,6 +134,25 @@ export default class PickupReport extends React.Component {
 		return tableHeight;
 	}
 
+	handleOperate = () => {
+		if (this.params.begindate && (typeof (this.params.begindate) == "object"))
+			this.params.begindate = this.params.begindate.format("YYYY-MM-DD");
+
+		if (this.params.enddate && (typeof (this.params.enddate) == "object"))
+			this.params.enddate = this.params.enddate.format("YYYY-MM-DD");
+
+		if (!this.params.customer)
+			this.params.sendstockorg = (eval(this.state.clientRef)[0]).sendstockorg;
+		else
+			for (var i of eval(this.state.clientRef))
+				if (i.customer === this.params.customer)
+					this.params = { ...this.params, ...i };
+
+		let data = { ...this.params, clazz: "nc.pubitf.bd.web.servlet.export.DeliveryQuery" };
+
+		axios.exportReport(this, '/reportexport', qs.stringify(data), "提货通知表.xls");
+	}
+
 	render() {
 		const columns = [
 			{
@@ -194,15 +214,15 @@ export default class PickupReport extends React.Component {
 						bordered={true}
 						footer={() => {
 							return <div>
-								{/* <Button type="primary" icon="file-excel" onClick={() => this.handleOperate('export')}>导出</Button> */}
-								<ReactHTMLTableToExcel
+								<Button type="primary" icon="file-excel" onClick={() => this.handleOperate()}>导出</Button>
+								{/* <ReactHTMLTableToExcel
 									id="test-table-xls-button"
 									className="download-table-xls-button ant-btn ant-btn-default"
 									table="table-to-xls"
 									filename={"提货明细表"}
 									sheet="tablexls"
 									style={{ marginLeft: "10px" }}
-									buttonText="导出" />
+									buttonText="导出" /> */}
 							</div>
 						}}
 					/>
