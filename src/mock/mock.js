@@ -20,11 +20,11 @@ export const login1 = (loginObject) => {
 }
 
 export const login = (loginObject) => {
-	let baseApi = 'http://10.1.8.162:8999/service';
+	let baseApi = 'http://61.164.33.26:5555/service';
 	let baseApi0 = 'http://127.0.0.1:99/service';
 	let baseApi1 = 'http://rap2api.taobao.org/app/mock/239516/example/1576031001727';
 	let baseApi2 = 'http://10.1.8.111:80/service';
-	let baseApi3 = 'http://61.164.33.26:5555/service';
+	let baseApi3 = 'http://10.1.8.162:8999/service';
 	let baseApi4 = 'http://10.1.8.231:80/service';
 
 	return new Promise((resolve, reject) => {
