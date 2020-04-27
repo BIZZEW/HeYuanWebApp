@@ -25,7 +25,7 @@ export default class Delivery extends React.Component {
 		// 关闭原因弹窗控制
 		isVisible2: false,
 		// 高级选择弹窗控制
-		isVisibleRef: false,
+		// isVisibleRef: false,
 
 		clientRef: sessionStorage.getItem('clientRef') || [],
 		cementRef: sessionStorage.getItem('cementRef') || [],
@@ -35,8 +35,8 @@ export default class Delivery extends React.Component {
 		vehicles: [],
 
 		// 基础数据
-		refList: [],
-		selectedRowKeysRef: null,
+		// refList: [],
+		// selectedRowKeysRef: null,
 
 		dftstockorg: JSON.parse(sessionStorage.getItem("dftstockorg") || "")
 	}
@@ -46,16 +46,16 @@ export default class Delivery extends React.Component {
 		page: 1,
 	}
 
-	refParam = {
-		// 页面基础数据查询页码
-		page: 1,
-		serviceid: "refInfoService",
-		numbersperpage: 30,
-		flag: true,
-		pk_appuser: sessionStorage.getItem("pkAppuser") || "",
-	}
+	// refParam = {
+	// 	// 页面基础数据查询页码
+	// 	page: 1,
+	// 	serviceid: "refInfoService",
+	// 	numbersperpage: 30,
+	// 	flag: true,
+	// 	pk_appuser: sessionStorage.getItem("pkAppuser") || "",
+	// }
 
-	refItem = {}
+	// refItem = {}
 
 	componentDidMount() {
 		this.requestList();
@@ -272,74 +272,74 @@ export default class Delivery extends React.Component {
 
 
 
-		{
-			type: 'REFCOMP',
-			label: 'test1',
-			action: 7,
-			key: 'pk_test1',
-			field: 'testname1',
-			subs: [{
-				key: "pk_test2",
-				field: "testname2"
-			}],
-			width: 300,
-		},
-		{
-			type: 'REFCOMPPK',
-			field: 'pk_test1',
-		},
+		// {
+		// 	type: 'REFCOMP',
+		// 	label: 'test1',
+		// 	action: 7,
+		// 	key: 'pk_test1',
+		// 	field: 'testname1',
+		// 	subs: [{
+		// 		key: "pk_test2",
+		// 		field: "testname2"
+		// 	}],
+		// 	width: 300,
+		// },
+		// {
+		// 	type: 'REFCOMPPK',
+		// 	field: 'pk_test1',
+		// },
+
+		// {
+		// 	type: 'REFCOMP',
+		// 	label: 'test2',
+		// 	action: 8,
+		// 	key: 'pk_test2',
+		// 	field: 'testname2',
+		// 	sups: [{
+		// 		key: "pk_test1",
+		// 		field: "testname1",
+		// 		name: "test1"
+		// 	}],
+		// 	width: 300,
+		// },
+		// {
+		// 	type: 'REFCOMPPK',
+		// 	field: 'pk_test2',
+		// },
+
+
+
+
+
 
 		{
 			type: 'REFCOMP',
-			label: 'test2',
-			action: 8,
-			key: 'pk_test2',
-			field: 'testname2',
-			sups: [{
-				key: "pk_test1",
-				field: "testname1",
-				name: "test1"
-			}],
-			width: 300,
-		},
-		{
-			type: 'REFCOMPPK',
-			field: 'pk_test2',
-		},
-
-
-
-
-
-
-		{
-			type: 'ADVSELECT',
 			label: '供应商',
 			action: 7,
 			key: 'pk_supplier',
 			field: 'suppliername',
 			width: 300,
-			trigger: item => this.openRef(item)
+			// trigger: item => this.openRef(item)
 		},
 		{
-			type: 'ADVSELECTPK',
+			type: 'REFCOMPPK',
 			field: 'pk_supplier',
 		},
 		{
-			type: 'ADVSELECT',
+			type: 'REFCOMP',
 			label: '矿点',
 			action: 20,
 			key: 'pk_orespot',
 			field: 'orespotname',
 			width: 300,
-			trigger: item => this.openRef(item)
+			// trigger: item => this.openRef(item)
 		},
 		{
-			type: 'ADVSELECTPK',
+			type: 'REFCOMPPK',
 			field: 'pk_orespot',
 		},
 		{
-			type: 'ADVSELECT',
+			type: 'REFCOMP',
 			label: '收货企业',
 			action: 5,
 			key: 'pk_stockorg',
@@ -351,15 +351,15 @@ export default class Delivery extends React.Component {
 			required: true,
 			initialValue: this.state.dftstockorg.name || "",
 			width: 300,
-			trigger: item => this.openRef(item)
+			// trigger: item => this.openRef(item)
 		},
 		{
-			type: 'ADVSELECTPK',
+			type: 'REFCOMPPK',
 			field: 'pk_stockorg',
 			initialValue: this.state.dftstockorg.pk_org || "",
 		},
 		{
-			type: 'ADVSELECT',
+			type: 'REFCOMP',
 			label: '货物',
 			action: 8,
 			key: 'cmaterialid',
@@ -370,10 +370,10 @@ export default class Delivery extends React.Component {
 				name: "收货企业"
 			}],
 			width: 300,
-			trigger: item => this.openRef(item)
+			// trigger: item => this.openRef(item)
 		},
 		{
-			type: 'ADVSELECTPK',
+			type: 'REFCOMPPK',
 			field: 'cmaterialid',
 		},
 		{
@@ -400,114 +400,114 @@ export default class Delivery extends React.Component {
 	]
 
 	// 高级选择打开
-	openRef = (item) => {
-		let { field, key, action, label, flag, subs, sups } = item;
-		let keyfield = this.formRef.props.form.getFieldValue(key);
-		if (flag && keyfield && keyfield != "") {
-			let _form = {};
-			_form[key] = "";
-			_form[field] = "";
+	// openRef = (item) => {
+	// 	let { field, key, action, label, flag, subs, sups } = item;
+	// 	let keyfield = this.formRef.props.form.getFieldValue(key);
+	// 	if (flag && keyfield && keyfield != "") {
+	// 		let _form = {};
+	// 		_form[key] = "";
+	// 		_form[field] = "";
 
-			// 清空下级
-			if (subs) {
-				for (let i of subs) {
-					if (i && i.key && i.field) {
-						_form[i.key] = "";
-						_form[i.field] = "";
-					}
-				}
-			}
+	// 		// 清空下级
+	// 		if (subs) {
+	// 			for (let i of subs) {
+	// 				if (i && i.key && i.field) {
+	// 					_form[i.key] = "";
+	// 					_form[i.field] = "";
+	// 				}
+	// 			}
+	// 		}
 
-			this.formRef.props.form.setFieldsValue(_form);
-		} else {
-			// 上级先选
-			if (sups) {
-				for (let i of sups) {
-					if (i && i.key && i.field) {
-						let supskey = this.formRef.props.form.getFieldValue(i.key);
-						let supsfield = this.formRef.props.form.getFieldValue(i.field);
+	// 		this.formRef.props.form.setFieldsValue(_form);
+	// 	} else {
+	// 		// 上级先选
+	// 		if (sups) {
+	// 			for (let i of sups) {
+	// 				if (i && i.key && i.field) {
+	// 					let supskey = this.formRef.props.form.getFieldValue(i.key);
+	// 					let supsfield = this.formRef.props.form.getFieldValue(i.field);
 
-						if (supskey && supskey != "" && supsfield && supsfield != "")
-							this.refParam[i.key] = supskey;
-						else {
-							Modal.info({
-								zIndex: 1002,
-								title: '提示',
-								content: '请先选择' + (i.name || "上级查询条件")
-							});
-							return;
-						}
-					}
-				}
-			}
+	// 					if (supskey && supskey != "" && supsfield && supsfield != "")
+	// 						this.refParam[i.key] = supskey;
+	// 					else {
+	// 						Modal.info({
+	// 							zIndex: 1002,
+	// 							title: '提示',
+	// 							content: '请先选择' + (i.name || "上级查询条件")
+	// 						});
+	// 						return;
+	// 					}
+	// 				}
+	// 			}
+	// 		}
 
-			this.setState({
-				paginationRef: false
-			})
-			this.refParam.page = 1;
-			this.refParam.action = action;
-			this.refItem = item;
-			this.setState({
-				isVisibleRef: true,
-				titleRef: label,
-				refList: [],
-			}, () => {
-				this.requestRef();
-			});
-		}
-	}
+	// 		this.setState({
+	// 			paginationRef: false
+	// 		})
+	// 		this.refParam.page = 1;
+	// 		this.refParam.action = action;
+	// 		this.refItem = item;
+	// 		this.setState({
+	// 			isVisibleRef: true,
+	// 			titleRef: label,
+	// 			refList: [],
+	// 		}, () => {
+	// 			this.requestRef();
+	// 		});
+	// 	}
+	// }
 
 	// 高级选择查询
-	requestRef = () => {
-		axios.requestRef(this, '/purchase', this.refParam);
-	}
+	// requestRef = () => {
+	// 	axios.requestRef(this, '/purchase', this.refParam);
+	// }
 
 	// 高级选择变动
-	onSelectChange = selectedRowKeysRef => {
-		this.setState({ selectedRowKeysRef });
-	};
+	// onSelectChange = selectedRowKeysRef => {
+	// 	this.setState({ selectedRowKeysRef });
+	// };
 
 	//高级选择确认
-	handleSubmitRef = () => {
-		if (this.state.selectedRowsRef && this.state.selectedRowsRef[0]) {
-			let item = this.state.selectedRowsRef[0];
-			this.setState({
-				isVisibleRef: false,
-				selectedRowKeysRef: [],
-				selectedRowsRef: []
-			})
+	// handleSubmitRef = () => {
+	// 	if (this.state.selectedRowsRef && this.state.selectedRowsRef[0]) {
+	// 		let item = this.state.selectedRowsRef[0];
+	// 		this.setState({
+	// 			isVisibleRef: false,
+	// 			selectedRowKeysRef: [],
+	// 			selectedRowsRef: []
+	// 		})
 
-			let { field, key, subs } = this.refItem;
+	// 		let { field, key, subs } = this.refItem;
 
-			let _form = {};
-			_form[key] = item.pk;
-			_form[field] = item.name;
+	// 		let _form = {};
+	// 		_form[key] = item.pk;
+	// 		_form[field] = item.name;
 
-			// 清空下级
-			if (subs) {
-				for (let i of subs) {
-					if (i && i.key && i.field) {
-						_form[i.key] = "";
-						_form[i.field] = "";
-					}
-				}
-			}
+	// 		// 清空下级
+	// 		if (subs) {
+	// 			for (let i of subs) {
+	// 				if (i && i.key && i.field) {
+	// 					_form[i.key] = "";
+	// 					_form[i.field] = "";
+	// 				}
+	// 			}
+	// 		}
 
-			this.formRef.props.form.setFieldsValue(_form);
+	// 		this.formRef.props.form.setFieldsValue(_form);
 
-			this.formRef.props.form.validateFields((err, values) => {
-				if (!err) {
-					console.log(values)
-				}
-			});
-		} else {
-			Modal.info({
-				zIndex: 1002,
-				title: '提示',
-				content: '请选择一条数据'
-			})
-		}
-	}
+	// 		this.formRef.props.form.validateFields((err, values) => {
+	// 			if (!err) {
+	// 				console.log(values)
+	// 			}
+	// 		});
+	// 	} else {
+	// 		Modal.info({
+	// 			zIndex: 1002,
+	// 			title: '提示',
+	// 			content: '请选择一条数据'
+	// 		})
+	// 	}
+	// }
 
 	render() {
 		const { selectedRowKeysRef } = this.state;
@@ -647,7 +647,7 @@ export default class Delivery extends React.Component {
 				</Modal>
 
 				{/* 基础数据弹窗 */}
-				<Modal
+				{/* <Modal
 					title={this.state.titleRef}
 					visible={this.state.isVisibleRef}
 					onOk={this.handleSubmitRef}
@@ -672,7 +672,7 @@ export default class Delivery extends React.Component {
 							}}
 						/>
 					</div>
-				</Modal>
+				</Modal> */}
 			</div>
 		)
 	}
