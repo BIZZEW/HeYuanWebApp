@@ -118,8 +118,8 @@ export default class RefComponent extends React.Component {
             let { field, key, subs } = this.refItem;
 
             let _form = {};
-            _form[key] = item.pk;
             _form[field] = item.name;
+            _form[key] = item.pk;
 
             // 清空下级
             if (subs) {
