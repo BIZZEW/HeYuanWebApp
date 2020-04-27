@@ -299,6 +299,7 @@ class VehicleForm extends React.Component {
 								required: true,
 								width: "68%",
 								horizontal: true,
+								initialValue: vehicleInfo.vlicense,
 							}
 						}
 						formRef={this.props.form}
