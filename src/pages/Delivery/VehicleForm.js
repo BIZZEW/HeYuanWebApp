@@ -297,7 +297,7 @@ class VehicleForm extends React.Component {
 								key: 'vlicense',
 								field: 'vlicense',
 								required: true,
-								width: "68%",
+								// width: "68%",
 								horizontal: true,
 								initialValue: vehicleInfo.vlicense,
 							}
