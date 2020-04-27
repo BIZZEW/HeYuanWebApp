@@ -510,21 +510,21 @@ export default class Delivery extends React.Component {
 	// }
 
 	render() {
-		const { selectedRowKeysRef } = this.state;
-		const columnsRef = [
-			{
-				title: '名称',
-				dataIndex: 'name'
-			},
-			{
-				title: '编码',
-				dataIndex: 'code'
-			},
-			// {
-			// 	title: '主键',
-			// 	dataIndex: 'pk'
-			// },
-		];
+		// const { selectedRowKeysRef } = this.state;
+		// const columnsRef = [
+		// 	{
+		// 		title: '名称',
+		// 		dataIndex: 'name'
+		// 	},
+		// 	{
+		// 		title: '编码',
+		// 		dataIndex: 'code'
+		// 	},
+		// 	// {
+		// 	// 	title: '主键',
+		// 	// 	dataIndex: 'pk'
+		// 	// },
+		// ];
 
 		const columns = [
 			{
@@ -571,13 +571,13 @@ export default class Delivery extends React.Component {
 			},
 		];
 
-		const rowSelectionRef = {
-			selectedRowKeys: selectedRowKeysRef,
-			onChange: (selectedRowKeysRef, selectedRowsRef) => {
-				console.log(`selectedRowKeys: ${selectedRowKeysRef}`, 'selectedRows: ', selectedRowsRef);
-				this.setState({ selectedRowKeysRef, selectedRowsRef })
-			},
-		};
+		// const rowSelectionRef = {
+		// 	selectedRowKeys: selectedRowKeysRef,
+		// 	onChange: (selectedRowKeysRef, selectedRowsRef) => {
+		// 		console.log(`selectedRowKeys: ${selectedRowKeysRef}`, 'selectedRows: ', selectedRowsRef);
+		// 		this.setState({ selectedRowKeysRef, selectedRowsRef })
+		// 	},
+		// };
 
 		let footer = {};
 		if (this.state.type == 'detail') {

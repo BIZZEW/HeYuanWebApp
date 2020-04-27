@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, Button, Form, Input, Select, Radio, Icon, Modal, DatePicker, InputNumber, Divider, Table, Collapse } from 'antd'
 import axios from './../../axios'
+import RefComponent from './../../components/RefComponent';
 import './delivery.scss'
 const FormItem = Form.Item;
 const { Search } = Input;
@@ -9,90 +10,135 @@ class VehicleForm extends React.Component {
 	state = {
 		isVisible5: false,
 		// 高级选择弹窗控制
-		isVisibleRef: false,
+		// isVisibleRef: false,
 		list: [],
 		selectedRowKeys: null,
 		selectedRows: null,
 
 		// 基础数据
-		refList: [],
-		selectedRowKeysRef: null,
+		// refList: [],
+		// selectedRowKeysRef: null,
 	}
 
-	refParam = {
-		// 页面基础数据查询页码
-		page: 1,
-		serviceid: "refInfoService",
-		numbersperpage: 30,
-		flag: true,
-		pk_appuser: sessionStorage.getItem("pkAppuser") || "",
-		pk_supplier: this.props.pk_supplier,
-	}
+	// refParam = {
+	// 	// 页面基础数据查询页码
+	// 	page: 1,
+	// 	serviceid: "refInfoService",
+	// 	numbersperpage: 30,
+	// 	flag: true,
+	// 	pk_appuser: sessionStorage.getItem("pkAppuser") || "",
+	// 	pk_supplier: this.props.pk_supplier,
+	// }
 
-	refItem = {}
+	// refItem = {}
 
-	requestRef = () => {
-		axios.requestRef(this, '/purchase', this.refParam);
-	}
+	// 高级选择打开
+	// openRef = (item) => {
+	// 	let { field, key, action, label, flag, subs, sups } = item;
+	// 	let scope = this
 
-	openRef = (item) => {
-		let { field, key, action, label, flag, subs, sups } = item;
-		let scope = this
+	// 	let keyfield = scope.props.form.getFieldValue(key);
+	// 	if (flag && keyfield && keyfield != "") {
+	// 		let _form = {};
+	// 		_form[key] = "";
+	// 		_form[field] = "";
 
-		let keyfield = scope.props.form.getFieldValue(key);
-		if (flag && keyfield && keyfield != "") {
-			let _form = {};
-			_form[key] = "";
-			_form[field] = "";
+	// 		// 清空下级
+	// 		if (subs) {
+	// 			for (let i of subs) {
+	// 				if (i && i.key && i.field) {
+	// 					_form[i.key] = "";
+	// 					_form[i.field] = "";
+	// 				}
+	// 			}
+	// 		}
 
-			// 清空下级
-			if (subs) {
-				for (let i of subs) {
-					if (i && i.key && i.field) {
-						_form[i.key] = "";
-						_form[i.field] = "";
-					}
-				}
-			}
+	// 		scope.props.form.setFieldsValue(_form);
+	// 	} else {
+	// 		// 上级先选
+	// 		if (sups) {
+	// 			for (let i of sups) {
+	// 				if (i && i.key && i.field) {
+	// 					let supskey = scope.props.form.getFieldValue(i.key);
+	// 					let supsfield = scope.props.form.getFieldValue(i.field);
 
-			scope.props.form.setFieldsValue(_form);
-		} else {
-			// 上级先选
-			if (sups) {
-				for (let i of sups) {
-					if (i && i.key && i.field) {
-						let supskey = scope.props.form.getFieldValue(i.key);
-						let supsfield = scope.props.form.getFieldValue(i.field);
+	// 					if (supskey && supskey != "" && supsfield && supsfield != "")
+	// 						this.refParam[i.key] = supskey;
+	// 					else {
+	// 						Modal.info({
+	// 							zIndex: 1002,
+	// 							title: '提示',
+	// 							content: '请先选择' + (i.name || "上级查询条件")
+	// 						});
+	// 						return;
+	// 					}
+	// 				}
+	// 			}
+	// 		}
 
-						if (supskey && supskey != "" && supsfield && supsfield != "")
-							this.refParam[i.key] = supskey;
-						else {
-							Modal.info({
-								zIndex: 1002,
-								title: '提示',
-								content: '请先选择' + (i.name || "上级查询条件")
-							});
-							return;
-						}
-					}
-				}
-			}
+	// 		this.setState({
+	// 			paginationRef: false
+	// 		})
+	// 		this.refParam.page = 1;
+	// 		this.refParam.action = action;
+	// 		this.refItem = item;
+	// 		this.setState({
+	// 			isVisibleRef: true,
+	// 			titleRef: label,
+	// 			refList: [],
+	// 		}, () => {
+	// 			this.requestRef();
+	// 		});
+	// 	}
+	// }
 
-			this.setState({
-				paginationRef: false
-			})
-			this.refParam.page = 1;
-			this.refParam.action = action;
-			this.refItem = item;
-			this.setState({
-				isVisibleRef: true,
-				titleRef: label,
-				refList: [],
-			}, () => {
-				this.requestRef();
-			});
-		}
-	}
+	// 高级选择查询
+	// requestRef = () => {
+	// 	axios.requestRef(this, '/purchase', this.refParam);
+	// }
+
+	//高级选择确认
+	// handleSubmitRef = () => {
+	// 	if (this.state.selectedRowsRef && this.state.selectedRowsRef[0]) {
+	// 		let item = this.state.selectedRowsRef[0];
+	// 		this.setState({
+	// 			isVisibleRef: false,
+	// 			selectedRowKeysRef: [],
+	// 			selectedRowsRef: []
+	// 		})
+
+	// 		let { field, key, subs } = this.refItem;
+	// 		let scope = this
+
+	// 		let _form = {};
+	// 		_form[key] = item.pk;
+	// 		_form[field] = item.name;
+
+	// 		// 清空下级
+	// 		if (subs) {
+	// 			for (let i of subs) {
+	// 				if (i && i.key && i.field) {
+	// 					_form[i.key] = "";
+	// 					_form[i.field] = "";
+	// 				}
+	// 			}
+	// 		}
+
+	// 		scope.props.form.setFieldsValue(_form);
+
+	// 		scope.props.form.validateFields((err, values) => {
+	// 			if (!err) {
+	// 				console.log(values)
+	// 			}
+	// 		});
+	// 	} else {
+	// 		Modal.info({
+	// 			zIndex: 1002,
+	// 			title: '提示',
+	// 			content: '请选择一条数据'
+	// 		})
+	// 	}
+	// }
 
 	getDriverOptions = () => {
 		let _this = this;
@@ -133,53 +179,10 @@ class VehicleForm extends React.Component {
 		}
 	}
 
-	//高级选择确认
-	handleSubmitRef = () => {
-		if (this.state.selectedRowsRef && this.state.selectedRowsRef[0]) {
-			let item = this.state.selectedRowsRef[0];
-			this.setState({
-				isVisibleRef: false,
-				selectedRowKeysRef: [],
-				selectedRowsRef: []
-			})
-
-			let { field, key, subs } = this.refItem;
-			let scope = this
-
-			let _form = {};
-			_form[key] = item.pk;
-			_form[field] = item.name;
-
-			// 清空下级
-			if (subs) {
-				for (let i of subs) {
-					if (i && i.key && i.field) {
-						_form[i.key] = "";
-						_form[i.field] = "";
-					}
-				}
-			}
-
-			scope.props.form.setFieldsValue(_form);
-
-			scope.props.form.validateFields((err, values) => {
-				if (!err) {
-					console.log(values)
-				}
-			});
-		} else {
-			Modal.info({
-				zIndex: 1002,
-				title: '提示',
-				content: '请选择一条数据'
-			})
-		}
-	}
-
 	render() {
 		let type2 = this.props.type2;
 		let vehicleInfo = this.props.vehicleInfo || {};
-		const { selectedRowKeysRef } = this.state;
+		// const { selectedRowKeysRef } = this.state;
 		const { getFieldDecorator } = this.props.form;
 		const formItemLayout = {
 			labelCol: { span: 5 },
@@ -194,13 +197,13 @@ class VehicleForm extends React.Component {
 			},
 		}
 
-		const rowSelectionRef = {
-			selectedRowKeys: selectedRowKeysRef,
-			onChange: (selectedRowKeysRef, selectedRowsRef) => {
-				console.log(`selectedRowKeys: ${selectedRowKeysRef}`, 'selectedRows: ', selectedRowsRef);
-				this.setState({ selectedRowKeysRef, selectedRowsRef })
-			},
-		};
+		// const rowSelectionRef = {
+		// 	selectedRowKeys: selectedRowKeysRef,
+		// 	onChange: (selectedRowKeysRef, selectedRowsRef) => {
+		// 		console.log(`selectedRowKeys: ${selectedRowKeysRef}`, 'selectedRows: ', selectedRowsRef);
+		// 		this.setState({ selectedRowKeysRef, selectedRowsRef })
+		// 	},
+		// };
 
 		const columns = [
 			{
@@ -218,59 +221,71 @@ class VehicleForm extends React.Component {
 			},
 		];
 
-		const columnsRef = [
-			{
-				title: '名称',
-				dataIndex: 'name'
-			},
-			{
-				title: '编码',
-				dataIndex: 'code'
-			},
-			// {
-			// 	title: '主键',
-			// 	dataIndex: 'pk'
-			// },
-		];
+		// const columnsRef = [
+		// 	{
+		// 		title: '名称',
+		// 		dataIndex: 'name'
+		// 	},
+		// 	{
+		// 		title: '编码',
+		// 		dataIndex: 'code'
+		// 	},
+		// 	// {
+		// 	// 	title: '主键',
+		// 	// 	dataIndex: 'pk'
+		// 	// },
+		// ];
 
 		return (
 			<div>
 				<Form layout="horizontal">
 					<FormItem label="车牌号" {...formItemLayout}>
 						{
-							getFieldDecorator('vlicense', {
-								initialValue: vehicleInfo.vlicense,
-								rules: [
-									{ pattern: /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}([A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1})|([A-Z0-9]{7})$/, message: '请输入有效的车牌号!' },
-									{ required: true, message: '请输入车牌!' }
-								],
-							})(
-								<Search
-									style={{ width: "68%" }}
-									placeholder={"请选择车牌号"}
-									enterButton
-									onSearch={
-										(e) => {
-											if (e != "")
-												this.openRef({
-													action: 9,
-													label: "车牌号",
-													key: 'vlicense',
-													field: 'vlicensename',
-													flag: 0
-												})
-											else
-												this.openRef({
-													action: 9,
-													label: "车牌号",
-													key: 'vlicense',
-													field: 'vlicensename',
-													flag: 1
-												})
-										}
+							<RefComponent
+								item={
+									{
+										width: "68%",
+										action: 9,
+										label: "车牌号",
+										key: 'vlicense',
+										field: 'vlicensename',
 									}
-									allowClear
-								/>)
+								}
+								formRef={this.props.form}
+							/>
+							// getFieldDecorator('vlicense', {
+							// 	initialValue: vehicleInfo.vlicense,
+							// 	rules: [
+							// 		{ pattern: /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}([A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1})|([A-Z0-9]{7})$/, message: '请输入有效的车牌号!' },
+							// 		{ required: true, message: '请输入车牌!' }
+							// 	],
+							// })(
+							// 	<Search
+							// 		style={{ width: "68%" }}
+							// 		placeholder={"请选择车牌号"}
+							// 		enterButton
+							// 		onSearch={
+							// 			(e) => {
+							// 				if (e != "")
+							// 					this.openRef({
+							// 						action: 9,
+							// 						label: "车牌号",
+							// 						key: 'vlicense',
+							// 						field: 'vlicensename',
+							// 						flag: 0
+							// 					})
+							// 				else
+							// 					this.openRef({
+							// 						action: 9,
+							// 						label: "车牌号",
+							// 						key: 'vlicense',
+							// 						field: 'vlicensename',
+							// 						flag: 1
+							// 					})
+							// 			}
+							// 		}
+							// 		allowClear
+							// 	/>)
 						}
 						<Button style={{ "width": "30%", "marginLeft": "1.5%" }} type="primary" onClick={this.getDriverOptions}>获取司机信息</Button>
 					</FormItem>
@@ -345,7 +360,7 @@ class VehicleForm extends React.Component {
 				</Modal>
 
 				{/* 基础数据弹窗 */}
-				<Modal
+				{/* <Modal
 					title={this.state.titleRef}
 					visible={this.state.isVisibleRef}
 					onOk={this.handleSubmitRef}
@@ -371,7 +386,7 @@ class VehicleForm extends React.Component {
 							}}
 						/>
 					</div>
-				</Modal>
+				</Modal> */}
 			</div>
 		)
 	}

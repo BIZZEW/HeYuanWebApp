@@ -2,6 +2,7 @@ import React from 'react'
 import { Card, Button, Form, Input, Select, Radio, Icon, Modal, DatePicker, InputNumber, Divider, Table, Collapse } from 'antd'
 import axios from './../../axios'
 import Utils from './../../utils/utils'
+import RefComponent from './../../components/RefComponent';
 import BaseForm from './../../components/BaseForm'
 import VehicleForm from './VehicleForm'
 import moment from 'moment'
@@ -20,7 +21,7 @@ class OrderForm extends React.Component {
 		// 车辆信息表单弹窗显示控制
 		isVisible4: false,
 		// 高级选择弹窗控制
-		isVisibleRef: false,
+		// isVisibleRef: false,
 
 		list: [],
 		selectedRowKeys: [],
@@ -32,8 +33,8 @@ class OrderForm extends React.Component {
 		vehicleList: [],
 
 		// 基础数据
-		refList: [],
-		selectedRowKeysRef: null,
+		// refList: [],
+		// selectedRowKeysRef: null,
 
 		// 采购订单
 		selectedRowKeysProq: [],
@@ -47,86 +48,19 @@ class OrderForm extends React.Component {
 		page: 1,
 	}
 
-	refParam = {
-		// 页面基础数据查询页码
-		page: 1,
-		serviceid: "refInfoService",
-		numbersperpage: 30,
-		flag: true,
-		pk_appuser: sessionStorage.getItem("pkAppuser") || "",
-	}
+	// refParam = {
+	// 	// 页面基础数据查询页码
+	// 	page: 1,
+	// 	serviceid: "refInfoService",
+	// 	numbersperpage: 30,
+	// 	flag: true,
+	// 	pk_appuser: sessionStorage.getItem("pkAppuser") || "",
+	// }
 
-	refItem = {}
-
-	requestRef = () => {
-		axios.requestRef(this, '/purchase', this.refParam);
-	}
+	// refItem = {}
 
 	componentDidUpdate() {
 		console.log("componentDidUpdate triggered!", this.props.form.getFieldsValue())
-	}
-
-	openRef = (item) => {
-		let { field, key, action, label, flag, subs, sups } = item;
-		let scope;
-		if (this.state.isVisible0)
-			scope = this.formRef
-		else
-			scope = this
-
-		let keyfield = scope.props.form.getFieldValue(key);
-		if (flag && keyfield && keyfield != "") {
-			let _form = {};
-			_form[key] = "";
-			_form[field] = "";
-
-			// 清空下级
-			if (subs) {
-				for (let i of subs) {
-					if (i && i.key && i.field) {
-						_form[i.key] = "";
-						_form[i.field] = "";
-					}
-				}
-			}
-
-			scope.props.form.setFieldsValue(_form);
-		} else {
-			// 上级先选
-			if (sups) {
-				for (let i of sups) {
-					if (i && i.key && i.field) {
-						let supskey = scope.props.form.getFieldValue(i.key);
-						let supsfield = scope.props.form.getFieldValue(i.field);
-
-						if (supskey && supskey != "" && supsfield && supsfield != "")
-							this.refParam[i.key] = supskey;
-						else {
-							Modal.info({
-								zIndex: 1002,
-								title: '提示',
-								content: '请先选择' + (i.name || "上级查询条件")
-							});
-							return;
-						}
-					}
-				}
-			}
-
-			this.setState({
-				paginationRef: false
-			})
-			this.refParam.page = 1;
-			this.refParam.action = action;
-			this.refItem = item;
-			this.setState({
-				isVisibleRef: true,
-				titleRef: label,
-				refList: [],
-			}, () => {
-				this.requestRef();
-			});
-		}
 	}
 
 	formList = [
@@ -146,7 +80,7 @@ class OrderForm extends React.Component {
 		},
 
 		{
-			type: 'ADVSELECT',
+			type: 'REFCOMP',
 			label: '供应商',
 			action: 7,
 			key: 'pk_supplier',
@@ -159,12 +93,12 @@ class OrderForm extends React.Component {
 			trigger: item => this.openRef(item)
 		},
 		{
-			type: 'ADVSELECTPK',
+			type: 'REFCOMPPK',
 			field: 'pk_supplier',
 		},
 
 		{
-			type: 'ADVSELECT',
+			type: 'REFCOMP',
 			label: '采购单位',
 			action: 4,
 			key: 'pk_purchaseorg',
@@ -178,12 +112,12 @@ class OrderForm extends React.Component {
 			trigger: item => this.openRef(item)
 		},
 		{
-			type: 'ADVSELECTPK',
+			type: 'REFCOMPPK',
 			field: 'pk_purchaseorg',
 		},
 
 		{
-			type: 'ADVSELECT',
+			type: 'REFCOMP',
 			label: '矿点',
 			action: 20,
 			key: 'pk_orespot',
@@ -192,12 +126,12 @@ class OrderForm extends React.Component {
 			trigger: item => this.openRef(item)
 		},
 		{
-			type: 'ADVSELECTPK',
+			type: 'REFCOMPPK',
 			field: 'pk_orespot',
 		},
 
 		{
-			type: 'ADVSELECT',
+			type: 'REFCOMP',
 			label: '收货企业',
 			action: 5,
 			key: 'pk_stockorg',
@@ -211,13 +145,13 @@ class OrderForm extends React.Component {
 			trigger: item => this.openRef(item)
 		},
 		{
-			type: 'ADVSELECTPK',
+			type: 'REFCOMPPK',
 			field: 'pk_stockorg',
 			initialValue: this.state.dftstockorg.pk_org || "",
 		},
 
 		{
-			type: 'ADVSELECT',
+			type: 'REFCOMP',
 			label: '货物',
 			action: 8,
 			key: 'cmaterialid',
@@ -231,7 +165,7 @@ class OrderForm extends React.Component {
 			trigger: item => this.openRef(item)
 		},
 		{
-			type: 'ADVSELECTPK',
+			type: 'REFCOMPPK',
 			field: 'cmaterialid',
 		},
 
@@ -257,6 +191,122 @@ class OrderForm extends React.Component {
 			],
 		},
 	]
+
+	// 高级选择打开
+	// openRef = (item) => {
+	// 	let { field, key, action, label, flag, subs, sups } = item;
+	// 	let scope;
+	// 	if (this.state.isVisible0)
+	// 		scope = this.formRef
+	// 	else
+	// 		scope = this
+
+	// 	let keyfield = scope.props.form.getFieldValue(key);
+	// 	if (flag && keyfield && keyfield != "") {
+	// 		let _form = {};
+	// 		_form[key] = "";
+	// 		_form[field] = "";
+
+	// 		// 清空下级
+	// 		if (subs) {
+	// 			for (let i of subs) {
+	// 				if (i && i.key && i.field) {
+	// 					_form[i.key] = "";
+	// 					_form[i.field] = "";
+	// 				}
+	// 			}
+	// 		}
+
+	// 		scope.props.form.setFieldsValue(_form);
+	// 	} else {
+	// 		// 上级先选
+	// 		if (sups) {
+	// 			for (let i of sups) {
+	// 				if (i && i.key && i.field) {
+	// 					let supskey = scope.props.form.getFieldValue(i.key);
+	// 					let supsfield = scope.props.form.getFieldValue(i.field);
+
+	// 					if (supskey && supskey != "" && supsfield && supsfield != "")
+	// 						this.refParam[i.key] = supskey;
+	// 					else {
+	// 						Modal.info({
+	// 							zIndex: 1002,
+	// 							title: '提示',
+	// 							content: '请先选择' + (i.name || "上级查询条件")
+	// 						});
+	// 						return;
+	// 					}
+	// 				}
+	// 			}
+	// 		}
+
+	// 		this.setState({
+	// 			paginationRef: false
+	// 		})
+	// 		this.refParam.page = 1;
+	// 		this.refParam.action = action;
+	// 		this.refItem = item;
+	// 		this.setState({
+	// 			isVisibleRef: true,
+	// 			titleRef: label,
+	// 			refList: [],
+	// 		}, () => {
+	// 			this.requestRef();
+	// 		});
+	// 	}
+	// }
+
+	// 高级选择查询
+	// requestRef = () => {
+	// 	axios.requestRef(this, '/purchase', this.refParam);
+	// }
+
+	//高级选择确认
+	// handleSubmitRef = () => {
+	// 	if (this.state.selectedRowsRef && this.state.selectedRowsRef[0]) {
+	// 		let item = this.state.selectedRowsRef[0];
+	// 		this.setState({
+	// 			isVisibleRef: false,
+	// 			selectedRowKeysRef: [],
+	// 			selectedRowsRef: []
+	// 		})
+
+	// 		let { field, key, subs } = this.refItem;
+	// 		let scope;
+	// 		if (this.state.isVisible0)
+	// 			scope = this.formRef
+	// 		else
+	// 			scope = this
+
+	// 		let _form = {};
+	// 		_form[key] = item.pk;
+	// 		_form[field] = item.name;
+
+	// 		// 清空下级
+	// 		if (subs) {
+	// 			for (let i of subs) {
+	// 				if (i && i.key && i.field) {
+	// 					_form[i.key] = "";
+	// 					_form[i.field] = "";
+	// 				}
+	// 			}
+	// 		}
+
+	// 		scope.props.form.setFieldsValue(_form);
+
+	// 		scope.props.form.validateFields((err, values) => {
+	// 			if (!err) {
+	// 				console.log(values)
+	// 			}
+	// 		});
+	// 	} else {
+	// 		Modal.info({
+	// 			zIndex: 1002,
+	// 			title: '提示',
+	// 			content: '请选择一条数据'
+	// 		})
+	// 	}
+	// }
 
 	componentDidMount() {
 		// this.requestList();
@@ -442,53 +492,6 @@ class OrderForm extends React.Component {
 		});
 	}
 
-	//高级选择确认
-	handleSubmitRef = () => {
-		if (this.state.selectedRowsRef && this.state.selectedRowsRef[0]) {
-			let item = this.state.selectedRowsRef[0];
-			this.setState({
-				isVisibleRef: false,
-				selectedRowKeysRef: [],
-				selectedRowsRef: []
-			})
-
-			let { field, key, subs } = this.refItem;
-			let scope;
-			if (this.state.isVisible0)
-				scope = this.formRef
-			else
-				scope = this
-
-			let _form = {};
-			_form[key] = item.pk;
-			_form[field] = item.name;
-
-			// 清空下级
-			if (subs) {
-				for (let i of subs) {
-					if (i && i.key && i.field) {
-						_form[i.key] = "";
-						_form[i.field] = "";
-					}
-				}
-			}
-
-			scope.props.form.setFieldsValue(_form);
-
-			scope.props.form.validateFields((err, values) => {
-				if (!err) {
-					console.log(values)
-				}
-			});
-		} else {
-			Modal.info({
-				zIndex: 1002,
-				title: '提示',
-				content: '请选择一条数据'
-			})
-		}
-	}
-
 	onSelectChange = selectedRowKeys => {
 		this.setState({ selectedRowKeys });
 	};
@@ -503,7 +506,7 @@ class OrderForm extends React.Component {
 
 	render() {
 		const { selectedRowKeys } = this.state;
-		const { selectedRowKeysRef } = this.state;
+		// const { selectedRowKeysRef } = this.state;
 		const { selectedRowKeysProq } = this.state;
 
 		let type = this.props.type;
@@ -529,13 +532,13 @@ class OrderForm extends React.Component {
 			},
 		};
 
-		const rowSelectionRef = {
-			selectedRowKeys: selectedRowKeysRef,
-			onChange: (selectedRowKeysRef, selectedRowsRef) => {
-				console.log(`selectedRowKeys: ${selectedRowKeysRef}`, 'selectedRows: ', selectedRowsRef);
-				this.setState({ selectedRowKeysRef, selectedRowsRef })
-			},
-		};
+		// const rowSelectionRef = {
+		// 	selectedRowKeys: selectedRowKeysRef,
+		// 	onChange: (selectedRowKeysRef, selectedRowsRef) => {
+		// 		console.log(`selectedRowKeys: ${selectedRowKeysRef}`, 'selectedRows: ', selectedRowsRef);
+		// 		this.setState({ selectedRowKeysRef, selectedRowsRef })
+		// 	},
+		// };
 
 		const columns0 = [
 			{
@@ -582,20 +585,20 @@ class OrderForm extends React.Component {
 			},
 		];
 
-		const columnsRef = [
-			{
-				title: '名称',
-				dataIndex: 'name'
-			},
-			{
-				title: '编码',
-				dataIndex: 'code'
-			},
-			// {
-			// 	title: '主键',
-			// 	dataIndex: 'pk'
-			// },
-		];
+		// const columnsRef = [
+		// 	{
+		// 		title: '名称',
+		// 		dataIndex: 'name'
+		// 	},
+		// 	{
+		// 		title: '编码',
+		// 		dataIndex: 'code'
+		// 	},
+		// 	// {
+		// 	// 	title: '主键',
+		// 	// 	dataIndex: 'pk'
+		// 	// },
+		// ];
 
 		return (
 			<div>
@@ -777,55 +780,66 @@ class OrderForm extends React.Component {
 					<FormItem label="运输商" {...formItemLayout}>
 						{
 							type == 'detail' ? orderInfo.sendsuppliername :
-								getFieldDecorator('sendsuppliername')(
-									<Search
-										// style={{ width: 200 }}
-										placeholder={"请选择运输商"}
-										enterButton
-										onSearch={
-											(e) => {
-												if (e != "")
-													this.openRef({
-														action: 15,
-														label: "运输商",
-														key: 'pk_sendsupplier',
-														field: 'sendsuppliername',
-														flag: 0
-													})
-												else
-													this.openRef({
-														action: 15,
-														label: "运输商",
-														key: 'pk_sendsupplier',
-														field: 'sendsuppliername',
-														flag: 1
-													})
-											}
+								<RefComponent
+									item={
+										{
+											action: 15,
+											label: "运输商",
+											key: 'pk_sendsupplier',
+											field: 'sendsuppliername',
 										}
-										onClick={
-											(e) => {
-												if (e != "")
-													this.openRef({
-														action: 15,
-														label: "运输商",
-														key: 'pk_sendsupplier',
-														field: 'sendsuppliername',
-														flag: 0
-													})
-												else
-													this.openRef({
-														action: 15,
-														label: "运输商",
-														key: 'pk_sendsupplier',
-														field: 'sendsuppliername',
-														flag: 1
-													})
-											}
-										}
-										readOnly
-										allowClear
-									/>
-								)
+									}
+									formRef={this.props.form}
+								/>
+							// getFieldDecorator('sendsuppliername')(
+							// 	<Search
+							// 		// style={{ width: 200 }}
+							// 		placeholder={"请选择运输商"}
+							// 		enterButton
+							// 		onSearch={
+							// 			(e) => {
+							// 				if (e != "")
+							// 					this.openRef({
+							// 						action: 15,
+							// 						label: "运输商",
+							// 						key: 'pk_sendsupplier',
+							// 						field: 'sendsuppliername',
+							// 						flag: 0
+							// 					})
+							// 				else
+							// 					this.openRef({
+							// 						action: 15,
+							// 						label: "运输商",
+							// 						key: 'pk_sendsupplier',
+							// 						field: 'sendsuppliername',
+							// 						flag: 1
+							// 					})
+							// 			}
+							// 		}
+							// 		onClick={
+							// 			(e) => {
+							// 				if (e != "")
+							// 					this.openRef({
+							// 						action: 15,
+							// 						label: "运输商",
+							// 						key: 'pk_sendsupplier',
+							// 						field: 'sendsuppliername',
+							// 						flag: 0
+							// 					})
+							// 				else
+							// 					this.openRef({
+							// 						action: 15,
+							// 						label: "运输商",
+							// 						key: 'pk_sendsupplier',
+							// 						field: 'sendsuppliername',
+							// 						flag: 1
+							// 					})
+							// 			}
+							// 		}
+							// 		readOnly
+							// 		allowClear
+							// 	/>
+							// )
 						}
 					</FormItem>
 					<FormItem key="pk_sendsupplier" style={{ display: "none" }} >
@@ -999,7 +1013,7 @@ class OrderForm extends React.Component {
 				</Modal>
 
 				{/* 基础数据弹窗 */}
-				<Modal
+				{/* <Modal
 					title={this.state.titleRef}
 					visible={this.state.isVisibleRef}
 					onOk={this.handleSubmitRef}
@@ -1025,7 +1039,7 @@ class OrderForm extends React.Component {
 							}}
 						/>
 					</div>
-				</Modal>
+				</Modal> */}
 			</div >
 		)
 	}
