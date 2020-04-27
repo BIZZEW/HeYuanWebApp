@@ -156,12 +156,10 @@ class FilterForm extends React.Component {
                     </FormItem>;
                     formItemList.push(ADVSELECTPK);
                 } else if (item.type === 'REFCOMP') {
-                    const REFCOMP = <FormItem label={label} key={field}>
-                        <RefComponent
+                    const REFCOMP = <RefComponent
                             item={item}
                             formRef={this.props.form}
-                        />
-                    </FormItem>;
+                        />;
                     formItemList.push(REFCOMP);
                 } else if (item.type === 'REFCOMPPK') {
                     const REFCOMPPK = <FormItem key={field} style={{ display: "none" }} >

@@ -89,7 +89,7 @@ class OrderForm extends React.Component {
 				key: "pk_purchaseorg",
 				field: "purchaseorgname"
 			}],
-			width: 200,
+			width: 300,
 			trigger: item => this.openRef(item)
 		},
 		{
@@ -108,7 +108,7 @@ class OrderForm extends React.Component {
 				field: "suppliername",
 				name: "供应商"
 			}],
-			width: 200,
+			width: 300,
 			trigger: item => this.openRef(item)
 		},
 		{
@@ -122,7 +122,7 @@ class OrderForm extends React.Component {
 			action: 20,
 			key: 'pk_orespot',
 			field: 'orespotname',
-			width: 200,
+			width: 300,
 			trigger: item => this.openRef(item)
 		},
 		{
@@ -141,7 +141,7 @@ class OrderForm extends React.Component {
 				field: "materialname"
 			}],
 			initialValue: this.state.dftstockorg.name || "",
-			width: 200,
+			width: 300,
 			trigger: item => this.openRef(item)
 		},
 		{
@@ -161,7 +161,7 @@ class OrderForm extends React.Component {
 				field: "stockorgname",
 				name: "收货企业"
 			}],
-			width: 200,
+			width: 300,
 			trigger: item => this.openRef(item)
 		},
 		{
@@ -777,7 +777,20 @@ class OrderForm extends React.Component {
 						}
 					</FormItem>
 
-					<FormItem label="运输商" {...formItemLayout}>
+					<RefComponent
+						item={
+							{
+								action: 15,
+								label: "运输商",
+								key: 'pk_sendsupplier',
+								field: 'sendsuppliername',
+								horizontal: true,
+							}
+						}
+						formRef={this.props.form}
+					/>
+
+					{/* <FormItem label="运输商" {...formItemLayout}>
 						{
 							type == 'detail' ? orderInfo.sendsuppliername :
 								<RefComponent
@@ -841,7 +854,8 @@ class OrderForm extends React.Component {
 							// 	/>
 							// )
 						}
-					</FormItem>
+					</FormItem> */}
+
 					<FormItem key="pk_sendsupplier" style={{ display: "none" }} >
 						{
 							getFieldDecorator("pk_sendsupplier")(

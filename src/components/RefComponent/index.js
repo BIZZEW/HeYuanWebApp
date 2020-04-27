@@ -186,9 +186,15 @@ export default class RefComponent extends React.Component {
         let required = item.required || false;
         let cascade = item.cascade;
         let rules = item.rules || null;
+        let horizontal = item.horizontal || null;
+
+        const formItemLayout = {
+            labelCol: { span: 5 },
+            wrapperCol: { span: 19 }
+        }
 
         return (
-            <div>
+            <FormItem label={label} key={field} {...(horizontal ? formItemLayout : {})}>
                 {
                     getFieldDecorator([field], {
                         initialValue: initialValue,
@@ -222,7 +228,6 @@ export default class RefComponent extends React.Component {
                     )
                 }
 
-                {/* 基础数据弹窗 */}
                 <Modal
                     title={this.state.titleRef}
                     visible={this.state.isVisibleRef}
@@ -249,7 +254,7 @@ export default class RefComponent extends React.Component {
                         />
                     </div>
                 </Modal>
-            </div>
+            </FormItem>
         )
     }
 }

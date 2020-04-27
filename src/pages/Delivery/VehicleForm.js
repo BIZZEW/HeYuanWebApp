@@ -236,59 +236,73 @@ class VehicleForm extends React.Component {
 		// 	// },
 		// ];
 
+
+
+		// getFieldDecorator('vlicense', {
+		// 	initialValue: vehicleInfo.vlicense,
+		// })(
+		// 	<Search
+		// 		style={{ width: "68%" }}
+		// 		placeholder={"请选择车牌号"}
+		// 		enterButton
+		// 		onSearch={
+		// 			(e) => {
+		// 				if (e != "")
+		// 					this.openRef({
+		// 						action: 9,
+		// 						label: "车牌号",
+		// 						key: 'vlicense',
+		// 						field: 'vlicensename',
+		// 						flag: 0
+		// 					})
+		// 				else
+		// 					this.openRef({
+		// 						action: 9,
+		// 						label: "车牌号",
+		// 						key: 'vlicense',
+		// 						field: 'vlicensename',
+		// 						flag: 1
+		// 					})
+		// 			}
+		// 		}
+		// 		allowClear
+		// 	/>)
+
+		// <RefComponent
+		// 	item={
+		// 		{
+		// 			// width: "100%",
+		// 			action: 9,
+		// 			label: "车牌号",
+		// 			key: 'vlicense',
+		// 			field: 'vlicensename',
+		// 			required: true,
+		// 			// rules: [
+		// 			// 	{ pattern: /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}([A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1})|([A-Z0-9]{7})$/, message: '请输入有效的车牌号!' },
+		// 			// 	{ required: true, message: '请输入车牌!' }
+		// 			// ],
+		// 		}
+		// 	}
+		// 	formRef={this.props.form}
+		// />
+
 		return (
 			<div>
 				<Form layout="horizontal">
-					<FormItem label="车牌号" {...formItemLayout}>
-						{
-							<RefComponent
-								item={
-									{
-										width: "68%",
-										action: 9,
-										label: "车牌号",
-										key: 'vlicense',
-										field: 'vlicensename',
-									}
-								}
-								formRef={this.props.form}
-							/>
-							// getFieldDecorator('vlicense', {
-							// 	initialValue: vehicleInfo.vlicense,
-							// 	rules: [
-							// 		{ pattern: /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}([A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1})|([A-Z0-9]{7})$/, message: '请输入有效的车牌号!' },
-							// 		{ required: true, message: '请输入车牌!' }
-							// 	],
-							// })(
-							// 	<Search
-							// 		style={{ width: "68%" }}
-							// 		placeholder={"请选择车牌号"}
-							// 		enterButton
-							// 		onSearch={
-							// 			(e) => {
-							// 				if (e != "")
-							// 					this.openRef({
-							// 						action: 9,
-							// 						label: "车牌号",
-							// 						key: 'vlicense',
-							// 						field: 'vlicensename',
-							// 						flag: 0
-							// 					})
-							// 				else
-							// 					this.openRef({
-							// 						action: 9,
-							// 						label: "车牌号",
-							// 						key: 'vlicense',
-							// 						field: 'vlicensename',
-							// 						flag: 1
-							// 					})
-							// 			}
-							// 		}
-							// 		allowClear
-							// 	/>)
+					<RefComponent
+						item={
+							{
+								action: 9,
+								label: "车牌号",
+								key: 'vlicense',
+								field: 'vlicensename',
+								required: true,
+								width: "68%",
+								horizontal: true,
+							}
 						}
-						<Button style={{ "width": "30%", "marginLeft": "1.5%" }} type="primary" onClick={this.getDriverOptions}>获取司机信息</Button>
-					</FormItem>
+						formRef={this.props.form}
+					/>
 
 					<FormItem label="司机姓名" {...formItemLayout}>
 						{
@@ -333,6 +347,9 @@ class VehicleForm extends React.Component {
 							)
 						}
 					</FormItem>
+
+					<Divider />
+					<Button style={{ "width": "30%", "marginLeft": "1.5%" }} type="primary" onClick={this.getDriverOptions}>获取司机信息</Button>
 				</Form>
 
 				{/* 司机信息 */}
