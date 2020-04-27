@@ -153,69 +153,69 @@ export default class Axios {
             }
         }).catch((error) => {
 
-            // var data = {};
+            var data = {};
 
-            // if (params.page == 1) {
-            //     data = {
-            //         datas: {
-            //             page: 1,
-            //             page_size: 10,
-            //             total: 16,
-            //             queryresults: [
-            //                 { "name": "\u9648\u6613 15858960450 330724199612295652", "code": "\u4e91JHUHDU", "pk": "\u4e91JHUHDU" },
-            //                 { "name": "\u9648\u6613 15858960450 330724199612295652", "code": "\u4e91JQKA11", "pk": "\u4e91JQKA11" },
-            //                 { "name": "\u9648\u6613 15858960450 330724199612295652", "code": "\u4eacA6JHJO", "pk": "\u4eacA6JHJO" },
-            //                 { "name": "\u9648\u6613 15858960450 330724199612295652", "code": "\u4eacAHI9KT", "pk": "\u4eacAHI9KT" },
-            //                 { "name": "null null null", "code": "\u4eacAMM009", "pk": "\u4eacAMM009" },
-            //                 { "name": "null null null", "code": "\u4eacAOP123", "pk": "\u4eacAOP123" },
-            //                 { "name": "null null null", "code": "\u4eacKKKK88", "pk": "\u4eacKKKK88" },
-            //                 { "name": "null null null", "code": "\u4eacUUUU66", "pk": "\u4eacUUUU66" },
-            //                 { "name": "null null null", "code": "\u7ca4ASB945", "pk": "\u7ca4ASB945" },
-            //                 { "name": "null null null", "code": "\u7ca4KAO123", "pk": "\u7ca4KAO123" }
-            //             ]
-            //         }
-            //     }
-            // } else {
-            //     data = {
-            //         datas: {
-            //             page: 2,
-            //             page_size: 10,
-            //             total: 16,
-            //             queryresults: [
-            //                 { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "101001ZZ100000000KEWHZ" },
-            //                 { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "111001ZZ100000000KEWHZ" },
-            //                 { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "121001ZZ100000000KEWHZ" },
-            //                 { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "131001ZZ100000000KEWHZ" },
-            //                 { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "141001ZZ100000000KEWHZ" },
-            //                 { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "151001ZZ100000000KEWHZ" },
-            //             ]
-            //         }
-            //     }
-            // }
-
-            // _this.setState({
-            //     refList: data.datas.queryresults,
-            //     selectedRowKeysRef: null,//重置
-            //     paginationRef: Utils.pagination(data.datas, (current) => {
-            //         console.log(current);
-            //         _this.refParam.page = current;
-            //         _this.requestRef();
-            //     })
-            // })
-
-            if (String(error).toLowerCase().indexOf('timeout') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器繁忙，请稍后重试'
-                })
-            } else if (String(error).toLowerCase().indexOf('network') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器问失败，请稍后重试'
-                })
+            if (params.page == 1) {
+                data = {
+                    datas: {
+                        page: 1,
+                        page_size: 10,
+                        total: 16,
+                        queryresults: [
+                            { "name": "\u9648\u6613 15858960450 330724199612295652", "code": "\u4e91JHUHDU", "pk": "\u4e91JHUHDU" },
+                            { "name": "\u9648\u6613 15858960450 330724199612295652", "code": "\u4e91JQKA11", "pk": "\u4e91JQKA11" },
+                            { "name": "\u9648\u6613 15858960450 330724199612295652", "code": "\u4eacA6JHJO", "pk": "\u4eacA6JHJO" },
+                            { "name": "\u9648\u6613 15858960450 330724199612295652", "code": "\u4eacAHI9KT", "pk": "\u4eacAHI9KT" },
+                            { "name": "null null null", "code": "\u4eacAMM009", "pk": "\u4eacAMM009" },
+                            { "name": "null null null", "code": "\u4eacAOP123", "pk": "\u4eacAOP123" },
+                            { "name": "null null null", "code": "\u4eacKKKK88", "pk": "\u4eacKKKK88" },
+                            { "name": "null null null", "code": "\u4eacUUUU66", "pk": "\u4eacUUUU66" },
+                            { "name": "null null null", "code": "\u7ca4ASB945", "pk": "\u7ca4ASB945" },
+                            { "name": "null null null", "code": "\u7ca4KAO123", "pk": "\u7ca4KAO123" }
+                        ]
+                    }
+                }
+            } else {
+                data = {
+                    datas: {
+                        page: 2,
+                        page_size: 10,
+                        total: 16,
+                        queryresults: [
+                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "101001ZZ100000000KEWHZ" },
+                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "111001ZZ100000000KEWHZ" },
+                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "121001ZZ100000000KEWHZ" },
+                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "131001ZZ100000000KEWHZ" },
+                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "141001ZZ100000000KEWHZ" },
+                            { "name": "\u9648\u667a\u6e0a", "code": "0001", "pk": "151001ZZ100000000KEWHZ" },
+                        ]
+                    }
+                }
             }
+
+            _this.setState({
+                refList: data.datas.queryresults,
+                selectedRowKeysRef: null,//重置
+                paginationRef: Utils.pagination(data.datas, (current) => {
+                    console.log(current);
+                    _this.refParam.page = current;
+                    _this.requestRef();
+                })
+            })
+
+            // if (String(error).toLowerCase().indexOf('timeout') != -1) {
+            //     Modal.error({
+            //         zIndex: 1002,
+            //         title: '提示',
+            //         content: '服务器繁忙，请稍后重试'
+            //     })
+            // } else if (String(error).toLowerCase().indexOf('network') != -1) {
+            //     Modal.error({
+            //         zIndex: 1002,
+            //         title: '提示',
+            //         content: '服务器问失败，请稍后重试'
+            //     })
+            // }
         })
     }
 
@@ -1033,7 +1033,7 @@ export default class Axios {
             axios({
                 url: options.url,
                 method: options.method,
-                baseURL: baseApi,
+                baseURL: baseApi0,
                 timeout: 60000,
                 params: (options.params) || "",
                 data: (options.data) || "",

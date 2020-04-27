@@ -2,6 +2,7 @@ import React from 'react'
 import { Input, Select, Form, Button, Checkbox, DatePicker } from 'antd'
 import Utils from '../../utils/utils'
 import axios from './../../axios'
+import RefComponent from '../RefComponent';
 const FormItem = Form.Item;
 const { RangePicker } = DatePicker;
 const { Search } = Input;
@@ -39,6 +40,7 @@ class FilterForm extends React.Component {
 
     initFormList = () => {
         const { getFieldDecorator } = this.props.form;
+        // console.log(this.props.form);
         this.formList = this.props.formList;
         const formItemList = [];
         if (this.formList && this.formList.length > 0) {
@@ -153,6 +155,25 @@ class FilterForm extends React.Component {
                         }
                     </FormItem>;
                     formItemList.push(ADVSELECTPK);
+                } else if (item.type === 'REFCOMP') {
+                    const REFCOMP = <FormItem label={label} key={field}>
+                        <RefComponent
+                            item={item}
+                            formRef={this.props.form}
+                        />
+                    </FormItem>;
+                    formItemList.push(REFCOMP);
+                } else if (item.type === 'REFCOMPPK') {
+                    const REFCOMPPK = <FormItem key={field} style={{ display: "none" }} >
+                        {
+                            getFieldDecorator([field], {
+                                initialValue: initialValue
+                            })(
+                                <div />
+                            )
+                        }
+                    </FormItem>;
+                    formItemList.push(REFCOMPPK);
                 } else if (item.type === 'CHECKBOX') {
                     const CHECKBOX = <FormItem label={label} key={field}>
                         {

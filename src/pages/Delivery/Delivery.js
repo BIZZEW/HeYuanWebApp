@@ -57,171 +57,6 @@ export default class Delivery extends React.Component {
 
 	refItem = {}
 
-	requestRef = () => {
-		axios.requestRef(this, '/purchase', this.refParam);
-	}
-
-	openRef = (item) => {
-		let { field, key, action, label, flag, subs, sups } = item;
-		let keyfield = this.formRef.props.form.getFieldValue(key);
-		if (flag && keyfield && keyfield != "") {
-			let _form = {};
-			_form[key] = "";
-			_form[field] = "";
-
-			// 清空下级
-			if (subs) {
-				for (let i of subs) {
-					if (i && i.key && i.field) {
-						_form[i.key] = "";
-						_form[i.field] = "";
-					}
-				}
-			}
-
-			this.formRef.props.form.setFieldsValue(_form);
-		} else {
-			// 上级先选
-			if (sups) {
-				for (let i of sups) {
-					if (i && i.key && i.field) {
-						let supskey = this.formRef.props.form.getFieldValue(i.key);
-						let supsfield = this.formRef.props.form.getFieldValue(i.field);
-
-						if (supskey && supskey != "" && supsfield && supsfield != "")
-							this.refParam[i.key] = supskey;
-						else {
-							Modal.info({
-								zIndex: 1002,
-								title: '提示',
-								content: '请先选择' + (i.name || "上级查询条件")
-							});
-							return;
-						}
-					}
-				}
-			}
-
-			this.setState({
-				paginationRef: false
-			})
-			this.refParam.page = 1;
-			this.refParam.action = action;
-			this.refItem = item;
-			this.setState({
-				isVisibleRef: true,
-				titleRef: label,
-				refList: [],
-			}, () => {
-				this.requestRef();
-			});
-		}
-	}
-
-	formList = [
-		{
-			type: 'DATE',
-			label: '开始日期',
-			field: 'begindate',
-			placeholder: '请选择开始日期',
-			required: true,
-			initialValue: moment(new Date(new Date().getTime() - 24 * 60 * 60 * 1000), "YYYY-MM-DD"),
-		},
-		{
-			type: 'DATE',
-			label: '结束日期',
-			field: 'enddate',
-			placeholder: '请选择结束日期',
-			required: true,
-			initialValue: moment(new Date(), "YYYY-MM-DD"),
-		},
-		{
-			type: 'ADVSELECT',
-			label: '供应商',
-			action: 7,
-			key: 'pk_supplier',
-			field: 'suppliername',
-			width: 300,
-			trigger: item => this.openRef(item)
-		},
-		{
-			type: 'ADVSELECTPK',
-			field: 'pk_supplier',
-		},
-		{
-			type: 'ADVSELECT',
-			label: '矿点',
-			action: 20,
-			key: 'pk_orespot',
-			field: 'orespotname',
-			width: 300,
-			trigger: item => this.openRef(item)
-		},
-		{
-			type: 'ADVSELECTPK',
-			field: 'pk_orespot',
-		},
-		{
-			type: 'ADVSELECT',
-			label: '收货企业',
-			action: 5,
-			key: 'pk_stockorg',
-			field: 'stockorgname',
-			subs: [{
-				key: "cmaterialid",
-				field: "materialname"
-			}],
-			required: true,
-			initialValue: this.state.dftstockorg.name || "",
-			width: 300,
-			trigger: item => this.openRef(item)
-		},
-		{
-			type: 'ADVSELECTPK',
-			field: 'pk_stockorg',
-			initialValue: this.state.dftstockorg.pk_org || "",
-		},
-		{
-			type: 'ADVSELECT',
-			label: '货物',
-			action: 8,
-			key: 'cmaterialid',
-			field: 'materialname',
-			sups: [{
-				key: "pk_stockorg",
-				field: "stockorgname",
-				name: "收货企业"
-			}],
-			width: 300,
-			trigger: item => this.openRef(item)
-		},
-		{
-			type: 'ADVSELECTPK',
-			field: 'cmaterialid',
-		},
-		{
-			type: 'INPUT',
-			label: '订单号',
-			field: 'noticecode',
-			placeholder: '请输入订单号',
-			width: 200,
-			list: this.state.cementRef,
-			idKey: "noticecode",
-			valueKey: "name",
-		},
-		{
-			type: 'INPUT',
-			label: '车号',
-			field: 'vlicense',
-			placeholder: '请输入车号',
-			width: 200,
-			rules: [
-				{ pattern: /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}([A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1})|([A-Z0-9]{7})$/, message: '请输入有效的车牌号!' },
-				// { required: true, message: '请输入车牌!' }
-			],
-		},
-	]
-
 	componentDidMount() {
 		this.requestList();
 	}
@@ -379,6 +214,259 @@ export default class Delivery extends React.Component {
 		});
 	}
 
+	updateVehicles = (vehicles) => {
+		console.log("updateVehicles triggered!")
+		this.setState({ vehicles })
+	}
+
+	getSubOptions = (param) => {
+		axios.getOptions(this, '/querycemtype', param);
+	}
+
+	calTableHeight = () => {
+		let cardH, cardHeight = this.cardHeight;
+		const cardRef = this.refs.card;
+		if (cardRef) {
+			const cardCon = ReactDOM.findDOMNode(cardRef);
+			cardCon.setAttribute('id', 'cardBoxD');
+			if (document.getElementById('cardBoxD')) {
+				cardH = document.getElementById('cardBoxD').offsetHeight;
+				if (cardH) {
+					cardHeight = cardH + 3;
+					this.cardHeight = cardHeight;
+				}
+			}
+		}
+		let clientHeight = document.body.clientHeight;
+		let headerHeight = document.getElementsByClassName('header')[0].offsetHeight;
+		let tabsHeight = document.getElementsByClassName('ant-tabs-nav-scroll')[0].offsetHeight;
+		let gapsHeight = 25;
+		let headernfooterHeight = 122;
+		let paginationHeight = 65;
+		let tableHeight = clientHeight - headerHeight - tabsHeight - cardHeight - gapsHeight - headernfooterHeight - paginationHeight;
+		console.log("tableHeight: " + tableHeight + " clientHeight: " + clientHeight + " headerHeight: " + headerHeight + " tabsHeight: " + tabsHeight);
+		return tableHeight;
+	}
+
+	// 查询字段列表
+	formList = [
+		{
+			type: 'DATE',
+			label: '开始日期',
+			field: 'begindate',
+			placeholder: '请选择开始日期',
+			required: true,
+			initialValue: moment(new Date(new Date().getTime() - 24 * 60 * 60 * 1000), "YYYY-MM-DD"),
+		},
+		{
+			type: 'DATE',
+			label: '结束日期',
+			field: 'enddate',
+			placeholder: '请选择结束日期',
+			required: true,
+			initialValue: moment(new Date(), "YYYY-MM-DD"),
+		},
+
+
+
+
+
+
+		{
+			type: 'REFCOMP',
+			label: 'test1',
+			action: 7,
+			key: 'pk_test1',
+			field: 'testname1',
+			subs: [{
+				key: "pk_test2",
+				field: "testname2"
+			}],
+			width: 300,
+		},
+		{
+			type: 'REFCOMPPK',
+			field: 'pk_test1',
+		},
+
+		{
+			type: 'REFCOMP',
+			label: 'test2',
+			action: 8,
+			key: 'pk_test2',
+			field: 'testname2',
+			sups: [{
+				key: "pk_test1",
+				field: "testname1",
+				name: "test1"
+			}],
+			width: 300,
+		},
+		{
+			type: 'REFCOMPPK',
+			field: 'pk_test2',
+		},
+
+
+
+
+
+
+		{
+			type: 'ADVSELECT',
+			label: '供应商',
+			action: 7,
+			key: 'pk_supplier',
+			field: 'suppliername',
+			width: 300,
+			trigger: item => this.openRef(item)
+		},
+		{
+			type: 'ADVSELECTPK',
+			field: 'pk_supplier',
+		},
+		{
+			type: 'ADVSELECT',
+			label: '矿点',
+			action: 20,
+			key: 'pk_orespot',
+			field: 'orespotname',
+			width: 300,
+			trigger: item => this.openRef(item)
+		},
+		{
+			type: 'ADVSELECTPK',
+			field: 'pk_orespot',
+		},
+		{
+			type: 'ADVSELECT',
+			label: '收货企业',
+			action: 5,
+			key: 'pk_stockorg',
+			field: 'stockorgname',
+			subs: [{
+				key: "cmaterialid",
+				field: "materialname"
+			}],
+			required: true,
+			initialValue: this.state.dftstockorg.name || "",
+			width: 300,
+			trigger: item => this.openRef(item)
+		},
+		{
+			type: 'ADVSELECTPK',
+			field: 'pk_stockorg',
+			initialValue: this.state.dftstockorg.pk_org || "",
+		},
+		{
+			type: 'ADVSELECT',
+			label: '货物',
+			action: 8,
+			key: 'cmaterialid',
+			field: 'materialname',
+			sups: [{
+				key: "pk_stockorg",
+				field: "stockorgname",
+				name: "收货企业"
+			}],
+			width: 300,
+			trigger: item => this.openRef(item)
+		},
+		{
+			type: 'ADVSELECTPK',
+			field: 'cmaterialid',
+		},
+		{
+			type: 'INPUT',
+			label: '订单号',
+			field: 'noticecode',
+			placeholder: '请输入订单号',
+			width: 200,
+			list: this.state.cementRef,
+			idKey: "noticecode",
+			valueKey: "name",
+		},
+		{
+			type: 'INPUT',
+			label: '车号',
+			field: 'vlicense',
+			placeholder: '请输入车号',
+			width: 200,
+			rules: [
+				{ pattern: /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}([A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1})|([A-Z0-9]{7})$/, message: '请输入有效的车牌号!' },
+				// { required: true, message: '请输入车牌!' }
+			],
+		},
+	]
+
+	// 高级选择打开
+	openRef = (item) => {
+		let { field, key, action, label, flag, subs, sups } = item;
+		let keyfield = this.formRef.props.form.getFieldValue(key);
+		if (flag && keyfield && keyfield != "") {
+			let _form = {};
+			_form[key] = "";
+			_form[field] = "";
+
+			// 清空下级
+			if (subs) {
+				for (let i of subs) {
+					if (i && i.key && i.field) {
+						_form[i.key] = "";
+						_form[i.field] = "";
+					}
+				}
+			}
+
+			this.formRef.props.form.setFieldsValue(_form);
+		} else {
+			// 上级先选
+			if (sups) {
+				for (let i of sups) {
+					if (i && i.key && i.field) {
+						let supskey = this.formRef.props.form.getFieldValue(i.key);
+						let supsfield = this.formRef.props.form.getFieldValue(i.field);
+
+						if (supskey && supskey != "" && supsfield && supsfield != "")
+							this.refParam[i.key] = supskey;
+						else {
+							Modal.info({
+								zIndex: 1002,
+								title: '提示',
+								content: '请先选择' + (i.name || "上级查询条件")
+							});
+							return;
+						}
+					}
+				}
+			}
+
+			this.setState({
+				paginationRef: false
+			})
+			this.refParam.page = 1;
+			this.refParam.action = action;
+			this.refItem = item;
+			this.setState({
+				isVisibleRef: true,
+				titleRef: label,
+				refList: [],
+			}, () => {
+				this.requestRef();
+			});
+		}
+	}
+
+	// 高级选择查询
+	requestRef = () => {
+		axios.requestRef(this, '/purchase', this.refParam);
+	}
+
+	// 高级选择变动
+	onSelectChange = selectedRowKeysRef => {
+		this.setState({ selectedRowKeysRef });
+	};
+
 	//高级选择确认
 	handleSubmitRef = () => {
 		if (this.state.selectedRowsRef && this.state.selectedRowsRef[0]) {
@@ -420,44 +508,6 @@ export default class Delivery extends React.Component {
 			})
 		}
 	}
-
-	updateVehicles = (vehicles) => {
-		console.log("updateVehicles triggered!")
-		this.setState({ vehicles })
-	}
-
-	getSubOptions = (param) => {
-		axios.getOptions(this, '/querycemtype', param);
-	}
-
-	calTableHeight = () => {
-		let cardH, cardHeight = this.cardHeight;
-		const cardRef = this.refs.card;
-		if (cardRef) {
-			const cardCon = ReactDOM.findDOMNode(cardRef);
-			cardCon.setAttribute('id', 'cardBoxD');
-			if (document.getElementById('cardBoxD')) {
-				cardH = document.getElementById('cardBoxD').offsetHeight;
-				if (cardH) {
-					cardHeight = cardH + 3;
-					this.cardHeight = cardHeight;
-				}
-			}
-		}
-		let clientHeight = document.body.clientHeight;
-		let headerHeight = document.getElementsByClassName('header')[0].offsetHeight;
-		let tabsHeight = document.getElementsByClassName('ant-tabs-nav-scroll')[0].offsetHeight;
-		let gapsHeight = 25;
-		let headernfooterHeight = 122;
-		let paginationHeight = 65;
-		let tableHeight = clientHeight - headerHeight - tabsHeight - cardHeight - gapsHeight - headernfooterHeight - paginationHeight;
-		console.log("tableHeight: " + tableHeight + " clientHeight: " + clientHeight + " headerHeight: " + headerHeight + " tabsHeight: " + tabsHeight);
-		return tableHeight;
-	}
-
-	onSelectChange = selectedRowKeysRef => {
-		this.setState({ selectedRowKeysRef });
-	};
 
 	render() {
 		const { selectedRowKeysRef } = this.state;
