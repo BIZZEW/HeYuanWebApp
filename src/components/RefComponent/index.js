@@ -236,6 +236,7 @@ export default class RefComponent extends React.Component {
                         this.setState({
                             isVisibleRef: false,
                             selectedRowKeysRef: [],
+                            selectedRowsRef: []
                         })
                     }}
                     width={1000}
