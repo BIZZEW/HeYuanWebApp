@@ -467,6 +467,7 @@ class OrderForm extends React.Component {
 	handleSubmit4 = () => {
 		let type2 = this.state.type2;
 		this.vehicleForm.props.form.validateFields((err, values) => {
+			console.log(values);
 			if (!err) {
 				let vehicleList = this.state.vehicleList;
 				if (type2 == "create") {

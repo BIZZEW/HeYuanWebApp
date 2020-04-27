@@ -295,7 +295,7 @@ class VehicleForm extends React.Component {
 								action: 9,
 								label: "车牌号",
 								key: 'vlicense',
-								field: 'vlicensename',
+								field: 'vlicense',
 								required: true,
 								width: "68%",
 								horizontal: true,
