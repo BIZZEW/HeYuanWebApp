@@ -143,7 +143,8 @@ export default class Axios {
             if (response && response.datas) {
                 _this.setState({
                     refList: response.datas.queryresults,
-                    selectedRowKeysRef: null,//重置
+                    selectedRowKeysRef: [],
+                    selectedRowsRef: [],
                     paginationRef: Utils.pagination(response.datas, (current) => {
                         console.log(current);
                         _this.refParam.page = current;
@@ -195,7 +196,8 @@ export default class Axios {
 
             _this.setState({
                 refList: data.datas.queryresults,
-                selectedRowKeysRef: null,//重置
+                selectedRowKeysRef: [],
+                selectedRowsRef: [],
                 paginationRef: Utils.pagination(data.datas, (current) => {
                     console.log(current);
                     _this.refParam.page = current;
