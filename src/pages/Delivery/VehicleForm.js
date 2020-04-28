@@ -101,10 +101,25 @@ class VehicleForm extends React.Component {
 								width: "68%",
 								horizontal: true,
 								initialValue: vehicleInfo.vlicense,
+								sups: [{
+									key: "pk_supplier",
+									field: "pk_supplier",
+									name: "供应商"
+								}]
 							}
 						}
 						formRef={this.props.form}
 					/>
+
+					<FormItem style={{ display: "none" }} >
+						{
+							getFieldDecorator('pk_supplier', {
+								initialValue: this.props.pk_supplier
+							})(
+								<div />
+							)
+						}
+					</FormItem>
 
 					<FormItem label="司机姓名" {...formItemLayout}>
 						{
