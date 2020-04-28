@@ -89,6 +89,7 @@ class VehicleForm extends React.Component {
 		return (
 			<div>
 				<Form layout="horizontal">
+					<Button style={{ "width": "20%", "position": "absolute", "right": "4.5%", "marginTop": "0.6%", "zIndex": "1" }} type="primary" onClick={this.getDriverOptions}>获取司机信息</Button>
 					<RefComponent
 						item={
 							{
@@ -97,7 +98,7 @@ class VehicleForm extends React.Component {
 								key: 'vlicense',
 								field: 'vlicense',
 								required: true,
-								// width: "68%",
+								width: "68%",
 								horizontal: true,
 								initialValue: vehicleInfo.vlicense,
 							}
@@ -149,8 +150,8 @@ class VehicleForm extends React.Component {
 						}
 					</FormItem>
 
-					<Divider />
-					<Button style={{ "width": "30%", "marginLeft": "1.5%" }} type="primary" onClick={this.getDriverOptions}>获取司机信息</Button>
+					{/* <Divider />
+					<Button style={{ "width": "30%", "marginLeft": "1.5%" }} type="primary" onClick={this.getDriverOptions}>获取司机信息</Button> */}
 				</Form>
 
 				{/* 司机信息 */}

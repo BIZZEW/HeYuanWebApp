@@ -256,7 +256,7 @@ export default class Delivery extends React.Component {
 			key: 'pk_supplier',
 			field: 'suppliername',
 			width: 300,
-			required: true,
+			// required: true,
 		},
 		{
 			type: 'REFCOMPPK',
