@@ -57,8 +57,8 @@ class VehicleForm extends React.Component {
 		let vehicleInfo = this.props.vehicleInfo || {};
 		const { getFieldDecorator } = this.props.form;
 		const formItemLayout = {
-			labelCol: { span: 5 },
-			wrapperCol: { span: 19 }
+			labelCol: { span: 4 },
+			wrapperCol: { span: 20 }
 		}
 
 		const rowRadioSelection = {
@@ -89,6 +89,7 @@ class VehicleForm extends React.Component {
 			<div>
 				<Form layout="horizontal">
 					<Button style={{ "width": "20%", "position": "absolute", "right": "4.5%", "marginTop": "0.6%", "zIndex": "1" }} type="primary" onClick={this.getDriverOptions}>获取司机信息</Button>
+
 					<RefComponent
 						item={
 							{
@@ -126,30 +127,33 @@ class VehicleForm extends React.Component {
 								initialValue: vehicleInfo.drivername,
 								// rules: [{ required: true, message: '请获取司机信息!' }],
 							})(
-								<Input type="text" placeholder="请获取司机信息" />
+								<Input type="text" placeholder="请获取司机信息" allowClear />
 							)
 						}
 					</FormItem>
+
 					<FormItem label="手机号" {...formItemLayout}>
 						{
 							getFieldDecorator('drivertelephone', {
 								initialValue: vehicleInfo.drivertelephone,
 								// rules: [{ required: true, message: '请获取司机信息!' }],
 							})(
-								<Input type="text" placeholder="请获取司机信息" />
+								<Input type="text" placeholder="请获取司机信息" allowClear />
 							)
 						}
 					</FormItem>
+
 					<FormItem label="身份证" {...formItemLayout}>
 						{
 							getFieldDecorator('driveridcode', {
 								initialValue: vehicleInfo.driveridcode,
 								// rules: [{ required: true, message: '请获取司机信息!' }],
 							})(
-								<Input type="text" placeholder="请获取司机信息" />
+								<Input type="text" placeholder="请获取司机信息" allowClear />
 							)
 						}
 					</FormItem>
+
 					<FormItem label="车数" {...formItemLayout}>
 						{
 
@@ -159,7 +163,9 @@ class VehicleForm extends React.Component {
 									{ required: true, message: '请输入车数!' }
 								],
 							})(
-								<InputNumber min={1} defaultValue={0} />
+								<Input type="number" min={0} defaultValue={0} step={1} addonAfter={"辆"} />
+
+								// <InputNumber min={1} defaultValue={0}/>
 							)
 						}
 					</FormItem>

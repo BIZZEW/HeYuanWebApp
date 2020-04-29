@@ -182,8 +182,8 @@ export default class RefComponent extends React.Component {
         let horizontal = item.horizontal || null;
 
         const formItemLayout = {
-            labelCol: { span: 5 },
-            wrapperCol: { span: 19 }
+            labelCol: { span: 4 },
+            wrapperCol: { span: 20 }
         }
 
         return (

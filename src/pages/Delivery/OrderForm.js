@@ -377,8 +377,8 @@ class OrderForm extends React.Component {
 
 		const { getFieldDecorator } = this.props.form;
 		const formItemLayout = {
-			labelCol: { span: 5 },
-			wrapperCol: { span: 19 }
+			labelCol: { span: 4 },
+			wrapperCol: { span: 20 }
 		}
 
 		const rowSelection = {
@@ -582,7 +582,7 @@ class OrderForm extends React.Component {
 								getFieldDecorator('receiveDate', {
 									initialValue: moment(new Date(), "YYYY-MM-DD"),
 								})(
-									<DatePicker format="YYYY-MM-DD" disabled style={{ width: "200px" }} defaultValue={moment(new Date(), "YYYY-MM-DD")} />
+									<DatePicker format="YYYY-MM-DD" disabled style={{ width: "100%" }} defaultValue={moment(new Date(), "YYYY-MM-DD")} />
 								)
 						}
 					</FormItem>
@@ -593,7 +593,7 @@ class OrderForm extends React.Component {
 								getFieldDecorator('srcsendnum', {
 									initialValue: 0.00
 								})(
-									<Input type="number" min={0} defaultValue={0.00} step={0.01} style={{ width: "200px" }} addonAfter={(this.props.form.getFieldValue("material_dw")) || "单位"} />
+									<Input type="number" min={0} defaultValue={0.00} step={0.01} addonAfter={(this.props.form.getFieldValue("material_dw")) || "单位"} />
 								)
 						}
 						{type == 'detail' ? orderInfo.material_dw : ""}
@@ -605,7 +605,7 @@ class OrderForm extends React.Component {
 								getFieldDecorator('num', {
 									initialValue: 0.00
 								})(
-									<Input type="number" min={0} defaultValue={0.00} step={0.01} style={{ width: "200px" }} addonAfter={(this.props.form.getFieldValue("material_dw")) || "单位"} />
+									<Input type="number" min={0} defaultValue={0.00} step={0.01} addonAfter={(this.props.form.getFieldValue("material_dw")) || "单位"} />
 								)
 						}
 						{type == 'detail' ? orderInfo.material_dw : ""}
@@ -651,7 +651,7 @@ class OrderForm extends React.Component {
 								getFieldDecorator('containerno', {
 									initialValue: orderInfo.containerno,
 								})(
-									<Input type="text" placeholder="请填写集装箱号" />
+									<Input type="text" placeholder="请填写集装箱号" allowClear />
 								)
 						}
 					</FormItem>
