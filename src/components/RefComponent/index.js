@@ -149,7 +149,7 @@ export default class RefComponent extends React.Component {
 
     render() {
         const { selectedRowKeysRef } = this.state;
-        const { item } = this.props;
+        const { item, type, detail } = this.props;
         const { getFieldDecorator } = this.props.formRef;
         const columnsRef = [
             {
@@ -196,36 +196,37 @@ export default class RefComponent extends React.Component {
         return (
             <FormItem label={label} key={field} {...(horizontal ? formItemLayout : {})}>
                 {
-                    getFieldDecorator([field], {
-                        initialValue: initialValue,
-                        rules: [
-                            { required: required, message: '请选择该项!' }
-                        ],
-                    })(
-                        <Search
-                            style={{ width: width }}
-                            placeholder={"请选择" + label}
-                            enterButton
-                            onSearch={
-                                (e) => {
-                                    if (e != "")
-                                        this.openRef({ ...item, flag: 0 })
-                                    else
-                                        this.openRef({ ...item, flag: 1 })
+                    type == 'detail' ? detail :
+                        getFieldDecorator([field], {
+                            initialValue: initialValue,
+                            rules: [
+                                { required: required, message: '请选择该项!' }
+                            ],
+                        })(
+                            <Search
+                                style={{ width: width }}
+                                placeholder={"请选择" + label}
+                                enterButton
+                                onSearch={
+                                    (e) => {
+                                        if (e != "")
+                                            this.openRef({ ...item, flag: 0 })
+                                        else
+                                            this.openRef({ ...item, flag: 1 })
+                                    }
                                 }
-                            }
-                            onClick={
-                                (e) => {
-                                    if (e != "")
-                                        this.openRef({ ...item, flag: 0 })
-                                    else
-                                        this.openRef({ ...item, flag: 1 })
+                                onClick={
+                                    (e) => {
+                                        if (e != "")
+                                            this.openRef({ ...item, flag: 0 })
+                                        else
+                                            this.openRef({ ...item, flag: 1 })
+                                    }
                                 }
-                            }
-                            readOnly
-                            allowClear
-                        />
-                    )
+                                readOnly
+                                allowClear
+                            />
+                        )
                 }
 
                 <Modal

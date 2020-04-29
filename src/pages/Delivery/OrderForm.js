@@ -582,7 +582,14 @@ class OrderForm extends React.Component {
 					</FormItem>)}
 
 					<FormItem label="收货日期" {...formItemLayout}>
-						<DatePicker format="YYYY-MM-DD" disabled style={{ width: "200px" }} defaultValue={moment(new Date(), "YYYY-MM-DD")} />
+						{
+							type == 'detail' ? orderInfo.receiveDate :
+								getFieldDecorator('receiveDate', {
+									initialValue: orderInfo.receiveDate,
+								})(
+									<DatePicker format="YYYY-MM-DD" disabled style={{ width: "200px" }} defaultValue={moment(new Date(), "YYYY-MM-DD")} />
+								)
+						}
 					</FormItem>
 
 					<FormItem label="原发净重" {...formItemLayout}>
@@ -594,7 +601,7 @@ class OrderForm extends React.Component {
 									<Input type="number" min={0} defaultValue={0.00} step={0.01} style={{ width: "200px" }} />
 								)
 						}
-						<div style={{ "display": "inline", "margin": "0 10px" }}>{this.props.form.getFieldValue("material_dw") || "单位"}</div>
+						{type == 'detail' ? orderInfo.material_dw : <div style={{ "display": "inline", "margin": "0 10px" }}>{this.props.form.getFieldValue("material_dw") || "单位"}</div>}
 					</FormItem>
 					<FormItem label="到货量" {...formItemLayout}>
 						{
@@ -605,7 +612,7 @@ class OrderForm extends React.Component {
 									<Input type="number" min={0} defaultValue={0.00} step={0.01} style={{ width: "200px" }} />
 								)
 						}
-						<div style={{ "display": "inline", "margin": "0 10px" }}>{this.props.form.getFieldValue("material_dw") || "单位"}</div>
+						{type == 'detail' ? orderInfo.material_dw : <div style={{ "display": "inline", "margin": "0 10px" }}>{this.props.form.getFieldValue("material_dw") || "单位"}</div>}
 					</FormItem>
 
 					<FormItem style={{ display: "none" }} >
@@ -627,6 +634,8 @@ class OrderForm extends React.Component {
 							}
 						}
 						formRef={this.props.form}
+						type={type}
+						detail={orderInfo.sendsuppliername}
 					/>
 
 					<FormItem key="pk_sendsupplier" style={{ display: "none" }} >
@@ -652,9 +661,9 @@ class OrderForm extends React.Component {
 					{(type == "detail") && (<div>
 						<FormItem label="车牌号" {...formItemLayout}>
 							{
-								type == 'detail' ? orderInfo.vehicle :
-									getFieldDecorator('vehicle', {
-										initialValue: orderInfo.vehicle,
+								type == 'detail' ? orderInfo.vlicense :
+									getFieldDecorator('vlicense', {
+										initialValue: orderInfo.vlicense,
 										rules: [
 											{ pattern: /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}([A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1})|([A-Z0-9]{7})$/, message: '请输入有效的车牌号!' },
 											{ required: true, message: '请输入车牌!' }
@@ -682,9 +691,9 @@ class OrderForm extends React.Component {
 						</FormItem>
 						<FormItem label="手机号" {...formItemLayout}>
 							{
-								type == 'detail' ? orderInfo.telphone :
-									getFieldDecorator('telphone', {
-										initialValue: orderInfo.telphone,
+								type == 'detail' ? orderInfo.drivertelephone :
+									getFieldDecorator('drivertelephone', {
+										initialValue: orderInfo.drivertelephone,
 										// rules: [{ required: true, message: '请获取司机信息!' }],
 									})(
 										<Input type="text" placeholder="请获取司机信息" />
@@ -693,9 +702,9 @@ class OrderForm extends React.Component {
 						</FormItem>
 						<FormItem label="身份证" {...formItemLayout}>
 							{
-								type == 'detail' ? orderInfo.driveridentity :
-									getFieldDecorator('driveridentity', {
-										initialValue: orderInfo.driveridentity,
+								type == 'detail' ? orderInfo.driveridcode :
+									getFieldDecorator('driveridcode', {
+										initialValue: orderInfo.driveridcode,
 										// rules: [{ required: true, message: '请获取司机信息!' }],
 									})(
 										<Input type="text" placeholder="请获取司机信息" />
