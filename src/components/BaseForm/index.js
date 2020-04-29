@@ -5,7 +5,6 @@ import axios from './../../axios'
 import RefComponent from '../RefComponent';
 const FormItem = Form.Item;
 const { RangePicker } = DatePicker;
-const { Search } = Input;
 
 class FilterForm extends React.Component {
     state = {

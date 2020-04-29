@@ -1,10 +1,9 @@
 import React from 'react'
-import { Card, Button, Form, Input, Select, Radio, Icon, Modal, DatePicker, InputNumber, Divider, Table, Collapse } from 'antd'
+import { Button, Form, Input, Modal, InputNumber, Table } from 'antd'
 import axios from './../../axios'
 import RefComponent from './../../components/RefComponent';
 import './delivery.scss'
 const FormItem = Form.Item;
-const { Search } = Input;
 
 class VehicleForm extends React.Component {
 	state = {

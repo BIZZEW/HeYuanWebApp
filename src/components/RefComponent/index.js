@@ -1,15 +1,8 @@
-import React from 'react'
-import ReactDOM from 'react-dom';
-import { Card, Button, Form, Input, Select, Radio, Icon, Modal, DatePicker, InputNumber, Divider, Table, Collapse } from 'antd'
+import React from 'react';
+import { Form, Input, Modal, Table } from 'antd'
 import axios from './../../axios'
-import qs from 'qs'
-import Utils from './../../utils/utils'
 const FormItem = Form.Item;
-const RadioGroup = Radio.Group;
-const TextArea = Input.TextArea;
-const Option = Select.Option;
 const { Search } = Input;
-const { Panel } = Collapse;
 
 export default class RefComponent extends React.Component {
 
