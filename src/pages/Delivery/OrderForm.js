@@ -460,13 +460,14 @@ class OrderForm extends React.Component {
 						}
 					</FormItem>
 
+					{/* 采购订单明细 */}
 					<Collapse
 						bordered={false}
 						defaultActiveKey={['0']}
 						expandIcon={({ isActive }) => <Icon rotate={isActive ? 90 : 0} type="caret-right" />}
 						className="site-collapse-custom-collapse"
 					>
-						<Panel header={"采购订单详情 / 货物: " + (this.props.form.getFieldValue("material_name") || "") + " / 余量: " + (this.props.form.getFieldValue("remainnum") || "") + " " + (this.props.form.getFieldValue("material_dw") || "") + " / 矿点: " + (this.props.form.getFieldValue("orespotname") || "") + " /"} key="1" className="site-collapse-custom-panel">
+						<Panel header={"采购订单详情 / 货物: " + (type == 'detail' ? orderInfo.material_name : this.props.form.getFieldValue("material_name") || "") + " / 余量: " + (type == 'detail' ? orderInfo.remainnum : this.props.form.getFieldValue("remainnum") || "") + " " + (type == 'detail' ? orderInfo.material_dw : this.props.form.getFieldValue("material_dw") || "") + " / 矿点: " + (type == 'detail' ? orderInfo.orespotname : this.props.form.getFieldValue("orespotname") || "") + " /"} key="1" className="site-collapse-custom-panel">
 							<FormItem label="采购订单日期" {...formItemLayout} onClick={() => this.getProcureOptions()}>
 								{
 									type == 'detail' ? orderInfo.dbilldate :
@@ -570,22 +571,16 @@ class OrderForm extends React.Component {
 
 					<Divider />
 
+					{/* 收货单号只在详情时展示 */}
 					{(type == "detail") && (<FormItem label="收货单号" {...formItemLayout}>
-						{
-							type == 'detail' ? orderInfo.drivername :
-								getFieldDecorator('drivername', {
-									initialValue: orderInfo.drivername,
-								})(
-									<Input type="text" placeholder="请填写收货单号" />
-								)
-						}
+						{orderInfo.drivername}
 					</FormItem>)}
 
 					<FormItem label="收货日期" {...formItemLayout}>
 						{
 							type == 'detail' ? orderInfo.receiveDate :
 								getFieldDecorator('receiveDate', {
-									initialValue: orderInfo.receiveDate,
+									initialValue: moment(new Date(), "YYYY-MM-DD"),
 								})(
 									<DatePicker format="YYYY-MM-DD" disabled style={{ width: "200px" }} defaultValue={moment(new Date(), "YYYY-MM-DD")} />
 								)
@@ -603,6 +598,7 @@ class OrderForm extends React.Component {
 						}
 						{type == 'detail' ? orderInfo.material_dw : <div style={{ "display": "inline", "margin": "0 10px" }}>{this.props.form.getFieldValue("material_dw") || "单位"}</div>}
 					</FormItem>
+
 					<FormItem label="到货量" {...formItemLayout}>
 						{
 							type == 'detail' ? orderInfo.num :
@@ -615,6 +611,7 @@ class OrderForm extends React.Component {
 						{type == 'detail' ? orderInfo.material_dw : <div style={{ "display": "inline", "margin": "0 10px" }}>{this.props.form.getFieldValue("material_dw") || "单位"}</div>}
 					</FormItem>
 
+					{/* 单位占位 */}
 					<FormItem style={{ display: "none" }} >
 						{
 							getFieldDecorator("material_dw")(
@@ -623,6 +620,7 @@ class OrderForm extends React.Component {
 						}
 					</FormItem>
 
+					{/* 运输商用的是参照组件 */}
 					<RefComponent
 						item={
 							{
@@ -638,6 +636,7 @@ class OrderForm extends React.Component {
 						detail={orderInfo.sendsuppliername}
 					/>
 
+					{/* 运输商主键 */}
 					<FormItem key="pk_sendsupplier" style={{ display: "none" }} >
 						{
 							getFieldDecorator("pk_sendsupplier")(
@@ -658,6 +657,8 @@ class OrderForm extends React.Component {
 					</FormItem>
 
 					<Divider />
+
+					{/* 车辆信息在详情中的展示 */}
 					{(type == "detail") && (<div>
 						<FormItem label="车牌号" {...formItemLayout}>
 							{
@@ -712,6 +713,8 @@ class OrderForm extends React.Component {
 							}
 						</FormItem>
 					</div>)}
+
+					{/* 车辆信息在新增中为按钮跳转到车辆信息列表 */}
 					{(type != "detail") && (<Button type="primary" visible={type != "detail"} onClick={this.editVehicles}>当前有 {vehicleInfoNum} 条车辆信息</Button>)}
 				</Form>
 
@@ -750,7 +753,7 @@ class OrderForm extends React.Component {
 					</div>
 				</Modal>
 
-				{/* 车辆信息 */}
+				{/* 车辆信息列表 */}
 				<Modal
 					title={this.state.title3}
 					visible={this.state.isVisible3}
@@ -792,6 +795,7 @@ class OrderForm extends React.Component {
 					</div>
 				</Modal>
 
+				{/* 车辆信息表单 */}
 				<Modal
 					title={this.state.title4}
 					visible={this.state.isVisible4}
