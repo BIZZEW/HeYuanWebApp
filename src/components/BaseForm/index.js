@@ -54,31 +54,13 @@ class FilterForm extends React.Component {
                 let required = item.required || false;
                 let cascade = item.cascade;
                 let rules = item.rules || null;
-                if (item.type === '时间查询') {
-                    const begin_time = <FormItem label="订单时间" key='begin'>
-                        {
-                            getFieldDecorator('begin_time')(
-                                <DatePicker showTime={true} placeholder={placeholder} format="YYYY-MM-DD HH:mm:ss" />
-                            )
-                        }
-                    </FormItem>;
-                    formItemList.push(begin_time);
-                    //~后省略冒号：label="~" colon={false} 
-                    const end_time = <FormItem key='end'>
-                        {
-                            getFieldDecorator('end_time')(
-                                <DatePicker showTime={true} placeholder={placeholder} format="YYYY-MM-DD HH:mm:ss" />
-                            )
-                        }
-                    </FormItem>;
-                    formItemList.push(end_time);
-                } else if (item.type == 'INPUT') {
+                if (item.type == 'INPUT') {
                     const INPUT = <FormItem label={label} key={field}>
                         {
                             getFieldDecorator([field], {
                                 rules: rules
                             })(
-                                <Input type="text" style={{ width: width }} placeholder={placeholder} />
+                                <Input type="text" style={{ width: width }} placeholder={placeholder} allowClear />
                             )
                         }
                     </FormItem>;
@@ -108,58 +90,11 @@ class FilterForm extends React.Component {
                         }
                     </FormItem>;
                     formItemList.push(SELECT);
-                } else if (item.type === 'ADVSELECT') {
-                    const ADVSELECT = <FormItem label={label} key={field}>
-                        {
-                            getFieldDecorator([field], {
-                                initialValue: initialValue,
-                                rules: [
-                                    { required: required, message: '请选择该项!' }
-                                ],
-                            })(
-                                <Search
-                                    style={{ width: width }}
-                                    placeholder={"请选择" + label}
-                                    enterButton
-                                    onSearch={
-                                        (e) => {
-                                            if (e != "")
-                                                item.trigger({ ...item, flag: 0 })
-                                            else
-                                                item.trigger({ ...item, flag: 1 })
-                                        }
-                                    }
-                                    onClick={
-                                        (e) => {
-                                            if (e != "")
-                                                item.trigger({ ...item, flag: 0 })
-                                            else
-                                                item.trigger({ ...item, flag: 1 })
-                                        }
-                                    }
-                                    readOnly
-                                    allowClear
-                                />
-                            )
-                        }
-                    </FormItem>;
-                    formItemList.push(ADVSELECT);
-                } else if (item.type === 'ADVSELECTPK') {
-                    const ADVSELECTPK = <FormItem key={field} style={{ display: "none" }} >
-                        {
-                            getFieldDecorator([field], {
-                                initialValue: initialValue
-                            })(
-                                <div />
-                            )
-                        }
-                    </FormItem>;
-                    formItemList.push(ADVSELECTPK);
                 } else if (item.type === 'REFCOMP') {
                     const REFCOMP = <RefComponent
-                            item={item}
-                            formRef={this.props.form}
-                        />;
+                        item={item}
+                        formRef={this.props.form}
+                    />;
                     formItemList.push(REFCOMP);
                 } else if (item.type === 'REFCOMPPK') {
                     const REFCOMPPK = <FormItem key={field} style={{ display: "none" }} >
