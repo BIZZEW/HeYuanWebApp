@@ -20,10 +20,10 @@ export default class Axios {
         }).catch((error) => {
             _this.setState({
                 list: [
-                    { "code": "1001000037", "name": "散装测试2", "pk_material": "1001B1100000000B4W9K" },
-                    { "code": "1001000036", "name": "袋装测试2", "pk_material": "1001B1100000000B4W5B" },
-                    { "code": "0101000300", "name": "大宗原材料测试2", "pk_material": "1001B1100000000B5KLK" },
-                    { "code": "0101000001", "name": "石灰石2", "pk_material": "1001A210000000001NUF" }
+                    { "code": "1001000037", "name": "散装测试2", "billno": "1001B1100000000B4W9K" },
+                    { "code": "1001000036", "name": "袋装测试2", "billno": "1001B1100000000B4W5B" },
+                    { "code": "0101000300", "name": "大宗原材料测试2", "billno": "1001B1100000000B5KLK" },
+                    { "code": "0101000001", "name": "石灰石2", "billno": "1001A210000000001NUF" }
                 ]
             });
         })
