@@ -11,13 +11,21 @@ export default class Axios {
             url,
             params,
             method: "get",
-            isShowLoading: false,
+            // isShowLoading: false,
         }).then((data) => {
-            _this.formList[1].list = data.result;
-            _this.forceUpdate();
+            // _this.formList[1].list = data.result;
+            _this.setState({
+                list: data.result
+            });
         }).catch((error) => {
-            // _this.formList[1].list = ["zzzzzzzzz", "H4302020010600000001"];
-            // _this.forceUpdate();
+            _this.setState({
+                list: [
+                    { "code": "1001000037", "name": "散装测试2", "pk_material": "1001B1100000000B4W9K" },
+                    { "code": "1001000036", "name": "袋装测试2", "pk_material": "1001B1100000000B4W5B" },
+                    { "code": "0101000300", "name": "大宗原材料测试2", "pk_material": "1001B1100000000B5KLK" },
+                    { "code": "0101000001", "name": "石灰石2", "pk_material": "1001A210000000001NUF" }
+                ]
+            });
         })
     }
 
@@ -1045,8 +1053,8 @@ export default class Axios {
             axios({
                 url: options.url,
                 method: options.method,
-                baseURL: baseApi0,
-                timeout: 60000,
+                baseURL: baseApi2,
+                timeout: 1000,
                 params: (options.params) || "",
                 data: (options.data) || "",
             }).then((response) => {

@@ -20,9 +20,6 @@ export default class Delivery extends React.Component {
 		// 关闭原因弹窗控制
 		isVisible2: false,
 
-		clientRef: sessionStorage.getItem('clientRef') || [],
-		cementRef: sessionStorage.getItem('cementRef') || [],
-
 		// 发货库存组织PK(隐藏字段)
 		// sendstockorg: "",
 		vehicles: [],
@@ -307,7 +304,6 @@ export default class Delivery extends React.Component {
 			field: 'noticecode',
 			placeholder: '请输入订单号',
 			width: 200,
-			list: this.state.cementRef,
 			idKey: "noticecode",
 			valueKey: "name",
 		},

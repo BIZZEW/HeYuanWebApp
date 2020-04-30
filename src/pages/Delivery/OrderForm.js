@@ -23,10 +23,7 @@ class OrderForm extends React.Component {
 		list: [],
 		selectedRowKeys: [],
 		selectedRows: null,
-
-		clientRef: sessionStorage.getItem('clientRef') || [],
-		cementRef: sessionStorage.getItem('cementRef') || [],
-		companyRef: sessionStorage.getItem('companyRef') || [],
+		
 		vehicleList: [],
 
 		// 采购订单
@@ -152,7 +149,6 @@ class OrderForm extends React.Component {
 			field: 'noticecode',
 			placeholder: '请输入订单号',
 			width: 200,
-			list: this.state.cementRef,
 			idKey: "noticecode",
 			valueKey: "name",
 		},

@@ -9,7 +9,6 @@ export default {
         return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
     },
     pagination(data, callback) {
-        console.log(JSON.stringify(data))
         return {
             onChange: (current) => {
                 console.log("onchange triggered!");

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, Button, Form, Input, Select, Radio, Icon, Modal, DatePicker, InputNumber, Divider, Table } from 'antd'
 import axios from './../../axios'
+import SelectComponent from './../../components/SelectComponent';
 import Utils from './../../utils/utils'
 import VehicleForm from './VehicleForm'
 const FormItem = Form.Item;
@@ -103,11 +104,6 @@ class OrderForm extends React.Component {
 		})
 	}
 
-	getSubOptions = (param) => {
-		axios.requestOptions2(this, '/querycemtype', param, "cementRef");
-		axios.requestOptions2(this, '/querysaleunit', param, "companyRef");
-	}
-
 	handleSubmit3 = () => {
 		this.setState({
 			isVisible3: false,
@@ -186,44 +182,44 @@ class OrderForm extends React.Component {
 		return (
 			<div>
 				<Form layout="horizontal">
-					<FormItem label="客户" {...formItemLayout}>
-						{
-							type == 'detail' ? orderInfo.customername :
-								getFieldDecorator('customer', {
-									initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].customer) : undefined,
-								})(
-									<Select
-										placeholder={"请选择客户"}
-										onChange={(value) => {
-											this.getSubOptions({ "customer": value });
-											this.props.form.resetFields(["pk_salesorg", "pk_material"]);
-										}}>
-										{Utils.getOptionList({
-											list: this.state.clientRef,
-											idKey: "customer",
-											valueKey: "customername"
-										})}
-									</Select>
-								)
+					<SelectComponent
+						item={
+							{
+								label: '客户',
+								field: 'customer',
+								// width: 200,
+								initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].customer) : undefined,
+								list: this.state.clientRef,
+								idKey: "customer",
+								valueKey: "customername",
+								subs: ["pk_salesorg", "pk_material"],
+								horizontal: true,
+							}
 						}
-					</FormItem>
-					<FormItem label="销售单位" {...formItemLayout}>
-						{
-							type == 'detail' ? orderInfo.saleorgname :
-								getFieldDecorator('pk_salesorg', {
-									initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].saleorg) : undefined,
-								})(
-									<Select
-										placeholder={"请选择销售单位"}>
-										{Utils.getOptionList({
-											list: this.state.companyRef,
-											idKey: "pk_salesorg",
-											valueKey: "name"
-										})}
-									</Select>
-								)
+						formSelect={this.props.form}
+						type={type}
+						detail={orderInfo.customername}
+					/>
+
+					<SelectComponent
+						item={
+							{
+								label: '销售单位',
+								field: 'pk_salesorg',
+								initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].saleorg) : undefined,
+								list: this.state.companyRef,
+								idKey: "pk_salesorg",
+								valueKey: "name",
+								sups: ["customer"],
+								horizontal: true,
+								requestUrl: "/querysaleunit"
+							}
 						}
-					</FormItem>
+						formSelect={this.props.form}
+						type={type}
+						detail={orderInfo.saleorgname}
+					/>
+
 					<FormItem label="发货企业" {...formItemLayout}>
 						{
 							type == 'detail' ? orderInfo.sendstockorgname :
@@ -244,30 +240,31 @@ class OrderForm extends React.Component {
 
 					<Divider />
 
-					<FormItem label="水泥品种" {...formItemLayout}>
-						{
-							type == 'detail' ? orderInfo.materialname :
-								getFieldDecorator('pk_material', {
-									initialValue: orderInfo.pk_material || undefined
-								})(
-									<Select
-										placeholder={"请选择水泥品种"}>
-										{Utils.getOptionList({
-											list: this.state.cementRef,
-											idKey: "pk_material",
-											valueKey: "name"
-										})}
-									</Select>
-								)
+					<SelectComponent
+						item={
+							{
+								label: '水泥品种',
+								field: 'pk_material',
+								list: this.state.cementRef,
+								idKey: "pk_material",
+								valueKey: "name",
+								sups: ["customer"],
+								horizontal: true,
+								requestUrl: "/querycemtype"
+							}
 						}
-					</FormItem>
+						formSelect={this.props.form}
+						type={type}
+						detail={orderInfo.materialname}
+					/>
+
 					<FormItem label="数量" {...formItemLayout}>
 						{
 							type == 'detail' ? orderInfo.ordernum :
 								getFieldDecorator('ordernum', {
 									initialValue: orderInfo.ordernum
 								})(
-									<InputNumber min={1} defaultValue={0}  style={{ width: "100%" }} />
+									<InputNumber min={1} defaultValue={0} style={{ width: "100%" }} />
 								)
 						}
 					</FormItem>
@@ -293,6 +290,7 @@ class OrderForm extends React.Component {
 									)
 							}
 						</FormItem>
+
 						<FormItem label="司机姓名" {...formItemLayout}>
 							{
 								type == 'detail' ? orderInfo.drivername :
@@ -304,6 +302,7 @@ class OrderForm extends React.Component {
 									)
 							}
 						</FormItem>
+
 						<FormItem label="手机号" {...formItemLayout}>
 							{
 								type == 'detail' ? orderInfo.telphone :
@@ -315,6 +314,7 @@ class OrderForm extends React.Component {
 									)
 							}
 						</FormItem>
+						
 						<FormItem label="身份证" {...formItemLayout}>
 							{
 								type == 'detail' ? orderInfo.driveridentity :

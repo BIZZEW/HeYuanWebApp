@@ -31,26 +31,26 @@ export default class OnlineOrder extends React.Component {
 
 	formList = [
 		{
-			type: 'SELECT',
+			type: 'SELECTCOMP',
 			label: '客户',
 			field: 'customer',
-			placeholder: '请选择客户',
 			width: 200,
 			initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].customer) : undefined,
 			list: this.state.clientRef,
 			idKey: "customer",
 			valueKey: "customername",
-			cascade: "pk_material"
+			subs: ["pk_material"]
 		},
 		{
-			type: 'SELECT',
+			type: 'SELECTCOMP',
 			label: '水泥品种',
 			field: 'pk_material',
-			placeholder: '请选择水泥品种',
 			width: 200,
 			list: this.state.cementRef,
 			idKey: "pk_material",
 			valueKey: "name",
+			sups: ["customer"],
+			requestUrl: "/querycemtype"
 		},
 		{
 			type: 'DATE',

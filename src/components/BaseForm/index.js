@@ -1,8 +1,9 @@
-import React from 'react'
-import { Input, Select, Form, Button, Checkbox, DatePicker } from 'antd'
-import Utils from '../../utils/utils'
-import axios from './../../axios'
+import React from 'react';
+import { Input, Select, Form, Button, Checkbox, DatePicker } from 'antd';
+import Utils from '../../utils/utils';
+import axios from './../../axios';
 import RefComponent from '../RefComponent';
+import SelectComponent from '../SelectComponent';
 const FormItem = Form.Item;
 const { RangePicker } = DatePicker;
 
@@ -89,6 +90,12 @@ class FilterForm extends React.Component {
                         }
                     </FormItem>;
                     formItemList.push(SELECT);
+                } else if (item.type === 'SELECTCOMP') {
+                    const SELECTCOMP = <SelectComponent
+                        item={item}
+                        formSelect={this.props.form}
+                    />;
+                    formItemList.push(SELECTCOMP);
                 } else if (item.type === 'REFCOMP') {
                     const REFCOMP = <RefComponent
                         item={item}
