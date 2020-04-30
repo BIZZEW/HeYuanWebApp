@@ -1,9 +1,8 @@
 import React from 'react'
 import { Button, Form, Input, Modal, InputNumber, Table } from 'antd'
 import axios from './../../axios'
-import RefComponent from './../../components/RefComponent';
-import './delivery.scss'
 const FormItem = Form.Item;
+const { Search } = Input;
 
 class VehicleForm extends React.Component {
 	state = {
@@ -13,36 +12,22 @@ class VehicleForm extends React.Component {
 		selectedRows: null,
 	}
 
-	getDriverOptions = () => {
+	getDriverOptions = (value) => {
 		let _this = this;
-		this.props.form.validateFields(["vlicense"], (err, values) => {
+		this.props.form.validateFields(["vehicle"], (err, values) => {
 			if (!err) {
-				let param = _this.props.form.getFieldsValue(["vlicense"]);
-				param = {
-					...param,
-					action: 10,
-					page: 1,
-					numbersperpage: 30,
-					serviceid: "refInfoService",
-					ncusercode: sessionStorage.getItem("userName") || "",
-					ncuserpassword: sessionStorage.getItem("passWord") || "",
-					pk_appuser: sessionStorage.getItem("pkAppuser") || "",
-					flag: true
-				}
-				axios.getDriverInfoPurchase(this, '/purchase', param);
+				let param = _this.props.form.getFieldsValue(["vehicle"]);
+				axios.getDriverInfo(this, '/querydriver', param);
 			}
 		})
 	}
 
-	handleSubmit5 = (driver) => {
-		let driverInfo = driver || this.state.selectedRowKeys || null;
-		if (driverInfo) {
+	handleSubmit5 = () => {
+		if (this.state.selectedRowKeys) {
 			this.setState({ isVisible5: false });
-			this.props.form.setFieldsValue({
-				'drivername': driverInfo.code,
-				'drivertelephone': (driverInfo.name.split(" ")[1]) || "",
-				'driveridcode': driverInfo.pk
-			});
+			this.props.form.setFieldsValue({ 'drivername': this.state.selectedRowKeys.drivername });
+			this.props.form.setFieldsValue({ 'telphone': this.state.selectedRowKeys.telphone });
+			this.props.form.setFieldsValue({ 'driveridentity': this.state.selectedRowKeys.driveridentity });
 		} else {
 			Modal.info({
 				zIndex: 1002,
@@ -72,55 +57,37 @@ class VehicleForm extends React.Component {
 		const columns = [
 			{
 				title: '姓名',
-				dataIndex: 'code'
+				dataIndex: 'drivername'
 			}, {
 				title: '手机号',
-				dataIndex: 'name',
-				render: (text) => {
-					return text.split(" ")[1] || "";
-				}
+				dataIndex: 'telphone',
 			}, {
 				title: '身份证',
-				dataIndex: 'pk',
+				dataIndex: 'driveridentity',
 			},
 		];
 
 		return (
 			<div>
 				<Form layout="horizontal">
-					<Button style={{ "width": "20%", "position": "absolute", "right": "4.5%", "marginTop": "0.6%", "zIndex": "1" }} type="primary" onClick={this.getDriverOptions}>获取司机信息</Button>
-
-					<RefComponent
-						item={
-							{
-								action: 9,
-								label: "车牌号",
-								key: 'vlicense',
-								field: 'vlicense',
-								required: true,
-								width: "68%",
-								horizontal: true,
-								initialValue: vehicleInfo.vlicense,
-								sups: [{
-									key: "pk_supplier",
-									field: "pk_supplier",
-									name: "供应商"
-								}]
-							}
-						}
-						formRef={this.props.form}
-					/>
-
-					<FormItem style={{ display: "none" }} >
+					<FormItem label="车牌号" {...formItemLayout}>
 						{
-							getFieldDecorator('pk_supplier', {
-								initialValue: this.props.pk_supplier
+							getFieldDecorator('vehicle', {
+								initialValue: vehicleInfo.vehicle,
+								rules: [
+									{ pattern: /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}([A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1})|([A-Z0-9]{7})$/, message: '请输入有效的车牌号!' },
+									{ required: true, message: '请输入车牌!' }
+								],
 							})(
-								<div />
+								<Search
+									placeholder="请输入车牌号"
+									enterButton="获取"
+									// size="large"
+									onSearch={value => this.getDriverOptions(value)}
+								/>
 							)
 						}
 					</FormItem>
-
 					<FormItem label="司机姓名" {...formItemLayout}>
 						{
 							getFieldDecorator('drivername', {
@@ -131,29 +98,26 @@ class VehicleForm extends React.Component {
 							)
 						}
 					</FormItem>
-
 					<FormItem label="手机号" {...formItemLayout}>
 						{
-							getFieldDecorator('drivertelephone', {
-								initialValue: vehicleInfo.drivertelephone,
+							getFieldDecorator('telphone', {
+								initialValue: vehicleInfo.telphone,
 								// rules: [{ required: true, message: '请获取司机信息!' }],
 							})(
 								<Input type="text" placeholder="请获取司机信息" allowClear />
 							)
 						}
 					</FormItem>
-
 					<FormItem label="身份证" {...formItemLayout}>
 						{
-							getFieldDecorator('driveridcode', {
-								initialValue: vehicleInfo.driveridcode,
+							getFieldDecorator('driveridentity', {
+								initialValue: vehicleInfo.driveridentity,
 								// rules: [{ required: true, message: '请获取司机信息!' }],
 							})(
 								<Input type="text" placeholder="请获取司机信息" allowClear />
 							)
 						}
 					</FormItem>
-
 					<FormItem label="车数" {...formItemLayout}>
 						{
 
@@ -163,29 +127,25 @@ class VehicleForm extends React.Component {
 									{ required: true, message: '请输入车数!' }
 								],
 							})(
-								<Input type="number" min={1} defaultValue={1} step={1} addonAfter={"辆"} />
+								// <InputNumber min={1} defaultValue={0} />
 
-								// <InputNumber min={1} defaultValue={0}/>
+								<Input type="number" min={1} defaultValue={1} step={1} addonAfter={"辆"} />
 							)
 						}
 					</FormItem>
-
-					{/* <Divider />
-					<Button style={{ "width": "30%", "marginLeft": "1.5%" }} type="primary" onClick={this.getDriverOptions}>获取司机信息</Button> */}
 				</Form>
 
 				{/* 司机信息 */}
 				<Modal
 					title={this.state.title5}
 					visible={this.state.isVisible5}
-					onOk={() => this.handleSubmit5(false)}
+					onOk={this.handleSubmit5}
 					onCancel={() => {
 						this.setState({
 							isVisible5: false
 						})
 					}}
 					width={1000}
-					destroyOnClose={true}
 				>
 					<div className="content-wrap">
 						<Table

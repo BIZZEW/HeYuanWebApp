@@ -28,9 +28,9 @@ class FilterForm extends React.Component {
                 param = { ...param, ...i };
 
         if (cascade === "billno")
-            axios.getOptions(this, '/querybillno', param);
+            axios.requestOptions(this, '/querybillno', param);
         else
-            axios.getOptions(this, '/querycemtype', param);
+            axios.requestOptions(this, '/querycemtype', param);
     }
 
     reset = () => {

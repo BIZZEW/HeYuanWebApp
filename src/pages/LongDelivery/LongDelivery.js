@@ -630,8 +630,8 @@ class OrderForm extends React.Component {
 		let orderInfo = this.props.orderInfo || {};
 		const { getFieldDecorator } = this.props.form;
 		const formItemLayout = {
-			labelCol: { span: 5 },
-			wrapperCol: { span: 19 }
+			labelCol: { span: 4 },
+			wrapperCol: { span: 20 }
 		}
 
 		const rowSelection = {
@@ -1030,8 +1030,8 @@ class VehicleForm extends React.Component {
 		let vehicleInfo = this.props.vehicleInfo || {};
 		const { getFieldDecorator } = this.props.form;
 		const formItemLayout = {
-			labelCol: { span: 5 },
-			wrapperCol: { span: 19 }
+			labelCol: { span: 4 },
+			wrapperCol: { span: 20 }
 		}
 
 		const rowRadioSelection = {

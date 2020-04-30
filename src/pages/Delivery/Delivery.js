@@ -6,15 +6,10 @@ import qs from 'qs'
 import Utils from './../../utils/utils'
 import BaseForm from './../../components/BaseForm'
 import OrderForm from './OrderForm'
-import ETable from './../../components/ETable'
 import moment from 'moment'
 import './delivery.scss'
 const FormItem = Form.Item;
-const RadioGroup = Radio.Group;
 const TextArea = Input.TextArea;
-const Option = Select.Option;
-const { Search } = Input;
-const { Panel } = Collapse;
 
 export default class Delivery extends React.Component {
 
@@ -200,10 +195,6 @@ export default class Delivery extends React.Component {
 	updateVehicles = (vehicles) => {
 		console.log("updateVehicles triggered!")
 		this.setState({ vehicles })
-	}
-
-	getSubOptions = (param) => {
-		axios.getOptions(this, '/querycemtype', param);
 	}
 
 	calTableHeight = () => {
@@ -427,7 +418,7 @@ export default class Delivery extends React.Component {
 					{...footer}
 					destroyOnClose={true}
 				>
-					<OrderForm type={this.state.type} orderInfo={this.state.orderInfo} wrappedComponentRef={(inst) => { this.orderForm = inst; }} getSubOptions={this.getSubOptions} updateVehicles={this.updateVehicles} vehicles={this.state.vehicles} />
+					<OrderForm type={this.state.type} orderInfo={this.state.orderInfo} wrappedComponentRef={(inst) => { this.orderForm = inst; }} updateVehicles={this.updateVehicles} vehicles={this.state.vehicles} />
 				</Modal>
 
 				<Modal

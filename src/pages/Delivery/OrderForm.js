@@ -1,7 +1,6 @@
 import React from 'react'
 import { Card, Button, Form, Input, Select, Radio, Icon, Modal, DatePicker, InputNumber, Divider, Table, Collapse } from 'antd'
 import axios from './../../axios'
-import Utils from './../../utils/utils'
 import RefComponent from './../../components/RefComponent';
 import BaseForm from './../../components/BaseForm'
 import VehicleForm from './VehicleForm'
@@ -287,12 +286,6 @@ class OrderForm extends React.Component {
 				content: '请先获取采购订单'
 			})
 		}
-	}
-
-	getSubOptions = (param) => {
-		// this.props.getSubOptions(param);
-		axios.getOptions2(this, '/querycemtype', param, "cementRef");
-		axios.getOptions2(this, '/querysaleunit', param, "companyRef");
 	}
 
 	handleSubmit0 = () => {
