@@ -88,6 +88,8 @@
    margin: -250px 25%;
    border-radius: 20px;
    box-shadow: 0px 8px 15px 5px #00000063;
+   border: 1px solid #ccffe027;
+   /* border-right: 1px solid #4ed69330; */
  }
 
  .wrapper::before {
@@ -177,6 +179,7 @@
    font-size: 18px;
    transition-duration: 0.25s;
    height: 50px !important;
+   border: 1px solid #c2e2ff54;
  }
 
  .bg-bubbles {
