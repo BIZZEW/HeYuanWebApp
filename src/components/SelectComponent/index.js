@@ -56,7 +56,7 @@ export default class SelectComponent extends React.Component {
         if (subs)
             for (let i of subs)
                 if (i)
-                    _form[i] = "";
+                    _form[i] = undefined;
 
         this.props.formSelect.setFieldsValue(_form);
     }
