@@ -20,31 +20,12 @@ export default class Axios {
         }).catch((error) => {
             _this.setState({
                 list: [
-                    { "code": "1001000037", "name": "散装测试2", "billno": "1001B1100000000B4W9K" },
-                    { "code": "1001000036", "name": "袋装测试2", "billno": "1001B1100000000B4W5B" },
-                    { "code": "0101000300", "name": "大宗原材料测试2", "billno": "1001B1100000000B5KLK" },
-                    { "code": "0101000001", "name": "石灰石2", "billno": "1001A210000000001NUF" }
+                    { "code": "1001000037", "name": "散装测试2", "pk_material": "1001B1100000000B4W9K" },
+                    { "code": "1001000036", "name": "袋装测试2", "pk_material": "1001B1100000000B4W5B" },
+                    { "code": "0101000300", "name": "大宗原材料测试2", "pk_material": "1001B1100000000B5KLK" },
+                    { "code": "0101000001", "name": "石灰石2", "pk_material": "1001A210000000001NUF" }
                 ]
             });
-        })
-    }
-
-    // 销售新增form获取下拉选项（水泥品种，销售单位）
-    static requestOptions2(_this, url, params, type) {
-        let ref = {};
-        this.ajax({
-            url,
-            params,
-            method: "get",
-            isShowLoading: false,
-        }).then((data) => {
-            ref[type] = data.result;
-            _this.setState(ref);
-            _this.forceUpdate();
-        }).catch((error) => {
-            // ref[type] = '[{ "code": "1001000037", "name": "散装测试", "pk_material": "1001B1100000000B4W9K" },{ "code": "1001000036", "name": "袋装测试", "pk_material": "1001B1100000000B4W5B" },{ "code": "0101000300", "name": "大宗原材料测试", "pk_material": "1001B1100000000B5KLK" },{ "code": "0101000001", "name": "石灰石", "pk_material": "1001A210000000001NUF" }]';
-            // _this.setState(ref);
-            // _this.forceUpdate();
         })
     }
 
