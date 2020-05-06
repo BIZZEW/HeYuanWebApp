@@ -457,7 +457,7 @@ class OrderForm extends React.Component {
 						className="site-collapse-custom-collapse"
 					>
 						<Panel header={"采购订单详情 / 货物: " + (type == 'detail' ? orderInfo.material_name : this.props.form.getFieldValue("material_name") || "") + " / 余量: " + (type == 'detail' ? orderInfo.remainnum : this.props.form.getFieldValue("remainnum") || "") + " " + (type == 'detail' ? orderInfo.material_dw : this.props.form.getFieldValue("material_dw") || "") + " / 矿点: " + (type == 'detail' ? orderInfo.orespotname : this.props.form.getFieldValue("orespotname") || "") + " /"} key="1" className="site-collapse-custom-panel">
-							<FormItem label="采购订单日期" {...formItemLayout} onClick={() => this.getProcureOptions()}>
+							<FormItem label="日期" {...formItemLayout} onClick={() => this.getProcureOptions()}>
 								{
 									type == 'detail' ? orderInfo.dbilldate :
 										getFieldDecorator('dbilldate', {
