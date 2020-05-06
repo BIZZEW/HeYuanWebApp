@@ -23,7 +23,7 @@ class OrderForm extends React.Component {
 		list: [],
 		selectedRowKeys: [],
 		selectedRows: null,
-		
+
 		vehicleList: [],
 
 		// 采购订单
@@ -729,6 +729,21 @@ class OrderForm extends React.Component {
 					</Card>
 					<div className="content-wrap">
 						<Table
+							onRow={(record, rowIndex) => {
+								return {
+									onDoubleClick: () => {
+										console.log(rowIndex, record);
+										let tmpSelected = [];
+										let tmpSelectedKeys = [];
+										tmpSelected.push(record);
+										tmpSelectedKeys.push(rowIndex);
+										this.setState({
+											selectedRowsProq: tmpSelected,
+											selectedRowKeysProq: tmpSelectedKeys,
+										}, () => this.handleSubmit0())
+									},
+								};
+							}}
 							bordered
 							columns={columns2}
 							dataSource={this.state.list}

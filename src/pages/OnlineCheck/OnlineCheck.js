@@ -59,10 +59,8 @@ export default class OnlineCheck extends React.Component {
 			type: 'SELECTCOMP',
 			label: '对账单号',
 			field: 'billno',
-			width: 200,
+			width: 250,
 			list: this.state.checkNoRef,
-			idKey: "billno",
-			valueKey: "name",
 			sups: ["customer"],
 			requestUrl: "/querybillno"
 		},
@@ -319,7 +317,7 @@ export default class OnlineCheck extends React.Component {
 						</div>
 					</div>
 					<Modal
-						title="确认导出"
+						title="导出确认"
 						visible={this.state.isVisible2}
 						onCancel={() => {
 							this.setState({
@@ -336,7 +334,7 @@ export default class OnlineCheck extends React.Component {
 								filename={this.state.currentOrg + "对账单_" + this.state.billdate}
 								sheet="tablexls"
 								// style={{ marginLeft: "10px", float: "right" }}
-								buttonText="确认" />
+								buttonText="确 认" />
 						]}
 					>
 						是否确认导出当前账单报表的EXCEL文件？

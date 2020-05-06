@@ -73,18 +73,17 @@ export default class SelectComponent extends React.Component {
     }
 
     injectOptions(data) {
-        if (!data) {
+        if (!data)
             return [];
-        }
+
         let { list, idKey, valueKey } = data;
         let options = [];
-        // var parsedList = eval(list);
         if (list)
             eval(list).map((item) => {
                 if (idKey)
                     options.push(<Option value={item[idKey]} key={item[idKey]}>{item[valueKey]}</Option>)
-                else
-                    options.push(<Option value={item} key={item[idKey]}>{item}</Option>)
+                else if (typeof (item) === 'string')
+                    options.push(<Option value={item} key={item}>{item}</Option>)
             })
         return options;
     }

@@ -212,11 +212,6 @@ export default class OnlineOrder extends React.Component {
 
 	render() {
 		const columns = [
-			// {
-			// 	title: 'id',
-			// 	dataIndex: 'id',
-			// 	width: 100,
-			// },
 			{
 				title: '单据号',
 				dataIndex: 'orderno'

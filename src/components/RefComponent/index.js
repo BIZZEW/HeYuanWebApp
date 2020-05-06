@@ -238,6 +238,21 @@ export default class RefComponent extends React.Component {
                 >
                     <div className="content-wrap">
                         <Table
+                            onRow={(record, rowIndex) => {
+                                return {
+                                    onDoubleClick: () => {
+                                        console.log(rowIndex, record);
+                                        let tmpSelected = [];
+                                        let tmpSelectedKeys = [];
+                                        tmpSelected.push(record);
+                                        tmpSelectedKeys.push(rowIndex);
+                                        this.setState({
+                                            selectedRowsRef: tmpSelected,
+                                            selectedRowKeysRef: tmpSelectedKeys,
+                                        }, () => this.handleSubmitRef())
+                                    },
+                                };
+                            }}
                             bordered
                             columns={columnsRef}
                             dataSource={this.state.refList}

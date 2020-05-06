@@ -130,7 +130,10 @@ export default class Delivery extends React.Component {
 	handleSubmit1 = () => {
 		let type = this.state.type;
 		let data = this.orderForm.props.form.getFieldsValue();
+		// 新增的时候采购日期不用传，只做展示
+		data.receiveDate = undefined;
 		console.log(data);
+
 		let vehicles = this.state.vehicles;
 
 		if (vehicles && vehicles.length > 0) {
