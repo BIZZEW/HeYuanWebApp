@@ -94,7 +94,8 @@ export default class OnlineOrder extends React.Component {
 	}
 
 	//功能区操作
-	handleOperate = (type, record) => {
+	handleOperate = (type, record, e) => {
+		e.stopPropagation();
 		let item = this.state.selectedItem;
 		console.log(item);
 		if (type == 'create') {
@@ -250,10 +251,10 @@ export default class OnlineOrder extends React.Component {
 				width: 220,
 				render: (text, record) => (
 					<span>
-						<Button type="primary" onClick={() => this.handleOperate('detail', record)} icon="search">详情</Button>
+						<Button type="primary" onClick={event => this.handleOperate('detail', record, event)} icon="search">详情</Button>
 						<Divider type="vertical" />
 						{/* <Button type="primary" onClick={() => this.handleOperate('edit', record.id)} icon="edit">编辑</Button> */}
-						<Button type="danger" icon="stop" onClick={() => this.handleOperate('stop', record)}>关闭</Button>
+						<Button type="danger" icon="stop" onClick={event => this.handleOperate('stop', record, event)}>关闭</Button>
 					</span>
 				),
 			},
@@ -273,6 +274,11 @@ export default class OnlineOrder extends React.Component {
 				</Card>
 				<div className="content-wrap">
 					<Table
+						onRow={(record, rowIndex) => {
+							return {
+								onClick: event => this.handleOperate('detail', record, event),
+							};
+						}}
 						columns={columns}
 						updateSelectedItem={Utils.updateSelectedItem.bind(this)}
 						selectedRowKeys={this.state.selectedRowKeys}
@@ -284,7 +290,7 @@ export default class OnlineOrder extends React.Component {
 						bordered={true}
 						footer={() => {
 							return <div>
-								<Button type="primary" icon="plus" onClick={() => this.handleOperate('create')}>新增</Button>
+								<Button type="primary" icon="plus" onClick={event => this.handleOperate('create', undefined, event)}>新增</Button>
 								{/* <Button type="primary" icon="delete" style={{ marginLeft: "10px" }} onClick={() => this.handleOperate('delete')}>删除</Button> */}
 								{/* <Button type="primary" icon="stop" style={{ marginLeft: "10px" }} onClick={() => this.handleOperate('delete')}>作废</Button> */}
 							</div>

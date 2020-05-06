@@ -129,7 +129,9 @@ export default class OnlineCheck extends React.Component {
 	}
 
 	//功能区操作
-	handleOperate = (type, record) => {
+	handleOperate = (type, record, e) => {
+		e.stopPropagation();
+		console.log("handleOperate triggered!");
 		let item = this.state.selectedItem;
 		if (type == 'detail') {
 			this.setState({
@@ -237,7 +239,7 @@ export default class OnlineCheck extends React.Component {
 				key: 'action',
 				render: (text, record) => (
 					<span>
-						<Button type="primary" onClick={() => this.handleOperate('detail', record)} icon="search">详情</Button>
+						<Button type="primary" onClick={event => this.handleOperate('detail', record, event)} icon="search">详情</Button>
 					</span>
 				),
 			},
@@ -251,6 +253,11 @@ export default class OnlineCheck extends React.Component {
 					</Card>
 					<div className="content-wrap">
 						<Table
+							onRow={(record, rowIndex) => {
+								return {
+									onClick: event => this.handleOperate('detail', record, event),
+								};
+							}}
 							columns={columns}
 							updateSelectedItem={Utils.updateSelectedItem.bind(this)}
 							selectedRowKeys={this.state.selectedRowKeys}
@@ -268,8 +275,8 @@ export default class OnlineCheck extends React.Component {
 			return (
 				<div>
 					<Tooltip title="返回"><Button type="default" onClick={() => { this.setState({ level: true }) }} icon="caret-left"></Button></Tooltip>
-					<Tooltip title={this.state.btnHide ? "本账单报表已确认，无法进行本操作" : "账单存在着一些问题"}><Button type="danger" icon="close" style={{ marginLeft: "10px", float: "right" }} onClick={() => this.handleOperate('dcheck')} disabled={this.state.btnHide}>需要核对</Button></Tooltip>
-					<Tooltip title={this.state.btnHide ? "本账单报表已确认，无法进行本操作" : "账单不存在任何问题"}><Button type="primary" icon="check" style={{ marginLeft: "10px", float: "right" }} onClick={() => this.handleOperate('confirm')} disabled={this.state.btnHide}>确认无误</Button></Tooltip>
+					<Tooltip title={this.state.btnHide ? "本账单报表已确认，无法进行本操作" : "账单存在着一些问题"}><Button type="danger" icon="close" style={{ marginLeft: "10px", float: "right" }} onClick={event => this.handleOperate('dcheck', undefined, event)} disabled={this.state.btnHide}>需要核对</Button></Tooltip>
+					<Tooltip title={this.state.btnHide ? "本账单报表已确认，无法进行本操作" : "账单不存在任何问题"}><Button type="primary" icon="check" style={{ marginLeft: "10px", float: "right" }} onClick={event => this.handleOperate('confirm', undefined, event)} disabled={this.state.btnHide}>确认无误</Button></Tooltip>
 					<Tooltip title="导出EXCEL格式的文件"><Button type="default" icon="file-excel" style={{ marginLeft: "10px", float: "right" }} onClick={() => this.setState({ isVisible2: true })} >导出</Button></Tooltip>
 
 					<div className="content-wrap">
