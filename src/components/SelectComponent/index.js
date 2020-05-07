@@ -8,6 +8,7 @@ export default class SelectComponent extends React.Component {
 
     state = {
         clientRef: sessionStorage.getItem('clientRef') || [],
+        loading: false,
     }
 
     selectParam = {}
@@ -15,8 +16,10 @@ export default class SelectComponent extends React.Component {
     selectClick(visible, item) {
         let { requestUrl, sups } = item;
 
+        // 有获取路径且状态变化为展开
         if (requestUrl && visible) {
             this.selectParam.requestUrl = requestUrl;
+            // 有上级的话确定上级已选并将上级作为获取选项的参数
             if (sups) {
                 for (let i of sups) {
                     if (i) {
@@ -35,7 +38,9 @@ export default class SelectComponent extends React.Component {
                     }
                 }
             }
-            this.requestOptions(this.selectParam);
+            this.setState({ loading: true }, () => {
+                this.requestOptions(this.selectParam)
+            });
         }
     }
 
@@ -47,7 +52,7 @@ export default class SelectComponent extends React.Component {
         axios.requestOptions(this, this.selectParam.requestUrl, param);
     }
 
-    handleSelect(item) {
+    handleChange(item) {
         let { subs } = item;
 
         let _form = {};
@@ -121,8 +126,10 @@ export default class SelectComponent extends React.Component {
                                 style={{ width: width }}
                                 placeholder={"请选择" + label}
                                 disabled={disabled}
-                                onSelect={() => this.handleSelect(item)}
+                                onChange={() => this.handleChange(item)}
                                 onDropdownVisibleChange={(visible) => this.selectClick(visible, item)}
+                                loading={this.state.loading}
+                                allowClear
                             >
                                 {this.injectOptions({ ...item, ...this.state })}
                             </Select>
