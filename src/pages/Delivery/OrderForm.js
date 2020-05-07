@@ -48,7 +48,7 @@ class OrderForm extends React.Component {
 			label: '开始日期',
 			field: 'begindate',
 			placeholder: '请选择开始日期',
-			initialValue: moment(new Date(new Date().getTime() - 24 * 60 * 60 * 1000), "YYYY-MM-DD"),
+			initialValue: moment(new Date(new Date().getTime()), "YYYY-MM-DD").subtract(1, "days"),
 		},
 		{
 			type: 'DATE',

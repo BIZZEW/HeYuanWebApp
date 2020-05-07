@@ -44,7 +44,7 @@ export default class LongDelivery extends React.Component {
 
 	requestList = () => {
 		if (!this.params.begindate)
-			this.params.begindate = moment(new Date(new Date().getTime() - 24 * 60 * 60 * 1000), "YYYY-MM-DD").format("YYYY-MM-DD");
+			this.params.begindate = moment(new Date(new Date().getTime()), "YYYY-MM-DD").subtract(1, "days").format("YYYY-MM-DD");
 		else if (this.params.begindate && (typeof (this.params.begindate) == "object"))
 			this.params.begindate = this.params.begindate.format("YYYY-MM-DD");
 
@@ -65,6 +65,7 @@ export default class LongDelivery extends React.Component {
 		axios.requestListPurchase(this, '/purchase', {
 			...this.params,
 			action: 4,
+			isFixed: 'Y',
 			serviceid: "fixedOrderService",
 			ncusercode: sessionStorage.getItem("userName") || "",
 			ncuserpassword: sessionStorage.getItem("passWord") || "",
@@ -132,6 +133,12 @@ export default class LongDelivery extends React.Component {
 		let data = this.orderForm.props.form.getFieldsValue();
 		// 新增的时候采购日期不用传，只做展示
 		data.receiveDate = undefined;
+
+		if (!data.denddate)
+			data.denddate = moment(new Date(new Date().getTime()), "YYYY-MM-DD").add(3, "months").format("YYYY-MM-DD");
+		else if (data.denddate && (typeof (data.denddate) == "object"))
+			data.denddate = data.denddate.format("YYYY-MM-DD");
+
 		console.log(data);
 
 		let vehicles = this.state.vehicles;
@@ -141,6 +148,7 @@ export default class LongDelivery extends React.Component {
 				...data,
 				vehicles: JSON.stringify(vehicles),
 				action: 1,
+				isFixed: 'Y',
 				serviceid: "fixedOrderService",
 				usercode: sessionStorage.getItem("userName") || "",
 				// ncuserpassword: sessionStorage.getItem("passWord") || "",
@@ -231,7 +239,7 @@ export default class LongDelivery extends React.Component {
 			field: 'begindate',
 			placeholder: '请选择开始日期',
 			required: true,
-			initialValue: moment(new Date(new Date().getTime() - 24 * 60 * 60 * 1000), "YYYY-MM-DD"),
+			initialValue: moment(new Date(new Date().getTime()), "YYYY-MM-DD").subtract(1, "days"),
 		},
 		{
 			type: 'DATE',
@@ -341,6 +349,10 @@ export default class LongDelivery extends React.Component {
 			{
 				title: '送货日期',
 				dataIndex: 'dbilldate'
+			},
+			{
+				title: '失效日期',
+				dataIndex: 'denddate'
 			},
 			{
 				title: '货物',

@@ -44,7 +44,7 @@ export default class Delivery extends React.Component {
 
 	requestList = () => {
 		if (!this.params.begindate)
-			this.params.begindate = moment(new Date(new Date().getTime() - 24 * 60 * 60 * 1000), "YYYY-MM-DD").format("YYYY-MM-DD");
+			this.params.begindate = moment(new Date(new Date().getTime()), "YYYY-MM-DD").subtract(1, "days").format("YYYY-MM-DD");
 		else if (this.params.begindate && (typeof (this.params.begindate) == "object"))
 			this.params.begindate = this.params.begindate.format("YYYY-MM-DD");
 
@@ -231,7 +231,7 @@ export default class Delivery extends React.Component {
 			field: 'begindate',
 			placeholder: '请选择开始日期',
 			required: true,
-			initialValue: moment(new Date(new Date().getTime() - 24 * 60 * 60 * 1000), "YYYY-MM-DD"),
+			initialValue: moment(new Date(new Date().getTime()), "YYYY-MM-DD").subtract(1, "days"),
 		},
 		{
 			type: 'DATE',

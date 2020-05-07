@@ -48,7 +48,7 @@ class OrderForm extends React.Component {
 			label: '开始日期',
 			field: 'begindate',
 			placeholder: '请选择开始日期',
-			initialValue: moment(new Date(new Date().getTime() - 24 * 60 * 60 * 1000), "YYYY-MM-DD"),
+			initialValue: moment(new Date(new Date().getTime()), "YYYY-MM-DD").subtract(1, "days"),
 		},
 		{
 			type: 'DATE',
@@ -576,6 +576,17 @@ class OrderForm extends React.Component {
 						}
 					</FormItem>
 
+					<FormItem label="失效日期" {...formItemLayout}>
+						{
+							type == 'detail' ? orderInfo.denddate :
+								getFieldDecorator('denddate', {
+									initialValue: moment(new Date(new Date().getTime()), "YYYY-MM-DD").add(3, "months"),
+								})(
+									<DatePicker format="YYYY-MM-DD" style={{ width: "100%" }} defaultValue={moment(new Date(new Date()), "YYYY-MM-DD").add(3, "months")} />
+								)
+						}
+					</FormItem>
+
 					<FormItem label="原发净重" {...formItemLayout}>
 						{
 							type == 'detail' ? orderInfo.srcsendnum :
@@ -634,7 +645,7 @@ class OrderForm extends React.Component {
 						}
 					</FormItem>
 
-					<FormItem label="集装箱号" {...formItemLayout}>
+					{/* <FormItem label="集装箱号" {...formItemLayout}>
 						{
 							type == 'detail' ? orderInfo.containerno :
 								getFieldDecorator('containerno', {
@@ -643,7 +654,7 @@ class OrderForm extends React.Component {
 									<Input type="text" placeholder="请填写集装箱号" allowClear />
 								)
 						}
-					</FormItem>
+					</FormItem> */}
 
 					<Divider />
 
