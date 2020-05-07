@@ -29,19 +29,7 @@ export default class Axios {
             //     loading: false
             // });
 
-            if (String(error).toLowerCase().indexOf('timeout') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器繁忙，请稍后重试'
-                })
-            } else if (String(error).toLowerCase().indexOf('network') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器问失败，请稍后重试'
-                })
-            }
+            this.checkNetError(error);
         })
     }
 
@@ -113,19 +101,7 @@ export default class Axios {
             //     })
             // })
 
-            if (String(error).toLowerCase().indexOf('timeout') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器繁忙，请稍后重试'
-                })
-            } else if (String(error).toLowerCase().indexOf('network') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器问失败，请稍后重试'
-                })
-            }
+            this.checkNetError(error);
         })
     }
 
@@ -470,19 +446,7 @@ export default class Axios {
             //     })
             // }
 
-            if (String(error).toLowerCase().indexOf('timeout') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器繁忙，请稍后重试'
-                })
-            } else if (String(error).toLowerCase().indexOf('network') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器问失败，请稍后重试'
-                })
-            }
+            this.checkNetError(error);
         })
     }
 
@@ -523,19 +487,7 @@ export default class Axios {
             //     selectedRowKeys: [],
             // })
 
-            if (String(error).toLowerCase().indexOf('timeout') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器繁忙，请稍后重试'
-                })
-            } else if (String(error).toLowerCase().indexOf('network') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器问失败，请稍后重试'
-                })
-            }
+            this.checkNetError(error);
         })
     }
 
@@ -560,19 +512,7 @@ export default class Axios {
             //     list: data.result
             // })
 
-            if (String(error).toLowerCase().indexOf('timeout') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器繁忙，请稍后重试'
-                })
-            } else if (String(error).toLowerCase().indexOf('network') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器问失败，请稍后重试'
-                })
-            }
+            this.checkNetError(error);
         })
     }
 
@@ -594,19 +534,7 @@ export default class Axios {
                 content: '新增成功'
             })
         }).catch((error) => {
-            if (String(error).toLowerCase().indexOf('timeout') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器繁忙，请稍后重试'
-                })
-            } else if (String(error).toLowerCase().indexOf('network') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器问失败，请稍后重试'
-                })
-            }
+            this.checkNetError(error);
         })
     }
 
@@ -628,19 +556,7 @@ export default class Axios {
                 content: '关闭成功'
             })
         }).catch((error) => {
-            if (String(error).toLowerCase().indexOf('timeout') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器繁忙，请稍后重试'
-                })
-            } else if (String(error).toLowerCase().indexOf('network') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器问失败，请稍后重试'
-                })
-            }
+            this.checkNetError(error);
         })
     }
 
@@ -658,19 +574,7 @@ export default class Axios {
                 content: '删除成功'
             })
         }).catch((error) => {
-            if (String(error).toLowerCase().indexOf('timeout') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器繁忙，请稍后重试'
-                })
-            } else if (String(error).toLowerCase().indexOf('network') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器问失败，请稍后重试'
-                })
-            }
+            this.checkNetError(error);
         })
     }
 
@@ -702,19 +606,7 @@ export default class Axios {
             //     content: '操作成功'
             // })
 
-            if (String(error).toLowerCase().indexOf('timeout') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器繁忙，请稍后重试'
-                })
-            } else if (String(error).toLowerCase().indexOf('network') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器问失败，请稍后重试'
-                })
-            }
+            this.checkNetError(error);
         })
     }
 
@@ -730,7 +622,7 @@ export default class Axios {
         axios({
             url: url,
             method: 'post',
-            baseURL: baseApi,
+            baseURL: baseApi0,
             data: data,
             responseType: 'blob'
         }).then((res) => {
@@ -828,19 +720,7 @@ export default class Axios {
             //     })
             // })
 
-            if (String(error).toLowerCase().indexOf('timeout') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器繁忙，请稍后重试'
-                })
-            } else if (String(error).toLowerCase().indexOf('network') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器问失败，请稍后重试'
-                })
-            }
+            this.checkNetError(error);
         })
     }
 
@@ -912,19 +792,7 @@ export default class Axios {
             //     })
             // })
 
-            if (String(error).toLowerCase().indexOf('timeout') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器繁忙，请稍后重试'
-                })
-            } else if (String(error).toLowerCase().indexOf('network') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器问失败，请稍后重试'
-                })
-            }
+            this.checkNetError(error);
         })
     }
 
@@ -966,19 +834,7 @@ export default class Axios {
             // else if (data.datas.queryresults.length == 1)
             //     _this.handleSubmit5(data.datas.queryresults[0]);
 
-            if (String(error).toLowerCase().indexOf('timeout') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器繁忙，请稍后重试'
-                })
-            } else if (String(error).toLowerCase().indexOf('network') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器问失败，请稍后重试'
-                })
-            }
+            this.checkNetError(error);
         })
     }
 
@@ -1002,19 +858,7 @@ export default class Axios {
                 content: '修改成功'
             })
         }).catch((error) => {
-            if (String(error).toLowerCase().indexOf('timeout') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器繁忙，请稍后重试'
-                })
-            } else if (String(error).toLowerCase().indexOf('network') != -1) {
-                Modal.error({
-                    zIndex: 1002,
-                    title: '提示',
-                    content: '服务器问失败，请稍后重试'
-                })
-            }
+            this.checkNetError(error);
         })
     }
 
@@ -1031,6 +875,23 @@ export default class Axios {
             })
         })
     }
+
+    static checkNetError(error) {
+        if (String(error).toLowerCase().indexOf('timeout') != -1) {
+            Modal.error({
+                zIndex: 1002,
+                title: '提示',
+                content: '服务器繁忙，请稍后重试'
+            })
+        } else if (String(error).toLowerCase().indexOf('network') != -1) {
+            Modal.error({
+                zIndex: 1002,
+                title: '提示',
+                content: '服务器问失败，请稍后重试'
+            })
+        }
+    }
+
 
     static ajax(options) {
         let loading;
@@ -1050,8 +911,8 @@ export default class Axios {
             axios({
                 url: options.url,
                 method: options.method,
-                baseURL: baseApi,
-                timeout: 1000,
+                baseURL: baseApi0,
+                timeout: 60000,
                 params: (options.params) || "",
                 data: (options.data) || "",
             }).then((response) => {
