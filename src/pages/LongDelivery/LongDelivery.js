@@ -11,7 +11,7 @@ import './longdelivery.scss'
 const FormItem = Form.Item;
 const TextArea = Input.TextArea;
 
-export default class Delivery extends React.Component {
+export default class LongDelivery extends React.Component {
 
 	state = {
 		list: [],
