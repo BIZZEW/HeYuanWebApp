@@ -562,12 +562,12 @@ class OrderForm extends React.Component {
 
 					{/* 收货单号只在详情时展示 */}
 					{(type == "detail") && (<FormItem label="收货单号" {...formItemLayout}>
-						{orderInfo.drivername}
+						{orderInfo.noticecode}
 					</FormItem>)}
 
 					<FormItem label="收货日期" {...formItemLayout}>
 						{
-							type == 'detail' ? orderInfo.receiveDate :
+							type == 'detail' ? orderInfo.dbilldate :
 								getFieldDecorator('receiveDate', {
 									initialValue: moment(new Date(), "YYYY-MM-DD"),
 								})(
@@ -622,7 +622,7 @@ class OrderForm extends React.Component {
 						}
 						formRef={this.props.form}
 						type={type}
-						detail={orderInfo.sendsuppliername}
+						detail={orderInfo.sendsupplier_name}
 					/>
 
 					{/* 运输商主键 */}
