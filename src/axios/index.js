@@ -29,6 +29,10 @@ export default class Axios {
             //     loading: false
             // });
 
+            _this.setState({
+                loading: false
+            });
+
             this.checkNetError(error);
         })
     }
