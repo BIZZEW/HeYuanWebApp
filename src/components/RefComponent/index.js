@@ -7,7 +7,7 @@ const { Search } = Input;
 export default class RefComponent extends React.Component {
 
     state = {
-        // 高级选择弹窗控制
+        // 分页参照弹窗控制
         isVisibleRef: false,
 
         // 基础数据
@@ -26,10 +26,7 @@ export default class RefComponent extends React.Component {
 
     refItem = {}
 
-    componentDidMount() {
-    }
-
-    // 高级选择打开
+    // 分页参照打开
     openRef = (item) => {
         let { field, key, action, label, flag, subs, sups } = item;
         let keyfield = this.props.formRef.getFieldValue(key);
@@ -88,17 +85,17 @@ export default class RefComponent extends React.Component {
         }
     }
 
-    // 高级选择查询
+    // 分页参照查询
     requestRef = () => {
         axios.requestRef(this, '/purchase', this.refParam);
     }
 
-    // 高级选择变动
+    // 分页参照变动
     onSelectChange = selectedRowKeysRef => {
         this.setState({ selectedRowKeysRef });
     };
 
-    //高级选择确认
+    //分页参照确认
     handleSubmitRef = () => {
         if (this.state.selectedRowsRef && this.state.selectedRowsRef[0]) {
             let item = this.state.selectedRowsRef[0];

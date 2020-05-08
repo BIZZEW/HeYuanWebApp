@@ -13,6 +13,7 @@ export default class SelectComponent extends React.Component {
 
     selectParam = {}
 
+    // 下拉参照打开
     selectClick(visible, item) {
         let { requestUrl, sups } = item;
 
@@ -44,6 +45,7 @@ export default class SelectComponent extends React.Component {
         }
     }
 
+    // 下拉参照选项查询
     requestOptions(param) {
         for (var i of eval(this.state.clientRef))
             if (i.customer === param.customer)
@@ -52,31 +54,7 @@ export default class SelectComponent extends React.Component {
         axios.requestOptions(this, this.selectParam.requestUrl, param);
     }
 
-    handleChange(item) {
-        let { subs } = item;
-
-        let _form = {};
-
-        // 清空下级
-        if (subs)
-            for (let i of subs)
-                if (i)
-                    _form[i] = undefined;
-
-        this.props.formSelect.setFieldsValue(_form);
-    }
-
-    getSubOptions = (param, sub) => {
-        for (var i of eval(this.state.clientRef))
-            if (i.customer === param.customer)
-                param = { ...param, ...i };
-
-        if (sub === "billno")
-            axios.requestOptions(this, '/querybillno', param);
-        else
-            axios.requestOptions(this, '/querycemtype', param);
-    }
-
+    // 下拉参照选项注入
     injectOptions(data) {
         if (!data)
             return [];
@@ -91,6 +69,21 @@ export default class SelectComponent extends React.Component {
                     options.push(<Option value={item} key={item}>{item}</Option>)
             })
         return options;
+    }
+
+    // 下拉参照变动
+    handleChange(item) {
+        let { subs } = item;
+
+        let _form = {};
+
+        // 清空下级
+        if (subs)
+            for (let i of subs)
+                if (i)
+                    _form[i] = undefined;
+
+        this.props.formSelect.setFieldsValue(_form);
     }
 
     render() {
