@@ -19,7 +19,7 @@ export default class RefComponent extends React.Component {
         // 页面基础数据查询页码
         page: 1,
         serviceid: "refInfoService",
-        numbersperpage: 30,
+        numbersperpage: 10,
         flag: true,
         pk_appuser: sessionStorage.getItem("pkAppuser") || "",
     }

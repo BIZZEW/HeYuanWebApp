@@ -22,7 +22,7 @@ class VehicleForm extends React.Component {
 					...param,
 					action: 10,
 					page: 1,
-					numbersperpage: 30,
+					numbersperpage: 10,
 					serviceid: "refInfoService",
 					ncusercode: sessionStorage.getItem("userName") || "",
 					ncuserpassword: sessionStorage.getItem("passWord") || "",
