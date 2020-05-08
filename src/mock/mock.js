@@ -29,10 +29,6 @@ export const login = (loginObject) => {
 	let baseApi4 = 'http://10.1.8.231:80/service';
 
 	return new Promise((resolve, reject) => {
-
-		// sessionStorage.setItem('userName', loginObject.username)
-		// resolve();
-
 		let data = {
 			"username": loginObject.username,
 			"password": loginObject.password
@@ -43,29 +39,31 @@ export const login = (loginObject) => {
 			method: 'post',
 			baseURL: baseApi0,
 			timeout: 8000,
-			// params: qs.stringify(data),
-			// params: data,
 			data: qs.stringify(data),
-			// data: data,
 		}).then((response) => {
 			if (response.status === 200) {
 				let res = response.data;
 				if (res.code === 0) {
+					// 当前登录的用户名密码
 					sessionStorage.setItem('userName', loginObject.username);
 					sessionStorage.setItem('passWord', loginObject.password);
+
+					// 当前用户主键
 					sessionStorage.setItem('pkAppuser', res.pk_appuser ? res.pk_appuser : "");
+
+					// 采购模块的默认收货企业
 					sessionStorage.setItem('dftstockorg', res.dfltrcvstockorg ? JSON.stringify(res.dfltrcvstockorg) : "");
 
+					// 权限管理
 					let roles = res.role ? res.role : [];
 					let rolesBase = [1, 7, 8];
 					sessionStorage.setItem('roles', [...roles, ...rolesBase]);
 
-
+					// 销售模块的默认客户，水泥品种，销售单位，对账单号
 					if (res.result && res.result[0] && res.result[0]) {
 						sessionStorage.setItem('clientRef', res.result ? JSON.stringify(res.result) : "");
 
 						let defaultCustomer = res.result[0];
-
 						defaultCustomer.username = loginObject.username;
 
 						// 用默认客户获取水泥品种
@@ -130,7 +128,6 @@ export const login = (loginObject) => {
 				reject(response.data)
 			}
 		}).catch((error) => {
-			// console.log("myerror",error);
 			reject(error);
 		})
 	})

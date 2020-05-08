@@ -98,7 +98,6 @@ class Layout extends React.Component {
 		this.props.history.push('/login')
 	}
 	changePassword = () => {
-		// this.props.history.push('/layout/change_password')
 		this.setState({ isFullScreen: false });
 		let matchChangePassword = this.getExitPane('title', '修改密码');
 		if (matchChangePassword !== null) {
