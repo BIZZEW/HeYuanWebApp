@@ -119,10 +119,18 @@ export default class LongDelivery extends React.Component {
 				}
 			})
 		} else if (type == 'stop') {
-			this.setState({
-				isVisible2: true,
-				title2: '关闭原因',
-				orderInfo: record
+			let _this = this;
+			Modal.confirm({
+				zIndex: 1002,
+				title: '确认作废',
+				content: `是否要作废当前选中数据`,
+				onOk() {
+					axios.nullifyOrder(_this, 'purchase', qs.stringify({
+						...record,
+						action: 2,
+						serviceid: "fixedOrderService"
+					}));
+				}
 			})
 		}
 	}
@@ -377,6 +385,9 @@ export default class LongDelivery extends React.Component {
 				render: (text, record) => (
 					<span>
 						<Button type="primary" onClick={event => this.handleOperate('detail', record, event)} icon="search">详情</Button>
+						<Divider type="vertical" />
+						{/* <Button type="primary" onClick={() => this.handleOperate('edit', record.id)} icon="edit">编辑</Button> */}
+						<Button type="danger" icon="stop" onClick={event => this.handleOperate('stop', record, event)}>作废</Button>
 					</span>
 				),
 			},

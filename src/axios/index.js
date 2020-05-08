@@ -842,6 +842,24 @@ export default class Axios {
         })
     }
 
+    // 采购长期送货单作废
+    static nullifyOrder(_this, url, data) {
+        this.ajax({
+            url,
+            data,
+            method: "post"
+        }).then((response) => {
+            _this.requestList();
+            Modal.success({
+                zIndex: 1002,
+                title: '提示',
+                content: '作废成功'
+            })
+        }).catch((error) => {
+            this.checkNetError(error);
+        })
+    }
+
 
 
 
