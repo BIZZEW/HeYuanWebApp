@@ -128,6 +128,8 @@ export default class LongDelivery extends React.Component {
 					axios.nullifyOrder(_this, 'purchase', qs.stringify({
 						...record,
 						action: 2,
+						isFixed: 'Y',
+						pk_stockorg: record.rcvstockorg_pk_org,
 						serviceid: "fixedOrderService"
 					}));
 				}
