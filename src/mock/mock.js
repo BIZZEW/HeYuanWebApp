@@ -53,15 +53,16 @@ export const login = (loginObject) => {
 				if (res.code === 0) {
 					sessionStorage.setItem('userName', loginObject.username);
 					sessionStorage.setItem('passWord', loginObject.password);
+					sessionStorage.setItem('pkAppuser', res.pk_appuser ? res.pk_appuser : "");
+					sessionStorage.setItem('dftstockorg', res.dfltrcvstockorg ? JSON.stringify(res.dfltrcvstockorg) : "");
+
+					let roles = res.role ? res.role : [];
+					let rolesBase = [1, 7, 8];
+					sessionStorage.setItem('roles', [...roles, ...rolesBase]);
+
 
 					if (res.result && res.result[0] && res.result[0]) {
 						sessionStorage.setItem('clientRef', res.result ? JSON.stringify(res.result) : "");
-						sessionStorage.setItem('pkAppuser', res.pk_appuser ? res.pk_appuser : "");
-						sessionStorage.setItem('dftstockorg', res.dfltrcvstockorg ? JSON.stringify(res.dfltrcvstockorg) : "");
-
-						let roles = res.role ? res.role : [];
-						let rolesBase = [1, 7, 8];
-						sessionStorage.setItem('roles', [...roles, ...rolesBase]);
 
 						let defaultCustomer = res.result[0];
 
