@@ -24,9 +24,15 @@ class CreateMenuList extends React.Component {
 
 	createMenu(data) {
 		const childMenuData = data.child;
+
 		let childMenu = <div></div>;
+
+		const roles = sessionStorage.getItem('roles');
+
 		if (childMenuData && childMenuData.length) {
-			childMenu = childMenuData.map((item) => {
+			childMenu = childMenuData.filter((item) => {
+				return roles.indexOf(item.id) >= 0;
+			}).map((item) => {
 				return this.createMenu(item);
 			});
 			return <SubMenu
@@ -58,10 +64,13 @@ class CreateMenuList extends React.Component {
 	};
 
 	render() {
+		const roles = sessionStorage.getItem('roles');
 		return (
 			<Menu mode="vertical" theme="dark" selectedKeys={[this.props.current]} inlineCollapsed={this.state.collapsed}>
 				{
-					menus.map((item) => {
+					menus.filter((item) => {
+						return roles.indexOf(item.id) >= 0;
+					}).map((item) => {
 						return this.createMenu(item);
 					})
 				}
