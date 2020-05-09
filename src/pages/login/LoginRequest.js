@@ -12,7 +12,9 @@ export const login1 = (loginObject) => {
         sessionStorage.setItem('cementRef', '[{"code":"1001000037","name":"散装测试","pk_material":"1001B1100000000B4W9K"},{"code":"1001000036","name":"袋装测试","pk_material":"1001B1100000000B4W5B"},{"code":"0101000300","name":"大宗原材料测试","pk_material":"1001B1100000000B5KLK"},{"code":"0101000001","name":"石灰石","pk_material":"1001A210000000001NUF"}]');
         sessionStorage.setItem('companyRef', '[{"code":"000106","name":"河源市金杰环保建材有限公司","pk_salesorg":"0001A2100000000025DX"},{"code":"000107","name":"那曲地区纳木措金圆建材有限公司","pk_salesorg":"0001A2100000000025EO"}]');
         sessionStorage.setItem('checkNoRef', '["H4302020010600000001","H4302020010600000002","H4302020010600000003",]');
-        sessionStorage.setItem('roles', [1, 2, 3, 4, 40, 41, 42, 5, 6, 7, 8]);
+
+        let rolesBase = [1, 2, 3, 4, 40, 41, 42, 5, 6, 7, 8];
+        sessionStorage.setItem('roles', JSON.stringify(rolesBase));
 
         resolve();
     })
@@ -55,7 +57,7 @@ export const login = (loginObject) => {
                     // 权限管理
                     let roles = res.role ? res.role : [];
                     let rolesBase = [1, 7, 8];
-                    sessionStorage.setItem('roles', [...roles, ...rolesBase]);
+                    sessionStorage.setItem('roles', JSON.stringify([...roles, ...rolesBase]));
 
                     // 销售模块的默认客户，水泥品种，销售单位，对账单号
                     if (res.result && res.result[0]) {

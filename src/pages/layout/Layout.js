@@ -27,7 +27,7 @@ class CreateMenuList extends React.Component {
 
 		let childMenu = <div></div>;
 
-		const roles = sessionStorage.getItem('roles');
+		const roles = eval(sessionStorage.getItem('roles'));
 
 		if (childMenuData && childMenuData.length) {
 			childMenu = childMenuData.filter((item) => {
@@ -64,7 +64,8 @@ class CreateMenuList extends React.Component {
 	};
 
 	render() {
-		const roles = sessionStorage.getItem('roles');
+		const roles = eval(sessionStorage.getItem('roles'));
+
 		return (
 			<Menu mode="vertical" theme="dark" selectedKeys={[this.props.current]} inlineCollapsed={this.state.collapsed}>
 				{
