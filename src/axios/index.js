@@ -626,7 +626,7 @@ export default class Axios {
         axios({
             url: url,
             method: 'post',
-            baseURL: baseApi0,
+            baseURL: baseApi2,
             data: data,
             responseType: 'blob'
         }).then((res) => {
@@ -933,7 +933,7 @@ export default class Axios {
             axios({
                 url: options.url,
                 method: options.method,
-                baseURL: baseApi0,
+                baseURL: baseApi2,
                 timeout: 60000,
                 params: (options.params) || "",
                 data: (options.data) || "",
