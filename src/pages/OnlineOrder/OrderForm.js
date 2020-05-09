@@ -18,9 +18,10 @@ class OrderForm extends React.Component {
 		selectedRowKeys: [],
 		selectedRows: null,
 
+		// 下拉参照选项列表
 		clientRef: sessionStorage.getItem('clientRef') || [],
-		// cementRef: sessionStorage.getItem('cementRef') || [],
-		// companyRef: sessionStorage.getItem('companyRef') || [],
+		cementRef: sessionStorage.getItem('cementRef') || [],
+		companyRef: sessionStorage.getItem('companyRef') || [],
 
 		vehicleList: [],
 	}
@@ -209,7 +210,7 @@ class OrderForm extends React.Component {
 								label: '销售单位',
 								field: 'pk_salesorg',
 								initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].saleorg) : undefined,
-								list: [],
+								list: this.state.companyRef,
 								idKey: "pk_salesorg",
 								valueKey: "name",
 								sups: ["customer"],
@@ -247,7 +248,7 @@ class OrderForm extends React.Component {
 							{
 								label: '水泥品种',
 								field: 'pk_material',
-								list: [],
+								list: this.state.cementRef,
 								idKey: "pk_material",
 								valueKey: "name",
 								sups: ["customer"],
