@@ -1,6 +1,5 @@
 import React from 'react'
 import { Card, Button, Form, Input, Select, Radio, Icon, Modal, DatePicker, InputNumber, Divider, Table } from 'antd'
-import axios from './../../axios'
 import SelectComponent from './../../components/SelectComponent';
 import Utils from './../../utils/utils'
 import VehicleForm from './VehicleForm'

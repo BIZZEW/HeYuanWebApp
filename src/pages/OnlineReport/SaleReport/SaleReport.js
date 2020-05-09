@@ -3,15 +3,8 @@ import ReactDOM from 'react-dom'
 import { Card, Button, Form, Input, Select, Radio, Icon, Modal, DatePicker, InputNumber, Divider, Table } from 'antd'
 import axios from '../../../axios'
 import qs from 'qs'
-import Utils from '../../../utils/utils'
 import BaseForm from '../../../components/BaseForm'
-import ETable from '../../../components/ETable'
-import moment from 'moment'
 import ReactHTMLTableToExcel from 'react-html-table-to-excel'
-const FormItem = Form.Item;
-const RadioGroup = Radio.Group;
-const TextArea = Input.TextArea;
-const Option = Select.Option;
 
 export default class SaleReport extends React.Component {
 
