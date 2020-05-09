@@ -177,6 +177,7 @@ export default class RefComponent extends React.Component {
         let cascade = item.cascade;
         let rules = item.rules || null;
         let horizontal = item.horizontal || null;
+        let editable = item.editable || false;
 
         const formItemLayout = {
             labelCol: { span: 4 },
@@ -207,13 +208,14 @@ export default class RefComponent extends React.Component {
                                 }
                                 onClick={
                                     (e) => {
-                                        if (e != "")
-                                            this.openRef({ ...item, flag: 0 })
-                                        else
-                                            this.openRef({ ...item, flag: 1 })
+                                        if (!editable)
+                                            if (e != "")
+                                                this.openRef({ ...item, flag: 0 })
+                                            else
+                                                this.openRef({ ...item, flag: 1 })
                                     }
                                 }
-                                readOnly
+                                readOnly={!editable}
                                 allowClear
                             />
                         )

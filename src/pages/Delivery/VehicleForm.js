@@ -100,6 +100,7 @@ class VehicleForm extends React.Component {
 								required: true,
 								width: "68%",
 								horizontal: true,
+								editable: true,
 								initialValue: vehicleInfo.vlicense,
 								sups: [{
 									key: "pk_supplier",
