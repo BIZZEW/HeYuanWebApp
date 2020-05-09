@@ -9,8 +9,8 @@ class VehicleForm extends React.Component {
 	state = {
 		isVisible5: false,
 		list: [],
-		selectedRowKeys: null,
-		selectedRows: null,
+		selectedRowKeys: [],
+		selectedRows: [],
 	}
 
 	getDriverOptions = () => {

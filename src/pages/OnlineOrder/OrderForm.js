@@ -15,7 +15,7 @@ class OrderForm extends React.Component {
 		isVisible4: false,
 		list: [],
 		selectedRowKeys: [],
-		selectedRows: null,
+		selectedRows: [],
 
 		// 下拉参照选项列表
 		clientRef: sessionStorage.getItem('clientRef') || [],

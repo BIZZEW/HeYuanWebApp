@@ -740,7 +740,7 @@ export default class Axios {
             if (response && response.datas) {
                 _this.setState({
                     list: response.datas.list,
-                    selectedRowKeys: null,//重置
+                    selectedRowKeys: [],//重置
                     pagination: Utils.pagination(response.datas, (current) => {
                         console.log(current);
                         _this.params.page = current;

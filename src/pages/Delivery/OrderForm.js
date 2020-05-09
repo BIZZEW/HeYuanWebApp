@@ -22,7 +22,7 @@ class OrderForm extends React.Component {
 
 		list: [],
 		selectedRowKeys: [],
-		selectedRows: null,
+		selectedRows: [],
 
 		vehicleList: [],
 
