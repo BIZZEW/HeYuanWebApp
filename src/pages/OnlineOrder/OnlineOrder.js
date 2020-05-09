@@ -18,7 +18,7 @@ export default class OnlineOrder extends React.Component {
 		// 关闭原因弹窗控制
 		isVisible2: false,
 		clientRef: sessionStorage.getItem('clientRef') || [],
-		cementRef: sessionStorage.getItem('cementRef') || [],
+		// cementRef: sessionStorage.getItem('cementRef') || [],
 
 		// 发货库存组织PK(隐藏字段)
 		sendstockorg: "",
@@ -46,7 +46,7 @@ export default class OnlineOrder extends React.Component {
 			label: '水泥品种',
 			field: 'pk_material',
 			width: 200,
-			list: this.state.cementRef,
+			list: [],
 			idKey: "pk_material",
 			valueKey: "name",
 			sups: ["customer"],

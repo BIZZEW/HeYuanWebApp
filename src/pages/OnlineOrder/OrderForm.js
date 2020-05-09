@@ -17,9 +17,11 @@ class OrderForm extends React.Component {
 		list: [],
 		selectedRowKeys: [],
 		selectedRows: null,
+
 		clientRef: sessionStorage.getItem('clientRef') || [],
-		cementRef: sessionStorage.getItem('cementRef') || [],
-		companyRef: sessionStorage.getItem('companyRef') || [],
+		// cementRef: sessionStorage.getItem('cementRef') || [],
+		// companyRef: sessionStorage.getItem('companyRef') || [],
+
 		vehicleList: [],
 	}
 
@@ -207,7 +209,7 @@ class OrderForm extends React.Component {
 								label: '销售单位',
 								field: 'pk_salesorg',
 								initialValue: sessionStorage.getItem('clientRef') ? (JSON.parse(sessionStorage.getItem('clientRef'))[0].saleorg) : undefined,
-								list: this.state.companyRef,
+								list: [],
 								idKey: "pk_salesorg",
 								valueKey: "name",
 								sups: ["customer"],
@@ -245,7 +247,7 @@ class OrderForm extends React.Component {
 							{
 								label: '水泥品种',
 								field: 'pk_material',
-								list: this.state.cementRef,
+								list: [],
 								idKey: "pk_material",
 								valueKey: "name",
 								sups: ["customer"],
@@ -314,7 +316,7 @@ class OrderForm extends React.Component {
 									)
 							}
 						</FormItem>
-						
+
 						<FormItem label="身份证" {...formItemLayout}>
 							{
 								type == 'detail' ? orderInfo.driveridentity :

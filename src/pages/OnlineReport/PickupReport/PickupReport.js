@@ -19,7 +19,7 @@ export default class PickupReport extends React.Component {
 		list: [],
 		isVisible: false,
 		clientRef: sessionStorage.getItem('clientRef') || [],
-		cementRef: sessionStorage.getItem('cementRef') || [],
+		// cementRef: sessionStorage.getItem('cementRef') || [],
 	}
 
 	params = {
@@ -43,7 +43,7 @@ export default class PickupReport extends React.Component {
 			label: '水泥品种',
 			field: 'cmaterialvid',
 			width: 200,
-			list: this.state.cementRef,
+			list: [],
 			idKey: "pk_material",
 			valueKey: "name",
 			sups: ["customer"],

@@ -1,0 +1,89 @@
+import store from '../../store'
+import { Modal } from 'antd'
+import axios from 'axios'
+import qs from 'qs'
+
+export const login1 = (loginObject) => {
+    return new Promise((resolve, reject) => {
+        sessionStorage.setItem('userName', loginObject.username);
+        sessionStorage.setItem('passWord', loginObject.password);
+        sessionStorage.setItem('dftstockorg', '{"code": "000106","name": "河源市金杰环保建材有限公司","pk_org": "0001A2100000000025DX"}');
+        sessionStorage.setItem('clientRef', '[{"customer":"1001B1100000000BCPKD","customername":"王长见散装测试","saleorg":"0001A2100000000025EO","saleorgname":"那曲地区纳木措金圆建材有限公司","sendstockorg":"0001A2100000000025EO33333","sendstockorgname":"那曲地区纳木措金圆建材有限公司2222"},{"customer":"1001B1100000000BCPKI","customername":"王长见袋装测试","saleorg":"0001A2100000000025EO","saleorgname":"那曲地区纳木措金圆建材有限公司","sendstockorg":"0001A2100000000025EO","sendstockorgname":"那曲地区纳木措金圆建材有限公司"}]');
+        sessionStorage.setItem('roles', [1, 2, 3, 4, 40, 41, 42, 5, 6, 7, 8]);
+
+        resolve();
+    })
+}
+
+export const login = (loginObject) => {
+    let baseApi = 'http://61.164.33.26:5555/service';
+    let baseApi0 = 'http://127.0.0.1:99/service';
+    let baseApi1 = 'http://rap2api.taobao.org/app/mock/239516/example/1576031001727';
+    let baseApi2 = 'http://10.1.8.111:80/service';
+    let baseApi3 = 'http://10.1.8.162:8999/service';
+    let baseApi4 = 'http://10.1.8.231:80/service';
+
+    return new Promise((resolve, reject) => {
+        let data = {
+            "username": loginObject.username,
+            "password": loginObject.password
+        }
+
+        axios({
+            url: "/login",
+            method: 'post',
+            baseURL: baseApi0,
+            timeout: 8000,
+            data: qs.stringify(data),
+        }).then((response) => {
+            if (response.status === 200) {
+                let res = response.data;
+                if (res.code === 0) {
+                    // 当前登录的用户名密码
+                    sessionStorage.setItem('userName', loginObject.username);
+                    sessionStorage.setItem('passWord', loginObject.password);
+
+                    // 当前用户主键
+                    sessionStorage.setItem('pkAppuser', res.pk_appuser ? res.pk_appuser : "");
+
+                    // 采购模块的默认收货企业
+                    sessionStorage.setItem('dftstockorg', res.dfltrcvstockorg ? JSON.stringify(res.dfltrcvstockorg) : "");
+
+                    // 权限管理
+                    let roles = res.role ? res.role : [];
+                    let rolesBase = [1, 7, 8];
+                    sessionStorage.setItem('roles', [...roles, ...rolesBase]);
+
+                    // 销售模块的默认客户，水泥品种，销售单位，对账单号
+                    if (res.result && res.result[0])
+                        sessionStorage.setItem('clientRef', res.result ? JSON.stringify(res.result) : "");
+
+                    resolve(res);
+                } else {
+                    Modal.error({
+                        zIndex: 1002,
+                        title: '提示',
+                        content: res.msg
+                    })
+                    reject(response.data)
+                }
+            } else {
+                reject(response.data)
+            }
+        }).catch((error) => {
+            reject(error);
+        })
+    })
+}
+
+export const logout = () => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            store.dispatch({
+                type: 'SET_LOGGED_USER',
+                logged: false
+            })
+            resolve()
+        }, 500)
+    })
+}

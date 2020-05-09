@@ -1,7 +1,7 @@
 import React from 'react'
 import './Login.css'
-import { login } from '../../mock/mock'
-import { login1 } from '../../mock/mock'
+import { login } from './LoginRequest'
+import { login1 } from './LoginRequest'
 import { Form, Input, Button, Modal, notification } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'

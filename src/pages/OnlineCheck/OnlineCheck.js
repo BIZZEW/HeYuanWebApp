@@ -21,8 +21,10 @@ export default class OnlineCheck extends React.Component {
 		list1: [],
 		isVisible: false,
 		isVisible2: false,
+
 		clientRef: sessionStorage.getItem('clientRef') || [],
-		checkNoRef: sessionStorage.getItem('checkNoRef') || [],
+		// checkNoRef: sessionStorage.getItem('checkNoRef') || [],
+
 		level: true,
 		btnHide: true,
 		columnsDetail: [],
@@ -60,7 +62,7 @@ export default class OnlineCheck extends React.Component {
 			label: '对账单号',
 			field: 'billno',
 			width: 250,
-			list: this.state.checkNoRef,
+			list: [],
 			sups: ["customer"],
 			requestUrl: "/querybillno"
 		},
