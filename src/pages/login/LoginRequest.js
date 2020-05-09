@@ -112,6 +112,7 @@ export const login = (loginObject) => {
                             }
                         })
                     }
+
                     resolve(res);
                 } else {
                     Modal.error({
