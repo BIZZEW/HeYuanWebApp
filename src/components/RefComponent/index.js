@@ -175,7 +175,7 @@ export default class RefComponent extends React.Component {
         let disabled = item.disabled;
         let required = item.required || false;
         let cascade = item.cascade;
-        let rules = item.rules || null;
+        let rules = item.rules || [];
         let horizontal = item.horizontal || null;
         let editable = item.editable || false;
 
@@ -191,7 +191,8 @@ export default class RefComponent extends React.Component {
                         getFieldDecorator([field], {
                             initialValue: initialValue,
                             rules: [
-                                { required: required, message: '请选择该项!' }
+                                { required: required, message: '请选择该项!' },
+                                ...rules
                             ],
                         })(
                             <Search

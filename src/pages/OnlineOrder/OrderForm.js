@@ -279,7 +279,7 @@ class OrderForm extends React.Component {
 									getFieldDecorator('vehicle', {
 										initialValue: orderInfo.vehicle,
 										rules: [
-											{ pattern: /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}([A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1})|([A-Z0-9]{7})$/, message: '请输入有效的车牌号!' },
+											{ pattern: /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}(([A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1})|([A-Z0-9]{7}))$/, message: '请输入有效的车牌号!' },
 											{ required: true, message: '请输入车牌!' }
 										],
 									})(
