@@ -221,9 +221,9 @@ export default class LongDelivery extends React.Component {
 		const cardRef = this.refs.card;
 		if (cardRef) {
 			const cardCon = ReactDOM.findDOMNode(cardRef);
-			cardCon.setAttribute('id', 'cardBoxD');
-			if (document.getElementById('cardBoxD')) {
-				cardH = document.getElementById('cardBoxD').offsetHeight;
+			cardCon.setAttribute('id', 'cardBoxLD');
+			if (document.getElementById('cardBoxLD')) {
+				cardH = document.getElementById('cardBoxLD').offsetHeight;
 				if (cardH) {
 					cardHeight = cardH + 3;
 					this.cardHeight = cardHeight;
