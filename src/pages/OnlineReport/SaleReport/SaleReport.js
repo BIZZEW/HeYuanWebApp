@@ -97,7 +97,7 @@ export default class SaleReport extends React.Component {
 		let gapsHeight = 25;
 		let headernfooterHeight = 120;
 		let paginationHeight = 65;
-		let tableHeight = clientHeight - headerHeight - tabsHeight - cardHeight - gapsHeight - headernfooterHeight - paginationHeight;
+		let tableHeight = clientHeight - headerHeight - tabsHeight - cardHeight - gapsHeight - headernfooterHeight - paginationHeight - 40;
 		console.log("tableHeight: " + tableHeight + " clientHeight: " + clientHeight + " headerHeight: " + headerHeight + " tabsHeight: " + tabsHeight);
 		return tableHeight;
 	}

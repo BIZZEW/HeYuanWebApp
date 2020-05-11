@@ -61,6 +61,7 @@ class CreateMenuList extends React.Component {
 
 		document.getElementsByClassName("nav-content")[0].style["width"] = !this.state.collapsed ? "80px" : "150px";
 		document.getElementsByClassName("page-content")[0].style["padding-left"] = !this.state.collapsed ? "80px" : "150px";
+		document.getElementsByClassName("footer")[0].style["padding-left"] = !this.state.collapsed ? "80px" : "150px";
 	};
 
 	render() {
@@ -250,6 +251,9 @@ class Layout extends React.Component {
 				<nav className="nav-content">
 					<CreateMenuList addTabs={this.add} current={this.state.current} />
 				</nav>
+
+				{/* <div className="footer">金圆环保股份有限公司 ©版权所有 备案号浙ICP备05049717号</div> */}
+				<div className="footer">—— 金圆环保股份有限公司 ©版权所有 浙ICP备05049717号 ——</div>
 
 				<div className="page-content">
 					<Tabs
