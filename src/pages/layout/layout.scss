@@ -21,11 +21,11 @@ body {
         line-height: 60px;
         font-size: 20px;
         color: white;
-        background: #00152a;
-        background: -webkit-linear-gradient(top , rgb(2, 37, 76) 0%, #00152a 100%);
-        background: -moz-linear-gradient(top , rgb(2, 37, 76) 0%, #00152a 100%);
-        background: -o-linear-gradient(top , rgb(2, 37, 76) 0%, #00152a 100%);
-        background: linear-gradient(to bottom, rgb(2, 37, 76) 0%, #00152a 100%);
+        background: #001529;
+        background: -webkit-linear-gradient(top , rgb(2, 37, 76) 0%, #001529 100%);
+        background: -moz-linear-gradient(top , rgb(2, 37, 76) 0%, #001529 100%);
+        background: -o-linear-gradient(top , rgb(2, 37, 76) 0%, #001529 100%);
+        background: linear-gradient(to bottom, rgb(2, 37, 76) 0%, #001529 100%);
         
         span:nth-of-type(2) {
             float: right;
@@ -63,10 +63,10 @@ body {
             left: 0;
             top: 0;
             background: #011529;
-            background: -webkit-linear-gradient(bottom , #00152a 0%, #00152a 30%, #000913 75%, #000000 100%);
-            background: -moz-linear-gradient(bottom , #00152a 0%, #00152a 30%, #000913 75%, #000000 100%);
-            background: -o-linear-gradient(bottom , #00152a 0%, #00152a 30%, #000913 75%, #000000 100%);
-            background: linear-gradient(to bottom, #00152a 0%, #00152a 30%, #000913 75%, #000000 100%);
+            background: -webkit-linear-gradient(bottom , #001529 0%, #001529 50%, #000913 75%, #000000 100%);
+            background: -moz-linear-gradient(bottom , #001529 0%, #001529 50%, #000913 75%, #000000 100%);
+            background: -o-linear-gradient(bottom , #001529 0%, #001529 50%, #000913 75%, #000000 100%);
+            background: linear-gradient(to bottom, #001529 0%, #001529 50%, #000913 75%, #000000 100%);
             a {
                 color: rgba(255, 255, 255, 0.65);
             }
@@ -253,10 +253,6 @@ body {
     padding: 10px !important;
 }
 
-.ant-avatar-lg:hover {
-    background-color: #5daffc !important;
-}
-
 .ant-menu-vertical > .ant-menu-item, .ant-menu-vertical-left > .ant-menu-item, .ant-menu-vertical-right > .ant-menu-item, .ant-menu-inline > .ant-menu-item, .ant-menu-vertical > .ant-menu-submenu > .ant-menu-submenu-title, .ant-menu-vertical-left > .ant-menu-submenu > .ant-menu-submenu-title, .ant-menu-vertical-right > .ant-menu-submenu > .ant-menu-submenu-title, .ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title {
     height: 50px;
     line-height: 50px;
@@ -312,4 +308,22 @@ body {
 
 #closeForm .ant-form-item{
     margin-bottom: 0;
+}
+
+.ant-avatar{ 
+    background: #0c7ade;
+    vertical-align: middle;
+    margin-left: 20px;
+    font-size: 20px;
+    margin-top: -3px;
+    font-weight: bold;
+}
+
+.ant-avatar-lg:hover {
+    background: -webkit-linear-gradient(45deg, #fe0000 0%, #fe0000 25%, #4d388e 50%, #0c7ade 75%, #0c7ade 100%);
+    background: -o-linear-gradient(45deg, #fe0000 0%, #fe0000 25%, #4d388e 50%, #0c7ade 75%, #0c7ade 100%);
+    background: -webkit-gradient(linear, left bottom, right top, from(#fe0000), color-stop(25%, #fe0000),color-stop(50%, #4d388e),color-stop(75%, #0c7ade), to(#0c7ade));
+    background: -webkit-linear-gradient(45deg, #fe0000 0%, #fe0000 25%, #4d388e 50%, #0c7ade 75%, #0c7ade 100%);
+    background: -o-linear-gradient(45deg, #fe0000 0%, #fe0000 25%, #4d388e 50%, #0c7ade 75%, #0c7ade 100%);
+    background: linear-gradient(45deg, #fe0000 0%, #fe0000 25%, #4d388e 50%, #0c7ade 75%, #0c7ade 100%);
 }
