@@ -100,7 +100,7 @@ class Layout extends React.Component {
 		let _this = this;
 		Modal.confirm({
 			zIndex: 1002,
-			title: '确认登出',
+			title: '登出确认',
 			content: `是否要退出当前登录的账户`,
 			onOk() {
 				_this.props.history.push('/login');
