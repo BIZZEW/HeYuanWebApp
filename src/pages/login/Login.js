@@ -17,7 +17,7 @@ class NormalLoginForm extends React.Component {
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
 				this.isLogging = true;
-				login1(values).then((response) => {
+				login(values).then((response) => {
 					this.isLogging = false;
 					let toPath = this.props.toPath === '' ? '/layout/home' : this.props.toPath
 					this.props.history.push(toPath);
@@ -66,6 +66,7 @@ class NormalLoginForm extends React.Component {
 							<FormItem>
 								{getFieldDecorator('username', {
 									rules: [{ required: true, message: '请输入用户名!' }],
+									getValueFromEvent: event => event.target.value.replace(/\s+/g, ''),
 								})(
 									<Input placeholder="用户名" autoComplete="off" />
 								)}
@@ -73,6 +74,7 @@ class NormalLoginForm extends React.Component {
 							<FormItem>
 								{getFieldDecorator('password', {
 									rules: [{ required: true, message: '请输入密码!' }],
+									getValueFromEvent: event => event.target.value.replace(/\s+/g, ''),
 								})(
 									<Input type="password" placeholder="密码" autoComplete="off" />
 								)}

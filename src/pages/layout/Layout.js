@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink, withRouter } from 'react-router-dom'
 import { menus, menuObject } from '../../routes/router'
-import { Tabs, Avatar, Menu, Icon, Tooltip, Dropdown, Button } from 'antd';
+import { Tabs, Avatar, Menu, Icon, Tooltip, Dropdown, Button, Modal } from 'antd';
 import NoFound from '../noFound/NoFound';
 import './layout.scss'
 import { Route } from 'react-router-dom'
@@ -97,7 +97,15 @@ class Layout extends React.Component {
 		};
 	}
 	logout = () => {
-		this.props.history.push('/login')
+		let _this = this;
+		Modal.confirm({
+			zIndex: 1002,
+			title: '确认登出',
+			content: `是否要退出当前登录的账户`,
+			onOk() {
+				_this.props.history.push('/login');
+			}
+		})
 	}
 	changePassword = () => {
 		this.setState({ isFullScreen: false });
