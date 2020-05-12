@@ -13,6 +13,7 @@ export default class RefComponent extends React.Component {
         // 基础数据
         refList: [],
         selectedRowKeysRef: [],
+        selectedRowsRef: []
     }
 
     refParam = {
