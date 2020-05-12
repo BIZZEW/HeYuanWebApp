@@ -5,6 +5,7 @@ import Utils from './../../utils/utils'
 import VehicleForm from './VehicleForm'
 const FormItem = Form.Item;
 const { Search } = Input;
+const TextArea = Input.TextArea;
 
 //子组件：创建订单表单
 class OrderForm extends React.Component {
@@ -267,6 +268,17 @@ class OrderForm extends React.Component {
 									initialValue: orderInfo.ordernum
 								})(
 									<InputNumber min={1} defaultValue={0} style={{ width: "100%" }} />
+								)
+						}
+					</FormItem>
+
+					<FormItem label="备注" {...formItemLayout}>
+						{
+							type == 'detail' ? orderInfo.vnote :
+								getFieldDecorator('vnote', {
+									initialValue: orderInfo.vnote
+								})(
+									<TextArea style={{ width: "100%" }} />
 								)
 						}
 					</FormItem>

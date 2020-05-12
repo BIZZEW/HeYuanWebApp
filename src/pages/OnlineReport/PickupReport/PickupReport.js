@@ -186,6 +186,10 @@ export default class PickupReport extends React.Component {
 				title: '进厂时间',
 				dataIndex: 'skintime'
 			},
+			{
+				title: '备注',
+				dataIndex: 'vnote'
+			},
 		];
 
 		let footer = {};

@@ -243,6 +243,10 @@ export default class OnlineOrder extends React.Component {
 				dataIndex: 'vehicle',
 			},
 			{
+				title: '备注',
+				dataIndex: 'vnote',
+			},
+			{
 				title: '操作',
 				key: 'action',
 				width: 220,

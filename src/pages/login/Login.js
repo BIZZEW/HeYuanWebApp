@@ -17,7 +17,7 @@ class NormalLoginForm extends React.Component {
 		this.props.form.validateFields((err, values) => {
 			if (!err) {
 				this.isLogging = true;
-				login(values).then((response) => {
+				login1(values).then((response) => {
 					this.isLogging = false;
 					let toPath = this.props.toPath === '' ? '/layout/home' : this.props.toPath
 					this.props.history.push(toPath);
