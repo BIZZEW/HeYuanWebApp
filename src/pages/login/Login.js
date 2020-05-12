@@ -68,7 +68,8 @@ class NormalLoginForm extends React.Component {
 									rules: [{ required: true, message: '请输入用户名!' }],
 									getValueFromEvent: event => event.target.value.replace(/\s+/g, ''),
 								})(
-									<Input placeholder="用户名" autoComplete="off" />
+									<Input placeholder="用户名" autoComplete="off"
+										disabled={this.isLogging ? true : false} />
 								)}
 							</FormItem>
 							<FormItem>
@@ -76,7 +77,8 @@ class NormalLoginForm extends React.Component {
 									rules: [{ required: true, message: '请输入密码!' }],
 									getValueFromEvent: event => event.target.value.replace(/\s+/g, ''),
 								})(
-									<Input type="password" placeholder="密码" autoComplete="off" />
+									<Input type="password" placeholder="密码" autoComplete="off"
+										disabled={this.isLogging ? true : false} />
 								)}
 							</FormItem>
 							<FormItem>
