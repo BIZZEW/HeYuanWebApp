@@ -109,7 +109,7 @@ export default class SelectComponent extends React.Component {
             <FormItem label={label} key={field} {...(horizontal ? formItemLayout : {})}>
                 {
                     type == 'detail' ? detail :
-                        getFieldDecorator([field], {
+                        getFieldDecorator(field, {
                             initialValue: initialValue,
                             rules: [
                                 { required: required, message: '请选择该项!' }

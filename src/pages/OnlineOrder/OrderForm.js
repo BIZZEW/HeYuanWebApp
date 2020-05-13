@@ -267,7 +267,7 @@ class OrderForm extends React.Component {
 								getFieldDecorator('ordernum', {
 									initialValue: orderInfo.ordernum
 								})(
-									<InputNumber min={1} defaultValue={0} style={{ width: "100%" }} />
+									<InputNumber min={1} style={{ width: "100%" }} />
 								)
 						}
 					</FormItem>
@@ -341,7 +341,7 @@ class OrderForm extends React.Component {
 							}
 						</FormItem>
 					</div>)}
-					{(type != "detail") && (<Button type="primary" visible={type != "detail"} onClick={this.editVehicles}>当前有 {vehicleInfoNum} 条车辆信息</Button>)}
+					{(type != "detail") && (<Button type="primary" onClick={this.editVehicles}>当前有 {vehicleInfoNum} 条车辆信息</Button>)}
 				</Form>
 
 				{/* 车辆信息 */}

@@ -68,18 +68,20 @@ class CreateMenuList extends React.Component {
 		const roles = eval(sessionStorage.getItem('roles'));
 
 		return (
-			<Menu mode="vertical" theme="dark" selectedKeys={[this.props.current]} inlineCollapsed={this.state.collapsed}>
-				{
-					menus.filter((item) => {
-						return roles.indexOf(item.id) >= 0;
-					}).map((item) => {
-						return this.createMenu(item);
-					})
-				}
+			<div>
+				<Menu mode="vertical" theme="dark" selectedKeys={[this.props.current]} inlineCollapsed={this.state.collapsed}>
+					{
+						menus.filter((item) => {
+							return roles.indexOf(item.id) >= 0;
+						}).map((item) => {
+							return this.createMenu(item);
+						})
+					}
+				</Menu>
 				<Button type="primary" onClick={this.toggleCollapsed}>
 					<Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
 				</Button>
-			</Menu>
+			</div>
 		);
 	}
 }

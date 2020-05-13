@@ -57,7 +57,7 @@ class FilterForm extends React.Component {
                 if (item.type == 'INPUT') {
                     const INPUT = <FormItem label={label} key={field}>
                         {
-                            getFieldDecorator([field], {
+                            getFieldDecorator(field, {
                                 rules: rules
                             })(
                                 <Input type="text" style={{ width: width }} placeholder={placeholder} allowClear />
@@ -68,7 +68,7 @@ class FilterForm extends React.Component {
                 } else if (item.type === 'SELECT') {
                     const SELECT = <FormItem label={label} key={field}>
                         {
-                            getFieldDecorator([field], {
+                            getFieldDecorator(field, {
                                 initialValue: initialValue
                             })(
                                 <Select
@@ -105,7 +105,7 @@ class FilterForm extends React.Component {
                 } else if (item.type === 'REFCOMPPK') {
                     const REFCOMPPK = <FormItem key={field} style={{ display: "none" }} >
                         {
-                            getFieldDecorator([field], {
+                            getFieldDecorator(field, {
                                 initialValue: initialValue
                             })(
                                 <div />
@@ -116,7 +116,7 @@ class FilterForm extends React.Component {
                 } else if (item.type === 'CHECKBOX') {
                     const CHECKBOX = <FormItem label={label} key={field}>
                         {
-                            getFieldDecorator([field], {
+                            getFieldDecorator(field, {
                                 valuePropName: 'checked',
                                 initialValue: initialValue //true | false
                             })(
@@ -130,7 +130,7 @@ class FilterForm extends React.Component {
                 } else if (item.type === 'DATE') {
                     const DATEPICKER = <FormItem label={label} key={field}>
                         {
-                            getFieldDecorator([field], {
+                            getFieldDecorator(field, {
                                 initialValue: initialValue,
                                 rules: [
                                     { required: required, message: '请选择日期!' }
@@ -148,7 +148,7 @@ class FilterForm extends React.Component {
                 } else if (item.type === 'DATERANGE') {
                     const RANGEPICKER = <FormItem label={label} key={field}>
                         {
-                            getFieldDecorator([field])(
+                            getFieldDecorator(field)(
                                 <RangePicker />
                                 // <RangePicker showTime={true} placeholder={placeholder} format="YYYY-MM-DD HH:mm:ss" />
                             )

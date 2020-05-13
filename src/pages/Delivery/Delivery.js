@@ -77,7 +77,7 @@ export default class Delivery extends React.Component {
 	handleOperate = (type, record, e) => {
 		e.stopPropagation();
 		let item = this.state.selectedItem;
-		console.log(item);
+		// console.log(item);
 		if (type == 'create') {
 			this.setState({
 				type,

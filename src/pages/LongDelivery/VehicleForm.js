@@ -167,9 +167,7 @@ class VehicleForm extends React.Component {
 									{ required: true, message: '请输入车数!' }
 								],
 							})(
-								<Input type="number" min={1} defaultValue={1} step={1} addonAfter={"辆"} />
-
-								// <InputNumber min={1} defaultValue={0}/>
+								<Input type="number" min={1} step={1} addonAfter={"辆"} />
 							)
 						}
 					</FormItem>

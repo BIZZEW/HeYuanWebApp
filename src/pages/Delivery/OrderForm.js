@@ -571,7 +571,7 @@ class OrderForm extends React.Component {
 								getFieldDecorator('receiveDate', {
 									initialValue: moment(new Date(), "YYYY-MM-DD"),
 								})(
-									<DatePicker format="YYYY-MM-DD" disabled style={{ width: "100%" }} defaultValue={moment(new Date(), "YYYY-MM-DD")} />
+									<DatePicker format="YYYY-MM-DD" disabled style={{ width: "100%" }} />
 								)
 						}
 					</FormItem>
@@ -582,7 +582,7 @@ class OrderForm extends React.Component {
 								getFieldDecorator('srcsendnum', {
 									initialValue: 0.00
 								})(
-									<Input type="number" min={0} defaultValue={0.00} step={0.01} addonAfter={(this.props.form.getFieldValue("material_dw")) || "单位"} />
+									<Input type="number" min={0} step={0.01} addonAfter={(this.props.form.getFieldValue("material_dw")) || "单位"} />
 								)
 						}
 						{type == 'detail' ? orderInfo.material_dw : ""}
@@ -594,7 +594,7 @@ class OrderForm extends React.Component {
 								getFieldDecorator('num', {
 									initialValue: 0.00
 								})(
-									<Input type="number" min={0} defaultValue={0.00} step={0.01} addonAfter={(this.props.form.getFieldValue("material_dw")) || "单位"} />
+									<Input type="number" min={0} step={0.01} addonAfter={(this.props.form.getFieldValue("material_dw")) || "单位"} />
 								)
 						}
 						{type == 'detail' ? orderInfo.material_dw : ""}
@@ -704,7 +704,7 @@ class OrderForm extends React.Component {
 					</div>)}
 
 					{/* 车辆信息在新增中为按钮跳转到车辆信息列表 */}
-					{(type != "detail") && (<Button type="primary" visible={type != "detail"} onClick={this.editVehicles}>当前有 {vehicleInfoNum} 条车辆信息</Button>)}
+					{(type != "detail") && (<Button type="primary" onClick={this.editVehicles}>当前有 {vehicleInfoNum} 条车辆信息</Button>)}
 				</Form>
 
 				{/* 采购订单 */}

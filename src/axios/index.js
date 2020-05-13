@@ -952,6 +952,7 @@ export default class Axios {
                             title: '提示',
                             content: res.msg
                         })
+                        reject(res.msg);
                     }
                 } else {
                     reject(response.data)
