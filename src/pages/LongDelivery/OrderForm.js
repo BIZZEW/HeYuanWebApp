@@ -39,7 +39,7 @@ class OrderForm extends React.Component {
 	}
 
 	componentDidUpdate() {
-		console.log("componentDidUpdate triggered!", this.props.form.getFieldsValue())
+		// console.log("componentDidUpdate triggered!", this.props.form.getFieldsValue())
 	}
 
 	formList = [
@@ -201,7 +201,7 @@ class OrderForm extends React.Component {
 		try { id = selectedRowKeys[0] } catch (e) { }
 		if (typeof id === 'number' && !isNaN(id))
 			item = this.state.vehicleList[id];
-		console.log(item);
+		// console.log(item);
 
 		if (type == 'create') {
 			this.setState({
@@ -211,7 +211,7 @@ class OrderForm extends React.Component {
 				vehicleInfo: {}
 			})
 		} else if (type == 'edit') {
-			console.log(item);
+			// console.log(item);
 			if (item) {
 				this.setState({
 					type2: type,
@@ -228,7 +228,7 @@ class OrderForm extends React.Component {
 				return;
 			}
 		} else if (type == 'detail') {
-			console.log(item);
+			// console.log(item);
 			this.setState({
 				type2: type,
 				isVisible4: true,
@@ -285,7 +285,7 @@ class OrderForm extends React.Component {
 	}
 
 	handleSubmit0 = () => {
-		console.log(this.state.selectedRowsProq)
+		// console.log(this.state.selectedRowsProq)
 		if (this.state.selectedRowsProq && this.state.selectedRowsProq[0]) {
 			let item = this.state.selectedRowsProq[0];
 
@@ -294,6 +294,10 @@ class OrderForm extends React.Component {
 			item.pk_purchaseorder = item.pk_order || "";
 			item.cmaterialid = item.material_pk_material || "";
 			item.pk_supplier = item.supplier_pk_supplier || "";
+
+			for (let i in item)
+				if (!(i in this.props.form.getFieldsValue()))
+					delete item[i];
 
 			this.setState({
 				isVisible0: false,
@@ -318,7 +322,7 @@ class OrderForm extends React.Component {
 	handleSubmit4 = () => {
 		let type2 = this.state.type2;
 		this.vehicleForm.props.form.validateFields((err, values) => {
-			console.log(values);
+			// console.log(values);
 			if (!err) {
 				let vehicleList = this.state.vehicleList;
 				if (type2 == "create") {
@@ -743,7 +747,7 @@ class OrderForm extends React.Component {
 							onRow={(record, rowIndex) => {
 								return {
 									onDoubleClick: () => {
-										console.log(rowIndex, record);
+										// console.log(rowIndex, record);
 										let tmpSelected = [];
 										let tmpSelectedKeys = [];
 										tmpSelected.push(record);
@@ -779,7 +783,7 @@ class OrderForm extends React.Component {
 						})
 					}}
 					footer={[
-						<Button key="edit" type="primary" onClick={() => this.handleOperate('create')} icon="plus">
+						<Button key="create" type="primary" onClick={() => this.handleOperate('create')} icon="plus">
 							增加
             			</Button>,
 						<Button key="delete" type="danger" onClick={() => this.handleOperate('delete')} icon="delete">

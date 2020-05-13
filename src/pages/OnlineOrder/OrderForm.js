@@ -355,7 +355,7 @@ class OrderForm extends React.Component {
 						})
 					}}
 					footer={[
-						<Button key="edit" type="primary" onClick={() => this.handleOperate('create')} icon="plus">
+						<Button key="create" type="primary" onClick={() => this.handleOperate('create')} icon="plus">
 							增加
             			</Button>,
 						<Button key="delete" type="danger" onClick={() => this.handleOperate('delete')} icon="delete">
