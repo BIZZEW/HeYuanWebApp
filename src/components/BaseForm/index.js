@@ -92,12 +92,14 @@ class FilterForm extends React.Component {
                     formItemList.push(SELECT);
                 } else if (item.type === 'SELECTCOMP') {
                     const SELECTCOMP = <SelectComponent
+                        key={field}
                         item={item}
                         formSelect={this.props.form}
                     />;
                     formItemList.push(SELECTCOMP);
                 } else if (item.type === 'REFCOMP') {
                     const REFCOMP = <RefComponent
+                        key={field}
                         item={item}
                         formRef={this.props.form}
                     />;
