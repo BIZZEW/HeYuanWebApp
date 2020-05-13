@@ -737,7 +737,7 @@ export default class Axios {
             params,
             method: "get"
         }).then((response) => {
-            if (response && response.datas) {
+            if (response && response.datas && response.datas.total) {
                 _this.setState({
                     list: response.datas.list,
                     selectedRowKeys: [],//重置
@@ -746,6 +746,12 @@ export default class Axios {
                         _this.params.page = current;
                         _this.requestList();
                     })
+                })
+            } else {
+                Modal.error({
+                    zIndex: 1002,
+                    title: '提示',
+                    content: '抱歉，未查到相关记录'
                 })
             }
         }).catch((error) => {
