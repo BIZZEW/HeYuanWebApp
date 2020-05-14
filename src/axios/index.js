@@ -626,7 +626,7 @@ export default class Axios {
         axios({
             url: url,
             method: 'post',
-            baseURL: baseApi,
+            baseURL: baseApi2,
             data: data,
             responseType: 'blob'
         }).then((res) => {
@@ -818,15 +818,23 @@ export default class Axios {
             url,
             params,
             method: "get"
-        }).then((data) => {
-            if (data.datas.queryresults.length > 1)
-                _this.setState({
-                    isVisible5: true,
-                    title5: '司机信息',
-                    list: data.datas.queryresults
+        }).then((response) => {
+            if (response && response.datas && response.datas.total) {
+                if (response.datas.queryresults.length > 1)
+                    _this.setState({
+                        isVisible5: true,
+                        title5: '司机信息',
+                        list: response.datas.queryresults
+                    })
+                else if (response.datas.queryresults.length == 1)
+                    _this.handleSubmit5(response.datas.queryresults[0]);
+            } else {
+                Modal.error({
+                    zIndex: 1002,
+                    title: '提示',
+                    content: '抱歉，未查到相关记录'
                 })
-            else if (data.datas.queryresults.length == 1)
-                _this.handleSubmit5(data.datas.queryresults[0]);
+            }
         }).catch((error) => {
             // let data = {
             //     "datas": {
@@ -945,7 +953,7 @@ export default class Axios {
             axios({
                 url: options.url,
                 method: options.method,
-                baseURL: baseApi,
+                baseURL: baseApi2,
                 timeout: 60000,
                 params: (options.params) || "",
                 data: (options.data) || "",
