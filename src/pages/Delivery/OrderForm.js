@@ -208,7 +208,9 @@ class OrderForm extends React.Component {
 				type2: type,
 				isVisible4: true,
 				title4: '新增',
-				vehicleInfo: {}
+				vehicleInfo: {},
+				selectedRowKeys: [],
+				selectedRows: []
 			})
 		} else if (type == 'edit') {
 			// console.log(item);
@@ -217,7 +219,7 @@ class OrderForm extends React.Component {
 					type2: type,
 					isVisible4: true,
 					title4: '编辑',
-					vehicleInfo: item
+					vehicleInfo: item,
 				})
 			} else {
 				Modal.info({
@@ -258,7 +260,8 @@ class OrderForm extends React.Component {
 
 					_this.setState({
 						vehicleList,
-						selectedRowKeys: []
+						selectedRowKeys: [],
+						selectedRows: []
 					});
 				}
 			})
@@ -316,6 +319,8 @@ class OrderForm extends React.Component {
 	handleSubmit3 = () => {
 		this.setState({
 			isVisible3: false,
+			selectedRowKeys: [],
+			selectedRows: []
 		}, () => { this.props.updateVehicles(this.state.vehicleList) })
 	}
 
@@ -330,6 +335,8 @@ class OrderForm extends React.Component {
 					this.setState({
 						vehicleList,
 						isVisible4: false,
+						selectedRowKeys: [],
+						selectedRows: [],
 					}, () => {
 						this.vehicleForm.props.form.resetFields();
 					})
@@ -338,8 +345,9 @@ class OrderForm extends React.Component {
 					vehicleList[id] = { ...values, id };
 					this.setState({
 						vehicleList,
-						selectedRowKeys: [],
 						isVisible4: false,
+						selectedRowKeys: [],
+						selectedRows: [],
 					}, () => {
 						this.vehicleForm.props.form.resetFields();
 					})
@@ -347,10 +355,6 @@ class OrderForm extends React.Component {
 			}
 		});
 	}
-
-	onSelectChange = selectedRowKeys => {
-		this.setState({ selectedRowKeys });
-	};
 
 	getProcureOptions = () => {
 		this.setState({
@@ -376,7 +380,10 @@ class OrderForm extends React.Component {
 
 		const rowSelection = {
 			selectedRowKeys,
-			onChange: this.onSelectChange,
+			onChange: (selectedRowKeys, selectedRows) => {
+				console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+				this.setState({ selectedRowKeys, selectedRows })
+			},
 		};
 
 		const rowSelectionProq = {
@@ -769,6 +776,8 @@ class OrderForm extends React.Component {
 					onCancel={() => {
 						this.setState({
 							isVisible3: false,
+							selectedRowKeys: [],
+							selectedRows: []
 						})
 					}}
 					footer={[
@@ -790,10 +799,24 @@ class OrderForm extends React.Component {
 				>
 					<div className="content-wrap">
 						<Table
+							onRow={(record, rowIndex) => {
+								return {
+									onDoubleClick: () => {
+										console.log(rowIndex, record);
+										let tmpSelected = [];
+										let tmpSelectedKeys = [];
+										tmpSelected.push(record);
+										tmpSelectedKeys.push(rowIndex);
+										this.setState({
+											selectedRows: tmpSelected,
+											selectedRowKeys: tmpSelectedKeys,
+										}, () => this.handleOperate('edit'))
+									},
+								};
+							}}
 							bordered
 							columns={columns0}
 							dataSource={this.state.vehicleList}
-							// rowSelection={rowRadioSelection2}
 							rowSelection={{
 								type: "radio",
 								...rowSelection,

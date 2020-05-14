@@ -23,11 +23,22 @@ class VehicleForm extends React.Component {
 	}
 
 	handleSubmit5 = () => {
-		if (this.state.selectedRowKeys) {
-			this.setState({ isVisible5: false });
-			this.props.form.setFieldsValue({ 'drivername': this.state.selectedRowKeys.drivername });
-			this.props.form.setFieldsValue({ 'telphone': this.state.selectedRowKeys.telphone });
-			this.props.form.setFieldsValue({ 'driveridentity': this.state.selectedRowKeys.driveridentity });
+		let selectedRow = undefined;
+
+		if (this.state.selectedRows && this.state.selectedRows[0])
+			selectedRow = this.state.selectedRows[0];
+
+		if (selectedRow) {
+			this.setState({
+				isVisible5: false,
+				selectedRowKeys: [],
+				selectedRows: []
+			});
+			this.props.form.setFieldsValue({
+				'drivername': selectedRow.drivername,
+				'telphone': selectedRow.telphone,
+				'driveridentity': selectedRow.driveridentity
+			});
 		} else {
 			Modal.info({
 				zIndex: 1002,
@@ -38,6 +49,7 @@ class VehicleForm extends React.Component {
 	}
 
 	render() {
+		const { selectedRowKeys } = this.state;
 		let type2 = this.props.type2;
 		let vehicleInfo = this.props.vehicleInfo || {};
 		const { getFieldDecorator } = this.props.form;
@@ -46,13 +58,13 @@ class VehicleForm extends React.Component {
 			wrapperCol: { span: 20 }
 		}
 
-		const rowRadioSelection = {
-			type: 'radio',
-			columnTitle: "",
-			onSelect: (selectedRowKeys, selectedRows) => {
+		const rowSelection = {
+			selectedRowKeys: selectedRowKeys,
+			onChange: (selectedRowKeys, selectedRows) => {
+				console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
 				this.setState({ selectedRowKeys, selectedRows })
 			},
-		}
+		};
 
 		const columns = [
 			{
@@ -140,18 +152,39 @@ class VehicleForm extends React.Component {
 					onOk={this.handleSubmit5}
 					onCancel={() => {
 						this.setState({
-							isVisible5: false
+							isVisible5: false,
+							selectedRowKeys: [],
+							selectedRows: []
 						})
 					}}
 					width={1000}
+					destroyOnClose={true}
 				>
 					<div className="content-wrap">
 						<Table
+							onRow={(record, rowIndex) => {
+								return {
+									onDoubleClick: () => {
+										console.log(rowIndex, record);
+										let tmpSelected = [];
+										let tmpSelectedKeys = [];
+										tmpSelected.push(record);
+										tmpSelectedKeys.push(rowIndex);
+										this.setState({
+											selectedRows: tmpSelected,
+											selectedRowKeys: tmpSelectedKeys,
+										}, () => this.handleSubmit5())
+									},
+								};
+							}}
 							bordered
 							columns={columns}
 							dataSource={this.state.list}
-							rowSelection={rowRadioSelection}
 							pagination={false}
+							rowSelection={{
+								type: "radio",
+								...rowSelection,
+							}}
 						/>
 					</div>
 				</Modal>
