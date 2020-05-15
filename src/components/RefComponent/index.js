@@ -91,11 +91,6 @@ export default class RefComponent extends React.Component {
         axios.requestRef(this, '/purchase', this.refParam);
     }
 
-    // 分页参照变动
-    onSelectChange = selectedRowKeysRef => {
-        this.setState({ selectedRowKeysRef });
-    };
-
     //分页参照确认
     handleSubmitRef = () => {
         if (this.state.selectedRowsRef && this.state.selectedRowsRef[0]) {
