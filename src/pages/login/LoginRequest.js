@@ -37,7 +37,7 @@ export const login = (loginObject) => {
         axios({
             url: "/login",
             method: 'post',
-            baseURL: baseApi2,
+            baseURL: baseApi,
             timeout: 8000,
             data: qs.stringify(data),
         }).then((response) => {
@@ -70,7 +70,7 @@ export const login = (loginObject) => {
                         axios({
                             url: "/querycemtype",
                             method: "get",
-                            baseURL: baseApi2,
+                            baseURL: baseApi,
                             timeout: 8000,
                             params: defaultCustomer,
                         }).then((response) => {
@@ -86,7 +86,7 @@ export const login = (loginObject) => {
                         axios({
                             url: "/querysaleunit",
                             method: "get",
-                            baseURL: baseApi2,
+                            baseURL: baseApi,
                             timeout: 8000,
                             params: defaultCustomer,
                         }).then((response) => {
@@ -102,7 +102,7 @@ export const login = (loginObject) => {
                         axios({
                             url: "/querybillno",
                             method: "get",
-                            baseURL: baseApi2,
+                            baseURL: baseApi,
                             timeout: 8000,
                             params: defaultCustomer,
                         }).then((response) => {
