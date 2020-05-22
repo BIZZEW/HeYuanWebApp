@@ -51,7 +51,7 @@ export default class OnlineOrder extends React.Component {
 			list: this.state.cementRef,
 			idKey: "pk_material",
 			valueKey: "name",
-			sups: ["customer"],
+			sups: [{ key: "customer", name: "客户" }],
 			requestUrl: "/querycemtype"
 		},
 		{

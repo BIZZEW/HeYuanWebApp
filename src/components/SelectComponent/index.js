@@ -23,16 +23,16 @@ export default class SelectComponent extends React.Component {
             // 有上级的话确定上级已选并将上级作为获取选项的参数
             if (sups) {
                 for (let i of sups) {
-                    if (i) {
-                        let supValue = this.props.formSelect.getFieldValue(i);
+                    if (i && i.key && i.name) {
+                        let supValue = this.props.formSelect.getFieldValue(i.key);
 
                         if (supValue)
-                            this.selectParam[i] = supValue;
+                            this.selectParam[i.key] = supValue;
                         else {
                             Modal.info({
                                 zIndex: 1002,
                                 title: '提示',
-                                content: '请先选择' + (i || "上级查询条件")
+                                content: '请先选择' + (i.name || "上级查询条件")
                             });
                             return;
                         }

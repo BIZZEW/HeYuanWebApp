@@ -222,7 +222,7 @@ class OrderForm extends React.Component {
 								list: this.state.companyRef,
 								idKey: "pk_salesorg",
 								valueKey: "name",
-								sups: ["customer"],
+								sups: [{ key: "customer", name: "客户" }],
 								horizontal: true,
 								requestUrl: "/querysaleunit"
 							}
@@ -260,7 +260,7 @@ class OrderForm extends React.Component {
 								list: this.state.cementRef,
 								idKey: "pk_material",
 								valueKey: "name",
-								sups: ["customer"],
+								sups: [{ key: "customer", name: "客户" }],
 								horizontal: true,
 								requestUrl: "/querycemtype"
 							}

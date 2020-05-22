@@ -328,40 +328,49 @@ export default class Delivery extends React.Component {
 		const columns = [
 			{
 				title: '单据号',
-				dataIndex: 'noticecode'
+				dataIndex: 'noticecode',
+				width: 200,
 			},
 			{
 				title: '供应商',
-				dataIndex: 'supplier_name'
+				dataIndex: 'supplier_name',
+				width: 200,
 			},
 			{
 				title: '矿点',
-				dataIndex: 'orespotname'
+				dataIndex: 'orespotname',
+				width: 200,
 			},
 			{
 				title: '送货日期',
-				dataIndex: 'dbilldate'
+				dataIndex: 'dbilldate',
+				width: 200,
 			},
 			{
 				title: '货物',
 				dataIndex: 'material_name',
+				width: 200,
 			},
 			{
 				title: '到货数量',
-				dataIndex: 'num'
+				dataIndex: 'num',
+				width: 100,
 			},
 			{
 				title: '单据状态',
-				dataIndex: 'status_name'
+				dataIndex: 'status_name',
+				width: 100,
 			},
 			{
 				title: '车号',
 				dataIndex: 'vlicense',
+				width: 150,
 			},
 			{
 				title: '操作',
 				key: 'action',
-				width: 220,
+				// fixed: 'right',
+				width: 150,
 				render: (text, record) => (
 					<span>
 						<Button type="primary" onClick={event => this.handleOperate('detail', record, event)} icon="search">详情</Button>
@@ -395,7 +404,7 @@ export default class Delivery extends React.Component {
 						selectedItem={this.state.selectedItem}
 						dataSource={this.state.list}
 						pagination={this.state.pagination}
-						scroll={{ y: this.calTableHeight() }}
+						scroll={{ y: this.calTableHeight(), x: 1500 }}
 						scrollToFirstRowOnChange={true}
 						bordered={true}
 						footer={() => {

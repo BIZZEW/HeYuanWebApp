@@ -57,7 +57,7 @@ export default class OnlineCheck extends React.Component {
 			field: 'billno',
 			width: 250,
 			list: this.state.checkNoRef,
-			sups: ["customer"],
+			sups: [{ key: "customer", name: "客户" }],
 			requestUrl: "/querybillno"
 		},
 		{
