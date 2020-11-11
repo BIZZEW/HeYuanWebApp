@@ -151,6 +151,10 @@ export default class PickupReport extends React.Component {
 	render() {
 		const columns = [
 			{
+				title: '订单编号',
+				dataIndex: 'orderid'
+			},
+			{
 				title: '客户',
 				dataIndex: 'casscustid'
 			},
